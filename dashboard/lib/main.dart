@@ -7,7 +7,6 @@ import 'constant/theme.dart';
 import 'languages/language_controller.dart';
 import 'languages/translations.dart';
 
-Sizes size = Sizes();
 SharedPreferences? sharedPreferences;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

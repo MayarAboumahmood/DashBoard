@@ -2,6 +2,7 @@ import 'package:dashboard/languages/language_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../constant/sizes.dart';
 import '../../main.dart';
 
 class Test extends StatelessWidget {
@@ -11,6 +12,7 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Sizes size = Sizes(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('what the fuck is that'.tr,
@@ -20,6 +22,7 @@ class Test extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            
             Container(
               color: Colors.red,
               height: Get.height * .1,

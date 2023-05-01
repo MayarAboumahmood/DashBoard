@@ -8,8 +8,12 @@ class Sizes {
 
   late double appBarIconSize;
   late double appBarTextSize;
-
-  Sizes() {
+  late double width;
+  late double height;
+  late BuildContext context;
+  Sizes(this.context) {
+    width=MediaQuery.of(context).size.width;
+    height=MediaQuery.of(context).size.height;
     if (getDeviceType.getDevicetype() == 'computer') {
       setSizesForComputer();
     } else if (getDeviceType.getDevicetype() == 'tablet') {
@@ -20,12 +24,12 @@ class Sizes {
   }
   void setSizesForMobile() {
     appBarIconSize = Get.size.height * .1;
-    appBarTextSize = Get.size.width * .1;
+    appBarTextSize = width * .1;
   }
 
   void setSizesForComputer() {
     appBarIconSize = Get.height * .05;
-    appBarTextSize = Get.width * .1;
+    appBarTextSize = width * .02;
   }
 
   void setSizesForTablet() {
