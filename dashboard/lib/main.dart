@@ -2,7 +2,6 @@ import 'package:dashboard/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'constant/sizes.dart';
 import 'constant/theme.dart';
 import 'languages/language_controller.dart';
 import 'languages/translations.dart';
