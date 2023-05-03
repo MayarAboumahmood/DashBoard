@@ -31,7 +31,6 @@ class Test extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.red,
                   borderRadius: BorderRadius.circular(size.buttonRadius),
                 ),
                 height: size.drinkCardHeight,
@@ -48,7 +47,6 @@ class Test extends StatelessWidget {
               height: Get.height * .1,
             ),
             Container(
-              color: Colors.red,
               height: size.normalButtonHeight,
               width: size.normalButtonWidht,
               child: TextButton(
