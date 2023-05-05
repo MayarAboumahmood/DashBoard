@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/languages/language_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,11 @@ class Test extends StatelessWidget {
       //   onPressed: () {},
       // ),
       appBar: AppBar(
-        title: Text('what the fuck is that'.tr,
-            style: TextStyle(fontSize: size.appBarTextSize)),
+        title: AutoSizeText('what the fuck is that'.tr,
+            style: TextStyle(fontSize: size.appBarTextSize),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            maxFontSize: 40),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -39,7 +43,10 @@ class Test extends StatelessWidget {
                   onPressed: () {
                     languageController.changeLanguage('ar');
                   },
-                  child: const Text('to arabic'),
+                  child: const AutoSizeText('to arabic',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      maxFontSize: 40),
                 ),
               ),
             ),

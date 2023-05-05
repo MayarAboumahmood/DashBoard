@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,11 +51,11 @@ class Sizes {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     GetDeviceType getDeviceType = GetDeviceType();
-    if (getDeviceType.getDevicetype() == 'computer') {
+    if (getDeviceType.getDevicetype(context) == 'computer') {
       setSizesForComputer();
-    } else if (getDeviceType.getDevicetype() == 'tablet') {
+    } else if (getDeviceType.getDevicetype(context) == 'tablet') {
       setSizesForTablet();
-    } else if (getDeviceType.getDevicetype() == 'smart phone') {
+    } else if (getDeviceType.getDevicetype(context) == 'SmartPhone') {
       setSizesForMobile();
     }
   }
@@ -121,17 +124,21 @@ class Sizes {
 }
 
 class GetDeviceType {
-  String getDevicetype() {
-    double diagonal = sqrt(pow(Get.size.width, 2) + pow(Get.size.height, 2)) /
-        96; //the 96 because we use the pixel when we should use inche and 1 inche=96pixel
-    print(diagonal);
-    print(Get.size.height);
-    if (diagonal >= 9.1 || Get.size.height / 96 >= 7) {
-      return 'computer';
-    } else if (diagonal >= 8.5 && Get.size.height / 96 >= 5) {
+  ViewConfiguration viewConfiguration = const ViewConfiguration();
+  double get devicePixelRatio => viewConfiguration.devicePixelRatio;
+
+  String getDevicetype(BuildContext context) {
+    if (GetPlatform.isMobile ||
+        MediaQuery.of(context).size.width < 400 /*not sure from number yet*/) {
+      return 'SmartPhone';
+    } else if ((GetPlatform.isMobile || GetPlatform.isWeb) &&
+        MediaQuery.of(context).size.width > 400 /*not sure from number yet*/ &&
+        MediaQuery.of(context).size.width < 600 /*not sure from number yet*/) {
       return 'tablet';
-    } else {
-      return 'smart phone';
+    } else if (GetPlatform.isDesktop ||
+        MediaQuery.of(context).size.width > 600) {
+      return 'computer';
     }
+    return '';
   }
 }
