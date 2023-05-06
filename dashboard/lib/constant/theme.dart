@@ -43,9 +43,9 @@ class Themes {
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary:
-          backGroundDarkColor!, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
+          backGroundDarkColor, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
       onPrimary:
-          backGroundDarkColor!, //control the color of the title on the appBar.
+          backGroundDarkColor, //control the color of the title on the appBar.
       secondary: Colors.deepPurpleAccent,
       onSecondary: Colors.redAccent,
       primaryContainer: Colors.blueGrey,
