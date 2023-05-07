@@ -33,12 +33,14 @@ class Sizes {
   late double bigButtonWidht; //done
 
   late double bigButtonTextSize;
+  late double normalButtonTextSize;
 
   late double textFieldIconSize;
   late double textFieldWidth;
   late double textFieldHeight;
+  late double textFieldTextSize;
 
-  final double buttonRadius = 10; //done
+  final double buttonRadius = 5; //done
 /*---------------------------------*/
 
   late double width;
@@ -60,6 +62,9 @@ class Sizes {
     print('set size for mobile');
     bigButtonTextSize = height * .06;
     appBarIconSize = height * .05;
+    normalButtonTextSize = height * .04;
+    textFieldTextSize = height * .04;
+    textFieldWidth = width * .6;
     appBarTextSize = height * .03;
     drinkCardWidth = width * .46;
     drinkCardHeight = height * .4;
@@ -79,9 +84,12 @@ class Sizes {
 
   void setSizesForComputer() {
     print('set size for computer');
+    textFieldWidth = width * .4;
     bigButtonTextSize = height * .06;
+    normalButtonTextSize = height * .04;
+    textFieldTextSize = height * .04;
     appBarIconSize = height * .05;
-    appBarTextSize = height * .03;
+    appBarTextSize = height * .05;
     drinkCardWidth = width * .31;
     drinkCardHeight = height * .6;
     cardNormalTextSize = height * .03;
@@ -101,8 +109,12 @@ class Sizes {
   void setSizesForTablet() {
     print('set size for tablet');
     bigButtonTextSize = height * .06;
+
+    normalButtonTextSize = height * .04;
+    textFieldTextSize = height * .04;
+    textFieldWidth = width * .5;
     appBarIconSize = height * .05;
-    appBarTextSize = height * .03;
+    appBarTextSize = height * .04;
     drinkCardWidth = width * .46;
     drinkCardHeight = height * .4;
     cardNormalTextSize = height * .03;

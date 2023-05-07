@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../constant/theme.dart';
 
 // ignore: must_be_immutable
 class MyTextField extends StatelessWidget {
   final String hintText;
+  late TextStyle? hintStyle;
   final String labletext;
-  final Color enableColor;
-  final Color disableColor;
+  // final Color enableColor;
+  final Color? disableColor;
   final bool scurtext;
   final TextInputType textType;
   final Function(String?)? onsave;
@@ -27,12 +29,13 @@ class MyTextField extends StatelessWidget {
     this.onFieldSubmitted,
     this.ontap,
     required this.scurtext,
-    required this.disableColor,
-    required this.enableColor,
+    this.disableColor,
+    // this.enableColor,
     this.onEditingComplete,
     required this.hintText,
     required this.labletext,
     TextEditingController? controller,
+    this.hintStyle,
   }) : super(key: key);
 
   @override
@@ -58,6 +61,7 @@ class MyTextField extends StatelessWidget {
               TextStyle(color: Get.isDarkMode ? Colors.white : Colors.black),
           labelText: labletext,
           hintText: hintText,
+          hintStyle: hintStyle,
           contentPadding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * .04,
               vertical: MediaQuery.of(context).size.height * .02),

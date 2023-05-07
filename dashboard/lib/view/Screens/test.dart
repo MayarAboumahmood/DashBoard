@@ -1,3 +1,4 @@
+import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/languages/language_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class Test extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Container(
                 decoration: BoxDecoration(
+                  color: primaryColor,
                   borderRadius: BorderRadius.circular(size.buttonRadius),
                 ),
                 height: size.drinkCardHeight,
@@ -47,6 +49,7 @@ class Test extends StatelessWidget {
               height: Get.height * .1,
             ),
             Container(
+              color: primaryColor,
               height: size.normalButtonHeight,
               width: size.normalButtonWidht,
               child: TextButton(
@@ -56,16 +59,16 @@ class Test extends StatelessWidget {
                 child: const Text('to english'),
               ),
             ),
-            CostumTextField(
-              hint: 'test for the custom text field',
-              inputtype: TextInputType.name,
-              iconsuffex: const Icon(Icons.favorite),
-              label: 'Welcom again',
-              onTap: () {
-                print('on tap(){}');
-              },
-              sucer: false,
-            ),
+            // CostumTextField(
+            //   hint: 'test for the custom text field',
+            //   inputtype: TextInputType.name,
+            //   iconsuffex: const Icon(Icons.favorite),
+            //   label: 'Welcom again',
+            //   onTap: () {
+            //     print('on tap(){}');
+            //   },
+            //   sucer: false,
+            // ),
             SizedBox(
               height: Get.size.height * .1,
             ),
@@ -73,7 +76,7 @@ class Test extends StatelessWidget {
               textType: TextInputType.name,
               scurtext: false,
               disableColor: Colors.red,
-              enableColor: Colors.green,
+              // enableColor: Colors.green,
               hintText: 'hintText',
               labletext: 'what the fuck is that ',
             ),
@@ -82,7 +85,9 @@ class Test extends StatelessWidget {
             ),
             MyButton(
               title: 'title',
-              ontap: () {},
+              ontap: () {
+                Get.toNamed('/LoginPage');
+              },
               myheight: size.normalButtonHeight,
               mywidth: size.normalButtonWidht,
               myRadius: size.buttonRadius,
