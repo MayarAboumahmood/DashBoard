@@ -1,15 +1,15 @@
 import 'package:dashboard/constant/theme.dart';
-import 'package:dashboard/languages/language_controller.dart';
+import 'package:dashboard/general_controller/theme_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/sizes.dart';
-import '../widget/costum_text_field.dart';
+import '../../general_controller/language_controller.dart';
 import '../widget/my_text_field.dart';
 
 class Test extends StatelessWidget {
   LanguageController languageController = Get.find();
-
+  ThemeController themeController = Get.put(ThemeController());
   Test({super.key});
 
   @override
@@ -59,16 +59,6 @@ class Test extends StatelessWidget {
                 child: const Text('to english'),
               ),
             ),
-            // CostumTextField(
-            //   hint: 'test for the custom text field',
-            //   inputtype: TextInputType.name,
-            //   iconsuffex: const Icon(Icons.favorite),
-            //   label: 'Welcom again',
-            //   onTap: () {
-            //     print('on tap(){}');
-            //   },
-            //   sucer: false,
-            // ),
             SizedBox(
               height: Get.size.height * .1,
             ),
@@ -87,6 +77,20 @@ class Test extends StatelessWidget {
               title: 'title',
               ontap: () {
                 Get.toNamed('/LoginPage');
+              },
+              myheight: size.normalButtonHeight,
+              mywidth: size.normalButtonWidht,
+              myRadius: size.buttonRadius,
+              mycolor: Colors.red,
+              myfontSize: size.bigButtonTextSize,
+            ),
+            SizedBox(
+              height: Get.size.height * .1,
+            ),
+            MyButton(
+              title: 'change the theme',
+              ontap: () {
+                themeController.changeTheme();
               },
               myheight: size.normalButtonHeight,
               mywidth: size.normalButtonWidht,

@@ -2,14 +2,18 @@ import 'package:dashboard/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dashboard/general_controller/language_controller.dart';
 import 'constant/theme.dart';
-import 'languages/language_controller.dart';
+import 'data/service/pref_service.dart';
 import 'languages/translations.dart';
 
 SharedPreferences? sharedPreferences;
+PrefService prefService = PrefService();
+late String themeValue;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
+  themeValue = await prefService.readString("theme");
   runApp(MyApp());
 }
 
@@ -26,8 +30,9 @@ class MyApp extends StatelessWidget {
         translations: Translation(),
         debugShowCheckedModeBanner: false,
         title: 'Dash board',
-        theme:
-            Get.isDarkMode ? Themes.customdarktheme : Themes.customlighttheme,
+        theme: themeValue == "dark"
+            ? Themes.customdarktheme
+            : Themes.customlighttheme,
         initialRoute: '/',
         getPages: appRoutes());
   }

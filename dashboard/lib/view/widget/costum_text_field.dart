@@ -81,9 +81,9 @@ class CostumTextField extends StatelessWidget {
               borderRadius:
                   BorderRadius.circular(reduis == null ? 5 : reduis as double),
             ),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width * .07)),
+            // floatingLabelBehavior: FloatingLabelBehavior.always,
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .07)),
       ),
     );
   }
