@@ -40,7 +40,7 @@ class CostumTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.width * .1,
+      height: MediaQuery.of(context).size.height * .06,
       width: widthOnTheScreen,
       child: TextFormField(
         obscureText: sucer ?? true,

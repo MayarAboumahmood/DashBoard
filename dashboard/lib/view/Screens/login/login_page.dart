@@ -1,5 +1,6 @@
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/Screens/login/login_controller.dart';
+import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constant/sizes.dart';
@@ -24,8 +25,8 @@ class LoginPage extends StatelessWidget {
                   : Get.size.height * .2,
             ),
             AutoSizeText('Login'.tr,
-                maxFontSize: size.appBarTextSize,
-                style: TextStyle(color: primaryColor)),
+                style: TextStyle(
+                    color: primaryColor, fontSize: size.appBarTextSize)),
             SizedBox(
               height: getDeviceType.getDevicetype(context) == 'computer'
                   ? Get.size.height * .1
@@ -70,12 +71,14 @@ class LoginPage extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(size.buttonRadius),
                   color: Get.isDarkMode ? darckPrimaryColor : primaryColor),
-              child: TextButton(
-                onPressed: () {},
+              child: MyButton(
+                ontap: () {},
+                mywidth: size.normalButtonWidht,
+                myheight: size.normalButtonHeight,
                 child: AutoSizeText(
                   'Login'.tr,
-                  maxFontSize: size.normalButtonTextSize,
-                  stepGranularity: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: size.normalButtonTextSize),
                 ),
               ),
             )

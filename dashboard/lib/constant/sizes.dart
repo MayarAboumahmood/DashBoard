@@ -1,7 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:ui' as ui;
+
+import 'package:sized_context/sized_context.dart';
 
 class Sizes {
   //the const var we will use in the app
@@ -28,12 +29,14 @@ class Sizes {
 
   late double normalButtonHeight; //done
   late double normalButtonWidht; //done
+  late double normalButtonInsidePaddin; //done
 
   late double bigButtonHeight; //done
   late double bigButtonWidht; //done
 
   late double bigButtonTextSize;
   late double normalButtonTextSize;
+  // late double autoSizeTextMaxSizeNormalButton;
 
   late double textFieldIconSize;
   late double textFieldWidth;
@@ -60,13 +63,15 @@ class Sizes {
   }
   void setSizesForMobile() {
     print('set size for mobile');
+
+    normalButtonInsidePaddin = width * .08;
     bigButtonTextSize = height * .06;
-    appBarIconSize = height * .05;
     normalButtonTextSize = height * .04;
     textFieldTextSize = height * .04;
-    textFieldWidth = width * .6;
-    appBarTextSize = height * .03;
-    drinkCardWidth = width * .46;
+    textFieldWidth = width * .7;
+    appBarIconSize = height * .07;
+    appBarTextSize = width * .1;
+    drinkCardWidth = width * .4;
     drinkCardHeight = height * .4;
     cardNormalTextSize = height * .03;
     cardTitleTextSize = height * .05;
@@ -76,22 +81,23 @@ class Sizes {
     eventCardHeight = height * .45;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = height * .1;
-    normalButtonWidht = width * .3;
+    normalButtonHeight = height * .08;
+    normalButtonWidht = width * .5;
     bigButtonHeight = height * .2;
     bigButtonWidht = width * .3;
   }
 
   void setSizesForComputer() {
+    normalButtonInsidePaddin = width * .03;
     print('set size for computer');
     textFieldWidth = width * .4;
     bigButtonTextSize = height * .06;
     normalButtonTextSize = height * .04;
     textFieldTextSize = height * .04;
     appBarIconSize = height * .05;
-    appBarTextSize = height * .05;
-    drinkCardWidth = width * .31;
-    drinkCardHeight = height * .6;
+    appBarTextSize = width < height ? height * .06 : width * .04;
+    drinkCardWidth = width * .22;
+    drinkCardHeight = height * .5;
     cardNormalTextSize = height * .03;
     cardTitleTextSize = height * .05;
     cardButtonHeight = height * .07;
@@ -109,14 +115,14 @@ class Sizes {
   void setSizesForTablet() {
     print('set size for tablet');
     bigButtonTextSize = height * .06;
-
+    normalButtonInsidePaddin = width * .02;
     normalButtonTextSize = height * .04;
-    textFieldTextSize = height * .04;
-    textFieldWidth = width * .5;
-    appBarIconSize = height * .05;
-    appBarTextSize = height * .04;
-    drinkCardWidth = width * .46;
-    drinkCardHeight = height * .4;
+    textFieldTextSize = width * .1;
+    textFieldWidth = width * .7;
+    appBarIconSize = height * .07;
+    appBarTextSize = width * .06;
+    drinkCardWidth = width * .3;
+    drinkCardHeight = height * .35;
     cardNormalTextSize = height * .03;
     cardTitleTextSize = height * .05;
     cardButtonHeight = height * .06;
@@ -133,18 +139,33 @@ class Sizes {
 }
 
 class GetDeviceType {
+  late Size sizeInInches;
+  late double widthInInches;
+  late double heightInInches;
+  late double diagonalInInches;
   String getDevicetype(BuildContext context) {
-    if (GetPlatform.isMobile ||
-        MediaQuery.of(context).size.width < 400 /*not sure from number yet*/) {
+    sizeInInches = context.sizeInches;
+    widthInInches = context.widthInches;
+    heightInInches = context.heightInches;
+    diagonalInInches = context.diagonalInches;
+    if (widthInInches < 3) {
       return 'SmartPhone';
-    } else if ((GetPlatform.isMobile || GetPlatform.isWeb) &&
-        MediaQuery.of(context).size.width > 400 /*not sure from number yet*/ &&
-        MediaQuery.of(context).size.width < 600 /*not sure from number yet*/) {
+    } else if (widthInInches < 10) {
       return 'tablet';
-    } else if (GetPlatform.isDesktop ||
-        MediaQuery.of(context).size.width > 600) {
+    } else if (widthInInches > 10) {
       return 'computer';
     }
+    // if (GetPlatform.isMobile ||
+    //     MediaQuery.of(context).size.width < 400 /*not sure from number yet*/) {
+    //   return 'SmartPhone';
+    // } else if ((GetPlatform.isMobile || GetPlatform.isWeb) &&
+    //     MediaQuery.of(context).size.width > 400 /*not sure from number yet*/ &&
+    //     MediaQuery.of(context).size.width < 800 /*not sure from number yet*/) {
+    //   return 'tablet';
+    // } else if (GetPlatform.isDesktop ||
+    //     MediaQuery.of(context).size.width > 800) {
+    //   return 'computer';
+    // }
     return '';
   }
 }

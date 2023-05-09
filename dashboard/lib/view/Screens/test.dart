@@ -74,7 +74,6 @@ class Test extends StatelessWidget {
               height: Get.size.height * .1,
             ),
             MyButton(
-              title: 'title',
               ontap: () {
                 Get.toNamed('/LoginPage');
               },
@@ -83,12 +82,13 @@ class Test extends StatelessWidget {
               myRadius: size.buttonRadius,
               mycolor: Colors.red,
               myfontSize: size.bigButtonTextSize,
+              child: const Text('go to next page'),
             ),
             SizedBox(
               height: Get.size.height * .1,
             ),
             MyButton(
-              title: 'change the theme',
+              child: Text('change the theme'),
               ontap: () {
                 themeController.changeTheme();
               },
