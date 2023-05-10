@@ -1,29 +1,31 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../constant/theme.dart';
 import '../data/service/pref_service.dart';
 
 class ThemeController extends GetxController {
-  late bool theThemeIsDark;
+  late RxBool theThemeIsDark = false.obs;
   PrefService prefService = PrefService();
   @override
   void onInit() async {
-    theThemeIsDark =
+    theThemeIsDark.value =
         await prefService.readString('theme') == 'dark' ? true : false;
     super.onInit();
   }
 
   changeTheme() async {
-    if (theThemeIsDark) {
+    if (theThemeIsDark.value) {
       print('turn to light theme');
       await prefService.createString("theme", "light");
-      theThemeIsDark = false;
+      theThemeIsDark.value = false;
       Get.changeTheme(Themes.customlighttheme);
-    } else if (!theThemeIsDark) {
+    } else if (!theThemeIsDark.value) {
       print('turn to dark theme');
       await prefService.createString("theme", "dark");
-      theThemeIsDark = true;
+      theThemeIsDark.value = true;
       Get.changeTheme(Themes.customdarktheme);
     }
+    update();
   }
 }

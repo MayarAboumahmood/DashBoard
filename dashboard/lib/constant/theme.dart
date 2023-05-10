@@ -112,4 +112,5 @@ class Themes {
     disabledColor:
         skinColorWhite, //the things that the primary color don't effect like the  checkboxes, text fields...I am not sure about the Buttons
   );
+  // static ThemeData systemTheme = ThemeData..copyWith();
 }

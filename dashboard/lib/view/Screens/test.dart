@@ -9,12 +9,13 @@ import '../widget/my_text_field.dart';
 
 class Test extends StatelessWidget {
   LanguageController languageController = Get.find();
-  ThemeController themeController = Get.put(ThemeController());
+  ThemeController themeController = Get.find();
   Test({super.key});
 
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
+
     return Scaffold(
       // floatingActionButton: FloatingActionButton.extended(
       //   label: Text('test'),
@@ -87,16 +88,25 @@ class Test extends StatelessWidget {
             SizedBox(
               height: Get.size.height * .1,
             ),
-            MyButton(
-              child: Text('change the theme'),
-              ontap: () {
-                themeController.changeTheme();
+            GetX<ThemeController>(
+              builder: (themeController) {
+                return MyButton(
+                  ontap: () {
+                    themeController.changeTheme();
+                  },
+                  myheight: size.normalButtonHeight,
+                  mywidth: size.normalButtonWidht,
+                  myRadius: size.buttonRadius,
+                  mycolor: Colors.red,
+                  myfontSize: size.bigButtonTextSize,
+                  child: Text(
+                    themeController.theThemeIsDark.value
+                        ? 'Dark Theme'
+                        : 'Light Theme',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                );
               },
-              myheight: size.normalButtonHeight,
-              mywidth: size.normalButtonWidht,
-              myRadius: size.buttonRadius,
-              mycolor: Colors.red,
-              myfontSize: size.bigButtonTextSize,
             ),
             SizedBox(
               height: Get.size.height * .1,

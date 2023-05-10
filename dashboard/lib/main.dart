@@ -33,6 +33,10 @@ class MyApp extends StatelessWidget {
         theme: themeValue == "dark"
             ? Themes.customdarktheme
             : Themes.customlighttheme,
+        themeMode: ThemeMode.system == ThemeMode.dark
+            ? ThemeMode
+                .light //to make the theme change when the dark theme is on in the device.
+            : ThemeMode.light,
         initialRoute: '/',
         getPages: appRoutes());
   }

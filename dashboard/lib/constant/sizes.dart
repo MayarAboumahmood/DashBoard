@@ -70,7 +70,7 @@ class Sizes {
     textFieldTextSize = height * .04;
     textFieldWidth = width * .7;
     appBarIconSize = height * .07;
-    appBarTextSize = width * .1;
+    appBarTextSize = width * .06;
     drinkCardWidth = width * .4;
     drinkCardHeight = height * .4;
     cardNormalTextSize = height * .03;
@@ -120,7 +120,7 @@ class Sizes {
     textFieldTextSize = width * .1;
     textFieldWidth = width * .7;
     appBarIconSize = height * .07;
-    appBarTextSize = width * .06;
+    appBarTextSize = width * .04;
     drinkCardWidth = width * .3;
     drinkCardHeight = height * .35;
     cardNormalTextSize = height * .03;
@@ -155,6 +155,10 @@ class GetDeviceType {
     } else if (widthInInches > 10) {
       return 'computer';
     }
+    return '';
+  }
+}
+
     // if (GetPlatform.isMobile ||
     //     MediaQuery.of(context).size.width < 400 /*not sure from number yet*/) {
     //   return 'SmartPhone';
@@ -166,6 +170,3 @@ class GetDeviceType {
     //     MediaQuery.of(context).size.width > 800) {
     //   return 'computer';
     // }
-    return '';
-  }
-}
