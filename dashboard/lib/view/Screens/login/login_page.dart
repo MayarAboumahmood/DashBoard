@@ -7,6 +7,7 @@ import '../../../constant/sizes.dart';
 import '../../widget/costum_text_field.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   GetDeviceType getDeviceType = GetDeviceType();
   LoginController controller = Get.find();

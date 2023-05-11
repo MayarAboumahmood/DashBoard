@@ -7,6 +7,7 @@ import '../../constant/sizes.dart';
 import '../../general_controller/language_controller.dart';
 import '../widget/my_text_field.dart';
 
+// ignore: must_be_immutable
 class Test extends StatelessWidget {
   LanguageController languageController = Get.find();
   ThemeController themeController = Get.find();
@@ -17,13 +18,20 @@ class Test extends StatelessWidget {
     Sizes size = Sizes(context);
 
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.extended(
-      //   label: Text('test'),
-      //   onPressed: () {},
-      // ),
+      drawer: const Drawer(),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('test'),
+        onPressed: () {},
+      ),
       appBar: AppBar(
         title: Text('what the fuck is that'.tr,
             style: TextStyle(fontSize: size.appBarTextSize)),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: Get.size.width * .03),
+            child: Icon(Icons.favorite, size: size.appBarIconSize),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -32,17 +40,63 @@ class Test extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Container(
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.circular(size.buttonRadius),
-                ),
-                height: size.drinkCardHeight,
+                // decoration: BoxDecoration(
+                // color: primaryColor,
+                // borderRadius: BorderRadius.circular(size.buttonRadius),
+                // ),
+                height: size.drinkCardHeight + 15,
                 width: size.drinkCardWidth,
-                child: TextButton(
-                  onPressed: () {
-                    languageController.changeLanguage('ar');
-                  },
-                  child: const Text('to arabic'),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(size.buttonRadius),
+                      ),
+                      height: size.eventCardHeight,
+                      width: size.eventCardWidth,
+                    ),
+                    Positioned(
+                      top: Get.size.height * .05,
+                      left: Get.size.width * .01,
+                      child: TextButton(
+                        onPressed: () {
+                          languageController.changeLanguage('ar');
+                        },
+                        child: Text(
+                          'to arabic',
+                          style: TextStyle(fontSize: size.cardTitleTextSize),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: Get.size.height * .1,
+                      left: Get.size.width * .1,
+                      child: Text('to arabic',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: size.cardNormalTextSize,
+                              fontWeight: FontWeight.w100)),
+                    ),
+                    Positioned(
+                      top: Get.size.height * .3,
+                      left: Get.size.width * .1,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius:
+                                  BorderRadius.circular(size.buttonRadius)),
+                          height: size.cardButtonHeight,
+                          width: size.cardButtonWidth,
+                          child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'press me',
+                                style: TextStyle(
+                                    fontSize: size.cardButtonTextSize),
+                              ))),
+                    )
+                  ],
                 ),
               ),
             ),
