@@ -10,7 +10,6 @@ class MyButton extends StatelessWidget {
   double mywidth;
   double myheight;
   double myRadius;
-  double myfontSize;
   double myShadow;
   double paddingInside;
   MyButton({
@@ -22,7 +21,6 @@ class MyButton extends StatelessWidget {
     required this.mywidth,
     required this.myheight,
     this.myRadius = 20,
-    this.myfontSize = 20,
     this.myShadow = 0,
     this.paddingInside = 0,
   }) : super(key: key);
@@ -38,12 +36,11 @@ class MyButton extends StatelessWidget {
         alignment: Alignment.center,
         height: myheight,
         width: mywidth,
-        decoration: BoxDecoration(boxShadow: [
+        decoration: BoxDecoration(boxShadow: const [
           BoxShadow(
-              offset: Offset(MediaQuery.of(context).size.width * .01,
-                  MediaQuery.of(context).size.height * myShadow),
+              offset: Offset(2, 4),
               color: Colors.black26,
-              spreadRadius: 1,
+              spreadRadius: 01,
               blurRadius: 8)
         ], color: mycolor, borderRadius: BorderRadius.circular(myRadius)),
         child: child,

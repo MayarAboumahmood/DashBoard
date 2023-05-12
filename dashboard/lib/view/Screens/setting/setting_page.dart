@@ -1,17 +1,18 @@
 import 'package:dashboard/constant/theme.dart';
-import 'package:dashboard/general_controller/theme_controller.dart';
+import 'package:dashboard/view/Screens/setting/theme_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../constant/sizes.dart';
-import '../../general_controller/language_controller.dart';
-import '../widget/my_text_field.dart';
+
+import '../../../constant/sizes.dart';
+import 'language_controller.dart';
+import '../../widget/my_text_field.dart';
 
 // ignore: must_be_immutable
-class Test extends StatelessWidget {
+class Setting extends StatelessWidget {
   LanguageController languageController = Get.find();
   ThemeController themeController = Get.find();
-  Test({super.key});
+  Setting({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -132,12 +133,14 @@ class Test extends StatelessWidget {
               ontap: () {
                 Get.toNamed('/LoginPage');
               },
-              myheight: size.normalButtonHeight,
-              mywidth: size.normalButtonWidht,
+              myheight: size.bigButtonHeight,
+              mywidth: size.bigButtonWidht,
               myRadius: size.buttonRadius,
               mycolor: Colors.red,
-              myfontSize: size.bigButtonTextSize,
-              child: const Text('go to next page'),
+              child: Text(
+                'big button',
+                style: TextStyle(fontSize: size.bigButtonTextSize),
+              ),
             ),
             SizedBox(
               height: Get.size.height * .1,
@@ -152,12 +155,13 @@ class Test extends StatelessWidget {
                   mywidth: size.normalButtonWidht,
                   myRadius: size.buttonRadius,
                   mycolor: Colors.red,
-                  myfontSize: size.bigButtonTextSize,
                   child: Text(
                     themeController.theThemeIsDark.value
                         ? 'Dark Theme'
                         : 'Light Theme',
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: size.normalButtonTextSize),
                   ),
                 );
               },

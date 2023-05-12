@@ -3,6 +3,7 @@ import 'package:dashboard/view/Screens/login/login_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../widget/costum_text_field.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -27,7 +28,9 @@ class LoginPage extends StatelessWidget {
             ),
             AutoSizeText('Login'.tr,
                 style: TextStyle(
-                    color: primaryColor, fontSize: size.appBarTextSize)),
+                    color: primaryColor,
+                    fontSize: size.appBarTextSize,
+                    fontFamily: jostFontFamily)),
             SizedBox(
               height: getDeviceType.getDevicetype(context) == 'computer'
                   ? Get.size.height * .1
@@ -41,6 +44,7 @@ class LoginPage extends StatelessWidget {
                     controller.password = value!;
                   },
                   hint: 'enter your password'.tr,
+                  hintStyle: TextStyle(fontFamily: jostFontFamily),
                   label: "password".tr,
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -76,10 +80,13 @@ class LoginPage extends StatelessWidget {
                 ontap: () {},
                 mywidth: size.normalButtonWidht,
                 myheight: size.normalButtonHeight,
+                myShadow: 0,
                 child: AutoSizeText(
                   'Login'.tr,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: size.normalButtonTextSize),
+                  style: TextStyle(
+                      fontSize: size.normalButtonTextSize,
+                      fontFamily: jostFontFamily),
                 ),
               ),
             )

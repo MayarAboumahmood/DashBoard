@@ -16,6 +16,11 @@ Color backGroundDarkColor = Colors.black12;
 /*---------------*/
 class Themes {
   static ThemeData customdarktheme = ThemeData.dark().copyWith(
+    primaryTextTheme: const TextTheme(
+        displayLarge: TextStyle(fontFamily: 'Jost'),
+        bodyLarge: TextStyle(fontFamily: 'Jost'),
+        displayMedium: TextStyle(fontFamily: 'Jost'),
+        displaySmall: TextStyle(fontFamily: 'Jost')),
     dialogBackgroundColor: backGroundDarkColor,
     iconTheme: IconThemeData(color: backGroundDarkColor),
     hintColor: darckPrimaryColor, //hint text color
@@ -66,6 +71,11 @@ class Themes {
   ///
 
   static ThemeData customlighttheme = ThemeData.light().copyWith(
+    primaryTextTheme: const TextTheme(
+        displayLarge: TextStyle(fontFamily: 'Jost'),
+        bodyLarge: TextStyle(fontFamily: 'Jost'),
+        displayMedium: TextStyle(fontFamily: 'Jost'),
+        displaySmall: TextStyle(fontFamily: 'Jost')),
     dialogBackgroundColor: skinColorWhite,
     iconTheme: IconThemeData(color: skinColorWhite),
     hintColor: primaryColor, //hint text color

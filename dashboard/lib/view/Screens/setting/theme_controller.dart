@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../constant/theme.dart';
-import '../data/service/pref_service.dart';
+import '../../../constant/theme.dart';
+import '../../../data/service/pref_service.dart';
 
 class ThemeController extends GetxController {
   late RxBool theThemeIsDark = false.obs;

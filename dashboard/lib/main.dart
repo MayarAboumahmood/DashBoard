@@ -2,7 +2,7 @@ import 'package:dashboard/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dashboard/general_controller/language_controller.dart';
+import 'package:dashboard/view/Screens/setting/language_controller.dart';
 import 'constant/theme.dart';
 import 'data/service/pref_service.dart';
 import 'languages/translations.dart';

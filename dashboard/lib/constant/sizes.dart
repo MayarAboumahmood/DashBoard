@@ -26,21 +26,22 @@ class Sizes {
   late double
       floatButtonHeight; //we  will not use it mostly because the floatActionButton have a const size by defult.
 
-  late double normalButtonHeight; //done
-  late double normalButtonWidht; //done
+  late double normalButtonHeight; //done but not on the mobile.
+  late double normalButtonWidht; //done but not on the mobile.
   late double normalButtonInsidePaddin; //done
 
-  late double bigButtonHeight; //done
-  late double bigButtonWidht; //done
+  late double bigButtonHeight; //done but not on the mobile.
+  late double bigButtonWidht; //done but not on the mobile.
+//the last update with majd.
 
   late double bigButtonTextSize;
   late double normalButtonTextSize;
   // late double autoSizeTextMaxSizeNormalButton;
 
-  late double textFieldIconSize;
-  late double textFieldWidth;
-  late double textFieldHeight;
-  late double textFieldTextSize;
+  late double textFieldIconSize; //done by default.
+  late double textFieldWidth; //done by padding.
+  late double textFieldHeight; //done by default.
+  late double textFieldTextSize; //done by default
 
   final double buttonRadius = 5; //done
 /*---------------------------------*/
@@ -61,6 +62,7 @@ class Sizes {
     }
   }
   void setSizesForMobile() {
+    //need a check.
     print('set size for mobile');
     cardButtonTextSize = width * .1;
     normalButtonInsidePaddin = width * .08;
@@ -68,7 +70,7 @@ class Sizes {
     normalButtonTextSize = height * .04;
     textFieldTextSize = height * .04;
     textFieldWidth = width * .7;
-    appBarIconSize = width * .07; //need a check
+    appBarIconSize = width * .07;
     appBarTextSize = width * .06;
     drinkCardWidth = width * .4;
     drinkCardHeight = height * .4;
@@ -93,8 +95,8 @@ class Sizes {
     cardButtonTextSize = width < height ? height * .02 : width * .012;
     normalButtonInsidePaddin = width * .03;
     textFieldWidth = width * .4;
-    bigButtonTextSize = height * .06;
-    normalButtonTextSize = height * .04;
+    bigButtonTextSize = context.widthInches > 12 ? 28 : 25;
+    normalButtonTextSize = context.widthInches > 12 ? 18 : 17;
     textFieldTextSize = height * .04;
     appBarIconSize = width < height
         ? height * .05
@@ -113,8 +115,15 @@ class Sizes {
     eventCardHeight = height * .55;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = width < height ? height * .012 : width * .035; //to do
-    normalButtonWidht = width * .17;
+    normalButtonHeight = context.heightInches > 3 && context.widthInches > 12
+        ? height * .105
+        : context.heightInches > 3 && context.widthInches < 12
+            ? height * .095
+            : context.widthInches > 12
+                ? width * .04
+                : width * .038; //to do
+    normalButtonWidht = normalButtonWidht =
+        context.widthInches > 12 ? width * .23 : width * .24;
     bigButtonHeight = height * .24;
     bigButtonWidht = width * .27;
   }
@@ -126,9 +135,9 @@ class Sizes {
         : context.widthInches > 7
             ? width * .015
             : width * .016;
-    bigButtonTextSize = height * .06;
+    bigButtonTextSize = context.widthInches > 7 ? 22 : 18;
     normalButtonInsidePaddin = width * .02;
-    normalButtonTextSize = height * .04;
+    normalButtonTextSize = context.widthInches > 7 ? 16 : 14;
     textFieldTextSize = width * .1;
     textFieldWidth = width * .7;
     appBarIconSize = context.widthInches > 7
@@ -157,8 +166,14 @@ class Sizes {
     eventCardHeight = height * .45;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = width < height ? height * .1 : width * .035; //to do
-    normalButtonWidht = width * .3;
+    normalButtonHeight = context.heightInches > 3 && context.widthInches > 7
+        ? height * .095
+        : context.heightInches > 3 && context.widthInches < 7
+            ? height * .085
+            : context.widthInches > 7
+                ? width * .04
+                : width * .038;
+    normalButtonWidht = context.widthInches > 7 ? width * .28 : width * .25;
     bigButtonHeight = height * .2;
     bigButtonWidht = width * .3;
   }

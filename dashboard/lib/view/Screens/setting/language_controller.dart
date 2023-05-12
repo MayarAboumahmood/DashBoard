@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:dashboard/data/service/pref_service.dart';
 import 'package:get/get.dart';
 
-import '../main.dart';
+import '../../../main.dart';
 
 class LanguageController extends GetxController {
   PrefService prefService = PrefService();
