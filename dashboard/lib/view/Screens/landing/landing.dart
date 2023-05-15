@@ -25,7 +25,20 @@ class Landing extends StatelessWidget {
                 mywidth: size.normalButtonWidht,
                 myheight: size.normalButtonHeight,
                 child: Text(
-                  'click mitioe',
+                  'go to setting',
+                  style: TextStyle(
+                      fontSize: size.normalButtonTextSize, fontFamily: 'Jost'),
+                )),
+            MyButton(
+                myRadius: size.buttonRadius,
+                mycolor: primaryColor,
+                ontap: () {
+                  Get.toNamed("/LoginPage");
+                },
+                mywidth: size.normalButtonWidht,
+                myheight: size.normalButtonHeight,
+                child: Text(
+                  'go to login',
                   style: TextStyle(
                       fontSize: size.normalButtonTextSize, fontFamily: 'Jost'),
                 ))

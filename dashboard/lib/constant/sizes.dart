@@ -94,7 +94,7 @@ class Sizes {
 
     cardButtonTextSize = width < height ? height * .02 : width * .012;
     normalButtonInsidePaddin = width * .03;
-    textFieldWidth = width * .4;
+    textFieldWidth = width * .35;
     bigButtonTextSize = context.widthInches > 12 ? 28 : 25;
     normalButtonTextSize = context.widthInches > 12 ? 18 : 17;
     textFieldTextSize = height * .04;
@@ -103,7 +103,7 @@ class Sizes {
         : context.widthInches > 12
             ? width * .035
             : width * .045;
-    appBarTextSize = width < height ? height * .06 : width * .04;
+    appBarTextSize = context.widthInches > 12 ? 50 : 45;
     drinkCardWidth = width * .22;
     drinkCardHeight = height * .5;
     cardNormalTextSize = width < height ? height * .025 : width * .015;
@@ -116,14 +116,13 @@ class Sizes {
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
     normalButtonHeight = context.heightInches > 3 && context.widthInches > 12
-        ? height * .105
+        ? height * .08
         : context.heightInches > 3 && context.widthInches < 12
-            ? height * .095
+            ? height * .07
             : context.widthInches > 12
                 ? width * .04
                 : width * .038; //to do
-    normalButtonWidht = normalButtonWidht =
-        context.widthInches > 12 ? width * .23 : width * .24;
+    normalButtonWidht = context.widthInches > 12 ? width * .13 : width * .12;
     bigButtonHeight = height * .24;
     bigButtonWidht = width * .27;
   }
@@ -139,13 +138,13 @@ class Sizes {
     normalButtonInsidePaddin = width * .02;
     normalButtonTextSize = context.widthInches > 7 ? 16 : 14;
     textFieldTextSize = width * .1;
-    textFieldWidth = width * .7;
+    textFieldWidth = context.widthInches > 7 ? width * .38 : width * .5;
     appBarIconSize = context.widthInches > 7
         ? width * .05
         : context.widthInches > 5
             ? width * .06
             : width * .08;
-    appBarTextSize = width * .04;
+    appBarTextSize = context.widthInches > 6 ? 40 : 35;
     drinkCardWidth = width * .3;
     drinkCardHeight = height * .35;
     cardTitleTextSize = width < height
@@ -167,13 +166,13 @@ class Sizes {
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
     normalButtonHeight = context.heightInches > 3 && context.widthInches > 7
-        ? height * .095
+        ? height * .06
         : context.heightInches > 3 && context.widthInches < 7
-            ? height * .085
+            ? height * .07
             : context.widthInches > 7
                 ? width * .04
                 : width * .038;
-    normalButtonWidht = context.widthInches > 7 ? width * .28 : width * .25;
+    normalButtonWidht = context.widthInches > 7 ? width * .15 : width * .16;
     bigButtonHeight = height * .2;
     bigButtonWidht = width * .3;
   }

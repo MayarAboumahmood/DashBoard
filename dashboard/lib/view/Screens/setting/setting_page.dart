@@ -19,14 +19,12 @@ class Setting extends StatelessWidget {
     Sizes size = Sizes(context);
 
     return Scaffold(
-      drawer: const Drawer(),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text('test'),
-        onPressed: () {},
-      ),
+      backgroundColor: skinColorWhite,
       appBar: AppBar(
-        title: Text('what the fuck is that'.tr,
-            style: TextStyle(fontSize: size.appBarTextSize)),
+        backgroundColor: skinColorWhite,
+        elevation: 0,
+        title:
+            Text('Setting'.tr, style: TextStyle(fontSize: size.appBarTextSize)),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: Get.size.width * .03),
@@ -36,68 +34,35 @@ class Setting extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            Divider(),
+            // ListTile(
+            //   onTap: () {
+            //     showDialog(context: context, builder: )
+            //   },
+            //   leading: Icon(Icons.language),
+            //   title: Text('change the language'),
+            //   // trailing:
+            // ),
+            Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Container(
-                // decoration: BoxDecoration(
-                // color: primaryColor,
-                // borderRadius: BorderRadius.circular(size.buttonRadius),
-                // ),
-                height: size.drinkCardHeight + 15,
-                width: size.drinkCardWidth,
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(size.buttonRadius),
-                      ),
-                      height: size.eventCardHeight,
-                      width: size.eventCardWidth,
-                    ),
-                    Positioned(
-                      top: Get.size.height * .05,
-                      left: Get.size.width * .01,
-                      child: TextButton(
-                        onPressed: () {
-                          languageController.changeLanguage('ar');
-                        },
-                        child: Text(
-                          'to arabic',
-                          style: TextStyle(fontSize: size.cardTitleTextSize),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: Get.size.height * .1,
-                      left: Get.size.width * .1,
-                      child: Text('to arabic',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: size.cardNormalTextSize,
-                              fontWeight: FontWeight.w100)),
-                    ),
-                    Positioned(
-                      top: Get.size.height * .3,
-                      left: Get.size.width * .1,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius:
-                                  BorderRadius.circular(size.buttonRadius)),
-                          height: size.cardButtonHeight,
-                          width: size.cardButtonWidth,
-                          child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'press me',
-                                style: TextStyle(
-                                    fontSize: size.cardButtonTextSize),
-                              ))),
-                    )
-                  ],
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(size.buttonRadius),
+                ),
+                height: size.eventCardHeight,
+                width: size.eventCardWidth,
+                child: TextButton(
+                  onPressed: () {
+                    languageController.changeLanguage('ar');
+                  },
+                  child: Text(
+                    'to arabic',
+                    style: TextStyle(fontSize: size.cardTitleTextSize),
+                  ),
                 ),
               ),
             ),
@@ -172,6 +137,34 @@ class Setting extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

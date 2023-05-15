@@ -3,6 +3,7 @@ import 'package:dashboard/view/Screens/login/login_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../widget/costum_text_field.dart';
@@ -18,81 +19,208 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(children: [
-            SizedBox(
-              height: getDeviceType.getDevicetype(context) == 'computer'
-                  ? Get.size.height * .1
-                  : Get.size.height * .2,
-            ),
-            AutoSizeText('Login'.tr,
-                style: TextStyle(
-                    color: primaryColor,
-                    fontSize: size.appBarTextSize,
-                    fontFamily: jostFontFamily)),
-            SizedBox(
-              height: getDeviceType.getDevicetype(context) == 'computer'
-                  ? Get.size.height * .1
-                  : Get.size.height * .2,
-            ),
-            Obx(
-              () {
-                return CostumTextField(
-                  widthOnTheScreen: size.textFieldWidth,
-                  onsaved: (value) {
-                    controller.password = value!;
-                  },
-                  hint: 'enter your password'.tr,
-                  hintStyle: TextStyle(fontFamily: jostFontFamily),
-                  label: "password".tr,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      controller.changePasswordSecure();
-                    },
-                    icon: controller.passwordSecure.value
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                  ),
-                  prefixIcon: const Icon(Icons.password),
-                  sucer: controller.passwordSecure.value,
-                  validat: (value) {
-                    if (value!.length < 4) {
-                      return "the password can't be smaller than 4 character "
-                          .tr;
-                    }
-                    return null;
-                  },
-                );
-              },
-            ),
-            SizedBox(
-                height: getDeviceType.getDevicetype(context) == 'computer'
-                    ? Get.size.height * .2
-                    : Get.size.height * .25),
-            Container(
-              height: size.normalButtonHeight,
-              width: size.normalButtonWidht,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(size.buttonRadius),
-                  color: Get.isDarkMode ? darckPrimaryColor : primaryColor),
-              child: MyButton(
-                ontap: () {},
-                mywidth: size.normalButtonWidht,
-                myheight: size.normalButtonHeight,
-                myShadow: 0,
-                child: AutoSizeText(
-                  'Login'.tr,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: size.normalButtonTextSize,
-                      fontFamily: jostFontFamily),
+      backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
+      body: Stack(
+        children: [
+          putBackgroundImage(context),
+          Positioned(
+            top: Get.size.height * .1,
+            left: checkIfTheSizeAllowTheFloatingContainerToExist(context)
+                ? Get.size.width * .5
+                : Get.size.width * .3,
+            child: Center(
+              child: Visibility(
+                visible:
+                    checkIfTheSizeAllowTheFloatingContainerToExist(context),
+                replacement: theLoginColumnBody(size),
+                child: Container(
+                  width: Get.size.width * .4,
+                  height: Get.size.height * .8,
+                  decoration: floatingContainerBoxDecoration(),
+                  child: theLoginColumnBody(size),
                 ),
               ),
-            )
-          ]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  bool checkIfTheSizeAllowTheFloatingContainerToExist(BuildContext context) {
+    if (context.widthInches > 7.5) {
+      return true;
+    }
+    return false;
+  }
+
+  Widget putBackgroundImage(BuildContext context) {
+    return Positioned(
+      top: -Get.size.height * .03,
+      left: -Get.size.width * .025,
+      child: ShaderMask(
+        shaderCallback: (rect) {
+          return const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Colors.black, Colors.transparent],
+          ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+        },
+        blendMode: BlendMode.dstIn,
+        child: Image.asset(
+          fit: BoxFit.fill,
+          'assets/images/medium page background image.jpg',
+          width: Get.size.width,
+          height: Get.height + Get.height * .1,
         ),
       ),
+    );
+  }
+
+  Widget passwordTextFeild(Sizes size) {
+    return Obx(
+      () {
+        return CostumTextField(
+          labelStyle: TextStyle(
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          widthOnTheScreen: size.textFieldWidth,
+          onsaved: (value) {
+            controller.password = value!;
+          },
+          hint: 'enter your password'.tr,
+          hintStyle: TextStyle(
+              fontFamily: jostFontFamily,
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          label: "password".tr,
+          suffixIcon: IconButton(
+            onPressed: () {
+              controller.changePasswordSecure();
+            },
+            icon: controller.passwordSecure.value
+                ? Icon(
+                    Icons.visibility_off,
+                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                  )
+                : Icon(Icons.visibility,
+                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
+          ),
+          prefixIcon: Icon(Icons.password,
+              color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
+          sucer: controller.passwordSecure.value,
+          validat: (value) {
+            if (value!.length < 4) {
+              return "the password can't be smaller than 4 character ".tr;
+            }
+            return null;
+          },
+        );
+      },
+    );
+  }
+
+  Widget emailTextFeild(Sizes size) {
+    return CostumTextField(
+      labelStyle: TextStyle(
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      widthOnTheScreen: size.textFieldWidth,
+      // onsaved: (value) {
+
+      // },
+      hint: 'enter your email'.tr,
+      hintStyle: TextStyle(
+          fontFamily: jostFontFamily,
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      label: "email".tr,
+      prefixIcon: Icon(
+        Icons.email,
+        color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+      ),
+      sucer: false,
+      validat: (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      },
+    );
+  }
+
+  BoxDecoration floatingContainerBoxDecoration() {
+    return BoxDecoration(
+        color: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: Get.isDarkMode
+            ? null
+            : const [
+                BoxShadow(
+                    offset: Offset(-2, -1),
+                    color: Colors.black12,
+                    spreadRadius: 0,
+                    blurRadius: 15),
+                BoxShadow(
+                    offset: Offset(6, 5),
+                    color: Colors.black26,
+                    spreadRadius: 01,
+                    blurRadius: 15),
+                BoxShadow(
+                    offset: Offset(-2, 5),
+                    color: Colors.black26,
+                    spreadRadius: 01,
+                    blurRadius: 15),
+                BoxShadow(
+                    offset: Offset(6, -1),
+                    color: Colors.black26,
+                    spreadRadius: 01,
+                    blurRadius: 15),
+              ]);
+  }
+
+  MyButton theDoneButton(Sizes size) {
+    return MyButton(
+      mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+      myRadius: size.buttonRadius,
+      ontap: () {},
+      mywidth: size.normalButtonWidht,
+      myheight: size.normalButtonHeight,
+      myShadow: 0,
+      child: AutoSizeText(
+        'Done'.tr,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+            fontSize: size.normalButtonTextSize,
+            fontFamily: jostFontFamily,
+            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      ),
+    );
+  }
+
+  SingleChildScrollView theLoginColumnBody(Sizes size) {
+    return SingleChildScrollView(
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        SizedBox(
+          height: Get.size.height * .1,
+        ),
+        AutoSizeText('Login'.tr,
+            style: TextStyle(
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                fontSize: size.appBarTextSize,
+                fontFamily: jostFontFamily,
+                fontWeight: FontWeight.w100)),
+        SizedBox(
+          height: Get.size.height * .04,
+        ),
+        emailTextFeild(size),
+        SizedBox(height: Get.size.height * .1),
+        passwordTextFeild(size),
+        SizedBox(height: Get.size.height * .1),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Get.size.width * .15),
+          child: theDoneButton(size),
+        ),
+        SizedBox(
+          height: Get.size.height * .1,
+        )
+      ]),
     );
   }
 }

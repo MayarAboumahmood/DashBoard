@@ -6,7 +6,7 @@ import 'view/Screens/setting/theme_binding.dart';
 import 'view/Screens/login/login_binding.dart';
 
 appRoutes() => [
-      GetPage(name: '/', page: () => Landing()),
+      GetPage(name: '/', page: () => const Landing()),
       GetPage(name: '/Setting', page: () => Setting(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding())
