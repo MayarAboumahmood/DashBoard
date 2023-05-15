@@ -1,27 +1,28 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dashboard/constant/sizes.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class MyButton extends StatelessWidget {
-  String title;
+  Widget child;
   Function()? ontap;
   Color? mycolor;
   double mywidth;
   double myheight;
   double myRadius;
-  double myfontSize;
   double myShadow;
-
+  double paddingInside;
   MyButton({
     Key? key,
     /*required this.bordercolor,*/
-    this.mycolor,
-    required this.title,
+    required this.child,
     required this.ontap,
-    required this.myheight,
+    this.mycolor,
     required this.mywidth,
+    required this.myheight,
     this.myRadius = 20,
-    this.myfontSize = 20,
     this.myShadow = 0,
+    this.paddingInside = 0,
   }) : super(key: key);
 
   @override
@@ -30,21 +31,19 @@ class MyButton extends StatelessWidget {
       splashColor: Colors.white,
       onTap: ontap,
       child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: Sizes(context).normalButtonInsidePaddin),
         alignment: Alignment.center,
         height: myheight,
         width: mywidth,
-        decoration: BoxDecoration(boxShadow: [
+        decoration: BoxDecoration(boxShadow: const [
           BoxShadow(
-              offset: Offset(MediaQuery.of(context).size.width * .01,
-                  MediaQuery.of(context).size.height * myShadow),
+              offset: Offset(2, 4),
               color: Colors.black26,
-              spreadRadius: 1,
+              spreadRadius: 01,
               blurRadius: 8)
         ], color: mycolor, borderRadius: BorderRadius.circular(myRadius)),
-        child: Text(
-          title,
-          style: TextStyle(fontSize: myfontSize, color: Colors.white),
-        ),
+        child: child,
       ),
     );
   }

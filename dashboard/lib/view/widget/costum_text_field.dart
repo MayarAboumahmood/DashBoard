@@ -1,3 +1,4 @@
+import 'package:dashboard/constant/font.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +7,8 @@ import '../../constant/theme.dart';
 // ignore: must_be_immutable
 class CostumTextField extends StatelessWidget {
   String hint;
+  late TextStyle? hintStyle;
+  late TextStyle? labelStyle;
   String? label;
   Widget? iconsuffex;
   TextInputType? inputtype;
@@ -16,8 +19,11 @@ class CostumTextField extends StatelessWidget {
   Widget? prefixIcon;
   Widget? suffixIcon;
   bool? sucer;
+  double? reduis;
+  late double widthOnTheScreen;
   CostumTextField(
       {Key? key,
+      this.labelStyle,
       this.suffixIcon,
       this.sucer,
       this.prefixIcon,
@@ -28,47 +34,58 @@ class CostumTextField extends StatelessWidget {
       this.onsaved,
       this.onTap,
       this.controller,
+      this.hintStyle,
+      this.reduis,
+      required this.widthOnTheScreen,
       this.validat})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.width * .1,
+      width: widthOnTheScreen,
       child: TextFormField(
+        cursorColor: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+        style: TextStyle(
+            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+            fontFamily: jostFontFamily),
         obscureText: sucer ?? true,
-        cursorColor: /*!Get.isDarkMode ?*/ Colors.black12 /*: Colors.white*/,
         validator: validat,
         controller: controller,
         onSaved: onsaved,
         onTap: onTap,
         keyboardType: inputtype,
         decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
+            disabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
             hintText: hint,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            hintStyle: hintStyle,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(
+                    reduis == null ? 5 : reduis as double)),
             label: label != null
                 ? Text(
                     label!,
-                    style: TextStyle(
-                        color: /*!Get.isDarkMode
-                            ? Themes.customdarktheme.*/
-                            primaryColor /*
-                            : Themes.customlighttheme.primaryColor*/
-                        ),
+                    style: labelStyle,
                   )
                 : null,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
+            prefixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+            suffixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: !Get.isDarkMode
-                      ? Themes.customdarktheme.primaryColor
-                      : Themes.customlighttheme.primaryColor),
-              borderRadius: BorderRadius.circular(30.0),
+                  color: !Get.isDarkMode ? darkPrimaryColor : primaryColor),
+              borderRadius:
+                  BorderRadius.circular(reduis == null ? 5 : reduis as double),
             ),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width * .07)),
+            // floatingLabelBehavior: FloatingLabelBehavior.always,
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .07)),
       ),
     );
   }

@@ -1,25 +1,22 @@
-// ignore_for_file: avoid_print
-
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:sized_context/sized_context.dart';
 
 class Sizes {
   //the const var we will use in the app
-  late double appBarIconSize;
-  late double appBarTextSize;
+  late double appBarIconSize; //done on web not on moblile.
+  late double appBarTextSize; //done on web not on moblile.
 
   late double drinkCardWidth; //done
   late double drinkCardHeight; //done
 
-  late double cardNormalTextSize;
+  late double cardNormalTextSize; //done on web not on moblile.
 
-  late double cardTitleTextSize;
+  late double cardTitleTextSize; //done on web not on moblile.
 
-  late double cardButtonHeight; //done
-  late double cardButtonWidth; //done
+  late double cardButtonHeight; //done on web not on moblile.
+  late double cardButtonWidth; //done on web not on moblile.
+  late double cardButtonTextSize; //done on web not on moblile.
 
   late double eventCardWidth; //done
   late double eventCardHeight; //done
@@ -29,19 +26,24 @@ class Sizes {
   late double
       floatButtonHeight; //we  will not use it mostly because the floatActionButton have a const size by defult.
 
-  late double normalButtonHeight; //done
-  late double normalButtonWidht; //done
+  late double normalButtonHeight; //done but not on the mobile.
+  late double normalButtonWidht; //done but not on the mobile.
+  late double normalButtonInsidePaddin; //done
 
-  late double bigButtonHeight; //done
-  late double bigButtonWidht; //done
+  late double bigButtonHeight; //done but not on the mobile.
+  late double bigButtonWidht; //done but not on the mobile.
+//the last update with majd.
 
   late double bigButtonTextSize;
+  late double normalButtonTextSize;
+  // late double autoSizeTextMaxSizeNormalButton;
 
-  late double textFieldIconSize;
-  late double textFieldWidth;
-  late double textFieldHeight;
+  late double textFieldIconSize; //done by default.
+  late double textFieldWidth; //done by padding.
+  late double textFieldHeight; //done by default.
+  late double textFieldTextSize; //done by default
 
-  final double buttonRadius = 10; //done
+  final double buttonRadius = 5; //done
 /*---------------------------------*/
 
   late double width;
@@ -60,13 +62,20 @@ class Sizes {
     }
   }
   void setSizesForMobile() {
+    //need a check.
     print('set size for mobile');
+    cardButtonTextSize = width * .1;
+    normalButtonInsidePaddin = width * .08;
     bigButtonTextSize = height * .06;
-    appBarIconSize = height * .05;
-    appBarTextSize = height * .03;
-    drinkCardWidth = width * .46;
+    normalButtonTextSize = height * .04;
+    textFieldTextSize = height * .04;
+    textFieldWidth = width * .7;
+    appBarIconSize = width * .07;
+    appBarTextSize = width * .06;
+    drinkCardWidth = width * .4;
     drinkCardHeight = height * .4;
-    cardNormalTextSize = height * .03;
+    cardTitleTextSize = height * .03;
+    cardNormalTextSize = height * .025;
     cardTitleTextSize = height * .05;
     cardButtonHeight = height * .06;
     cardButtonWidth = width * .1;
@@ -74,69 +83,116 @@ class Sizes {
     eventCardHeight = height * .45;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = height * .1;
-    normalButtonWidht = width * .3;
+    normalButtonHeight = height * .08;
+    normalButtonWidht = width * .5;
     bigButtonHeight = height * .2;
     bigButtonWidht = width * .3;
   }
 
   void setSizesForComputer() {
     print('set size for computer');
-    bigButtonTextSize = height * .06;
-    appBarIconSize = height * .05;
-    appBarTextSize = height * .03;
-    drinkCardWidth = width * .31;
-    drinkCardHeight = height * .6;
-    cardNormalTextSize = height * .03;
+
+    cardButtonTextSize = width < height ? height * .02 : width * .012;
+    normalButtonInsidePaddin = width * .03;
+    textFieldWidth = width * .35;
+    bigButtonTextSize = context.widthInches > 12 ? 28 : 25;
+    normalButtonTextSize = context.widthInches > 12 ? 18 : 17;
+    textFieldTextSize = height * .04;
+    appBarIconSize = width < height
+        ? height * .05
+        : context.widthInches > 12
+            ? width * .035
+            : width * .045;
+    appBarTextSize = context.widthInches > 12 ? 50 : 45;
+    drinkCardWidth = width * .22;
+    drinkCardHeight = height * .5;
+    cardNormalTextSize = width < height ? height * .025 : width * .015;
+    cardTitleTextSize = width < height ? height * .03 : width * .03;
     cardTitleTextSize = height * .05;
-    cardButtonHeight = height * .07;
-    cardButtonWidth = width * .05;
-    eventCardWidth = width * .95;
+    cardButtonHeight = width < height ? height * .04 : width * .035;
+    cardButtonWidth = context.widthInches > 12 ? width * .07 : width * .08;
+    eventCardWidth = width * .9;
     eventCardHeight = height * .55;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = height * .12;
-    normalButtonWidht = width * .17;
+    normalButtonHeight = context.heightInches > 3 && context.widthInches > 12
+        ? height * .08
+        : context.heightInches > 3 && context.widthInches < 12
+            ? height * .07
+            : context.widthInches > 12
+                ? width * .04
+                : width * .038; //to do
+    normalButtonWidht = context.widthInches > 12 ? width * .13 : width * .12;
     bigButtonHeight = height * .24;
     bigButtonWidht = width * .27;
   }
 
   void setSizesForTablet() {
     print('set size for tablet');
-    bigButtonTextSize = height * .06;
-    appBarIconSize = height * .05;
-    appBarTextSize = height * .03;
-    drinkCardWidth = width * .46;
-    drinkCardHeight = height * .4;
-    cardNormalTextSize = height * .03;
-    cardTitleTextSize = height * .05;
-    cardButtonHeight = height * .06;
+    cardButtonTextSize = width < height
+        ? height * .014
+        : context.widthInches > 7
+            ? width * .015
+            : width * .016;
+    bigButtonTextSize = context.widthInches > 7 ? 22 : 18;
+    normalButtonInsidePaddin = width * .02;
+    normalButtonTextSize = context.widthInches > 7 ? 16 : 14;
+    textFieldTextSize = width * .1;
+    textFieldWidth = context.widthInches > 7 ? width * .38 : width * .5;
+    appBarIconSize = context.widthInches > 7
+        ? width * .05
+        : context.widthInches > 5
+            ? width * .06
+            : width * .08;
+    appBarTextSize = context.widthInches > 6 ? 40 : 35;
+    drinkCardWidth = width * .3;
+    drinkCardHeight = height * .35;
+    cardTitleTextSize = width < height
+        ? height * .03
+        : context.widthInches > 7
+            ? width * .035
+            : width * .04;
+    cardNormalTextSize = width < height
+        ? height * .025
+        : context.widthInches > 7
+            ? width * .02
+            : width * .035;
     cardButtonWidth = width * .1;
+    cardButtonHeight = width < height ? height * .05 : width * .05;
+    cardButtonWidth = context.widthInches > 7 ? width * .08 : width * .1;
+
     eventCardWidth = width * .9;
     eventCardHeight = height * .45;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = height * .1;
-    normalButtonWidht = width * .3;
+    normalButtonHeight = context.heightInches > 3 && context.widthInches > 7
+        ? height * .06
+        : context.heightInches > 3 && context.widthInches < 7
+            ? height * .07
+            : context.widthInches > 7
+                ? width * .04
+                : width * .038;
+    normalButtonWidht = context.widthInches > 7 ? width * .15 : width * .16;
     bigButtonHeight = height * .2;
     bigButtonWidht = width * .3;
   }
 }
 
 class GetDeviceType {
-  ViewConfiguration viewConfiguration = const ViewConfiguration();
-  double get devicePixelRatio => viewConfiguration.devicePixelRatio;
-
+  late Size sizeInInches;
+  late double widthInInches;
+  late double heightInInches;
+  late double diagonalInInches;
   String getDevicetype(BuildContext context) {
-    if (GetPlatform.isMobile ||
-        MediaQuery.of(context).size.width < 400 /*not sure from number yet*/) {
+    sizeInInches = context.sizeInches;
+    widthInInches = context.widthInches;
+    heightInInches = context.heightInches;
+    diagonalInInches = context.diagonalInches;
+    if (widthInInches < 3) {
       return 'SmartPhone';
-    } else if ((GetPlatform.isMobile || GetPlatform.isWeb) &&
-        MediaQuery.of(context).size.width > 400 /*not sure from number yet*/ &&
-        MediaQuery.of(context).size.width < 600 /*not sure from number yet*/) {
+    } else if (widthInInches < 10) {
       return 'tablet';
-    } else if (GetPlatform.isDesktop ||
-        MediaQuery.of(context).size.width > 600) {
+    } else if (widthInInches >= 10) {
       return 'computer';
     }
     return '';
