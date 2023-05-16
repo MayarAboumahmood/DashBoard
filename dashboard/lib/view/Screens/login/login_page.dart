@@ -9,6 +9,8 @@ import '../../../constant/sizes.dart';
 import '../../widget/costum_text_field.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import '../../widget/hoverButton.dart';
+
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   GetDeviceType getDeviceType = GetDeviceType();
@@ -175,8 +177,8 @@ class LoginPage extends StatelessWidget {
               ]);
   }
 
-  MyButton theDoneButton(Sizes size) {
-    return MyButton(
+  HoverButton theDoneButton(Sizes size) {
+    return HoverButton(
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {},
@@ -213,10 +215,7 @@ class LoginPage extends StatelessWidget {
         SizedBox(height: Get.size.height * .1),
         passwordTextFeild(size),
         SizedBox(height: Get.size.height * .1),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.size.width * .15),
-          child: theDoneButton(size),
-        ),
+        theDoneButton(size),
         SizedBox(
           height: Get.size.height * .1,
         )
