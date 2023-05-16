@@ -1,17 +1,16 @@
 import 'package:dashboard/constant/theme.dart';
+import 'package:dashboard/view/Screens/setting/setting_controller.dart';
 import 'package:dashboard/view/Screens/setting/theme_controller.dart';
-import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constant/sizes.dart';
 import 'language_controller.dart';
-import '../../widget/my_text_field.dart';
 
 // ignore: must_be_immutable
 class Setting extends StatelessWidget {
   LanguageController languageController = Get.find();
   ThemeController themeController = Get.find();
+  SettingController settingController = Get.find();
   Setting({super.key});
 
   @override
@@ -19,152 +18,174 @@ class Setting extends StatelessWidget {
     Sizes size = Sizes(context);
 
     return Scaffold(
-      backgroundColor: skinColorWhite,
-      appBar: AppBar(
-        backgroundColor: skinColorWhite,
-        elevation: 0,
-        title:
-            Text('Setting'.tr, style: TextStyle(fontSize: size.appBarTextSize)),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: Get.size.width * .03),
-            child: Icon(Icons.favorite, size: size.appBarIconSize),
+        backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(children: [
+              createAppBar(size),
+              SizedBox(
+                height: Get.size.height * .05,
+              ),
+              dividerWithWord('Choose language'.tr,
+                  icon: Icon(
+                    Icons.language,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                  )),
+              changeLangugeContianer(size),
+              dividerWithWord('Choose theme'.tr),
+              changingThemeRow(size),
+              dividerWithWord('more setting'.tr),
+            ]),
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Divider(),
-            // ListTile(
-            //   onTap: () {
-            //     showDialog(context: context, builder: )
-            //   },
-            //   leading: Icon(Icons.language),
-            //   title: Text('change the language'),
-            //   // trailing:
-            // ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.circular(size.buttonRadius),
-                ),
-                height: size.eventCardHeight,
-                width: size.eventCardWidth,
-                child: TextButton(
-                  onPressed: () {
-                    languageController.changeLanguage('ar');
-                  },
-                  child: Text(
-                    'to arabic',
-                    style: TextStyle(fontSize: size.cardTitleTextSize),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: Get.height * .1,
-            ),
-            Container(
-              color: primaryColor,
-              height: size.normalButtonHeight,
-              width: size.normalButtonWidht,
-              child: TextButton(
-                onPressed: () {
-                  languageController.changeLanguage('en');
-                },
-                child: const Text('to english'),
-              ),
-            ),
-            SizedBox(
-              height: Get.size.height * .1,
-            ),
-            MyTextField(
-              textType: TextInputType.name,
-              scurtext: false,
-              disableColor: Colors.red,
-              // enableColor: Colors.green,
-              hintText: 'hintText',
-              labletext: 'what the fuck is that ',
-            ),
-            SizedBox(
-              height: Get.size.height * .1,
-            ),
-            MyButton(
-              ontap: () {
-                Get.toNamed('/LoginPage');
-              },
-              myheight: size.bigButtonHeight,
-              mywidth: size.bigButtonWidht,
-              myRadius: size.buttonRadius,
-              mycolor: Colors.red,
-              child: Text(
-                'big button',
-                style: TextStyle(fontSize: size.bigButtonTextSize),
-              ),
-            ),
-            SizedBox(
-              height: Get.size.height * .1,
-            ),
-            GetX<ThemeController>(
-              builder: (themeController) {
-                return MyButton(
-                  ontap: () {
-                    themeController.changeTheme();
-                  },
-                  myheight: size.normalButtonHeight,
-                  mywidth: size.normalButtonWidht,
-                  myRadius: size.buttonRadius,
-                  mycolor: Colors.red,
-                  child: Text(
-                    themeController.theThemeIsDark.value
-                        ? 'Dark Theme'
-                        : 'Light Theme',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: size.normalButtonTextSize),
-                  ),
-                );
-              },
-            ),
-            SizedBox(
-              height: Get.size.height * .1,
-            ),
-          ],
+        ));
+  }
+
+  Widget circleButtonWithDotInside(Sizes size, String languge) {
+    return Row(
+      children: [
+        Text(
+          languge.tr,
+          style: TextStyle(
+              fontSize: size.normalButtonTextSize,
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
         ),
+        Obx(
+          () => Radio<String>(
+            focusColor:
+                Get.isDarkMode ? darkHoverButtonColor : lightHoverButtonColor,
+            fillColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return Get.isDarkMode ? darkPrimaryColor : primaryColor;
+              }
+              return Get.isDarkMode ? darkPrimaryColor : primaryColor;
+            }),
+            value: languge,
+            groupValue: settingController.languag.value,
+            onChanged: (value) {
+              settingController.changeLanguageUI(value);
+              languge == "English"
+                  ? languageController.changeLanguage("en")
+                  : languageController.changeLanguage("ar");
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget dividerWithWord(String word, {Icon? icon}) {
+    return Row(
+      children: [
+        const Expanded(flex: 1, child: Divider()),
+        icon ?? const SizedBox(),
+        Text(
+          word,
+          style: TextStyle(
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+        ), //translate it.
+        const Expanded(flex: 3, child: Divider()),
+      ],
+    );
+  }
+
+  Row createAppBar(Sizes size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
+          child: Text('Setting'.tr,
+              style: TextStyle(
+                fontSize: size.appBarTextSize,
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+              )),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
+          child: Icon(
+            Icons.close,
+            size: size.appBarIconSize,
+            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+          ),
+        )
+      ],
+    );
+  }
+
+  Container changeLangugeContianer(Sizes size) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: Get.size.width * .02, vertical: Get.size.height * .02),
+      margin: EdgeInsets.symmetric(
+          horizontal: Get.size.width * .02, vertical: Get.size.height * .02),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.buttonRadius),
+          color: Get.isDarkMode
+              ? const Color.fromARGB(255, 54, 54, 54)
+              : Colors.grey[400]),
+      child: Column(
+        children: [
+          circleButtonWithDotInside(size, "English"),
+          SizedBox(height: Get.size.height * .005),
+          circleButtonWithDotInside(size, "العربية"),
+        ],
       ),
     );
   }
 
-  Future<void> _showMyDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('AlertDialog Title'),
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
+  Widget changingThemeRow(Sizes size) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: Get.size.height * .02),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: Get.size.width * .02, vertical: Get.size.height * .02),
+        margin: EdgeInsets.symmetric(
+            horizontal: Get.size.width * .02, vertical: Get.size.height * .02),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.buttonRadius),
+          color: Get.isDarkMode
+              ? const Color.fromARGB(255, 54, 54, 54)
+              : Colors.grey[400],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Get.size.width * .02,
+              ),
+              child: Text(
+                'change the theme'.tr,
+                style: TextStyle(
+                    fontSize: size.normalButtonTextSize,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+              ),
             ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Get.size.width * .02,
+              ),
+              child: GetX<ThemeController>(builder: (themeController) {
+                return GestureDetector(
+                  onTap: () {
+                    themeController.changeTheme();
+                  },
+                  child: Icon(
+                      themeController.theThemeIsDark.value
+                          ? Icons.nightlight_round
+                          : Icons.wb_sunny,
+                      color: themeController.theThemeIsDark.value
+                          ? skinColorWhite
+                          : const Color.fromARGB(255, 209, 164, 29)),
+                );
+              }),
             ),
           ],
-        );
-      },
+        ),
+      ),
     );
   }
 }

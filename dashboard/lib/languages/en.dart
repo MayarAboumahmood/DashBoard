@@ -9,4 +9,7 @@ const Map<String, String> en = {
       'the password can\'t be smaller than 4 character',
   'The email is not valid': 'The email is not valid',
   'email': 'email',
+  'Choose theme': 'Choose theme',
+  'change the theme': 'change the theme',
+  'more setting': 'more setting'
 };
