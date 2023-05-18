@@ -2,8 +2,10 @@ import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sized_context/sized_context.dart';
 
 import '../../../constant/sizes.dart';
+import '../setting/setting_page.dart';
 
 class Landing extends StatelessWidget {
   const Landing({super.key});
@@ -20,7 +22,7 @@ class Landing extends StatelessWidget {
                 myRadius: size.buttonRadius,
                 mycolor: primaryColor,
                 ontap: () {
-                  Get.toNamed("/Setting");
+                  showSettingsDialog(context);
                 },
                 mywidth: size.normalButtonWidht,
                 myheight: size.normalButtonHeight,
@@ -43,6 +45,20 @@ class Landing extends StatelessWidget {
                       fontSize: size.normalButtonTextSize, fontFamily: 'Jost'),
                 ))
           ]),
+    );
+  }
+
+  void showSettingsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: Setting(),
+        );
+      },
     );
   }
 }
