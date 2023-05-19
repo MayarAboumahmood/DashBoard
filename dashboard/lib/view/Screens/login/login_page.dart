@@ -1,3 +1,4 @@
+import 'package:dashboard/constant/statusRequest.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/Screens/login/login_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
@@ -19,10 +20,62 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Sizes size = Sizes(context);
     return Scaffold(
       backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
-      body: Stack(
+      body: bodyAllStatuse(context)
+    );
+  }
+ Widget bodyAllStatuse(BuildContext context){
+    Sizes size = Sizes(context);
+  
+  return GetBuilder<LoginController>(
+        builder: (controller) {
+          if (controller.statuseRequest == StatuseRequest.offlinefailure) {
+            return Center(
+              child: AutoSizeText(
+                'No Internet'.tr, //// adding to translate files
+                style: TextStyle(
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                    fontSize: size.appBarTextSize,
+                    fontFamily: jostFontFamily,
+                    fontWeight: FontWeight.w100),
+              ),
+            );
+          } else if (controller.statuseRequest == StatuseRequest.loading) {
+            return Center(
+              child: AutoSizeText(
+                'Loading'.tr, //// adding to translate files
+                style: TextStyle(
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                    fontSize: size.appBarTextSize,
+                    fontFamily: jostFontFamily,
+                    fontWeight: FontWeight.w100),
+              ),
+            );
+          } else if (controller.statuseRequest == StatuseRequest.init) {
+            return bodyWithLoginElements(size, context);
+          } else {
+            return Center(
+              child: AutoSizeText(
+                'No Data'.tr, //// adding to translate files
+                style: TextStyle(
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                    fontSize: size.appBarTextSize,
+                    fontFamily: jostFontFamily,
+                    fontWeight: FontWeight.w100),
+              ),
+            );
+          }
+        },
+      );
+ }
+  Widget bodyWithLoginElements(Sizes size, BuildContext context) {
+    return Form(
+      key: controller.formstate,
+      child: Stack(
         children: [
           putBackgroundImage(context),
           Positioned(
@@ -125,9 +178,9 @@ class LoginPage extends StatelessWidget {
       labelStyle: TextStyle(
           color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       widthOnTheScreen: size.textFieldWidth,
-      // onsaved: (value) {
-
-      // },
+      onsaved: (value) {
+controller.email=value!;
+      },
       hint: 'enter your email'.tr,
       hintStyle: TextStyle(
           fontFamily: jostFontFamily,
@@ -181,7 +234,9 @@ class LoginPage extends StatelessWidget {
     return HoverButton(
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
-      ontap: () {},
+      ontap: () {
+        controller.onpresslogin();
+      },
       mywidth: size.normalButtonWidht,
       myheight: size.normalButtonHeight,
       myShadow: 0,
