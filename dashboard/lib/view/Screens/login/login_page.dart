@@ -21,57 +21,49 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
-      body: bodyAllStatuse(context)
+        backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
+        body: bodyAllStatuse(context));
+  }
+/// need to correct indicator in done button in line 236
+/// correct design when no internet statuse in line 35
+/// 
+  Widget bodyAllStatuse(BuildContext context) {
+    Sizes size = Sizes(context);
+
+    return GetBuilder<LoginController>(
+      builder: (controller) {
+        if (controller.statuseRequest == StatuseRequest.offlinefailure) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Center(
+                child: AutoSizeText(
+                  'No Internet'.tr, //// adding to translate files
+                  style: TextStyle(
+                      color:
+                          Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                      fontSize: size.appBarTextSize,
+                      fontFamily: jostFontFamily,
+                      fontWeight: FontWeight.w100),
+                ),
+              ),
+              MyButton(
+                  child: Text('try again'), 
+                  ontap: () {
+                    controller
+                        .checkIfTheInternetIsConectedBeforGoingToThePage();
+                  },
+                  mywidth:size.normalButtonWidht ,
+                  myheight:size. normalButtonHeight)
+            ],
+          );
+        } else {
+          return bodyWithLoginElements(size, context);
+        }
+      },
     );
   }
- Widget bodyAllStatuse(BuildContext context){
-    Sizes size = Sizes(context);
-  
-  return GetBuilder<LoginController>(
-        builder: (controller) {
-          if (controller.statuseRequest == StatuseRequest.offlinefailure) {
-            return Center(
-              child: AutoSizeText(
-                'No Internet'.tr, //// adding to translate files
-                style: TextStyle(
-                    color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                    fontSize: size.appBarTextSize,
-                    fontFamily: jostFontFamily,
-                    fontWeight: FontWeight.w100),
-              ),
-            );
-          } else if (controller.statuseRequest == StatuseRequest.loading) {
-            return Center(
-              child: AutoSizeText(
-                'Loading'.tr, //// adding to translate files
-                style: TextStyle(
-                    color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                    fontSize: size.appBarTextSize,
-                    fontFamily: jostFontFamily,
-                    fontWeight: FontWeight.w100),
-              ),
-            );
-          } else if (controller.statuseRequest == StatuseRequest.init) {
-            return bodyWithLoginElements(size, context);
-          } else {
-            return Center(
-              child: AutoSizeText(
-                'No Data'.tr, //// adding to translate files
-                style: TextStyle(
-                    color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                    fontSize: size.appBarTextSize,
-                    fontFamily: jostFontFamily,
-                    fontWeight: FontWeight.w100),
-              ),
-            );
-          }
-        },
-      );
- }
+
   Widget bodyWithLoginElements(Sizes size, BuildContext context) {
     return Form(
       key: controller.formstate,
@@ -179,7 +171,7 @@ class LoginPage extends StatelessWidget {
           color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       widthOnTheScreen: size.textFieldWidth,
       onsaved: (value) {
-controller.email=value!;
+        controller.email = value!;
       },
       hint: 'enter your email'.tr,
       hintStyle: TextStyle(
@@ -240,14 +232,21 @@ controller.email=value!;
       mywidth: size.normalButtonWidht,
       myheight: size.normalButtonHeight,
       myShadow: 0,
-      child: AutoSizeText(
-        'Done'.tr,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-            fontSize: size.normalButtonTextSize,
-            fontFamily: jostFontFamily,
-            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-      ),
+      child: controller.statuseRequest == StatuseRequest.loading
+          ? Container(
+              padding: EdgeInsets.all(2),
+              child: CircularProgressIndicator(
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+              ),
+            )
+          : AutoSizeText(
+              'Done'.tr,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: size.normalButtonTextSize,
+                  fontFamily: jostFontFamily,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+            ),
     );
   }
 
