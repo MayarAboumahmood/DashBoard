@@ -23,7 +23,7 @@ class HoverButton extends StatelessWidget {
     this.mycolor,
     required this.mywidth,
     required this.myheight,
-    this.myRadius = 20,
+    this.myRadius = 5,
     this.myShadow = 0,
     this.paddingInside = 0,
   }) : super(key: key);

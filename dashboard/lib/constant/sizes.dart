@@ -103,7 +103,7 @@ class Sizes {
         : context.widthInches > 12
             ? width * .035
             : width * .045;
-    appBarTextSize = context.widthInches > 12 ? 50 : 45;
+    appBarTextSize = context.widthInches > 12 ? 43 : 42;
     drinkCardWidth = width * .22;
     drinkCardHeight = height * .5;
     cardNormalTextSize = width < height ? height * .025 : width * .015;
@@ -142,9 +142,9 @@ class Sizes {
     appBarIconSize = context.widthInches > 7
         ? width * .05
         : context.widthInches > 5
-            ? width * .06
-            : width * .08;
-    appBarTextSize = context.widthInches > 6 ? 40 : 35;
+            ? 35
+            : 30;
+    appBarTextSize = context.widthInches > 6 ? 35 : 33;
     drinkCardWidth = width * .3;
     drinkCardHeight = height * .35;
     cardTitleTextSize = width < height

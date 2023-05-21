@@ -1,3 +1,4 @@
+import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/Screens/setting/setting_controller.dart';
 import 'package:dashboard/view/Screens/setting/theme_controller.dart';
@@ -27,7 +28,7 @@ class Setting extends StatelessWidget {
             createAppBar(size),
             SizedBox(
               height: sharedPreferences!.getString('lang') == 'en'
-                  ? Get.size.height * .03
+                  ? Get.size.height * .02
                   : Get.size.height * .01,
             ),
             dividerWithWord('Choose language'.tr,
@@ -39,15 +40,14 @@ class Setting extends StatelessWidget {
             dividerWithWord('Choose theme'.tr),
             changingThemeRow(size),
             dividerWithWord('more setting'.tr),
-            contactUs(size),
+            contactUs(size, context),
           ]),
         ));
   }
 
   Widget iconBox(Widget child, Sizes size) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: Get.size.width * .01, vertical: Get.size.width * .01),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         border: Border.all(
             color: Get.isDarkMode ? skinColorWhite! : backGroundDarkColor,
@@ -59,39 +59,47 @@ class Setting extends StatelessWidget {
     );
   }
 
-  Widget contactUs(Sizes size) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: Get.size.width * .02, vertical: Get.size.height * .02),
-      margin: EdgeInsets.symmetric(
-          horizontal: Get.size.width * .02, vertical: Get.size.height * .02),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(size.buttonRadius),
-        color: Get.isDarkMode
-            ? const Color.fromARGB(255, 54, 54, 54)
-            : Colors.grey[400],
-      ),
-      child: Row(
-        children: [
-          iconBox(
-              Icon(Icons.message_rounded,
-                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-              size),
-          SizedBox(
-            width: Get.size.width * .04,
-          ),
-          Text('contact us',
-              style: TextStyle(
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                fontSize: size.normalButtonTextSize,
-              )),
-          Spacer(),
-          Icon(Icons.arrow_forward_ios_rounded,
-              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-          SizedBox(
-            width: Get.size.width * .02,
-          ),
-        ],
+  Widget contactUs(Sizes size, BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
+      child: Container(
+        // width: 345,
+        padding: EdgeInsets.symmetric(
+            horizontal: context.widthInches > 5 ? 7 : 7,
+            vertical: Get.size.height * .02),
+        margin: EdgeInsets.symmetric(
+            horizontal: context.widthInches > 5 ? 7 : 7,
+            vertical: Get.size.height * .02),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.buttonRadius),
+          color: Get.isDarkMode
+              ? const Color.fromARGB(255, 54, 54, 54)
+              : Colors.grey[400],
+        ),
+        child: Row(
+          children: [
+            iconBox(
+                Icon(Icons.message_rounded,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+                size),
+            SizedBox(
+              width: context.widthInches > 5 ? 10 : 7,
+            ),
+            Text('contact us',
+                style: TextStyle(
+                  fontFamily: jostFontFamily,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                  fontSize: 14,
+                )),
+            const Spacer(),
+            Icon(Icons.arrow_forward_ios_rounded,
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+            SizedBox(
+              width: context.widthInches > 5 ? 6 : 4,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -102,7 +110,8 @@ class Setting extends StatelessWidget {
         Text(
           language.tr,
           style: TextStyle(
-              fontSize: size.normalButtonTextSize,
+              fontFamily: jostFontFamily,
+              fontSize: 14,
               color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
         ),
         Obx(
@@ -121,7 +130,7 @@ class Setting extends StatelessWidget {
             groupValue: settingController.languag.value ==
                     sharedPreferences!.getString("lang ui")
                 ? settingController.languag.value
-                : 'العربية',
+                : sharedPreferences!.getString("lang ui") ?? 'English',
             onChanged: (value) {
               settingController.changeLanguageUI(value);
               language == "English"
@@ -145,6 +154,7 @@ class Setting extends StatelessWidget {
         Text(
           word,
           style: TextStyle(
+              fontFamily: jostFontFamily,
               color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
         ), //translate it.
         SizedBox(width: Get.size.width * .01),
@@ -162,12 +172,12 @@ class Setting extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: Get.size.width * .01,
               vertical: sharedPreferences!.getString('lang') == 'en'
-                  ? Get.size.width * .02
+                  ? Get.size.width * .01
                   : 0),
           child: Text('Setting'.tr,
               style: TextStyle(
-                fontSize: size
-                    .appBarTextSize, //try to see what is going on with this number
+                fontFamily: jostFontFamily,
+                fontSize: 35,
                 color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
               )),
         ),
@@ -179,7 +189,7 @@ class Setting extends StatelessWidget {
               },
               child: Icon(
                 Icons.close,
-                size: size.appBarIconSize,
+                size: 35,
                 color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
               )),
         ),
@@ -225,40 +235,30 @@ class Setting extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Get.size.width * .02,
-              ),
-              child: Text(
-                'change the theme'.tr,
-                style: TextStyle(
-                    fontSize: size.normalButtonTextSize,
-                    color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-              ),
+            Text(
+              'change the theme'.tr,
+              style: TextStyle(
+                  fontFamily: jostFontFamily,
+                  fontSize: 14,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
             ),
             // SizedBox(width: Get.size.width*.1,),
-            Spacer(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Get.size.width * .02,
-              ),
-              child: GetX<ThemeController>(builder: (themeController) {
-                return GestureDetector(
-                    onTap: () {
-                      themeController.changeTheme();
-                    },
-                    child: iconBox(
-                        Icon(
-                            themeController.theThemeIsDark.value
-                                ? Icons.nightlight_round
-                                : Icons.wb_sunny,
-                            color: themeController.theThemeIsDark.value
-                                ? skinColorWhite
-                                : const Color.fromARGB(255, 209, 164, 29)),
-                        size));
-              }),
-            ),
+            const Spacer(),
+            GetX<ThemeController>(builder: (themeController) {
+              return GestureDetector(
+                  onTap: () {
+                    themeController.changeTheme();
+                  },
+                  child: iconBox(
+                      Icon(
+                          themeController.theThemeIsDark.value
+                              ? Icons.nightlight_round
+                              : Icons.wb_sunny,
+                          color: themeController.theThemeIsDark.value
+                              ? skinColorWhite
+                              : const Color.fromARGB(255, 209, 164, 29)),
+                      size));
+            }),
           ],
         ),
       ),

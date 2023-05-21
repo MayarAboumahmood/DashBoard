@@ -14,11 +14,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
   themeValue = await prefService.readString("theme");
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  late final SharedPreferences sharedPreferences;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
