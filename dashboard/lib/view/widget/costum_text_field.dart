@@ -58,9 +58,10 @@ class CostumTextField extends StatelessWidget {
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
+                    color: !Get.isDarkMode ? darkPrimaryColor : primaryColor)),
             disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
+                    style: BorderStyle.solid,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
             hintText: hint,
             hintStyle: hintStyle,
@@ -83,7 +84,6 @@ class CostumTextField extends StatelessWidget {
               borderRadius:
                   BorderRadius.circular(reduis == null ? 5 : reduis as double),
             ),
-            // floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * .07)),
       ),

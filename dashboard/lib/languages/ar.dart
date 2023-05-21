@@ -8,5 +8,10 @@ const Map<String, String> ar = {
   'the password can\'t be smaller than 4 character':
       'كلمة السر يجب ان تكون اطول من 4 احرف',
   'The email is not valid': 'البريد الالكتروني غير فعال',
-  'email': 'البريد الالكتروني'
+  'email': 'البريد الالكتروني',
+  'Choose language': 'اختر اللغة',
+  'Choose theme': 'اختر النمط',
+  'change the theme': 'غير النمط',
+  'more setting': 'المزيد من الاعدادات',
+  'enter your email': 'ادخل البريد الالكتروني'
 };

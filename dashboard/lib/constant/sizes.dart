@@ -43,6 +43,9 @@ class Sizes {
   late double textFieldHeight; //done by default.
   late double textFieldTextSize; //done by default
 
+  late double wideNormalButtonTextSize; //done.
+  late double wideNormalButtonWidth; //done.
+
   final double buttonRadius = 5; //done
 /*---------------------------------*/
 
@@ -64,6 +67,8 @@ class Sizes {
   void setSizesForMobile() {
     //need a check.
     print('set size for mobile');
+    wideNormalButtonTextSize = 18;
+    wideNormalButtonWidth = width * .85;
     cardButtonTextSize = width * .1;
     normalButtonInsidePaddin = width * .08;
     bigButtonTextSize = height * .06;
@@ -92,6 +97,8 @@ class Sizes {
   void setSizesForComputer() {
     print('set size for computer');
 
+    wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
+    wideNormalButtonTextSize = 20;
     cardButtonTextSize = width < height ? height * .02 : width * .012;
     normalButtonInsidePaddin = width * .03;
     textFieldWidth = width * .35;
@@ -103,7 +110,7 @@ class Sizes {
         : context.widthInches > 12
             ? width * .035
             : width * .045;
-    appBarTextSize = context.widthInches > 12 ? 50 : 45;
+    appBarTextSize = context.widthInches > 12 ? 43 : 42;
     drinkCardWidth = width * .22;
     drinkCardHeight = height * .5;
     cardNormalTextSize = width < height ? height * .025 : width * .015;
@@ -129,6 +136,9 @@ class Sizes {
 
   void setSizesForTablet() {
     print('set size for tablet');
+
+    wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
+    wideNormalButtonTextSize = 20;
     cardButtonTextSize = width < height
         ? height * .014
         : context.widthInches > 7
@@ -142,9 +152,9 @@ class Sizes {
     appBarIconSize = context.widthInches > 7
         ? width * .05
         : context.widthInches > 5
-            ? width * .06
-            : width * .08;
-    appBarTextSize = context.widthInches > 6 ? 40 : 35;
+            ? 35
+            : 30;
+    appBarTextSize = context.widthInches > 6 ? 35 : 33;
     drinkCardWidth = width * .3;
     drinkCardHeight = height * .35;
     cardTitleTextSize = width < height

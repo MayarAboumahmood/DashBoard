@@ -1,6 +1,5 @@
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/Screens/login/login_controller.dart';
-import 'package:dashboard/view/widget/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -99,9 +98,9 @@ class LoginPage extends StatelessWidget {
               controller.changePasswordSecure();
             },
             icon: controller.passwordSecure.value
-                ? Icon(
+                ? const Icon(
                     Icons.visibility_off,
-                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                    // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
                   )
                 : Icon(Icons.visibility,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
@@ -133,9 +132,9 @@ class LoginPage extends StatelessWidget {
           fontFamily: jostFontFamily,
           color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       label: "email".tr,
-      prefixIcon: Icon(
+      prefixIcon: const Icon(
         Icons.email,
-        color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+        // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       ),
       sucer: false,
       validat: (value) {

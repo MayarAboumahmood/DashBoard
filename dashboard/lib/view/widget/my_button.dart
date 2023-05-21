@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class MyButton extends StatelessWidget {
   Widget child;
   Function()? ontap;
-  Color? mycolor;
+  Color? mycolor = Get.isDarkMode ? darkPrimaryColor : primaryColor;
   double mywidth;
   double myheight;
   double myRadius;
