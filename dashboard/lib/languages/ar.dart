@@ -13,5 +13,8 @@ const Map<String, String> ar = {
   'Choose theme': 'اختر النمط',
   'change the theme': 'غير النمط',
   'more setting': 'المزيد من الاعدادات',
-  'enter your email': 'ادخل البريد الالكتروني'
+  'enter your email': 'ادخل البريد الالكتروني',
+  'Incorrect email or password':'خطأ في البريد الاكتروني أو كلمة المرور ',
+  'Try entering your data again':'أعد ادخال معلوماتك '
+
 };

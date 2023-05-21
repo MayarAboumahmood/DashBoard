@@ -13,4 +13,7 @@ const Map<String, String> en = {
   'change the theme': 'change the theme',
   'more setting': 'more setting',
   'enter your email': 'enter your email',
+  'Incorrect email or password':'Incorrect email or password',
+  'Try entering your data again':'Try entering your data again' 
+
 };
