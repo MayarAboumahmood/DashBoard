@@ -11,5 +11,6 @@ const Map<String, String> en = {
   'email': 'email',
   'Choose theme': 'Choose theme',
   'change the theme': 'change the theme',
-  'more setting': 'more setting'
+  'more setting': 'more setting',
+  'enter your email': 'enter your email',
 };

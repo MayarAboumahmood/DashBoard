@@ -12,5 +12,6 @@ const Map<String, String> ar = {
   'Choose language': 'اختر اللغة',
   'Choose theme': 'اختر النمط',
   'change the theme': 'غير النمط',
-  'more setting': 'المزيد من الاعدادات'
+  'more setting': 'المزيد من الاعدادات',
+  'enter your email': 'ادخل البريد الالكتروني'
 };

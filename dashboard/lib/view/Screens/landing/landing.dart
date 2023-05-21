@@ -2,8 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/widget/hoverButton.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sized_context/sized_context.dart';
 
 import '../../../constant/sizes.dart';
 import '../../widget/splash_item.dart';
@@ -46,6 +48,7 @@ class Landing extends StatelessWidget {
               SizedBox(
                 height: Get.size.height * .6,
                 child: PageView.builder(
+                    dragStartBehavior: DragStartBehavior.down,
                     controller:
                         PageController(initialPage: controller.pageindex.value),
                     onPageChanged: (index) {
@@ -76,29 +79,9 @@ class Landing extends StatelessWidget {
                   height: Get.size.height * .06,
                 ),
                 HoverButton(
-                  myRadius: size.buttonRadius,
-                  mycolor: primaryColor,
-                  ontap: () {
-                    showSettingsDialog(context);
-                  },
-                  mywidth: size.normalButtonWidht,
-                  myheight: size.normalButtonHeight,
-                  child: Text(
-                    'go to setting',
-                    style: TextStyle(
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor,
-                        fontSize: size.normalButtonTextSize,
-                        fontFamily: 'Jost'),
-                  ),
-                ),
-                SizedBox(
-                  height: Get.size.height * .06,
-                ),
-                HoverButton(
                   myRadius: 5,
-                  mywidth: size.normalButtonWidht,
+                  mywidth: size
+                      .wideNormalButtonWidth, //  context.widthInches > 5 ? 300 : Get.size.width * .85,
                   myheight: size.normalButtonHeight,
                   mycolor: primaryColor,
                   ontap: () {
@@ -107,7 +90,7 @@ class Landing extends StatelessWidget {
                   child: Text(
                     'Continue',
                     style: TextStyle(
-                        fontSize: size.cardNormalTextSize,
+                        fontSize: size.wideNormalButtonTextSize, //20  ,
                         color: Get.isDarkMode
                             ? skinColorWhite
                             : backGroundDarkColor),
@@ -154,121 +137,11 @@ AnimatedContainer buildDot({required int index, required int currentindex}) {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:dashboard/constant/theme.dart';
-// import 'package:dashboard/view/widget/dialog.dart';
-// import 'package:dashboard/view/widget/hoverButton.dart';
-// import 'package:dashboard/view/widget/my_button.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// // import 'package:sized_context/sized_context.dart';
-
-// import '../../../constant/sizes.dart';
-// import '../setting/setting_page.dart';
-
-// class Landing extends StatelessWidget {
-//   const Landing({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Sizes size = Sizes(context);
-//     return Scaffold(
-//       body: Center(
-//         child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               MyButton(
-//                   myRadius: size.buttonRadius,
-//                   mycolor: primaryColor,
-//                   ontap: () {
-//                     showSettingsDialog(context);
-//                   },
-//                   mywidth: size.normalButtonWidht,
-//                   myheight: size.normalButtonHeight,
-//                   child: Text(
-//                     'go to setting',
-//                     style: TextStyle(
-//                         fontSize: size.normalButtonTextSize,
-//                         fontFamily: 'Jost'),
-//                   )),
-//               SizedBox(
-//                 height: Get.size.height * .1,
-//               ),
-//               MyButton(
-//                   myRadius: size.buttonRadius,
-//                   mycolor: primaryColor,
-//                   ontap: () {
-//                     Get.toNamed("/LoginPage");
-//                   },
-//                   mywidth: size.normalButtonWidht,
-//                   myheight: size.normalButtonHeight,
-//                   child: Text(
-//                     'go to login',
-//                     style: TextStyle(
-//                         fontSize: size.normalButtonTextSize,
-//                         fontFamily: 'Jost'),
-//                   )),
-//               SizedBox(
-//                 height: Get.size.height * .1,
-//               ),
-//               HoverButton(
-//                   mycolor: primaryColor,
-//                   ontap: () {
-//                     showErrorDialog(context);
-//                   },
-//                   mywidth: size.normalButtonWidht,
-//                   myheight: size.normalButtonHeight,
-//                   child: const Text('show dialog'))
-//             ]),
-//       ),
-//     );
-//   }
-
-//   void showSettingsDialog(BuildContext context) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return Dialog(
-//           clipBehavior: Clip.antiAlias,
-//           shape:
-//               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-//           child: Setting(),
-//         );
-//       },
-//     );
-//   }
-
-//   void showErrorDialog(BuildContext context) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return MyDialogWidget(
-//           errorMessage: 'errorMessage',
-//           title: 'title',
-//           firstButtonText: 'hello',
-//           secondButtonText: 'bayyy',
-//         );
-//       },
-//     );
-//   }
-// }
+class AppScrollBehavior extends MaterialScrollBehavior {
+  //this class to apply the scroll in web.
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}

@@ -5,7 +5,7 @@ class OnBoardContoller extends GetxController {
   List<Map<String, String>> pagedetals = [
     {
       "title": "welcome to our app",
-      "image": "assests/images/small page background image.jpg"
+      "image": "assets/images/small page background image.jpg"
     },
     {
       "title": "manage all the house with this system",

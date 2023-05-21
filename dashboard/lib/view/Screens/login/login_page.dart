@@ -98,9 +98,9 @@ class LoginPage extends StatelessWidget {
               controller.changePasswordSecure();
             },
             icon: controller.passwordSecure.value
-                ? Icon(
+                ? const Icon(
                     Icons.visibility_off,
-                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                    // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
                   )
                 : Icon(Icons.visibility,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
@@ -132,9 +132,9 @@ class LoginPage extends StatelessWidget {
           fontFamily: jostFontFamily,
           color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       label: "email".tr,
-      prefixIcon: Icon(
+      prefixIcon: const Icon(
         Icons.email,
-        color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+        // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       ),
       sucer: false,
       validat: (value) {
