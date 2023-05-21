@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/data/Models/login_model.dart';
 import 'package:dashboard/data/Models/user_model.dart';
-import 'package:dashboard/data/checkInternet/checkInternet.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/no_internet_page.dart';
