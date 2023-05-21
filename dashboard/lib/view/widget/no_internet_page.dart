@@ -43,6 +43,7 @@ Widget noInternetPage(Sizes size,StatuseRequestController  controller) {
 Future<StatuseRequest> checkIfTheInternetIsConectedBeforGoingToThePage() async {
   try {
     bool connectToInternet = await checkInternet();
+    print(connectToInternet);
     if (connectToInternet) {
       return StatuseRequest.init;
     } else {

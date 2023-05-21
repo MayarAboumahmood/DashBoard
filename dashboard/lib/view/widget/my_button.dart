@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dashboard/constant/sizes.dart';
+import 'package:dashboard/constant/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 // ignore: must_be_immutable
