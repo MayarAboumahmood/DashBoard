@@ -5,7 +5,7 @@ import 'package:dashboard/data/Models/login_model.dart';
 import 'package:dashboard/data/checkInternet/checkInternet.dart';
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
-import 'package:dashboard/constant/statusRequest.dart';
+import 'package:dashboard/constant/status_request.dart';
 
 class LoginService {
   Future<Either<StatuseRequest, Map>> login(LoginModel model) async {

@@ -1,7 +1,8 @@
-import 'package:dashboard/constant/statusRequest.dart';
+import 'package:dashboard/constant/status_request.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/Screens/login/login_controller.dart';
 import 'package:dashboard/view/widget/my_button.dart';
+import 'package:dashboard/view/widget/no_internet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -24,46 +25,25 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
         body: bodyAllStatuse(context));
   }
-/// need to correct indicator in done button in line 236
-/// correct design when no internet statuse in line 35
-/// 
+
+  /// need to correct indicator in done button in line 236
+  /// correct design when no internet statuse in line 35
+  ///
   Widget bodyAllStatuse(BuildContext context) {
     Sizes size = Sizes(context);
 
     return GetBuilder<LoginController>(
       builder: (controller) {
         if (controller.statuseRequest == StatuseRequest.offlinefailure) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Center(
-                child: AutoSizeText(
-                  'No Internet'.tr, //// adding to translate files
-                  style: TextStyle(
-                      color:
-                          Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                      fontSize: size.appBarTextSize,
-                      fontFamily: jostFontFamily,
-                      fontWeight: FontWeight.w100),
-                ),
-              ),
-              MyButton(
-                  child: Text('try again'), 
-                  ontap: () {
-                    controller
-                        .checkIfTheInternetIsConectedBeforGoingToThePage();
-                  },
-                  mywidth:size.normalButtonWidht ,
-                  myheight:size. normalButtonHeight)
-            ],
-          );
-        } else {
+          return noInternetPage(size,controller);
+        }  else {
           return bodyWithLoginElements(size, context);
         }
       },
     );
   }
 
+  
   Widget bodyWithLoginElements(Sizes size, BuildContext context) {
     return Form(
       key: controller.formstate,
