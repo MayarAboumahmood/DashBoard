@@ -34,15 +34,14 @@ class LoginPage extends StatelessWidget {
     return GetBuilder<LoginController>(
       builder: (controller) {
         if (controller.statuseRequest == StatuseRequest.offlinefailure) {
-          return noInternetPage(size,controller);
-        }  else {
+          return noInternetPage(size, controller);
+        } else {
           return bodyWithLoginElements(size, context);
         }
       },
     );
   }
 
-  
   Widget bodyWithLoginElements(Sizes size, BuildContext context) {
     return Form(
       key: controller.formstate,
@@ -206,6 +205,7 @@ class LoginPage extends StatelessWidget {
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {
+        Get.toNamed("/Home");
         controller.onpresslogin();
       },
       mywidth: size.normalButtonWidht,
@@ -213,7 +213,7 @@ class LoginPage extends StatelessWidget {
       myShadow: 0,
       child: controller.statuseRequest == StatuseRequest.loading
           ? Container(
-              padding: EdgeInsets.all(2),
+              padding: const EdgeInsets.all(2),
               child: CircularProgressIndicator(
                 color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
               ),
