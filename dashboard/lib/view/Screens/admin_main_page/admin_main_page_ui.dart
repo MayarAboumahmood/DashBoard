@@ -1,10 +1,10 @@
-import 'package:dashboard/view/widget/hoverButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:side_navigation/side_navigation.dart';
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
+import '../../widget/hoverButton.dart';
 import '../home_icons/home_icons.dart';
 import '../setting/setting_page.dart';
 import 'admin_main_page_controller.dart';
@@ -19,11 +19,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   GetDeviceType getDeviceType = GetDeviceType();
   HomeController controller = Get.find();
-  @override
-  void initState() {
-    controller.setContext(context);
-    super.initState();
-  }
 
   int selectedIndex = 0;
 
@@ -86,32 +81,40 @@ class _HomeState extends State<Home> {
             ),
           ),
           Expanded(
-            child: controller.views.elementAt(selectedIndex),
+            child: views.elementAt(selectedIndex),
           ),
-          // TextButton(
-          //     onPressed: () {
-          //       controller.showSettingsDialog();
-          //     },
-          //     child: Text('setting'))
         ],
       ),
     );
   }
 
-  // List<Widget> views = [];
-  // views = [
-  //   Center(
-  //     child: HomeIcons(),
-  //   ),
-  //   const Center(
-  //     child: Text('Account'),
-  //   ),
-  //   HoverButton(
-  //       ontap: () {
-  //         controller.showSettingsDialog();
-  //       },
-  //       mywidth: 100,
-  //       myheight: 100,
-  //       child: const Text('what the fuck settign')),
-  // ];
+  List<Widget> views = [
+    Center(
+      child: HomeIcons(),
+    ),
+    const Center(
+      child: Text('Account'),
+    ),
+    const Text('setting'),
+    // HoverButton(
+    //     ontap: () {
+    //       controller.showSettingsDialog();
+    //     },
+    //     mywidth: 100,
+    //     myheight: 100,
+    //     child: const Text('what the fuck settign')),
+  ];
+  Future<dynamic> showSettingsDialog() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: Setting(),
+        );
+      },
+    );
+  }
 }
