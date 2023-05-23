@@ -33,7 +33,6 @@ class SlideDrawer extends StatelessWidget {
                   top: 60,
                   left: controller.setWidth(40, 225),
                   child: InkWell(
-                    
                     // BoxShape.highlightShape: BoxShape.circle,
                     onTap: () {
                       controller.changeDrawerState();
@@ -64,9 +63,7 @@ class SlideDrawerController extends GetxController {
   }
 
   Function(bool)? changeDrawerStateWhenHover() {
-    // isHover = true.obs;
     isHover.value = !isHover.value;
-    print(isHover.value);
     return isHover;
   }
 

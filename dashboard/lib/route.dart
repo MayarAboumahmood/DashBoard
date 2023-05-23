@@ -14,6 +14,6 @@ appRoutes() => [
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
           name: '/Home',
-          page: () => const Home(),
+          page: () => Home(),
           bindings: [ThemeBinding(), HomeBinding()]),
-      ];
+    ];
