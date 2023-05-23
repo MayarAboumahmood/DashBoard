@@ -17,7 +17,7 @@ class HomeIcons extends StatelessWidget {
         crossAxisCount: 5, // Adjust the number of columns as desired
       ),
       itemCount: cards.length,
-      padding: EdgeInsets.all(16), // Add padding around the grid
+      padding: const EdgeInsets.all(16), // Add padding around the grid
       itemBuilder: (BuildContext context, int index) {
         return Card(
           clipBehavior: Clip.antiAlias,
