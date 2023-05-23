@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../constant/sizes.dart';
 
 class Home extends StatelessWidget {
