@@ -19,6 +19,24 @@ Color backGroundDarkColor = Colors.black87;
 /*---------------*/
 class Themes {
   static ThemeData customdarktheme = ThemeData.dark().copyWith(
+    listTileTheme: ListTileThemeData(
+      iconColor: darkPrimaryColor,
+    ),
+    primaryIconTheme: IconThemeData(color: darkPrimaryColor),
+
+    buttonTheme: ButtonThemeData(
+        colorScheme: ColorScheme(
+            brightness: Brightness.dark,
+            primary: darkPrimaryColor,
+            onPrimary: darkPrimaryColor,
+            secondary: darkWoodBrownColor,
+            onSecondary: darkWoodBrownColor,
+            error: darkWoodBrownColor,
+            onError: darkWoodBrownColor,
+            background: backGroundDarkColor,
+            onBackground: backGroundDarkColor,
+            surface: darkPrimaryColor,
+            onSurface: darkPrimaryColor)),
     primaryTextTheme: TextTheme(
         displayLarge: TextStyle(color: skinColorWhite, fontFamily: 'Jost'),
         bodyLarge: TextStyle(color: skinColorWhite, fontFamily: 'Jost'),
@@ -48,8 +66,14 @@ class Themes {
     primaryColor: darkPrimaryColor,
     secondaryHeaderColor: darkWoodBrownColor,
     appBarTheme: AppBarTheme(
-      color:
-          backGroundDarkColor, //here to control the app bar color "and it's the same whit background color".
+      titleTextStyle: TextStyle(
+          color: skinColorWhite,
+          fontFamily:
+              jostFontFamily), //controller the color of the appbar text.
+      iconTheme: IconThemeData(color: darkPrimaryColor),
+
+      color: backGroundDarkColor.withOpacity(
+          0.1), //here to control the app bar color "and it's the same whit background color".
     ),
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
@@ -77,6 +101,24 @@ class Themes {
   ///
 
   static ThemeData customlighttheme = ThemeData.light().copyWith(
+    listTileTheme: ListTileThemeData(
+      iconColor: primaryColor,
+    ),
+    primaryIconTheme: IconThemeData(color: primaryColor),
+    buttonTheme: ButtonThemeData(
+        colorScheme: ColorScheme(
+            brightness: Brightness.light,
+            primary: primaryColor,
+            onPrimary: primaryColor,
+            secondary: woodBrownColor,
+            onSecondary: woodBrownColor,
+            error: woodBrownColor,
+            onError: woodBrownColor,
+            background: skinColorWhite!,
+            onBackground: skinColorWhite!,
+            surface: primaryColor,
+            onSurface: primaryColor)),
+
     primaryTextTheme: TextTheme(
         displayLarge: TextStyle(color: backGroundDarkColor, fontFamily: 'Jost'),
         bodyLarge: TextStyle(color: backGroundDarkColor, fontFamily: 'Jost'),

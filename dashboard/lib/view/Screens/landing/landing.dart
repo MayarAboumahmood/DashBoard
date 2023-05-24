@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 import '../../../constant/sizes.dart';
 import '../../widget/splash_item.dart';
-import '../setting/setting_page.dart';
 import 'landing_controller.dart';
 
 // ignore: must_be_immutable
