@@ -25,7 +25,7 @@ class Themes {
         displayMedium: TextStyle(color: skinColorWhite, fontFamily: 'Jost'),
         displaySmall: TextStyle(color: skinColorWhite, fontFamily: 'Jost')),
     dialogBackgroundColor: backGroundDarkColor,
-    iconTheme: IconThemeData(color: backGroundDarkColor),
+    iconTheme: IconThemeData(color: darkPrimaryColor),
     hintColor: darkPrimaryColor, //hint text color
     dividerColor: darkPrimaryColor, //control the divider color
     drawerTheme: DrawerThemeData(
@@ -49,7 +49,7 @@ class Themes {
     secondaryHeaderColor: darkWoodBrownColor,
     appBarTheme: AppBarTheme(
       color:
-          darkPrimaryColor, //here to control the app bar color "and it's the same whit background color".
+          backGroundDarkColor, //here to control the app bar color "and it's the same whit background color".
     ),
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
@@ -112,7 +112,7 @@ class Themes {
           TextStyle(color: Colors.black, fontFamily: jostFontFamily),
       iconTheme: IconThemeData(color: primaryColor),
       color:
-          primaryColor, //here to control the app bar color "and it's the same whit background color".
+          skinColorWhite, //here to control the app bar color "and it's the same whit background color".
     ),
     colorScheme: ColorScheme(
       brightness: Brightness.light,

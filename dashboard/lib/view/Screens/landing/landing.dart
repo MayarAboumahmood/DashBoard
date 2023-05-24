@@ -107,19 +107,6 @@ class Landing extends StatelessWidget {
   }
 }
 
-void showSettingsDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Dialog(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Setting(),
-      );
-    },
-  );
-}
-
 AnimatedContainer buildDot({required int index, required int currentindex}) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 300),

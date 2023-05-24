@@ -45,6 +45,7 @@ class Sizes {
 
   late double wideNormalButtonTextSize; //done.
   late double wideNormalButtonWidth; //done.
+  late double appBarTextFieldWidth;
 
   final double buttonRadius = 5; //done
 /*---------------------------------*/
@@ -67,6 +68,8 @@ class Sizes {
   void setSizesForMobile() {
     //need a check.
     print('set size for mobile');
+    appBarTextFieldWidth =
+        width * .8; //it's just an icon here so we not going to use it.
     wideNormalButtonTextSize = 18;
     wideNormalButtonWidth = width * .85;
     cardButtonTextSize = width * .1;
@@ -96,7 +99,7 @@ class Sizes {
 
   void setSizesForComputer() {
     print('set size for computer');
-
+    appBarTextFieldWidth = 300;
     wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
     wideNormalButtonTextSize = 20;
     cardButtonTextSize = width < height ? height * .02 : width * .012;
@@ -131,12 +134,12 @@ class Sizes {
                 : width * .038; //to do
     normalButtonWidht = context.widthInches > 12 ? width * .13 : width * .12;
     bigButtonHeight = height * .24;
-    bigButtonWidht = width * .27;
+    bigButtonWidht = width * .2;
   }
 
   void setSizesForTablet() {
     print('set size for tablet');
-
+appBarTextFieldWidth=50;
     wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
     wideNormalButtonTextSize = 20;
     cardButtonTextSize = width < height
