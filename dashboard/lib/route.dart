@@ -2,6 +2,8 @@ import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_binding.d
 import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_ui.dart';
 import 'package:dashboard/view/Screens/login/login_page.dart';
 import 'package:dashboard/view/Screens/setting/setting_page.dart';
+import 'package:dashboard/view/Screens/worker_management_page/worker_management_binding.dart';
+import 'package:dashboard/view/Screens/worker_management_page/worker_management_page.dart';
 import 'package:get/get.dart';
 import 'view/Screens/landing/landing.dart';
 import 'view/Screens/setting/theme_binding.dart';
@@ -15,5 +17,9 @@ appRoutes() => [
       GetPage(
           name: '/Home',
           page: () => Home(),
+          bindings: [ThemeBinding(), HomeBinding()]),
+      GetPage(
+          name: '/WorkerManagementPage',
+          page: () => WorkerManagementPage(),
           bindings: [ThemeBinding(), HomeBinding()]),
     ];

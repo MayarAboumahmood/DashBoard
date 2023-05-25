@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:js_interop';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/main.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +19,7 @@ class SlideDrawer extends StatelessWidget {
     Sizes size = Sizes(context);
     return Obx(
       () => AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 100),
         width: controller.setWidth(65, 250),
         height: Get.size.height,
         child: Stack(
@@ -31,14 +35,14 @@ class SlideDrawer extends StatelessWidget {
                 color: Get.isDarkMode
                     ? backGroundDarkColor.withOpacity(0.2)
                     : skinColorWhite,
-                duration: const Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 100),
                 width: controller.setWidth(50, 240),
                 height: Get.size.height,
                 child: drawerChildren(context, size),
               ),
             ),
             AnimatedPositioned(
-              duration: const Duration(milliseconds: 150),
+              duration: const Duration(milliseconds: 100),
               top: 60,
               left: sharedPreferences!.getString('lang') == 'en'
                   ? controller.setWidth(33, 225)
@@ -68,7 +72,7 @@ class SlideDrawer extends StatelessWidget {
                           : skinColorWhite,
                       shape: BoxShape.circle),
                   child: Icon(
-                    controller.isCliked.value
+                    controller.isClicked.value
                         ? Icons.chevron_left
                         : Icons.chevron_right,
                   ),
@@ -86,17 +90,25 @@ class SlideDrawer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(children: [
         SizedBox(height: Get.size.height * .02),
-        mainDrawerChid(context, size),
-        Divider(),
+        mainDrawerChid(context),
+        const Divider(),
         SizedBox(height: Get.size.height * .02),
-        firstDrawerChid(context, size),
+        drawerChid(context, Icons.home, 'Home', () {
+          Get.offNamed('/Home');
+        }),
         SizedBox(height: Get.size.height * .02),
-        secondDrawerChid(context),
+        drawerChid(context, Icons.groups_3, 'Workers', () {
+          Get.offNamed('/WorkerManagementPage');
+        }),
+        SizedBox(height: Get.size.height * .02),
+        drawerChid(context, Icons.settings, 'Settings', () {
+          showSettingsDialog(context);
+        }),
       ]),
     );
   }
 
-  Widget mainDrawerChid(BuildContext context, Sizes size) {
+  Widget mainDrawerChid(BuildContext context) {
     return Row(children: [
       Padding(
         padding: const EdgeInsets.all(4.0),
@@ -107,61 +119,49 @@ class SlideDrawer extends StatelessWidget {
       ),
       Visibility(
         replacement: const Text(''),
-        visible: controller.isCliked.value || controller.isHover.value,
-        child: Expanded(
-          child: Text(
-            'Dar abdallah',
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                fontFamily: jostFontFamily),
+        visible: controller.checkIfTextVisible(),
+        child: Flexible(
+          fit: FlexFit.tight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: AutoSizeText(
+              'Dar abdullah'.tr,
+              maxLines: 1,
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                  fontFamily: jostFontFamily),
+            ),
           ),
         ),
       ),
     ]);
   }
 
-  Widget firstDrawerChid(BuildContext context, Sizes size) {
+  Widget drawerChid(BuildContext context, IconData icons, String title,
+      Function()? onPressed) {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: Row(children: [
         Icon(
-          Icons.home,
+          icons,
           color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
         ),
         Visibility(
           replacement: const Text(''),
-          visible: controller.isCliked.value || controller.isHover.value,
-          child: Expanded(
-            child: Text(
-              'Home',
-              style: TextStyle(
-                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                  fontFamily: jostFontFamily),
-            ),
-          ),
-        ),
-      ]),
-    );
-  }
-
-  Widget secondDrawerChid(BuildContext context) {
-    return MaterialButton(
-      onPressed: () {
-        showSettingsDialog(context);
-      },
-      child: Row(children: [
-        Icon(Icons.settings,
-            color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
-        Visibility(
-          replacement: const Text(''),
-          visible: controller.isCliked.value || controller.isHover.value,
-          child: Expanded(
-            child: Text(
-              'Settings',
-              style: TextStyle(
-                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                  fontFamily: jostFontFamily),
+          visible: controller.checkIfTextVisible(),
+          child: Flexible(
+            fit: FlexFit.tight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: AutoSizeText(
+                title.tr,
+                maxLines: 1,
+                style: TextStyle(
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                    fontFamily: jostFontFamily),
+              ),
             ),
           ),
         ),
@@ -185,11 +185,11 @@ class SlideDrawer extends StatelessWidget {
 }
 
 class SlideDrawerController extends GetxController {
-  RxBool isCliked = true.obs;
+  RxBool isClicked = true.obs;
   RxBool isHover = false.obs;
   Function(bool)? changeDrawerState() {
-    isCliked.value = !isCliked.value;
-    return isCliked;
+    isClicked.value = !isClicked.value;
+    return isClicked;
   }
 
   Function(bool)? changeDrawerStateWhenHover() {
@@ -198,12 +198,16 @@ class SlideDrawerController extends GetxController {
   }
 
   double setWidth(double smallWidth, double bigWidth) {
-    return isCliked.value && isHover.value
+    return isClicked.value && isHover.value
         ? bigWidth
-        : !isCliked.value && isHover.value
+        : !isClicked.value && isHover.value
             ? bigWidth
-            : isCliked.value && !isHover.value
+            : isClicked.value && !isHover.value
                 ? bigWidth
                 : smallWidth;
+  }
+
+  bool checkIfTextVisible() {
+    return isClicked.value || isHover.value;
   }
 }

@@ -81,8 +81,8 @@ class Themes {
           backGroundDarkColor, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
       onPrimary:
           skinColorWhite!, //control the color of the title on the appBar.
-      secondary: Colors.deepPurpleAccent,
-      onSecondary: Colors.redAccent,
+      secondary: darkPrimaryColor,
+      onSecondary: skinColorWhite!,
       primaryContainer: Colors.blueGrey,
       error: Colors.black,
       onError: Colors.black,
@@ -162,8 +162,8 @@ class Themes {
           skinColorWhite!, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
       onPrimary:
           skinColorWhite!, //control the color of the title on the appBar.
-      secondary: Colors.deepPurpleAccent,
-      onSecondary: Colors.redAccent,
+      secondary: primaryColor,
+      onSecondary: backGroundDarkColor,
       primaryContainer: Colors.blueGrey,
       error: Colors.black,
       onError: Colors.black,
