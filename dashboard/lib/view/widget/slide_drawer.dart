@@ -88,23 +88,25 @@ class SlideDrawer extends StatelessWidget {
   Widget drawerChildren(BuildContext context, Sizes size) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Column(children: [
-        SizedBox(height: Get.size.height * .02),
-        mainDrawerChid(context),
-        const Divider(),
-        SizedBox(height: Get.size.height * .02),
-        drawerChid(context, Icons.home, 'Home', () {
-          Get.offNamed('/Home');
-        }),
-        SizedBox(height: Get.size.height * .02),
-        drawerChid(context, Icons.groups_3, 'Workers', () {
-          Get.offNamed('/WorkerManagementPage');
-        }),
-        SizedBox(height: Get.size.height * .02),
-        drawerChid(context, Icons.settings, 'Settings', () {
-          showSettingsDialog(context);
-        }),
-      ]),
+      child: SingleChildScrollView(
+        child: Column(children: [
+          SizedBox(height: Get.size.height * .02),
+          mainDrawerChid(context),
+          const Divider(),
+          SizedBox(height: Get.size.height * .02),
+          drawerChid(context, Icons.home, 'Home', () {
+            Get.offNamed('/Home');
+          }),
+          SizedBox(height: Get.size.height * .02),
+          drawerChid(context, Icons.groups_3, 'Workers', () {
+            Get.offNamed('/WorkerManagementPage');
+          }),
+          SizedBox(height: Get.size.height * .02),
+          drawerChid(context, Icons.settings, 'Settings', () {
+            showSettingsDialog(context);
+          }),
+        ]),
+      ),
     );
   }
 
