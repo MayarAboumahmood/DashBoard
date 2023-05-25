@@ -86,7 +86,7 @@ class Setting extends StatelessWidget {
             SizedBox(
               width: context.widthInches > 5 ? 10 : 7,
             ),
-            Text('contact us',
+            Text('contact us'.tr,
                 style: TextStyle(
                   fontFamily: jostFontFamily,
                   color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
@@ -248,6 +248,10 @@ class Setting extends StatelessWidget {
               return GestureDetector(
                   onTap: () {
                     themeController.changeTheme();
+                    Get.back();
+                    Future.delayed(const Duration(milliseconds: 10), () {
+                      Get.offAllNamed('/Home');
+                    });
                   },
                   child: iconBox(
                       Icon(
