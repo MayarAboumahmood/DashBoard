@@ -2,8 +2,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sized_context/sized_context.dart';
-
 import '../../constant/font.dart';
 import '../../constant/sizes.dart';
 import '../../constant/theme.dart';
