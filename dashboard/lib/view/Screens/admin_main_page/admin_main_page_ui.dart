@@ -1,4 +1,5 @@
 import 'package:dashboard/constant/font.dart';
+import 'package:dashboard/view/Screens/search/search_bar.dart';
 import 'package:dashboard/view/Screens/setting/setting_page.dart';
 import 'package:dashboard/view/widget/costum_text_field.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,13 @@ class Home extends StatelessWidget {
       // backgroundColor: Get.isDarkMode?backGroundDarkColor:skinColorWhite,
       appBar: createAppBar(size, context, getDeviceType),
       body: Row(
+        crossAxisAlignment:  CrossAxisAlignment.start,
         children: [
           SlideDrawer(),
           //  SizedBox(width: Get.size.width * .04),
           Flexible(
             child: Wrap(
+              
               runAlignment: WrapAlignment.end,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: wrapElementList(size),
@@ -49,22 +52,26 @@ Widget searchField(
       height: Get.size.height * .01,
       width: Get.size.width * .2,
       child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: CostumTextField(
-            labelStyle: TextStyle(
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-            widthOnTheScreen: size.textFieldWidth,
-            onsaved: (value) {},
-            hint: 'Search'.tr,
-            hintStyle: TextStyle(
-                fontFamily: jostFontFamily,
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-            prefixIcon: const Icon(
-              Icons.search,
-              // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-            ),
-            sucer: false,
-          )),
+        padding: const EdgeInsets.all(12.0),
+        child: CostumTextField(
+          labelStyle: TextStyle(
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          widthOnTheScreen: size.textFieldWidth,
+          onTap: () {
+            showSearch(
+                context: context, delegate: SearchBarForAllElements());
+          },
+          hint: 'Search'.tr,
+          hintStyle: TextStyle(
+              fontFamily: jostFontFamily,
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          prefixIcon: const Icon(
+            Icons.search,
+            // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+          ),
+          sucer: false,
+        ),
+      ),
     ),
   );
 }
@@ -149,7 +156,7 @@ void showSettingsDialog(BuildContext context) {
 AppBar createAppBar(
     Sizes size, BuildContext context, GetDeviceType getDeviceType) {
   return AppBar(
-    actions: [
+     actions: [
       searchField(size, getDeviceType, context),
       SizedBox(
         width: Get.size.width * .01,
