@@ -27,4 +27,9 @@ const Map<String, String> ar = {
   'contact us': 'تواصل معنا',
   'Worker management': 'ادارة العمال',
   'Add worker': 'اضف عامل',
+  'Add new worker': 'اضف عامل جديد',
+  'name': 'الاسم',
+  'age': 'العمر',
+  'information': 'المعلمومات',
+  'Enter new worker information': 'قم بادخال معلومات العامل الجديد',
 };

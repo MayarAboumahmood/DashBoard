@@ -26,4 +26,9 @@ const Map<String, String> en = {
   'contact us': 'contact us',
   'Worker management': 'Worker management',
   'Add worker': 'Add worker',
+  'Add new worker': 'Add new worker',
+  'name': 'name',
+  'age': 'age',
+  'information': 'information',
+  'Enter new worker information': 'Enter new worker information',
 };

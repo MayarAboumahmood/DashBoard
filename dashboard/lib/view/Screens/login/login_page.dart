@@ -124,7 +124,6 @@ class LoginPage extends StatelessWidget {
             icon: controller.passwordSecure.value
                 ? const Icon(
                     Icons.visibility_off,
-                    // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
                   )
                 : Icon(Icons.visibility,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
@@ -205,7 +204,7 @@ class LoginPage extends StatelessWidget {
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {
-        Get.toNamed("/Home");
+        Get.offNamed("/Home");
         controller.onpresslogin();
       },
       mywidth: size.normalButtonWidht,

@@ -9,12 +9,14 @@ import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/costum_text_field.dart';
 import '../../widget/hoverButton.dart';
+import 'add_worker_controller.dart';
 
 class AddWorker extends StatelessWidget {
   const AddWorker({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AddWorkerController controller = Get.find();
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,
@@ -31,85 +33,39 @@ class AddWorker extends StatelessWidget {
             ),
             dividerWithWord(
               'Enter new worker information'.tr,
-              // icon: Icon(
-              //   Icons.language,
-              //   color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-              // ),
+              icon: Icon(
+                Icons.person,
+                color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+              ),
             ),
-            SizedBox(
-              height: Get.size.height * .01,
-              width: Get.size.width * .2,
-              child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: CostumTextField(
-                    labelStyle: TextStyle(
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor),
-                    widthOnTheScreen: size.textFieldWidth,
-                    onsaved: (value) {},
-                    hint: 'name'.tr,
-                    hintStyle: TextStyle(
-                        fontFamily: jostFontFamily,
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-                    ),
-                    sucer: false,
-                  )),
+            const SizedBox(height: 40),
+            workerInfoTextFeild(size, Icons.person, 'name'),
+            workerInfoTextFeild(size, Icons.person, 'age'),
+            workerInfoTextFeild(size, Icons.info, 'information'),
+            ElevatedButton(
+              onPressed: controller.pickImage,
+              child: Text(
+                'Select Image for worker'.tr,
+                style: TextStyle(
+                    fontFamily: jostFontFamily,
+                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
+              ),
             ),
-            SizedBox(
-              height: Get.size.height * .01,
-              width: Get.size.width * .2,
-              child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: CostumTextField(
-                    labelStyle: TextStyle(
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor),
-                    widthOnTheScreen: size.textFieldWidth,
-                    onsaved: (value) {},
-                    hint: 'age'.tr,
-                    hintStyle: TextStyle(
-                        fontFamily: jostFontFamily,
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-                    ),
-                    sucer: false,
-                  )),
-            ),
-            SizedBox(
-              height: Get.size.height * .01,
-              width: Get.size.width * .2,
-              child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: CostumTextField(
-                    labelStyle: TextStyle(
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor),
-                    widthOnTheScreen: size.textFieldWidth,
-                    onsaved: (value) {},
-                    hint: 'detials'.tr,
-                    hintStyle: TextStyle(
-                        fontFamily: jostFontFamily,
-                        color: Get.isDarkMode
-                            ? skinColorWhite
-                            : backGroundDarkColor),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-                    ),
-                    sucer: false,
-                  )),
+            const SizedBox(height: 20),
+            if (controller.selectedImage != null)
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(controller.selectedImage!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            const SizedBox(
+              height: 30,
             ),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
@@ -135,6 +91,27 @@ class AddWorker extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget workerInfoTextFeild(Sizes size, IconData icon, String hintText) {
+    return Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: CostumTextField(
+          label: hintText,
+          labelStyle: TextStyle(
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          widthOnTheScreen: size.textFieldWidth,
+          onsaved: (value) {},
+          hint: hintText.tr,
+          hintStyle: TextStyle(
+              fontFamily: jostFontFamily,
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          prefixIcon: Icon(
+            icon,
+            color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+          ),
+          sucer: false,
+        ));
   }
 
   Widget dividerWithWord(String word, {Icon? icon}) {

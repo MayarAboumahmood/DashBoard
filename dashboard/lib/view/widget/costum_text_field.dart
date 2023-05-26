@@ -42,50 +42,56 @@ class CostumTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widthOnTheScreen,
-      child: TextFormField(
-        cursorColor: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-        style: TextStyle(
-            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-            fontFamily: jostFontFamily),
-        obscureText: sucer ?? true,
-        validator: validat,
-        controller: controller,
-        onSaved: onsaved,
-        onTap: onTap,
-        keyboardType: inputtype,
-        decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: SizedBox(
+        width: widthOnTheScreen,
+        child: TextFormField(
+          cursorColor: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+          style: TextStyle(
+              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+              fontFamily: jostFontFamily),
+          obscureText: sucer ?? true,
+          validator: validat,
+          controller: controller,
+          onSaved: onsaved,
+          onTap: onTap,
+          keyboardType: inputtype,
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color:
+                          !Get.isDarkMode ? darkPrimaryColor : primaryColor)),
+              disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      style: BorderStyle.solid,
+                      color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
+              hintText: hint,
+              hintMaxLines: 1,
+              hintStyle: hintStyle,
+              helperMaxLines: 1,
+              errorMaxLines: 1,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                      reduis == null ? 5 : reduis as double)),
+              label: label != null
+                  ? Text(
+                      label!,
+                      style: labelStyle,
+                    )
+                  : null,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              prefixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+              suffixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+              focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: !Get.isDarkMode ? darkPrimaryColor : primaryColor)),
-            disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    style: BorderStyle.solid,
-                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
-            hintText: hint,
-            hintStyle: hintStyle,
-            border: OutlineInputBorder(
+                    color: !Get.isDarkMode ? darkPrimaryColor : primaryColor),
                 borderRadius: BorderRadius.circular(
-                    reduis == null ? 5 : reduis as double)),
-            label: label != null
-                ? Text(
-                    label!,
-                    style: labelStyle,
-                  )
-                : null,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            prefixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-            suffixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: !Get.isDarkMode ? darkPrimaryColor : primaryColor),
-              borderRadius:
-                  BorderRadius.circular(reduis == null ? 5 : reduis as double),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * .07)),
+                    reduis == null ? 5 : reduis as double),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10)),
+        ),
       ),
     );
   }

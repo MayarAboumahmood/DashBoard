@@ -57,7 +57,7 @@ class SlideDrawer extends StatelessWidget {
                   controller.changeDrawerState();
                 },
                 child: Container(
-                  height: Get.size.height * .04,
+                  height: 25,
                   decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
