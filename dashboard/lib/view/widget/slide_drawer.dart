@@ -95,6 +95,10 @@ class SlideDrawer extends StatelessWidget {
             Get.offNamed('/Home');
           }),
           SizedBox(height: Get.size.height * .02),
+          drawerChid(context, Icons.admin_panel_settings, 'Admins', () {
+            Get.offNamed('/AdminManagementPage');
+          }),
+          SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.groups_3, 'Workers', () {
             Get.offNamed('/WorkerManagementPage');
           }),

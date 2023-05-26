@@ -1,8 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
-import 'package:dashboard/view/Screens/search/search_bar.dart';
-import 'package:dashboard/view/Screens/setting/setting_page.dart';
-import 'package:dashboard/view/widget/costum_text_field.dart';
+import 'package:dashboard/view/widget/general_appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constant/sizes.dart';
@@ -17,7 +15,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
-      appBar: createAppBar(size, context, getDeviceType),
+      appBar: createAppBar(size, context, getDeviceType,'Dash Board'),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,44 +33,6 @@ class Home extends StatelessWidget {
   }
 }
 
-Widget searchField(
-    Sizes size, GetDeviceType getDeviceType, BuildContext context) {
-  return Visibility(
-    visible: getDeviceType.getDevicetype(context) == 'computer' ? true : false,
-    replacement: IconButton(
-      icon: Icon(
-        Icons.search,
-        color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-      ),
-      onPressed: () {}, //take us to the search page.
-    ),
-    child: SizedBox(
-      height: Get.size.height * .01,
-      width: Get.size.width * .2,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: CostumTextField(
-          labelStyle: TextStyle(
-              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-          widthOnTheScreen: size.textFieldWidth,
-          onTap: () {
-            showSearch(
-                context: context, delegate: SearchBarForAllElements());
-          },
-          hint: 'Search'.tr,
-          hintStyle: TextStyle(
-              fontFamily: jostFontFamily,
-              color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-          prefixIcon: const Icon(
-            Icons.search,
-            // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-          ),
-          sucer: false,
-        ),
-      ),
-    ),
-  );
-}
 
 List<Widget> wrapElementList(Sizes size) {
   return List.generate(
@@ -149,51 +109,6 @@ Widget wrapElement(Sizes size, String title, String details, String imagePath) {
           ),
         ),
       ],
-    ),
-  );
-}
-
-void showSettingsDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Dialog(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Setting(),
-      );
-    },
-  );
-}
-
-AppBar createAppBar(
-    Sizes size, BuildContext context, GetDeviceType getDeviceType) {
-  return AppBar(
-     actions: [
-      searchField(size, getDeviceType, context),
-      SizedBox(
-        width: Get.size.width * .01,
-      ),
-      IconButton(
-        onPressed: () {
-          showSettingsDialog(
-            context,
-          );
-        },
-        icon: const Icon(
-          Icons.settings,
-        ),
-      ),
-    ],
-    title: Text(
-      'Dash Board'.tr,
-
-      /// nees to add for translate
-      style: TextStyle(
-          // color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-          fontSize: size.appBarTextSize / 2,
-          fontFamily: jostFontFamily,
-          fontWeight: FontWeight.w100),
     ),
   );
 }

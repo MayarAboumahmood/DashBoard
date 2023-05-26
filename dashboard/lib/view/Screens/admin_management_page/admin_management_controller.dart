@@ -1,20 +1,20 @@
+import 'package:dashboard/constant/font.dart';
+import 'package:dashboard/constant/sizes.dart';
 import 'package:dashboard/view/widget/general_card.dart';
 import 'package:dashboard/view/widget/slide_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../../../constant/font.dart';
-import '../../../constant/sizes.dart';
 import '../../widget/general_appBar.dart';
-import '../add_worker/add_worker.dart';
+import 'admin_management_page.dart';
 
-// ignore: must_be_immutable
-class WorkerManagementPage extends StatelessWidget {
-  WorkerManagementPage({super.key});
+class AdminManagementPage extends StatelessWidget {
+   AdminManagementPage({super.key});
+final controller=Get.find<AdminManagementController>();
   @override
   Widget build(BuildContext context) {
-    Sizes size = Sizes(context);
+      Sizes size = Sizes(context);
     List<Widget> workerList = [
       generalCard(
           context,
@@ -34,15 +34,15 @@ class WorkerManagementPage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            showAddWorkerDialog(context);
+         //   showAddWorkerDialog(context);
           },
           label: Text(
-            'Add worker'.tr,
+            'Add admin'.tr,
             style: TextStyle(
               fontFamily: jostFontFamily,
             ),
           )),
-      appBar: createAppBar(size, context, getDeviceType,'Worker management'),///add for translate 
+      appBar: createAppBar(size, context, getDeviceType,'Admins management'),
       body: Row(children: [
         SlideDrawer(),
         Flexible(
@@ -65,22 +65,6 @@ class WorkerManagementPage extends StatelessWidget {
               }),
         )
       ]),
-    );
-  }
-
- 
- 
-  void showAddWorkerDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddWorker(),
-        );
-      },
     );
   }
 }

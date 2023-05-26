@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/Screens/add_admin/add_admin_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,13 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/hoverButton.dart';
-import 'add_worker_controller.dart';
 
-class AddWorker extends StatelessWidget {
-  const AddWorker({super.key});
+class AddAdmin extends StatelessWidget {
+  const AddAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AddWorkerController controller = Get.find();
+    AddAdminController controller = Get.find();
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,
@@ -33,7 +33,7 @@ class AddWorker extends StatelessWidget {
                   : Get.size.height * .01,
             ),
             dividerWithWord(
-              'Enter new worker information'.tr,
+              'Enter new admin information'.tr,// add to translate
               icon: Icon(
                 Icons.person,
                 color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
@@ -46,7 +46,7 @@ class AddWorker extends StatelessWidget {
             ElevatedButton(
               onPressed: controller.pickImage,
               child: Text(
-                'Select Image for worker'.tr,
+                'Select Image for admin'.tr,// add to translate
                 style: TextStyle(
                     fontFamily: jostFontFamily,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
@@ -95,7 +95,7 @@ class AddWorker extends StatelessWidget {
   }
 
   
-  
+ 
   Row createAppBar(Sizes size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +106,7 @@ class AddWorker extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new worker'.tr,
+          child: Text('Add new admin'.tr,// add to translate
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,

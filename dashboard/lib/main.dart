@@ -1,5 +1,6 @@
 import 'package:dashboard/route.dart';
 import 'package:dashboard/view/Screens/landing/landing.dart';
+import 'package:dashboard/view/Screens/setting/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LanguageController languageController = Get.put(LanguageController());
+   
     return GetMaterialApp(
         scrollBehavior: AppScrollBehavior(),
         locale: languageController.initialLanguage,
