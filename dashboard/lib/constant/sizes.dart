@@ -32,7 +32,9 @@ class Sizes {
 
   late double bigButtonHeight; //done but not on the mobile.
   late double bigButtonWidht; //done but not on the mobile.
-//the last update with majd.
+
+  late double smallEventCardHeight;
+  late double smallEventCardWidth;
 
   late double bigButtonTextSize;
   late double normalButtonTextSize;
@@ -67,6 +69,9 @@ class Sizes {
   }
   void setSizesForMobile() {
     //need a check.
+    smallEventCardHeight = height * .1;
+    smallEventCardWidth = width * .3;
+
     print('set size for mobile');
     appBarTextFieldWidth =
         width * .8; //it's just an icon here so we not going to use it.
@@ -99,12 +104,15 @@ class Sizes {
 
   void setSizesForComputer() {
     print('set size for computer');
+
+    smallEventCardHeight = 130;
+    smallEventCardWidth = 220;
     appBarTextFieldWidth = 300;
     wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
     wideNormalButtonTextSize = 20;
     cardButtonTextSize = width < height ? height * .02 : width * .012;
     normalButtonInsidePaddin = width * .03;
-    textFieldWidth = width * .35;
+    textFieldWidth = 325;
     bigButtonTextSize = context.widthInches > 12 ? 28 : 25;
     normalButtonTextSize = context.widthInches > 12 ? 18 : 17;
     textFieldTextSize = height * .04;
@@ -138,8 +146,10 @@ class Sizes {
   }
 
   void setSizesForTablet() {
+    smallEventCardHeight = 130;
+    smallEventCardWidth = 220;
     print('set size for tablet');
-appBarTextFieldWidth=50;
+    appBarTextFieldWidth = 50;
     wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
     wideNormalButtonTextSize = 20;
     cardButtonTextSize = width < height
@@ -151,7 +161,7 @@ appBarTextFieldWidth=50;
     normalButtonInsidePaddin = width * .02;
     normalButtonTextSize = context.widthInches > 7 ? 16 : 14;
     textFieldTextSize = width * .1;
-    textFieldWidth = context.widthInches > 7 ? width * .38 : width * .5;
+    textFieldWidth = 325; //context.widthInches > 7 ? width * .38 : width * .5;
     appBarIconSize = context.widthInches > 7
         ? width * .05
         : context.widthInches > 5

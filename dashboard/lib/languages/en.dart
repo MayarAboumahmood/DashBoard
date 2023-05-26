@@ -5,6 +5,7 @@ const Map<String, String> en = {
   'Login': 'Login',
   'Done': 'Done',
   'Setting': 'Setting',
+  'Settings': 'Settings',
   'the password can\'t be smaller than 4 character':
       'the password can\'t be smaller than 4 character',
   'The email is not valid': 'The email is not valid',
@@ -13,7 +14,21 @@ const Map<String, String> en = {
   'change the theme': 'change the theme',
   'more setting': 'more setting',
   'enter your email': 'enter your email',
-  'Incorrect email or password':'Incorrect email or password',
-  'Try entering your data again':'Try entering your data again' 
-
+  'Incorrect email or password': 'Incorrect email or password',
+  'Try entering your data again': 'Try entering your data again',
+  'Home': 'Home',
+  'Dar abdullah': 'Dar abdullah',
+  'Dash Board': 'Dash Board',
+  'Search': 'Search',
+  'Statistics': 'Statistics',
+  'Workers': 'Workers',
+  'Events': 'Events',
+  'contact us': 'contact us',
+  'Worker management': 'Worker management',
+  'Add worker': 'Add worker',
+  'Add new worker': 'Add new worker',
+  'name': 'name',
+  'age': 'age',
+  'information': 'information',
+  'Enter new worker information': 'Enter new worker information',
 };

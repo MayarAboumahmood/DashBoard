@@ -83,7 +83,7 @@ class Landing extends StatelessWidget {
                   myheight: size.normalButtonHeight,
                   mycolor: primaryColor,
                   ontap: () {
-                    Get.toNamed('/LoginPage');
+                    Get.offNamed('/LoginPage');
                   },
                   child: Text(
                     'Continue',

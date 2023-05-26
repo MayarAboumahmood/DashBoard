@@ -5,6 +5,7 @@ const Map<String, String> ar = {
   'Login': 'تسجيل الدخول',
   'Done': 'تم',
   'Setting': 'الاعدادات',
+  'Settings': 'الاعدادات',
   'the password can\'t be smaller than 4 character':
       'كلمة السر يجب ان تكون اطول من 4 احرف',
   'The email is not valid': 'البريد الالكتروني غير فعال',
@@ -14,7 +15,21 @@ const Map<String, String> ar = {
   'change the theme': 'غير النمط',
   'more setting': 'المزيد من الاعدادات',
   'enter your email': 'ادخل البريد الالكتروني',
-  'Incorrect email or password':'خطأ في البريد الاكتروني أو كلمة المرور ',
-  'Try entering your data again':'أعد ادخال معلوماتك '
-
+  'Incorrect email or password': 'خطأ في البريد الاكتروني أو كلمة المرور ',
+  'Try entering your data again': 'أعد ادخال معلوماتك ',
+  'Home': 'الصفحة الرئيسية',
+  'Dar abdullah': 'دار عبدلله',
+  'Dash Board': 'لوحة التحكم',
+  'Search': 'بحث',
+  'Statistics': 'الاحصائيات',
+  'Workers': 'العمال',
+  'Events': 'الحفلات',
+  'contact us': 'تواصل معنا',
+  'Worker management': 'ادارة العمال',
+  'Add worker': 'اضف عامل',
+  'Add new worker': 'اضف عامل جديد',
+  'name': 'الاسم',
+  'age': 'العمر',
+  'information': 'المعلمومات',
+  'Enter new worker information': 'قم بادخال معلومات العامل الجديد',
 };

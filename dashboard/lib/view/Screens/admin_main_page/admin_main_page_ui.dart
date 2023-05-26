@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/view/Screens/search/search_bar.dart';
 import 'package:dashboard/view/Screens/setting/setting_page.dart';
@@ -16,18 +17,15 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
-      // backgroundColor: Get.isDarkMode?backGroundDarkColor:skinColorWhite,
       appBar: createAppBar(size, context, getDeviceType),
       body: Row(
-        crossAxisAlignment:  CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SlideDrawer(),
-          //  SizedBox(width: Get.size.width * .04),
           Flexible(
             child: Wrap(
               
               runAlignment: WrapAlignment.end,
-              crossAxisAlignment: WrapCrossAlignment.center,
               children: wrapElementList(size),
             ),
           ),
@@ -86,17 +84,20 @@ List<Widget> wrapElementList(Sizes size) {
 Widget buildElement(int index, Sizes size) {
   switch (index) {
     case 0:
-      return wrapElement(size, 'Events ', 'assets/images/Warrenty.png');
+      return wrapElement(size, 'Events'.tr, 'the event is very good',
+          'assets/images/Warrenty.png');
     case 1:
-      return wrapElement(size, 'Workers', 'assets/images/Warrenty.png');
+      return wrapElement(size, 'Workers'.tr, 'the workers is very good',
+          'assets/images/Warrenty.png');
     case 2:
-      return wrapElement(size, 'Statistics', 'assets/images/Warrenty.png');
+      return wrapElement(size, 'Statistics'.tr, 'the Statistics is very good',
+          'assets/images/Warrenty.png');
     default:
-      return SizedBox();
+      return const SizedBox();
   }
 }
 
-Widget wrapElement(Sizes size, String text, String imagePath) {
+Widget wrapElement(Sizes size, String title, String details, String imagePath) {
   return SizedBox(
     height: size.bigButtonHeight + 10,
     width: size.bigButtonWidht + 10,
@@ -119,20 +120,32 @@ Widget wrapElement(Sizes size, String text, String imagePath) {
           height: size.bigButtonHeight,
           width: size.bigButtonWidht,
           decoration: BoxDecoration(
-              color: Get.isDarkMode
-                  ? skinColorWhite!.withOpacity(0.3)
-                  : backGroundDarkColor.withOpacity(0.3),
+              color: backGroundDarkColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(size.buttonRadius)),
         ),
         Positioned(
           top: 10,
           left: 20,
-          child: Text(
-            text,
-            style: TextStyle(
-                fontFamily: jostFontFamily,
-                fontSize: size.bigButtonTextSize,
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          child: Column(
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                    fontFamily: jostFontFamily,
+                    fontSize: size.bigButtonTextSize,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+              ),
+              AutoSizeText(
+                details,
+                maxLines: 4,
+                style: TextStyle(
+                    fontFamily: jostFontFamily,
+                    fontSize: size.normalButtonTextSize,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+              ),
+            ],
           ),
         ),
       ],
