@@ -32,4 +32,9 @@ const Map<String, String> ar = {
   'age': 'العمر',
   'information': 'المعلمومات',
   'Enter new worker information': 'قم بادخال معلومات العامل الجديد',
+  'events':'الحفلات',
+  'Add new event':'اضف حفلة جديدة',
+  'Admins management':'ادارة المسؤوليين',
+  'Add admin':'اضافة مسؤول',
+  'Admins':'المسؤوليين',
 };

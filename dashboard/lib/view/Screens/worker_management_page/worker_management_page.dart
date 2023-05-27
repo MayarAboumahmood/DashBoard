@@ -1,4 +1,3 @@
-import 'package:dashboard/view/widget/general_card.dart';
 import 'package:dashboard/view/widget/slide_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:sized_context/sized_context.dart';
 
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
+import '../../widget/admin_worker_card.dart';
 import '../../widget/general_appBar.dart';
 import '../add_worker/add_worker.dart';
 
@@ -16,18 +16,18 @@ class WorkerManagementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     List<Widget> workerList = [
-      generalCard(
+      adminWorkerCard(
           context,
           size,
           'assets/images/The project icon.jpg',
           'one',
           'one work at the house sense 27/7/2022  and I never nothic any problem with him.',
           0),
-      generalCard(context, size, 'assets/images/The project icon.jpg', 'two',
+      adminWorkerCard(context, size, 'assets/images/The project icon.jpg', 'two',
           'two is the stubid persone ever in the world', 1),
-      generalCard(context, size, 'assets/images/The project icon.jpg', 'Sham',
+      adminWorkerCard(context, size, 'assets/images/The project icon.jpg', 'Sham',
           'workerDetails', 2),
-      generalCard(context, size, 'assets/images/The project icon.jpg', 'Mari',
+      adminWorkerCard(context, size, 'assets/images/The project icon.jpg', 'Mari',
           'workerDetails', 3),
     ];
     GetDeviceType getDeviceType = GetDeviceType();

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
@@ -40,11 +42,13 @@ class AddWorker extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            generalInputTextFeild(size, Icons.person, 'name',(value){}),
-            generalInputTextFeild(size, Icons.person, 'age',(value){}),
-            generalInputTextFeild(size, Icons.info, 'information',(value){}),
+            generalInputTextFeild(size, Icons.person, 'name', (value) {}),
+            generalInputTextFeild(size, Icons.person, 'age', (value) {}),
+            generalInputTextFeild(size, Icons.info, 'information', (value) {}),
             ElevatedButton(
-              onPressed: controller.pickImage,
+              onPressed: () {
+                controller.pickImage();
+              },
               child: Text(
                 'Select Image for worker'.tr,
                 style: TextStyle(
@@ -53,20 +57,24 @@ class AddWorker extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            if (controller.selectedImage != null)
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: FileImage(controller.selectedImage!),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+            Obx(
+              () => controller.webImageExcist.value
+                  ? SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: GetPlatform.isWeb
+                          ? Image.memory(
+                              controller.webImage,
+                              fit: BoxFit.contain,
+                            )
+                          : Image.file(
+                              File(controller.selectedImage.value),
+                              fit: BoxFit.contain,
+                            ))
+                  : const SizedBox(),
+            ),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
@@ -94,8 +102,6 @@ class AddWorker extends StatelessWidget {
     );
   }
 
-  
-  
   Row createAppBar(Sizes size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

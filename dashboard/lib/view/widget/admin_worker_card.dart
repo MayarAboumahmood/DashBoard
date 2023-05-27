@@ -8,7 +8,7 @@ import 'package:sized_context/sized_context.dart';
 
 import '../Screens/woker_information_page/worker_information_page.dart';
 
-Widget generalCard(BuildContext context, Sizes size, String workerImage,
+Widget adminWorkerCard(BuildContext context, Sizes size, String workerImage,
       String workerName, String workerDetails, int id) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),

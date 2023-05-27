@@ -31,4 +31,9 @@ const Map<String, String> en = {
   'age': 'age',
   'information': 'information',
   'Enter new worker information': 'Enter new worker information',
+  'events':'events',
+  'Add new Event':'Add new Event',
+  'Admins management':'Admins management',
+  'Add admin':'Add admin',
+  'Admins':'Admins',
 };

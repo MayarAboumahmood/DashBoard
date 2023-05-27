@@ -24,5 +24,5 @@ Widget generalInputTextFeild(Sizes size, IconData icon, String hintText,Function
             color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
           ),
           sucer: false,
-        ));
+        ),);
   }

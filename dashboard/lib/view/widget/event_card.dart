@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../constant/font.dart';
 import '../../constant/sizes.dart';
 import '../../constant/theme.dart';
+import '../../main.dart';
 
 // ignore: must_be_immutable
 class EventCard extends StatelessWidget {
@@ -25,7 +26,15 @@ class EventCard extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-            left: 8,
+            left: sharedPreferences!.getString('lang') == 'en'
+                  ?8
+                  : sharedPreferences!.getString('lang') == 'ar'
+                      ? null
+                      : 8,
+              right: sharedPreferences!.getString('lang') == 'ar'
+                  ? 8
+                  : null,
+              
             child: Container(
                 height: size.smallEventCardHeight,
                 width: size.smallEventCardWidth,
@@ -51,7 +60,16 @@ class EventCard extends StatelessWidget {
         ),
         Positioned(
           top: 10,
-          left: 20,
+          
+            left: sharedPreferences!.getString('lang') == 'en'
+                  ?20
+                  : sharedPreferences!.getString('lang') == 'ar'
+                      ? null
+                      : 20,
+              right: sharedPreferences!.getString('lang') == 'ar'
+                  ? 20
+                  : null,
+              
           child: Column(
             children: [
               Text(
@@ -60,7 +78,7 @@ class EventCard extends StatelessWidget {
                     fontFamily: jostFontFamily,
                     fontSize: size.bigButtonTextSize,
                     color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+                         skinColorWhite  ),
               ),
               AutoSizeText(
                 date,
@@ -69,7 +87,7 @@ class EventCard extends StatelessWidget {
                     fontFamily: jostFontFamily,
                     fontSize: size.normalButtonTextSize,
                     color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+                         skinColorWhite ),
               ),
             ],
           ),

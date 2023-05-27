@@ -103,8 +103,13 @@ class SlideDrawer extends StatelessWidget {
             Get.offNamed('/WorkerManagementPage');
           }),
           SizedBox(height: Get.size.height * .02),
+          drawerChid(context, Icons.library_music_rounded , 'Events', () {
+            Get.offNamed('/EventPage');
+          }),
+          SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.settings, 'Settings', () {
             showSettingsDialog(context);
+          
           }),
         ]),
       ),

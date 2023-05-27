@@ -7,6 +7,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../widget/event_card.dart';
+import '../../widget/general_text_style.dart';
 
 // ignore: must_be_immutable
 class WorkerInfoPage extends StatelessWidget {
@@ -56,20 +57,34 @@ class WorkerInfoPage extends StatelessWidget {
             setWorkerName(),
           ],
         ),
-        //to do add age gender and how much he/she make in the day.
+       setWorkerDetailes(),
+        const SizedBox(
+          height: 30,
+        ),
         setListOfEvents(
             context), //when the admin click on the event card it should open as a dyalog adn appear what did the user do in the event.
       ]),
     );
   }
-
+Widget setWorkerDetailes(){
+  return  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('age: /*{worker[id].age}*/', style: generalTextStyle(30)),
+            Text('gender: /*{worker[id].gender}*/',
+                style: generalTextStyle(30)),
+            Text('salery: /*{worker[id].salery}*/',
+                style: generalTextStyle(30)),
+          ],
+        );
+}
   Widget setWorkerName() {
     return Text(
       'worker name' /*eventList.getWorker(worker.id).name */,
       style: TextStyle(
           fontFamily: jostFontFamily,
           fontSize: 40,
-          color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
     );
   }
 
@@ -92,21 +107,22 @@ class WorkerInfoPage extends StatelessWidget {
     );
   }
 
-  Widget setListOfEvents(BuildContext context) {
+ Widget setListOfEvents(BuildContext context) {
     return Flexible(
       fit: FlexFit.tight,
       child: GridView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           itemCount: eventList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: context.widthInches > 11
                 ? 4
                 : context.widthInches > 8.5
                     ? 3
-                    : 2,
+                    : context.widthInches < 7.5
+                        ? 1
+                        : 2,
             childAspectRatio: 1.7,
             crossAxisSpacing: 20.0,
-            mainAxisSpacing: 20.0,
             mainAxisExtent: 200,
           ),
           itemBuilder: (BuildContext context, int index) {
@@ -114,7 +130,6 @@ class WorkerInfoPage extends StatelessWidget {
           }),
     );
   }
-
   AppBar createAppBar(Sizes size, BuildContext context) {
     return AppBar(
       title: Text(
