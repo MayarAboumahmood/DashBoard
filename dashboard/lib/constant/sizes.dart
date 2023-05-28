@@ -113,7 +113,7 @@ class Sizes {
     cardButtonTextSize = width < height ? height * .02 : width * .012;
     normalButtonInsidePaddin = width * .03;
     textFieldWidth = 325;
-    bigButtonTextSize = context.widthInches > 12 ? 28 : 25;
+    bigButtonTextSize = context.widthInches > 12 ? 25 : 22;
     normalButtonTextSize = context.widthInches > 12 ? 18 : 17;
     textFieldTextSize = height * .04;
     appBarIconSize = width < height
@@ -157,7 +157,7 @@ class Sizes {
         : context.widthInches > 7
             ? width * .015
             : width * .016;
-    bigButtonTextSize = context.widthInches > 7 ? 22 : 18;
+    bigButtonTextSize = context.widthInches > 7 ? 20 : 16;
     normalButtonInsidePaddin = width * .02;
     normalButtonTextSize = context.widthInches > 7 ? 16 : 14;
     textFieldTextSize = width * .1;

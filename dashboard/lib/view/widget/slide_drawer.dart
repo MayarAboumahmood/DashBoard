@@ -3,6 +3,7 @@ import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sized_context/sized_context.dart';
 import '../../constant/sizes.dart';
 import '../../constant/theme.dart';
 import '../Screens/setting/setting_page.dart';
@@ -29,9 +30,41 @@ class SlideDrawer extends StatelessWidget {
                 controller.changeDrawerStateWhenHover();
               },
               child: AnimatedContainer(
-                color: Get.isDarkMode
-                    ? backGroundDarkColor.withOpacity(0.2)
-                    : skinColorWhite,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: sharedPreferences!.getString('lang') == 'en'
+                          ? Alignment.bottomRight
+                          : sharedPreferences!.getString('lang') == 'ar'
+                              ? Alignment.bottomLeft
+                              : Alignment.bottomRight,
+                      end: sharedPreferences!.getString('lang') == 'en'
+                          ? Alignment.topLeft
+                          : sharedPreferences!.getString('lang') == 'ar'
+                              ? Alignment.topRight
+                              : Alignment.topLeft,
+                      colors: [
+                        Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                        context.heightInches < 5
+                            ? Get.isDarkMode
+                                ? backGroundDarkColor.withOpacity(0.2)
+                                : skinColorWhite!
+                            : Get.isDarkMode
+                                ? darkPrimaryColor
+                                : primaryColor,
+                        Get.isDarkMode
+                            ? backGroundDarkColor.withOpacity(0.2)
+                            : skinColorWhite!,
+                        Get.isDarkMode
+                            ? backGroundDarkColor.withOpacity(0.2)
+                            : skinColorWhite!,
+                        Get.isDarkMode
+                            ? backGroundDarkColor.withOpacity(0.2)
+                            : skinColorWhite!,
+                      ]),
+                ),
+                // color: Get.isDarkMode
+                //     ? backGroundDarkColor.withOpacity(0.2)
+                //     : skinColorWhite,
                 duration: const Duration(milliseconds: 100),
                 width: controller.setWidth(50, 240),
                 height: Get.size.height,
@@ -103,13 +136,12 @@ class SlideDrawer extends StatelessWidget {
             Get.offNamed('/WorkerManagementPage');
           }),
           SizedBox(height: Get.size.height * .02),
-          drawerChid(context, Icons.library_music_rounded , 'Events', () {
+          drawerChid(context, Icons.library_music_rounded, 'Events', () {
             Get.offNamed('/EventPage');
           }),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.settings, 'Settings', () {
             showSettingsDialog(context);
-          
           }),
         ]),
       ),

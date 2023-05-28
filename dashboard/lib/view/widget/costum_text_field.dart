@@ -60,8 +60,7 @@ class CostumTextField extends StatelessWidget {
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                      color:
-                          !Get.isDarkMode ? darkPrimaryColor : primaryColor)),
+                      color: Get.isDarkMode ? darkPrimaryColor : primaryColor)),
               disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       style: BorderStyle.solid,

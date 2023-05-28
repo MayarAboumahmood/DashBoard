@@ -7,7 +7,9 @@ import '../../widget/event_card.dart';
 import '../../widget/general_appBar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/slide_drawer.dart';
+import '../add_event/add_event_page.dart';
 
+// ignore: must_be_immutable
 class EventPage extends StatelessWidget {
   List<Widget> eventList = [
     EventCard(
@@ -45,7 +47,9 @@ class EventPage extends StatelessWidget {
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {},
+            onPressed: () {
+              showAddEventDialog(context);
+            },
             label: Text(
               'Add new event'.tr,
               style: generalTextStyle(null),
@@ -80,6 +84,20 @@ class EventPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return eventList[index];
           }),
+    );
+  }
+
+  void showAddEventDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: AddEvent(),
+        );
+      },
     );
   }
 }

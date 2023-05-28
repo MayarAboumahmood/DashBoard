@@ -1,4 +1,5 @@
 import 'package:dashboard/constant/font.dart';
+import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 
 //for light mode
@@ -11,8 +12,8 @@ Color? skinColorWhite =
     Colors.brown[50]; // const Color.fromARGB(255, 226, 212, 172); //done
 
 //for the dark mode:
-Color darkPrimaryColor = Colors.teal[900]!;
-Color darkHoverButtonColor = Colors.teal[800]!;
+Color darkPrimaryColor = Colors.red[500]!; //Colors.teal[900]!;
+Color darkHoverButtonColor = Colors.red[600]!; //Colors.teal[800]!;
 Color darkWoodBrownColor = Colors.redAccent[700]!;
 Color backGroundDarkColor = Colors.black87;
 
@@ -89,7 +90,7 @@ class Themes {
       background: Colors
           .black, //darckPrimaryColor //the chatGPT say that it will control the color for all the backgrounds in the app
       onBackground: Colors.brown,
-      surface: Colors.pink,
+      surface: darkPrimaryColor,
       onSurface: Colors.white,
     ),
 
@@ -104,6 +105,13 @@ class Themes {
     listTileTheme: ListTileThemeData(
       iconColor: primaryColor,
     ),
+    datePickerTheme: DatePickerThemeData(
+      yearStyle: generalTextStyle(null),
+      dayStyle: generalTextStyle(null),
+      weekdayStyle: generalTextStyle(null),
+      // style
+    ),
+
     primaryIconTheme: IconThemeData(color: primaryColor),
     buttonTheme: ButtonThemeData(
         colorScheme: ColorScheme(
@@ -170,7 +178,7 @@ class Themes {
       background: Colors
           .black, //primaryColor //the chatGPT say that it will control the color for all the backgrounds in the app
       onBackground: Colors.brown,
-      surface: Colors.pink,
+      surface: primaryColor, //the color of the date picker and stuff.
       onSurface: Colors.white,
     ),
 

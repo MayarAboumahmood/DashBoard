@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/Screens/add_event/add_event_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
+import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -12,14 +14,13 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/hoverButton.dart';
-import 'add_worker_controller.dart';
 
-class AddWorker extends StatelessWidget {
-  const AddWorker({super.key});
-
+// ignore: must_be_immutable
+class AddEvent extends StatelessWidget {
+  AddEvent({super.key});
+  AddEventController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    AddWorkerController controller = Get.find();
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,
@@ -35,31 +36,47 @@ class AddWorker extends StatelessWidget {
                   : Get.size.height * .01,
             ),
             dividerWithWord(
-              'Enter new worker information'.tr,
+              'Enter new event information'.tr,
               icon: Icon(
-                Icons.person,
+                Icons.library_music_rounded,
                 color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               ),
             ),
             const SizedBox(height: 40),
-            generalInputTextFeild(
-                size, Icons.person, 'name', (value) {}, TextInputType.name),
-            generalInputTextFeild(
-                size, Icons.person, 'age', (value) {}, TextInputType.number),
-            generalInputTextFeild(size, Icons.info, 'information', (value) {},
+            generalInputTextFeild(size, Icons.groups_3, 'Event name',
+                (value) {}, TextInputType.name),
+            generalInputTextFeild(size, Icons.person, 'max number of attandend',
+                (value) {}, TextInputType.number),
+            generalInputTextFeild(size, Icons.info, 'description', (value) {},
                 TextInputType.text),
+            GetX<AddEventController>(
+              builder: (controller) => Text(
+                controller.isSelectedDateIsNull.value
+                    ? 'No date selected'
+                    : '${controller.selectedDate!.year}-${controller.selectedDate!.month}-${controller.selectedDate!.day}',
+                style: generalTextStyle(null),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => controller.selectDate(context),
+              child: Text(
+                'Select Date',
+                style: generalTextStyle(null),
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 controller.pickImage();
               },
               child: Text(
-                'Select Image for worker'.tr,
+                'Select the event image'.tr,
                 style: TextStyle(
                     fontFamily: jostFontFamily,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
             Obx(
               () => controller.webImageExcist.value
                   ? SizedBox(
@@ -77,15 +94,12 @@ class AddWorker extends StatelessWidget {
                   : const SizedBox(),
             ),
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               myRadius: size.buttonRadius,
-              ontap: () {
-                // Get.toNamed("/Home");
-                // controller.onpresslogin();
-              },
+              ontap: () {},
               mywidth: size.normalButtonWidht,
               myheight: size.normalButtonHeight,
               myShadow: 0,
@@ -115,7 +129,7 @@ class AddWorker extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new worker'.tr,
+          child: Text('Add new event'.tr,
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,

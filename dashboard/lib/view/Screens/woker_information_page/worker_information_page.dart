@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dashboard/view/widget/general_appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -57,7 +58,7 @@ class WorkerInfoPage extends StatelessWidget {
             setWorkerName(),
           ],
         ),
-       setWorkerDetailes(),
+        setWorkerDetailes(),
         const SizedBox(
           height: 30,
         ),
@@ -66,18 +67,18 @@ class WorkerInfoPage extends StatelessWidget {
       ]),
     );
   }
-Widget setWorkerDetailes(){
-  return  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('age: /*{worker[id].age}*/', style: generalTextStyle(30)),
-            Text('gender: /*{worker[id].gender}*/',
-                style: generalTextStyle(30)),
-            Text('salery: /*{worker[id].salery}*/',
-                style: generalTextStyle(30)),
-          ],
-        );
-}
+
+  Widget setWorkerDetailes() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('age: /*{worker[id].age}*/', style: generalTextStyle(30)),
+        Text('gender: /*{worker[id].gender}*/', style: generalTextStyle(30)),
+        Text('salery: /*{worker[id].salery}*/', style: generalTextStyle(30)),
+      ],
+    );
+  }
+
   Widget setWorkerName() {
     return Text(
       'worker name' /*eventList.getWorker(worker.id).name */,
@@ -107,7 +108,7 @@ Widget setWorkerDetailes(){
     );
   }
 
- Widget setListOfEvents(BuildContext context) {
+  Widget setListOfEvents(BuildContext context) {
     return Flexible(
       fit: FlexFit.tight,
       child: GridView.builder(
@@ -130,15 +131,10 @@ Widget setWorkerDetailes(){
           }),
     );
   }
+
   AppBar createAppBar(Sizes size, BuildContext context) {
     return AppBar(
-      title: Text(
-        /*'${eventList[id].name}*/ 'information',
-        style: TextStyle(
-            fontSize: size.appBarTextSize / 2,
-            fontFamily: jostFontFamily,
-            fontWeight: FontWeight.w100),
-      ),
+      title: /*'${eventList[id].name}*/ AnimationAppBar(title: 'information'),
     );
   }
 }

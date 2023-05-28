@@ -1,9 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddWorkerController extends GetxController {
+class AddEventController extends GetxController {
   RxString selectedImage = ''.obs;
   Uint8List webImage = Uint8List(8);
   RxBool webImageExcist = false.obs;
@@ -31,5 +32,22 @@ class AddWorkerController extends GetxController {
     } else {
       print('something wont wrong!');
     }
+  }
+
+  DateTime? selectedDate;
+  RxBool isSelectedDateIsNull = true.obs;
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(DateTime.now().year + 3),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+    }
+    isSelectedDateIsNull.value = selectedDate == null;
+    update();
   }
 }

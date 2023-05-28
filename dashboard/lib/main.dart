@@ -8,7 +8,6 @@ import 'constant/theme.dart';
 import 'data/service/pref_service.dart';
 import 'general_controllers/general_binding.dart';
 import 'languages/translations.dart';
-import 'view/Screens/setting/theme_binding.dart';
 
 SharedPreferences? sharedPreferences;
 PrefService prefService = PrefService();
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LanguageController languageController = Get.put(LanguageController());
-   
+
     return GetMaterialApp(
         scrollBehavior: AppScrollBehavior(),
         locale: languageController.initialLanguage,
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
         theme: themeValue == "dark"
             ? Themes.customdarktheme
             : Themes.customlighttheme,
-            initialBinding: GeneralBinding(),
+        initialBinding: GeneralBinding(),
         themeMode: ThemeMode
             .light, //to make the app change theme even if the device theme is dark.
         initialRoute: '/',

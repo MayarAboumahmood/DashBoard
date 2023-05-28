@@ -33,20 +33,23 @@ class AddAdmin extends StatelessWidget {
                   : Get.size.height * .01,
             ),
             dividerWithWord(
-              'Enter new admin information'.tr,// add to translate
+              'Enter new admin information'.tr, // add to translate
               icon: Icon(
                 Icons.person,
                 color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               ),
             ),
             const SizedBox(height: 40),
-            generalInputTextFeild(size, Icons.person, 'name',(value){}),
-            generalInputTextFeild(size, Icons.person, 'age',(value){}),
-            generalInputTextFeild(size, Icons.info, 'information',(value){}),
+            generalInputTextFeild(
+                size, Icons.person, 'name', (value) {}, TextInputType.name),
+            generalInputTextFeild(
+                size, Icons.person, 'age', (value) {}, TextInputType.number),
+            generalInputTextFeild(size, Icons.info, 'information', (value) {},
+                TextInputType.text),
             ElevatedButton(
               onPressed: controller.pickImage,
               child: Text(
-                'Select Image for admin'.tr,// add to translate
+                'Select Image for admin'.tr, // add to translate
                 style: TextStyle(
                     fontFamily: jostFontFamily,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
@@ -94,8 +97,6 @@ class AddAdmin extends StatelessWidget {
     );
   }
 
-  
- 
   Row createAppBar(Sizes size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +107,7 @@ class AddAdmin extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new admin'.tr,// add to translate
+          child: Text('Add new admin'.tr, // add to translate
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,
