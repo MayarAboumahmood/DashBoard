@@ -10,7 +10,7 @@ import '../../../constant/sizes.dart';
 import '../../widget/costum_text_field.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import '../../widget/hoverButton.dart';
+import '../../widget/hover_button.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {

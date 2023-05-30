@@ -62,9 +62,6 @@ class SlideDrawer extends StatelessWidget {
                             : skinColorWhite!,
                       ]),
                 ),
-                // color: Get.isDarkMode
-                //     ? backGroundDarkColor.withOpacity(0.2)
-                //     : skinColorWhite,
                 duration: const Duration(milliseconds: 100),
                 width: controller.setWidth(50, 240),
                 height: Get.size.height,
@@ -138,6 +135,10 @@ class SlideDrawer extends StatelessWidget {
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.library_music_rounded, 'Events', () {
             Get.offNamed('/EventPage');
+          }),
+          SizedBox(height: Get.size.height * .02),
+          drawerChid(context, Icons.storage_rounded, 'Stock', () {
+            Get.offNamed('/StockPage');
           }),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.settings, 'Settings', () {

@@ -1,5 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,7 +21,7 @@ class AddWorkerController extends GetxController {
         selectedImage = pickedImage.path.obs;
         update();
       } else {
-        print('no image have been selected');
+        debugPrint('no image have been selected');
       }
     } else if (GetPlatform.isWeb) {
       if (pickedImage != null) {

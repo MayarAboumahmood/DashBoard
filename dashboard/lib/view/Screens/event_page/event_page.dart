@@ -4,7 +4,7 @@ import 'package:sized_context/sized_context.dart';
 
 import '../../../constant/sizes.dart';
 import '../../widget/event_card.dart';
-import '../../widget/general_appBar.dart';
+import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/slide_drawer.dart';
 import '../add_event/add_event_page.dart';
@@ -13,26 +13,41 @@ import '../add_event/add_event_page.dart';
 class EventPage extends StatelessWidget {
   List<Widget> eventList = [
     EventCard(
+      onPressed: () {
+        Get.toNamed('/EventInformationPage');
+      },
       date: '2/2/2333',
       eventName: 'event one',
       imageName: 'assets/images/The project icon.jpg',
     ),
     EventCard(
+      onPressed: () {
+        Get.toNamed('/EventInformationPage');
+      },
       date: '2/2/2333',
       eventName: 'event two',
       imageName: 'assets/images/The project icon.jpg',
     ),
     EventCard(
+      onPressed: () {
+        Get.toNamed('/EventInformationPage');
+      },
       date: '2/2/2333',
       eventName: 'event three',
       imageName: 'assets/images/The project icon.jpg',
     ),
     EventCard(
+      onPressed: () {
+        Get.toNamed('/EventInformationPage');
+      },
       date: '2/2/2333',
       eventName: 'event four',
       imageName: 'assets/images/The project icon.jpg',
     ),
     EventCard(
+      onPressed: () {
+        Get.toNamed('/EventInformationPage');
+      },
       date: '2/2/2333',
       eventName: 'event five',
       imageName: 'assets/images/The project icon.jpg',

@@ -11,7 +11,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
-import '../../widget/hoverButton.dart';
+import '../../widget/hover_button.dart';
 import 'add_worker_controller.dart';
 
 class AddWorker extends StatelessWidget {
@@ -43,12 +43,12 @@ class AddWorker extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(
-                size, Icons.person, 'name', (value) {}, TextInputType.name),
+                size, Icons.person, 'name'.tr, (value) {}, TextInputType.name),
             generalInputTextFeild(
-                size, Icons.person, 'age', (value) {}, TextInputType.number),
-            generalInputTextFeild(size, Icons.info, 'information', (value) {},
-                TextInputType.text),
-            ElevatedButton(
+                size, Icons.person, 'age'.tr, (value) {}, TextInputType.number),
+            generalInputTextFeild(size, Icons.info, 'information'.tr,
+                (value) {}, TextInputType.text),
+            TextButton(
               onPressed: () {
                 controller.pickImage();
               },

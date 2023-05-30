@@ -6,12 +6,12 @@ import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../widget/admin_worker_card.dart';
-import '../../widget/general_appBar.dart';
+import '../../widget/general_app_bar.dart';
 import '../add_worker/add_worker.dart';
 
 // ignore: must_be_immutable
 class WorkerManagementPage extends StatelessWidget {
-  WorkerManagementPage({super.key});
+  const WorkerManagementPage({super.key});
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -23,12 +23,12 @@ class WorkerManagementPage extends StatelessWidget {
           'one',
           'one work at the house sense 27/7/2022  and I never nothic any problem with him.',
           0),
-      adminWorkerCard(context, size, 'assets/images/The project icon.jpg', 'two',
-          'two is the stubid persone ever in the world', 1),
-      adminWorkerCard(context, size, 'assets/images/The project icon.jpg', 'Sham',
-          'workerDetails', 2),
-      adminWorkerCard(context, size, 'assets/images/The project icon.jpg', 'Mari',
-          'workerDetails', 3),
+      adminWorkerCard(context, size, 'assets/images/The project icon.jpg',
+          'two', 'two is the stubid persone ever in the world', 1),
+      adminWorkerCard(context, size, 'assets/images/The project icon.jpg',
+          'Sham', 'workerDetails', 2),
+      adminWorkerCard(context, size, 'assets/images/The project icon.jpg',
+          'Mari', 'workerDetails', 3),
     ];
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
@@ -42,7 +42,8 @@ class WorkerManagementPage extends StatelessWidget {
               fontFamily: jostFontFamily,
             ),
           )),
-      appBar: createAppBar(size, context, getDeviceType,'Worker management'),///add for translate 
+      appBar:
+          createAppBar(size, context, getDeviceType, 'Worker management'.tr),
       body: Row(children: [
         SlideDrawer(),
         Flexible(
@@ -68,8 +69,6 @@ class WorkerManagementPage extends StatelessWidget {
     );
   }
 
- 
- 
   void showAddWorkerDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -78,7 +77,7 @@ class WorkerManagementPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddWorker(),
+          child: const AddWorker(),
         );
       },
     );

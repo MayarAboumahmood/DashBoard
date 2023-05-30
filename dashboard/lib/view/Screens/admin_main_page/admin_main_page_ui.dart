@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
-import 'package:dashboard/view/widget/general_appBar.dart';
+import 'package:dashboard/view/widget/general_app_bar.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
-import '../../widget/admin_worker_card.dart';
 import '../../widget/slide_drawer.dart';
 
 // ignore: must_be_immutable
@@ -26,7 +25,7 @@ class Home extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: createAppBar(size, context, getDeviceType, 'Dash Board'),
+      appBar: createAppBar(size, context, getDeviceType, 'Home page'.tr),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

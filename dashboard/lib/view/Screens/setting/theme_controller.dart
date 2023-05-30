@@ -15,12 +15,10 @@ class ThemeController extends GetxController {
 
   changeTheme() async {
     if (theThemeIsDark.value) {
-      print('turn to light theme');
       await prefService.createString("theme", "light");
       theThemeIsDark.value = false;
       Get.changeTheme(Themes.customlighttheme);
     } else if (!theThemeIsDark.value) {
-      print('turn to dark theme');
       await prefService.createString("theme", "dark");
       theThemeIsDark.value = true;
       Get.changeTheme(Themes.customdarktheme);

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dashboard/view/widget/general_appBar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/widget/general_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -58,7 +59,7 @@ class WorkerInfoPage extends StatelessWidget {
             setWorkerName(),
           ],
         ),
-        setWorkerDetailes(),
+        setWorkerDetailes(size, context),
         const SizedBox(
           height: 30,
         ),
@@ -68,13 +69,51 @@ class WorkerInfoPage extends StatelessWidget {
     );
   }
 
-  Widget setWorkerDetailes() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  Widget setWorkerDetailes(Sizes size, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('age: /*{worker[id].age}*/', style: generalTextStyle(30)),
-        Text('gender: /*{worker[id].gender}*/', style: generalTextStyle(30)),
-        Text('salery: /*{worker[id].salery}*/', style: generalTextStyle(30)),
+        Row(
+          children: [
+            const SizedBox(
+              width: 20,
+            ),
+            AutoSizeText('age: /*{worker[id].age}*/',
+                style: generalTextStyle(25)),
+            const SizedBox(
+              width: 30,
+            ),
+            Visibility(
+              visible: context.widthInches > 8,
+              child: AutoSizeText('gender: /*{worker[id].gender}*/',
+                  style: generalTextStyle(25)),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+            Visibility(
+              visible: context.widthInches > 12,
+              child: AutoSizeText('salery: /*{worker[id].salery}*/',
+                  style: generalTextStyle(25)),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Visibility(
+            visible: context.widthInches < 8,
+            child: AutoSizeText('gender: /*{worker[id].gender}*/',
+                style: generalTextStyle(25)),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Visibility(
+            visible: context.widthInches < 12,
+            child: AutoSizeText('salery: /*{worker[id].salery}*/',
+                style: generalTextStyle(25)),
+          ),
+        ),
       ],
     );
   }
@@ -134,7 +173,8 @@ class WorkerInfoPage extends StatelessWidget {
 
   AppBar createAppBar(Sizes size, BuildContext context) {
     return AppBar(
-      title: /*'${eventList[id].name}*/ AnimationAppBar(title: 'information'),
+      title: /*'${eventList[id].name}*/
+          AnimationAppBar(title: 'information'.tr),
     );
   }
 }

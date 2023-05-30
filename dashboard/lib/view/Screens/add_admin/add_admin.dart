@@ -10,7 +10,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
-import '../../widget/hoverButton.dart';
+import '../../widget/hover_button.dart';
 
 class AddAdmin extends StatelessWidget {
   const AddAdmin({super.key});

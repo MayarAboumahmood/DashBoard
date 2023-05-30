@@ -12,19 +12,21 @@ class EventCard extends StatelessWidget {
   String eventName;
   String date;
   String imageName;
+  Function()? onPressed;
 
-  EventCard({
-    Key? key,
-    required this.eventName,
-    required this.date,
-    required this.imageName,
-  }) : super(key: key);
+  EventCard(
+      {Key? key,
+      required this.eventName,
+      required this.date,
+      required this.imageName,
+      this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return MaterialButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: Stack(
         children: [
           Positioned(

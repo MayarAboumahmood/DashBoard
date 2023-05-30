@@ -85,7 +85,9 @@ class CostumTextField extends StatelessWidget {
               suffixIconColor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: !Get.isDarkMode ? darkPrimaryColor : primaryColor),
+                    color: Get.isDarkMode
+                        ? darkHoverButtonColor
+                        : lightHoverButtonColor),
                 borderRadius: BorderRadius.circular(
                     reduis == null ? 5 : reduis as double),
               ),

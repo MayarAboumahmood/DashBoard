@@ -19,18 +19,16 @@ class AddEventController extends GetxController {
         selectedImage = pickedImage.path.obs;
         update();
       } else {
-        print('no image have been selected');
+        debugPrint('no image have been selected');
       }
     } else if (GetPlatform.isWeb) {
       if (pickedImage != null) {
         var f = await pickedImage.readAsBytes();
         webImage = f;
         webImageExcist.value = true;
-      } else {
-        print('no image have been selected');
-      }
+      } else {}
     } else {
-      print('something wont wrong!');
+      debugPrint('something wont wrong!');
     }
   }
 

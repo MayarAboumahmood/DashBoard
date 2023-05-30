@@ -12,14 +12,50 @@ Color? skinColorWhite =
     Colors.brown[50]; // const Color.fromARGB(255, 226, 212, 172); //done
 
 //for the dark mode:
-Color darkPrimaryColor = Colors.red[500]!; //Colors.teal[900]!;
-Color darkHoverButtonColor = Colors.red[600]!; //Colors.teal[800]!;
+Color darkPrimaryColor =
+    Colors.teal[500]!; // Colors.red[500]!; //Colors.teal[900]!;
+Color darkHoverButtonColor =
+    Colors.teal[600]!; // Colors.red[600]!; //Colors.teal[800]!;
 Color darkWoodBrownColor = Colors.redAccent[700]!;
 Color backGroundDarkColor = Colors.black87;
 
 /*---------------*/
 class Themes {
   static ThemeData customdarktheme = ThemeData.dark().copyWith(
+    datePickerTheme: DatePickerThemeData(
+      headerHelpStyle: generalTextStyle(null),
+      headerHeadlineStyle: generalTextStyle(null),
+      yearBackgroundColor: MaterialStateProperty.all<Color?>(
+          darkPrimaryColor), //the color of the years button
+      surfaceTintColor: Colors.blueGrey,
+      dayBackgroundColor: MaterialStateProperty.all<Color?>(
+          darkPrimaryColor), //the color of the days button
+      todayBackgroundColor: MaterialStateProperty.all<Color?>(
+          darkHoverButtonColor), //the color of today button.
+      headerForegroundColor: skinColorWhite, //the color of the foreGround text
+      backgroundColor: backGroundDarkColor,
+      yearOverlayColor:
+          MaterialStateProperty.all<Color?>(skinColorWhite), //hovring
+      dayForegroundColor: MaterialStateProperty.all<Color?>(skinColorWhite),
+      yearForegroundColor: MaterialStateProperty.all<Color?>(skinColorWhite),
+      todayForegroundColor: MaterialStateProperty.all<Color?>(skinColorWhite),
+      headerBackgroundColor: darkPrimaryColor,
+      //don't know what they do!
+      rangeSelectionOverlayColor:
+          MaterialStateProperty.all<Color?>(Colors.deepPurple),
+      rangePickerBackgroundColor: Colors.red,
+      rangePickerSurfaceTintColor: Colors.pink,
+      rangeSelectionBackgroundColor: Colors.green,
+      rangePickerHeaderBackgroundColor: Colors.blue,
+      rangePickerHeaderForegroundColor: Colors.yellow,
+      //don't know what they do!
+      dayOverlayColor:
+          MaterialStateProperty.all<Color?>(darkHoverButtonColor), //hovring
+      yearStyle: generalTextStyle(null),
+      dayStyle: generalTextStyle(null),
+      weekdayStyle: generalTextStyle(null),
+    ),
+
     listTileTheme: ListTileThemeData(
       iconColor: darkPrimaryColor,
     ),
@@ -79,7 +115,7 @@ class Themes {
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
       primary:
-          backGroundDarkColor, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
+          skinColorWhite!, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
       onPrimary:
           skinColorWhite!, //control the color of the title on the appBar.
       secondary: darkPrimaryColor,
@@ -106,10 +142,41 @@ class Themes {
       iconColor: primaryColor,
     ),
     datePickerTheme: DatePickerThemeData(
+      headerHelpStyle: generalTextStyle(null),
+      headerHeadlineStyle: generalTextStyle(null),
+      yearBackgroundColor: MaterialStateProperty.all<Color?>(
+          primaryColor), //the color of the years button
+      surfaceTintColor: Colors.blueGrey,
+      dayBackgroundColor: MaterialStateProperty.all<Color?>(
+          primaryColor), //the color of the days button
+      todayBackgroundColor: MaterialStateProperty.all<Color?>(
+          lightHoverButtonColor), //the color of today button.
+      headerForegroundColor:
+          backGroundDarkColor, //the color of the foreGround text
+      backgroundColor: skinColorWhite,
+      yearOverlayColor:
+          MaterialStateProperty.all<Color?>(backGroundDarkColor), //hovring
+      dayForegroundColor:
+          MaterialStateProperty.all<Color?>(backGroundDarkColor),
+      yearForegroundColor:
+          MaterialStateProperty.all<Color?>(backGroundDarkColor),
+      todayForegroundColor:
+          MaterialStateProperty.all<Color?>(backGroundDarkColor),
+      headerBackgroundColor: primaryColor,
+      //don't know what they do!
+      rangeSelectionOverlayColor:
+          MaterialStateProperty.all<Color?>(Colors.deepPurple),
+      rangePickerBackgroundColor: Colors.red,
+      rangePickerSurfaceTintColor: Colors.pink,
+      rangeSelectionBackgroundColor: Colors.green,
+      rangePickerHeaderBackgroundColor: Colors.blue,
+      rangePickerHeaderForegroundColor: Colors.yellow,
+      //don't know what they do!
+      dayOverlayColor:
+          MaterialStateProperty.all<Color?>(lightHoverButtonColor), //hovring
       yearStyle: generalTextStyle(null),
       dayStyle: generalTextStyle(null),
       weekdayStyle: generalTextStyle(null),
-      // style
     ),
 
     primaryIconTheme: IconThemeData(color: primaryColor),
@@ -167,7 +234,7 @@ class Themes {
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary:
-          skinColorWhite!, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
+          backGroundDarkColor, //the appBar colors(but know I control it from appBarTheme) and the text colors in the container and the pointer in the test field.
       onPrimary:
           skinColorWhite!, //control the color of the title on the appBar.
       secondary: primaryColor,
@@ -179,7 +246,7 @@ class Themes {
           .black, //primaryColor //the chatGPT say that it will control the color for all the backgrounds in the app
       onBackground: Colors.brown,
       surface: primaryColor, //the color of the date picker and stuff.
-      onSurface: Colors.white,
+      onSurface: backGroundDarkColor,
     ),
 
     brightness: Brightness.light,

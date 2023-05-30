@@ -13,7 +13,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
-import '../../widget/hoverButton.dart';
+import '../../widget/hover_button.dart';
 
 // ignore: must_be_immutable
 class AddEvent extends StatelessWidget {
@@ -43,37 +43,43 @@ class AddEvent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            generalInputTextFeild(size, Icons.groups_3, 'Event name',
+            generalInputTextFeild(size, Icons.groups_3, 'Event name'.tr,
                 (value) {}, TextInputType.name),
-            generalInputTextFeild(size, Icons.person, 'max number of attandend',
-                (value) {}, TextInputType.number),
-            generalInputTextFeild(size, Icons.info, 'description', (value) {},
-                TextInputType.text),
+            generalInputTextFeild(size, Icons.person,
+                'max number of attandend'.tr, (value) {}, TextInputType.number),
+            generalInputTextFeild(size, Icons.info, 'description'.tr,
+                (value) {}, TextInputType.text),
             GetX<AddEventController>(
-              builder: (controller) => Text(
-                controller.isSelectedDateIsNull.value
-                    ? 'No date selected'
-                    : '${controller.selectedDate!.year}-${controller.selectedDate!.month}-${controller.selectedDate!.day}',
-                style: generalTextStyle(null),
-              ),
+                builder: (controller) => Column(
+                      children: [
+                        Text(
+                          controller.isSelectedDateIsNull.value
+                              ? 'No date selected'.tr
+                              : '${controller.selectedDate!.year}-${controller.selectedDate!.month}-${controller.selectedDate!.day}',
+                          style: generalTextStyle(null),
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: () => controller.selectDate(context),
+                          child: Text(
+                            controller.isSelectedDateIsNull.value
+                                ? 'Select date'.tr
+                                : 'change date'.tr,
+                            style: generalTextStyle(null),
+                          ),
+                        ),
+                      ],
+                    )),
+            const SizedBox(
+              height: 5,
             ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => controller.selectDate(context),
-              child: Text(
-                'Select Date',
-                style: generalTextStyle(null),
-              ),
-            ),
-            ElevatedButton(
+            TextButton(
               onPressed: () {
                 controller.pickImage();
               },
               child: Text(
                 'Select the event image'.tr,
-                style: TextStyle(
-                    fontFamily: jostFontFamily,
-                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
+                style: generalTextStyle(null),
               ),
             ),
             const SizedBox(height: 5),
@@ -94,7 +100,7 @@ class AddEvent extends StatelessWidget {
                   : const SizedBox(),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
