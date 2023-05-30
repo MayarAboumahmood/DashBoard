@@ -39,7 +39,7 @@ class StockCard extends StatelessWidget {
                   topRight: Radius.circular(size.buttonRadius),
                 ),
                 child: Image.asset(
-                  'assets/images/my hero acadime.jpg',
+                  'assets/images/pepsi.jpg',
                   fit: BoxFit.fill,
                 ),
               ),

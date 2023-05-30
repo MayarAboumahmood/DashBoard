@@ -28,6 +28,10 @@ AppBar createAppBar(Sizes size, BuildContext context,
                       : Alignment.bottomRight,
               colors: [
                 Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                Get.isDarkMode
+                    ? backGroundDarkColor.withOpacity(0.2)
+                    : skinColorWhite!,
                 Get.isDarkMode
                     ? backGroundDarkColor.withOpacity(0.2)
                     : skinColorWhite!,

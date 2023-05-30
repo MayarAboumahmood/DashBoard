@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dashboard/view/Screens/add_new_drink/add_new_drink_page.dart';
 import 'package:dashboard/view/Screens/stock/stock_controller.dart';
 import 'package:dashboard/view/widget/stock_card.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class StockPage extends StatelessWidget {
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              showAddEventDialog(context);
+              showAddDrinkDialog(context);
             },
             label: Text(
               'Add new drink'.tr,
@@ -55,7 +56,7 @@ class StockPage extends StatelessWidget {
         ));
   }
 
-  void showAddEventDialog(BuildContext context) {
+  void showAddDrinkDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -63,7 +64,7 @@ class StockPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          // child: AddEvent(),
+          child: AddNewDrink(),
         );
       },
     );

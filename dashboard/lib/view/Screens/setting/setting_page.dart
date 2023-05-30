@@ -79,7 +79,7 @@ class Setting extends StatelessWidget {
         child: Row(
           children: [
             iconBox(
-                Icon(Icons.message_rounded,
+                Icon(Icons.email,
                     color:
                         Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
                 size),
