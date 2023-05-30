@@ -52,4 +52,9 @@ const Map<String, String> ar = {
   'Stock': 'المخزن',
   'Add new drink': 'اضف مشروب جديد',
   "dar abdallah management system": "ادارة دار عبدلله",
+  'Enter the new drink information': 'ادخل معلومات المشروب الجديد',
+  'Drink name': 'اسم المشروب',
+  'unit price': 'سعر الوحدة',
+  'Available amount': 'الكمية المتاحة',
+  'Select the drink image': 'اختر صورة المشروب',
 };

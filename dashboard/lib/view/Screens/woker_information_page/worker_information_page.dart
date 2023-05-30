@@ -50,6 +50,7 @@ class WorkerInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
+      floatingActionButton: addFloatinActionButton('delete this worker'),
       appBar: createAppBar(size, context),
       body: Column(children: [
         Row(
@@ -67,6 +68,18 @@ class WorkerInfoPage extends StatelessWidget {
             context), //when the admin click on the event card it should open as a dyalog adn appear what did the user do in the event.
       ]),
     );
+  }
+
+  Widget addFloatinActionButton(String title) {
+    return FloatingActionButton.extended(
+        hoverColor: Get.isDarkMode ? Colors.red[600] : Colors.red[500],
+        onPressed: () {
+          // showAddDrinkDialog(context);
+        },
+        label: Text(
+          title.tr,
+          style: generalTextStyle(null),
+        ));
   }
 
   Widget setWorkerDetailes(Sizes size, BuildContext context) {

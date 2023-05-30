@@ -51,4 +51,9 @@ const Map<String, String> en = {
   'Stock': 'Stock',
   'Add new drink': 'Add new drink',
   "dar abdallah management system": "dar abdallah management system",
+  'Enter the new drink information': 'Enter the new drink information',
+  'Drink name': 'Drink name',
+  'unit price': 'unit price',
+  'Available amount': 'Available amount',
+  'Select the drink image': 'Select the drink image',
 };

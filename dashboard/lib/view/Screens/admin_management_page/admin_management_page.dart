@@ -1,5 +1,6 @@
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/sizes.dart';
+import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/widget/slide_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,6 +34,8 @@ class AdminManagementPage extends StatelessWidget {
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+          hoverColor:
+              Get.isDarkMode ? darkHoverButtonColor : lightHoverButtonColor,
           onPressed: () {
             //   showAddWorkerDialog(context);
           },

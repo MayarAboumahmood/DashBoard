@@ -10,9 +10,10 @@ import '../../main.dart';
 import '../Screens/stock/stock_page.dart';
 
 // ignore: must_be_immutable
-class StockCard extends StatelessWidget {
+class DrinkCard extends StatelessWidget {
   Drink drink;
-  StockCard({super.key, required this.drink});
+  Function()? onPressed;
+  DrinkCard({super.key, required this.drink, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class StockCard extends StatelessWidget {
     print(context.widthInches);
     Sizes size = Sizes(context);
     return MaterialButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: Container(
         decoration: BoxDecoration(
             color: Get.isDarkMode ? darkPrimaryColor : primaryColor,

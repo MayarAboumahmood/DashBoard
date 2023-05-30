@@ -12,6 +12,7 @@ import '../../widget/slide_drawer.dart';
 
 // ignore: must_be_immutable
 class Home extends StatelessWidget {
+  SlideDrawerController slideDrawerController = Get.find();
   Home({super.key});
   GetDeviceType getDeviceType = GetDeviceType();
   @override
@@ -30,11 +31,17 @@ class Home extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SlideDrawer(),
-          Flexible(
-            child: Wrap(
-              runAlignment: WrapAlignment.end,
-              children: wrapElementList(size, context, workerList),
-            ),
+          Column(
+            children: [
+              Flexible(
+                child: Wrap(
+                  runAlignment: WrapAlignment.end,
+                  children: wrapElementList(size, context, workerList),
+                ),
+              ),
+              setWorkersHomePageCard(
+                  size, context, workerList, slideDrawerController)
+            ],
           ),
         ],
       ),
@@ -53,8 +60,8 @@ List<Widget> wrapElementList(
 Widget buildElement(
     int index, Sizes size, BuildContext context, List<Worker> workerList) {
   switch (index) {
-    case 0:
-      return setWorkersHomePageCard(size, context, workerList);
+    // case 0:
+    //   return setWorkersHomePageCard(size, context, workerList);
     case 1:
       return homePageCard(
           size, 'total number of events'.tr, '9', 'assets/images/Warrenty.png');
@@ -66,37 +73,42 @@ Widget buildElement(
   }
 }
 
-Widget setWorkersHomePageCard(
-    Sizes size, BuildContext context, List<Worker> workerList) {
+Widget setWorkersHomePageCard(Sizes size, BuildContext context,
+    List<Worker> workerList, SlideDrawerController slideDrawerController) {
   return Container(
-      padding: const EdgeInsets.all(0),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       margin: const EdgeInsets.all(10),
-      width: size.bigButtonWidht,
-      height: size.bigButtonHeight * 1.5,
+      height: workerList.length * 100,
+      width: slideDrawerController.isClicked.value
+          ? Get.size.width * .8
+          : Get.size.width * .9,
       decoration: BoxDecoration(
           color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
           borderRadius: BorderRadius.circular(size.buttonRadius)),
-      child: ListView.builder(
-        itemCount: workerList.length * 2,
-        prototypeItem: ListTile(
-          title: Text(
-            'workerList.first',
-            style: generalTextStyle(null),
+      child: Flexible(
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: workerList.length * 2,
+          prototypeItem: ListTile(
+            title: Text(
+              'workerList.first',
+              style: generalTextStyle(null),
+            ),
           ),
-        ),
-        itemBuilder: (context, index) {
-          if (index.isOdd) {
-            return Divider(
-              color: skinColorWhite,
-              height: 0,
-            );
-          }
-          final itemIndex = index ~/ 2;
+          itemBuilder: (context, index) {
+            if (index.isOdd) {
+              return Divider(
+                color: skinColorWhite,
+                height: 0,
+              );
+            }
+            final itemIndex = index ~/ 2;
 
-          return ListTile(
-            title: Text(workerList[itemIndex].name),
-          );
-        },
+            return ListTile(
+              title: Text(workerList[itemIndex].name),
+            );
+          },
+        ),
       ));
 }
 
