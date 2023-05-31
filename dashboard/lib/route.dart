@@ -3,6 +3,7 @@ import 'package:dashboard/view/Screens/add_worker/add_worker_binding.dart';
 import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_ui.dart';
 import 'package:dashboard/view/Screens/admin_management_page/admin_management_page.dart';
 import 'package:dashboard/view/Screens/event_info.dart/event_info_page.dart';
+import 'package:dashboard/view/Screens/event_page/event_binding.dart';
 import 'package:dashboard/view/Screens/event_page/event_page.dart';
 import 'package:dashboard/view/Screens/login/login_page.dart';
 import 'package:dashboard/view/Screens/stock/stock_page.dart';
@@ -34,7 +35,7 @@ appRoutes() => [
       GetPage(
         name: '/EventPage',
         page: () => EventPage(),
-        binding: AddEventBinding(),
+        bindings:[ AddEventBinding(), EventBinding()],
       ),
       GetPage(
         name: '/EventInformationPage',

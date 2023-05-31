@@ -16,4 +16,8 @@ class PrefService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(key);
   }
+  Future<bool> isContainKey(String key)async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.containsKey(key);
+  }
 }

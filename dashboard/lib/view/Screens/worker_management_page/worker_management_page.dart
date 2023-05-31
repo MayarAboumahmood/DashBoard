@@ -77,7 +77,7 @@ class WorkerManagementPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: const AddWorker(),
+          child:  AddWorker(),
         );
       },
     );

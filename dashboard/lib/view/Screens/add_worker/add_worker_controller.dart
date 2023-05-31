@@ -35,4 +35,5 @@ class AddWorkerController extends GetxController {
       print('something wont wrong!');
     }
   }
+
 }

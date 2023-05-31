@@ -47,6 +47,8 @@ class AddNewDrink extends StatelessWidget {
                 (value) {}, TextInputType.name),
             generalInputTextFeild(size, Icons.money, 'unit price'.tr,
                 (value) {}, TextInputType.number),
+            generalInputTextFeild(size, Icons.money, 'total cost'.tr,
+                (value) {}, TextInputType.number),
             generalInputTextFeild(size, Icons.bubble_chart_rounded,
                 'Avilable amount'.tr, (value) {}, TextInputType.number),
             generalInputTextFeild(size, Icons.info, 'description'.tr,

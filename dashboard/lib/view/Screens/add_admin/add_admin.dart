@@ -10,6 +10,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
+import '../../widget/costum_text_field.dart';
 import '../../widget/hover_button.dart';
 
 class AddAdmin extends StatelessWidget {
@@ -42,10 +43,7 @@ class AddAdmin extends StatelessWidget {
             const SizedBox(height: 40),
             generalInputTextFeild(
                 size, Icons.person, 'name', (value) {}, TextInputType.name),
-            generalInputTextFeild(
-                size, Icons.person, 'age', (value) {}, TextInputType.number),
-            generalInputTextFeild(size, Icons.info, 'information', (value) {},
-                TextInputType.text),
+            emailTextFeild(size),
             ElevatedButton(
               onPressed: controller.pickImage,
               child: Text(
@@ -94,6 +92,33 @@ class AddAdmin extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget emailTextFeild(Sizes size) {
+    return CostumTextField(
+      labelStyle: TextStyle(
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      widthOnTheScreen: size.textFieldWidth,
+      onsaved: (value) {
+        // controller.email = value!;
+      },
+      hint: 'enter your email'.tr,
+      hintStyle: TextStyle(
+          fontFamily: jostFontFamily,
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      label: "email".tr,
+      prefixIcon: const Icon(
+        Icons.email,
+        // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+      ),
+      sucer: false,
+      validat: (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      },
     );
   }
 

@@ -1,4 +1,5 @@
 // import 'package:dashboard/data/service/pref_service.dart';
+import 'package:dashboard/main.dart';
 import 'package:get/get.dart';
 
 class OnBoardContoller extends GetxController {
@@ -33,18 +34,12 @@ class OnBoardContoller extends GetxController {
 
     super.onInit();
   }
-  /* onpress()async{
-   if(Config_user.user==null){
-     Get.offAndToNamed("/signin");
-   }else{
-     if(Config_user.user!.emailVerified==false){
-       Get.snackbar("verify email","please verify email to continue");
-       Get.offAndToNamed('/verify');
-     }else{
-            Get.offAndToNamed('/home');
-
-     }
-   }
+  onpress()async{
+  if(await prefService.isContainKey('token')){
+    Get.offAllNamed('/Home');
+  }else{
+    Get.offNamed('/LoginPage');
   }
-  */
+  }
+  
 }

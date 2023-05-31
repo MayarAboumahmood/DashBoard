@@ -13,15 +13,12 @@ import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/costum_text_field.dart';
 import '../../widget/hover_button.dart';
-import 'add_worker_controller.dart';
 
 // ignore: must_be_immutable
-class AddWorker extends StatelessWidget {
-  AddWorker({super.key});
-  AddWorkerController controller = Get.find();
+class AddArtist extends StatelessWidget {
+  const AddArtist({super.key});
   @override
   Widget build(BuildContext context) {
-    AddWorkerController controller = Get.find();
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,
@@ -37,61 +34,24 @@ class AddWorker extends StatelessWidget {
                   : Get.size.height * .01,
             ),
             dividerWithWord(
-              'Enter new worker information'.tr,
+              'Enter new artist information'.tr,
               icon: Icon(
                 Icons.person,
                 color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               ),
             ),
             const SizedBox(height: 40),
-            generalInputTextFeild(size, Icons.person, 'First name'.tr,
-                (value) {}, TextInputType.name),
-            generalInputTextFeild(size, Icons.person, 'Last name'.tr,
-                (value) {}, TextInputType.name),
-            emailTextFeild(size),
-            generalInputTextFeild(size, Icons.phone, 'Phone number'.tr,
-                (value) {}, TextInputType.name),
+            generalInputTextFeild(
+                size, Icons.person, 'Name'.tr, (value) {}, TextInputType.name),
             generalInputTextFeild(size, Icons.info, 'information'.tr,
                 (value) {}, TextInputType.text),
-            TextButton(
-              onPressed: () {
-                controller.pickImage();
-              },
-              child: Text(
-                'Select Image for worker'.tr,
-                style: TextStyle(
-                    fontFamily: jostFontFamily,
-                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Obx(
-              () => controller.webImageExcist.value
-                  ? SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: GetPlatform.isWeb
-                          ? Image.memory(
-                              controller.webImage,
-                              fit: BoxFit.contain,
-                            )
-                          : Image.file(
-                              File(controller.selectedImage.value),
-                              fit: BoxFit.contain,
-                            ),
-                    )
-                  : const SizedBox(),
-            ),
             const SizedBox(
               height: 50,
             ),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               myRadius: size.buttonRadius,
-              ontap: () {
-                // Get.toNamed("/Home");
-                // controller.onpresslogin();
-              },
+              ontap: () {},
               mywidth: size.normalButtonWidht,
               myheight: size.normalButtonHeight,
               myShadow: 0,
@@ -111,33 +71,6 @@ class AddWorker extends StatelessWidget {
     );
   }
 
-  Widget emailTextFeild(Sizes size) {
-    return CostumTextField(
-      labelStyle: TextStyle(
-          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-      widthOnTheScreen: size.textFieldWidth,
-      onsaved: (value) {
-        // controller.email = value!;
-      },
-      hint: 'enter your email'.tr,
-      hintStyle: TextStyle(
-          fontFamily: jostFontFamily,
-          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-      label: "email".tr,
-      prefixIcon: const Icon(
-        Icons.email,
-        // color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-      ),
-      sucer: false,
-      validat: (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      },
-    );
-  }
-
   Row createAppBar(Sizes size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,7 +81,7 @@ class AddWorker extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new worker'.tr,
+          child: Text('Add new artist'.tr,
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,
