@@ -103,11 +103,13 @@ class Themes {
     primaryColor: darkPrimaryColor,
     secondaryHeaderColor: darkWoodBrownColor,
     appBarTheme: AppBarTheme(
+      actionsIconTheme: IconThemeData(color: darkPrimaryColor),
+
       titleTextStyle: TextStyle(
           color: skinColorWhite,
           fontFamily:
               jostFontFamily), //controller the color of the appbar text.
-      iconTheme: IconThemeData(color: darkPrimaryColor),
+      iconTheme: IconThemeData(color: backGroundDarkColor),
 
       color: backGroundDarkColor.withOpacity(
           0.1), //here to control the app bar color "and it's the same whit background color".
@@ -225,9 +227,10 @@ class Themes {
     primaryColor: primaryColor,
     secondaryHeaderColor: woodBrownColor,
     appBarTheme: AppBarTheme(
+      actionsIconTheme: IconThemeData(color: primaryColor),
       titleTextStyle:
           TextStyle(color: Colors.black, fontFamily: jostFontFamily),
-      iconTheme: IconThemeData(color: primaryColor),
+      iconTheme: IconThemeData(color: skinColorWhite),
       color:
           skinColorWhite, //here to control the app bar color "and it's the same whit background color".
     ),

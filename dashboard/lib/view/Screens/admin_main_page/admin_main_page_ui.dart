@@ -5,6 +5,7 @@ import 'package:dashboard/view/widget/general_app_bar.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sized_context/sized_context.dart';
 
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
@@ -19,82 +20,58 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     List<Worker> workerList = [
-      Worker(age: '22', name: 'worker 1'),
-      Worker(age: '24', name: 'worker 2'),
-      Worker(age: '21', name: 'worker 3'),
-      Worker(age: '31', name: 'worker 4'),
+      Worker(age: '22', name: 'worker 1', numberOfEvents: 12),
+      Worker(age: '24', name: 'worker 2', numberOfEvents: 13),
+      Worker(age: '21', name: 'worker 3', numberOfEvents: 14),
+      Worker(age: '31', name: 'worker 4', numberOfEvents: 16),
     ];
 
     return Scaffold(
+      drawer: context.widthInches < 6 ? SlideDrawer() : null,
       appBar: createAppBar(size, context, getDeviceType, 'Home page'.tr),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SlideDrawer(),
-          Column(
-            children: [
-              Flexible(
-                child: Wrap(
-                  runAlignment: WrapAlignment.end,
-                  children: wrapElementList(size, context, workerList),
-                ),
-              ),
-              setWorkersHomePageCard(
-                  size, context, workerList, slideDrawerController)
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
+            Flexible(
+              child: Wrap(runAlignment: WrapAlignment.end, children: [
+                homePageCard(size, 'total number of customer'.tr, '723',
+                    'assets/images/Warrenty.png'),
+                homePageCard(size, 'total number of events'.tr, '9',
+                    'assets/images/Warrenty.png'),
+                setWorkersHomePageCard(
+                    size, context, workerList, slideDrawerController)
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-List<Widget> wrapElementList(
-    Sizes size, BuildContext context, List<Worker> workerList) {
-  return List.generate(
-    3,
-    (index) => buildElement(index, size, context, workerList),
-  );
-}
-
-Widget buildElement(
-    int index, Sizes size, BuildContext context, List<Worker> workerList) {
-  switch (index) {
-    // case 0:
-    //   return setWorkersHomePageCard(size, context, workerList);
-    case 1:
-      return homePageCard(
-          size, 'total number of events'.tr, '9', 'assets/images/Warrenty.png');
-    case 2:
-      return homePageCard(size, 'total number of customer'.tr, '723',
-          'assets/images/Warrenty.png');
-    default:
-      return const SizedBox();
-  }
-}
-
 Widget setWorkersHomePageCard(Sizes size, BuildContext context,
     List<Worker> workerList, SlideDrawerController slideDrawerController) {
-  return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      margin: const EdgeInsets.all(10),
-      height: workerList.length * 100,
-      width: slideDrawerController.isClicked.value
-          ? Get.size.width * .8
-          : Get.size.width * .9,
-      decoration: BoxDecoration(
-          color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-          borderRadius: BorderRadius.circular(size.buttonRadius)),
-      child: Flexible(
+  return Center(
+    child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.all(10),
+        height: context.widthInches > 6.3
+            ? workerList.length * 55
+            : context.widthInches < 6.16 && context.widthInches > 6
+                ? workerList.length * 110
+                : workerList.length * 85,
+        width: Get.size.width * .9,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.buttonRadius),
+          color: Get.isDarkMode
+              ? const Color.fromARGB(255, 54, 54, 54)
+              : Colors.grey[400],
+        ),
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           itemCount: workerList.length * 2,
-          prototypeItem: ListTile(
-            title: Text(
-              'workerList.first',
-              style: generalTextStyle(null),
-            ),
-          ),
           itemBuilder: (context, index) {
             if (index.isOdd) {
               return Divider(
@@ -103,13 +80,51 @@ Widget setWorkersHomePageCard(Sizes size, BuildContext context,
               );
             }
             final itemIndex = index ~/ 2;
-
-            return ListTile(
-              title: Text(workerList[itemIndex].name),
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      AutoSizeText(
+                        maxLines: 1,
+                        workerList[itemIndex].name,
+                        style: generalTextStyle(25),
+                      ),
+                      const Spacer(),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Visibility(
+                        visible: context.widthInches > 6.3,
+                        child: AutoSizeText(
+                          maxLines: 2,
+                          'participited in: ${workerList[itemIndex].numberOfEvents} events',
+                          style: generalTextStyle(20),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                    ],
+                  ),
+                  Visibility(
+                    visible: context.widthInches < 6.3,
+                    child: AutoSizeText(
+                      maxLines: 2,
+                      'number of events participited in: ${workerList[itemIndex].numberOfEvents}',
+                      style: generalTextStyle(20),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
-        ),
-      ));
+        )),
+  );
 }
 
 Widget homePageCard(
@@ -176,7 +191,9 @@ Widget homePageCard(
 class Worker {
   String name;
   String age;
+  int numberOfEvents;
   Worker({
+    required this.numberOfEvents,
     required this.name,
     required this.age,
   });

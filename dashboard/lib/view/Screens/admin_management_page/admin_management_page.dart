@@ -1,6 +1,7 @@
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/sizes.dart';
 import 'package:dashboard/constant/theme.dart';
+import 'package:dashboard/view/Screens/add_admin/add_admin.dart';
 import 'package:dashboard/view/widget/slide_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,11 +34,12 @@ class AdminManagementPage extends StatelessWidget {
     ];
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
+      drawer: context.widthInches < 6 ? SlideDrawer() : null,
       floatingActionButton: FloatingActionButton.extended(
           hoverColor:
               Get.isDarkMode ? darkHoverButtonColor : lightHoverButtonColor,
           onPressed: () {
-            //   showAddWorkerDialog(context);
+            showAddAdminDialog(context);
           },
           label: Text(
             'Add admin'.tr,
@@ -48,7 +50,7 @@ class AdminManagementPage extends StatelessWidget {
       appBar:
           createAppBar(size, context, getDeviceType, 'Admins management'.tr),
       body: Row(children: [
-        SlideDrawer(),
+        Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
         Flexible(
           fit: FlexFit.tight,
           child: GridView.builder(
@@ -69,6 +71,20 @@ class AdminManagementPage extends StatelessWidget {
               }),
         )
       ]),
+    );
+  }
+
+  void showAddAdminDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: const AddAdmin(),
+        );
+      },
     );
   }
 }

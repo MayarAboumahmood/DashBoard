@@ -15,21 +15,106 @@ class SlideDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    return Obx(
-      () => AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        width: controller.setWidth(65, 250),
-        height: Get.size.height,
-        child: Stack(
-          children: [
-            MouseRegion(
-              onExit: (s) {
-                controller.changeDrawerStateWhenHover();
-              },
-              onEnter: (s) {
-                controller.changeDrawerStateWhenHover();
-              },
-              child: AnimatedContainer(
+    return context.widthInches > 6
+        ? Obx(
+            () => AnimatedContainer(
+              duration: const Duration(milliseconds: 100),
+              width: controller.setWidth(65, 250),
+              height: Get.size.height,
+              child: Stack(
+                children: [
+                  MouseRegion(
+                    onExit: (s) {
+                      controller.changeDrawerStateWhenHover();
+                    },
+                    onEnter: (s) {
+                      controller.changeDrawerStateWhenHover();
+                    },
+                    child: AnimatedContainer(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: sharedPreferences!.getString('lang') == 'en'
+                                ? Alignment.bottomRight
+                                : sharedPreferences!.getString('lang') == 'ar'
+                                    ? Alignment.bottomLeft
+                                    : Alignment.bottomRight,
+                            end: sharedPreferences!.getString('lang') == 'en'
+                                ? Alignment.topLeft
+                                : sharedPreferences!.getString('lang') == 'ar'
+                                    ? Alignment.topRight
+                                    : Alignment.topLeft,
+                            colors: [
+                              Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                              context.heightInches < 5
+                                  ? Get.isDarkMode
+                                      ? backGroundDarkColor.withOpacity(0.7)
+                                      : skinColorWhite!
+                                  : Get.isDarkMode
+                                      ? darkPrimaryColor
+                                      : primaryColor,
+                              Get.isDarkMode
+                                  ? backGroundDarkColor.withOpacity(0.7)
+                                  : skinColorWhite!,
+                              Get.isDarkMode
+                                  ? backGroundDarkColor.withOpacity(0.7)
+                                  : skinColorWhite!,
+                              Get.isDarkMode
+                                  ? backGroundDarkColor.withOpacity(0.7)
+                                  : skinColorWhite!,
+                            ]),
+                      ),
+                      duration: const Duration(milliseconds: 100),
+                      width: controller.setWidth(50, 240),
+                      height: Get.size.height,
+                      child: drawerChildren(context, size),
+                    ),
+                  ),
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 100),
+                    top: 60,
+                    left: sharedPreferences!.getString('lang') == 'en'
+                        ? controller.setWidth(33, 225)
+                        : sharedPreferences!.getString('lang') == 'ar'
+                            ? null
+                            : controller.setWidth(33, 225),
+                    right: sharedPreferences!.getString('lang') == 'ar'
+                        ? controller.setWidth(33, 225)
+                        : null,
+                    child: InkWell(
+                      onTap: () {
+                        controller.changeDrawerState();
+                      },
+                      child: Container(
+                        height: 25,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: const Offset(0.4, 0.9),
+                                  color: Get.isDarkMode
+                                      ? const Color.fromARGB(255, 24, 24, 24)
+                                      : Colors.black12,
+                                  spreadRadius: 1)
+                            ],
+                            color: Get.isDarkMode
+                                ? backGroundDarkColor.withOpacity(0.1)
+                                : skinColorWhite,
+                            shape: BoxShape.circle),
+                        child: Icon(
+                          controller.isClicked.value
+                              ? Icons.chevron_left
+                              : Icons.chevron_right,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : context.widthInches <= 6
+            ? Container(
+                height: Get.size.height,
+                width: 250,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: sharedPreferences!.getString('lang') == 'en'
@@ -46,70 +131,25 @@ class SlideDrawer extends StatelessWidget {
                         Get.isDarkMode ? darkPrimaryColor : primaryColor,
                         context.heightInches < 5
                             ? Get.isDarkMode
-                                ? backGroundDarkColor.withOpacity(0.2)
+                                ? backGroundDarkColor.withOpacity(0.7)
                                 : skinColorWhite!
                             : Get.isDarkMode
                                 ? darkPrimaryColor
                                 : primaryColor,
                         Get.isDarkMode
-                            ? backGroundDarkColor.withOpacity(0.2)
+                            ? backGroundDarkColor.withOpacity(0.7)
                             : skinColorWhite!,
                         Get.isDarkMode
-                            ? backGroundDarkColor.withOpacity(0.2)
+                            ? backGroundDarkColor.withOpacity(0.7)
                             : skinColorWhite!,
                         Get.isDarkMode
-                            ? backGroundDarkColor.withOpacity(0.2)
+                            ? backGroundDarkColor.withOpacity(0.7)
                             : skinColorWhite!,
                       ]),
                 ),
-                duration: const Duration(milliseconds: 100),
-                width: controller.setWidth(50, 240),
-                height: Get.size.height,
                 child: drawerChildren(context, size),
-              ),
-            ),
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 100),
-              top: 60,
-              left: sharedPreferences!.getString('lang') == 'en'
-                  ? controller.setWidth(33, 225)
-                  : sharedPreferences!.getString('lang') == 'ar'
-                      ? null
-                      : controller.setWidth(33, 225),
-              right: sharedPreferences!.getString('lang') == 'ar'
-                  ? controller.setWidth(33, 225)
-                  : null,
-              child: InkWell(
-                onTap: () {
-                  controller.changeDrawerState();
-                },
-                child: Container(
-                  height: 25,
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            offset: const Offset(0.4, 0.9),
-                            color: Get.isDarkMode
-                                ? const Color.fromARGB(255, 24, 24, 24)
-                                : Colors.black12,
-                            spreadRadius: 1)
-                      ],
-                      color: Get.isDarkMode
-                          ? backGroundDarkColor.withOpacity(0.1)
-                          : skinColorWhite,
-                      shape: BoxShape.circle),
-                  child: Icon(
-                    controller.isClicked.value
-                        ? Icons.chevron_left
-                        : Icons.chevron_right,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+              )
+            : const SizedBox();
   }
 
   Widget drawerChildren(BuildContext context, Sizes size) {

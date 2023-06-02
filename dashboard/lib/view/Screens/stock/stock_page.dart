@@ -21,6 +21,7 @@ class StockPage extends StatelessWidget {
     Sizes size = Sizes(context);
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
+        drawer: context.widthInches < 6 ? SlideDrawer() : null,
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               showAddDrinkDialog(context);
@@ -32,21 +33,26 @@ class StockPage extends StatelessWidget {
         appBar: createAppBar(size, context, getDeviceType, 'Stock'.tr),
         body: Row(
           children: [
-            SlideDrawer(),
+            Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
             Flexible(
               fit: FlexFit.tight,
               child: GridView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   itemCount: controller.drinkList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: context.widthInches > 11
-                        ? 3
-                        : context.widthInches > 8.5
-                            ? 2
-                            : 1,
+                    crossAxisCount: context.widthInches > 12.5
+                        ? 4
+                        : context.widthInches > 10
+                            ? 3
+                            : context.widthInches < 7.5
+                                ? context.widthInches < 6
+                                    ? 2
+                                    : 1
+                                : 2,
                     childAspectRatio: 1.7,
                     crossAxisSpacing: 20.0,
                     mainAxisSpacing: 20.0,
-                    mainAxisExtent: 200,
+                    mainAxisExtent: 210,
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     return DrinkCard(

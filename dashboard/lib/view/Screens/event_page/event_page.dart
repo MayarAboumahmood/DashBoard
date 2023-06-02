@@ -1,3 +1,4 @@
+import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -61,6 +62,7 @@ class EventPage extends StatelessWidget {
     Sizes size = Sizes(context);
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
+        drawer: context.widthInches < 6 ? SlideDrawer() : null,
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               showAddEventDialog(context);
@@ -72,15 +74,39 @@ class EventPage extends StatelessWidget {
         appBar: createAppBar(size, context, getDeviceType, 'Events'.tr),
         body: Row(
           children: [
-            SlideDrawer(),
-            setListOfEvents(context),
+            Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
+            Expanded(
+              child: Column(
+                children: [
+                  dividerWithWord(
+                    'upcomeing events'.tr,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  setListOfEvents(context),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  dividerWithWord(
+                    'old events'.tr,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  setListOfEvents(context),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ),
           ],
         ));
   }
 
   Widget setListOfEvents(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
+    return Expanded(
       child: GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           itemCount: eventList.length,
@@ -90,7 +116,9 @@ class EventPage extends StatelessWidget {
                 : context.widthInches > 8.5
                     ? 3
                     : context.widthInches < 7.5
-                        ? 1
+                        ? context.widthInches < 6
+                            ? 2
+                            : 1
                         : 2,
             childAspectRatio: 1.7,
             crossAxisSpacing: 20.0,

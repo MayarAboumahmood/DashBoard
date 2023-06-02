@@ -32,6 +32,7 @@ class WorkerManagementPage extends StatelessWidget {
     ];
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
+      drawer: context.widthInches < 6 ? SlideDrawer() : null,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             showAddWorkerDialog(context);
@@ -45,7 +46,7 @@ class WorkerManagementPage extends StatelessWidget {
       appBar:
           createAppBar(size, context, getDeviceType, 'Worker management'.tr),
       body: Row(children: [
-        SlideDrawer(),
+        Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
         Flexible(
           fit: FlexFit.tight,
           child: GridView.builder(

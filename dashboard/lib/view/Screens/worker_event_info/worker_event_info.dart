@@ -1,7 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dashboard/view/Screens/add_admin/add_admin_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
-import 'package:dashboard/view/widget/general_inpu_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -11,13 +10,26 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/hover_button.dart';
+import '../../widget/worekr_event_info_card.dart';
 
-class AddAdmin extends StatelessWidget {
-  const AddAdmin({super.key});
+// ignore: must_be_immutable
+class WorkerEventInfo extends StatelessWidget {
+  List<WorkerEventInfoCard> workerMoneyInEvent = [
+    WorkerEventInfoCard(
+        evnetWorker: EventWorker(money: 100, orderDetails: 'djlkfsfjlkd')),
+    WorkerEventInfoCard(
+        evnetWorker: EventWorker(money: 200, orderDetails: 'djlkfsfjlkd')),
+    WorkerEventInfoCard(
+        evnetWorker: EventWorker(money: 300, orderDetails: 'djlkfsfjlkd')),
+    WorkerEventInfoCard(
+        evnetWorker: EventWorker(money: 400, orderDetails: 'djlkfsfjlkd')),
+    WorkerEventInfoCard(
+        evnetWorker: EventWorker(money: 400, orderDetails: 'djlkfsfjlkd')),
+  ];
+  WorkerEventInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AddAdminController controller = Get.find();
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,
@@ -33,28 +45,19 @@ class AddAdmin extends StatelessWidget {
                   : Get.size.height * .01,
             ),
             dividerWithWord(
-              'Enter new admin information'.tr, // add to translate
+              'The worker info'.tr,
               icon: Icon(
-                Icons.person,
+                Icons.info,
                 color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               ),
             ),
-            const SizedBox(height: 40),
-            generalInputTextFeild(
-                size, Icons.person, 'name', (value) {}, TextInputType.name),
-            generalInputTextFeild(size, Icons.person, 'age', (value) {},
-                TextInputType.number), //need to add email instaid of age.
-
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 10),
+            buildDetailsList(context, workerMoneyInEvent),
+            const SizedBox(height: 10),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               myRadius: size.buttonRadius,
-              ontap: () {
-                // Get.toNamed("/Home");
-                // controller.onpresslogin();
-              },
+              ontap: () {},
               mywidth: size.normalButtonWidht,
               myheight: size.normalButtonHeight,
               myShadow: 0,
@@ -67,10 +70,24 @@ class AddAdmin extends StatelessWidget {
                     color:
                         Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
               ),
-            )
+            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildDetailsList(
+      BuildContext context, List<WorkerEventInfoCard> workerMoneyInEvent) {
+    return SizedBox(
+      width: context.widthInches > 5.5 ? 390 : Get.size.width * .83,
+      height: workerMoneyInEvent.length * 75,
+      child: ListView.builder(
+          itemCount: workerMoneyInEvent.length,
+          itemBuilder: (context, index) {
+            return workerMoneyInEvent[index];
+          }),
     );
   }
 
@@ -84,7 +101,7 @@ class AddAdmin extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new admin'.tr, // add to translate
+          child: Text('Worker event info', //workerList[id].name info in event
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,
@@ -106,4 +123,23 @@ class AddAdmin extends StatelessWidget {
       ],
     );
   }
+}
+
+class EventWorker {
+  // String date;
+  // String eventName;
+  // int workerId;
+  // int orderId;
+  // String ordertime;
+  double money;
+  String orderDetails;
+  EventWorker({
+    // required this.date,
+    // required this.eventName,
+    // required this.workerId,
+    // required this.orderId,
+    required this.orderDetails,
+    required this.money,
+    // required this.ordertime,
+  });
 }

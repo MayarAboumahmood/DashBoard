@@ -6,9 +6,11 @@ import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
+import '../../widget/event_details_card.dart';
 import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../add_event/add_event_page.dart';
+import '../reservation_dialog/reservation_dialog.dart';
 
 class EventInformationPage extends StatelessWidget {
   const EventInformationPage({super.key});
@@ -16,7 +18,14 @@ class EventInformationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-
+    List<EventDetailsCard> eventDetailesList = const [
+      EventDetailsCard(),
+      EventDetailsCard(),
+      // EventDetailsCard(),
+      // EventDetailsCard(),
+      // EventDetailsCard(),
+      // EventDetailsCard(),
+    ];
     return Scaffold(
       floatingActionButton: addFloatingActionButton(
           'Edite the event'.tr, 'Delete the event'.tr, context),
@@ -36,7 +45,32 @@ class EventInformationPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        dividerWithWord('event details', icon: const Icon(Icons.details))
+        dividerWithWord('event details', icon: const Icon(Icons.details)),
+        const SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              itemCount: eventDetailesList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: context.widthInches > 11
+                      ? 4
+                      : context.widthInches > 8.5
+                          ? 3
+                          : context.widthInches < 7.5
+                              ? context.widthInches < 6
+                                  ? 2
+                                  : 1
+                              : 2,
+                  childAspectRatio: 1.7,
+                  crossAxisSpacing: 20.0,
+                  mainAxisExtent: 200,
+                  mainAxisSpacing: 20),
+              itemBuilder: (BuildContext context, int index) {
+                return eventDetailesList[index];
+              }),
+        ),
       ]),
     );
   }
@@ -62,7 +96,7 @@ class EventInformationPage extends StatelessWidget {
             heroTag: secondTitle,
             hoverColor: Get.isDarkMode ? Colors.red[600] : Colors.red[500],
             onPressed: () {
-              //open dialog than delete this drink
+              // delete this drink
             },
             label: Text(
               secondTitle.tr,
@@ -74,6 +108,8 @@ class EventInformationPage extends StatelessWidget {
 
   AppBar createAppBar(Sizes size, BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       title: /*'${eventList[id].name}*/
           AnimationAppBar(title: 'information'.tr),
     );
@@ -114,42 +150,53 @@ class EventInformationPage extends StatelessWidget {
       children: [
         Row(
           children: [
-            eventInfoUnit(size, context, 'Number of attandend: '.tr, '100'),
-            eventInfoUnit(size, context, 'Event name: '.tr, 'event one'),
+            eventInfoUnit(size, context, 'Number of attandend: '.tr, '100', () {
+              showReservationsDialog(context);
+            }),
+            eventInfoUnit(size, context, 'Event name: '.tr, 'event one', null),
             Visibility(
                 visible: context.widthInches > 6,
-                child: eventInfoUnit(
-                    size, context, 'total benefits in S.P: '.tr, '2000000')),
+                child: eventInfoUnit(size, context,
+                    'total benefits in S.P: '.tr, '2000000', null)),
           ],
         ),
         SizedBox(height: Get.size.width * .01),
         Visibility(
             visible: context.widthInches < 6,
             child: eventInfoUnit(
-                size, context, 'Available quantity by kg'.tr, '20')),
+                size, context, 'Available quantity by kg'.tr, '20', null)),
       ],
     );
   }
 
-  Widget eventInfoUnit(
-      Sizes size, BuildContext context, String title, String subTitle) {
+  Widget eventInfoUnit(Sizes size, BuildContext context, String title,
+      String subTitle, Function()? onPressed) {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
-        child: Container(
-          width: Get.size.width * .3,
-          height: 70,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.buttonRadius),
-            color: Get.isDarkMode
-                ? const Color.fromARGB(255, 54, 54, 54)
-                : Colors.grey[400],
-          ),
-          child: ListTile(
-            title: Text(
-              '$title :',
-              style: generalTextStyle(null),
+        child: MaterialButton(
+          onPressed: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+              height: 70,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(size.buttonRadius),
+                color: Get.isDarkMode
+                    ? const Color.fromARGB(255, 54, 54, 54)
+                    : Colors.grey[400],
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    title,
+                    style: generalTextStyle(null),
+                  ),
+                  Text(subTitle, style: generalTextStyle(null)),
+                ],
+              ),
             ),
-            subtitle: Text(subTitle, style: generalTextStyle(null)),
           ),
         ));
   }
@@ -163,6 +210,20 @@ class EventInformationPage extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: AddEvent(),
+        );
+      },
+    );
+  }
+
+  void showReservationsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: ReservationDialog(),
         );
       },
     );

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/Screens/worker_event_info/worker_event_info.dart';
 import 'package:dashboard/view/widget/general_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,33 +14,6 @@ import '../../widget/general_text_style.dart';
 
 // ignore: must_be_immutable
 class WorkerInfoPage extends StatelessWidget {
-  List<Widget> eventList = [
-    EventCard(
-      date: '2/2/2333',
-      eventName: 'event one',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      date: '2/2/2333',
-      eventName: 'event two',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      date: '2/2/2333',
-      eventName: 'event three',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      date: '2/2/2333',
-      eventName: 'event four',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      date: '2/2/2333',
-      eventName: 'event five',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-  ];
   int id;
   WorkerInfoPage({
     Key? key,
@@ -165,7 +139,7 @@ class WorkerInfoPage extends StatelessWidget {
       fit: FlexFit.tight,
       child: GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          itemCount: eventList.length,
+          itemCount: buildEventList(context).length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: context.widthInches > 11
                 ? 4
@@ -179,15 +153,77 @@ class WorkerInfoPage extends StatelessWidget {
             mainAxisExtent: 200,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return eventList[index];
+            return buildEventList(context)[index];
           }),
     );
   }
 
   AppBar createAppBar(Sizes size, BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       title: /*'${eventList[id].name}*/
           AnimationAppBar(title: 'information'.tr),
     );
+  }
+
+  void showWorkerEventInfoDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: WorkerEventInfo(),
+        );
+      },
+    );
+  }
+
+  List<Widget> buildEventList(BuildContext context) {
+    List<Widget> eventList = [
+      EventCard(
+        onPressed: () {
+          showWorkerEventInfoDialog(context);
+        },
+        date: '2/2/2333',
+        eventName: 'event one',
+        imageName: 'assets/images/The project icon.jpg',
+      ),
+      EventCard(
+        onPressed: () {
+          showWorkerEventInfoDialog(context);
+        },
+        date: '2/2/2333',
+        eventName: 'event two',
+        imageName: 'assets/images/The project icon.jpg',
+      ),
+      EventCard(
+        onPressed: () {
+          showWorkerEventInfoDialog(context);
+        },
+        date: '2/2/2333',
+        eventName: 'event three',
+        imageName: 'assets/images/The project icon.jpg',
+      ),
+      EventCard(
+        onPressed: () {
+          showWorkerEventInfoDialog(context);
+        },
+        date: '2/2/2333',
+        eventName: 'event four',
+        imageName: 'assets/images/The project icon.jpg',
+      ),
+      EventCard(
+        date: '2/2/2333',
+        onPressed: () {
+          showWorkerEventInfoDialog(context);
+        },
+        eventName: 'event five',
+        imageName: 'assets/images/The project icon.jpg',
+      ),
+    ];
+    return eventList;
   }
 }

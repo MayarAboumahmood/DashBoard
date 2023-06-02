@@ -116,6 +116,8 @@ class DrinkInformationPage extends StatelessWidget {
 
   AppBar createAppBar(Sizes size, BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
       title: /*'${eventList[id].name}*/
           AnimationAppBar(title: 'information'.tr),
     );
