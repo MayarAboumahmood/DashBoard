@@ -44,15 +44,40 @@ class AddNewDrink extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(size, Icons.no_drinks, 'Drink name'.tr,
-                (value) {}, TextInputType.name),
+                (value) {}, TextInputType.name, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.money, 'unit price'.tr,
-                (value) {}, TextInputType.number),
+                (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.money, 'total cost'.tr,
-                (value) {}, TextInputType.number),
+                (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.bubble_chart_rounded,
-                'Avilable amount'.tr, (value) {}, TextInputType.number),
+                'Avilable amount'.tr, (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.info, 'description'.tr,
-                (value) {}, TextInputType.text),
+                (value) {}, TextInputType.text, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             const SizedBox(
               height: 5,
             ),

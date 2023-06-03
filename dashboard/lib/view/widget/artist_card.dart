@@ -1,7 +1,6 @@
 import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sized_context/sized_context.dart';
 
 import '../../constant/sizes.dart';
 
@@ -15,7 +14,7 @@ class ArtistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: MaterialButton(
             onPressed: () {
               controller.changeListTileTapedState();

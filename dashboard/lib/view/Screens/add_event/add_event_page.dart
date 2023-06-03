@@ -45,11 +45,26 @@ class AddEvent extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(size, Icons.groups_3, 'Event name'.tr,
-                (value) {}, TextInputType.name),
+                (value) {}, TextInputType.name, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.person,
-                'max number of attandend'.tr, (value) {}, TextInputType.number),
+                'max number of attandend'.tr, (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.money, 'ticket price'.tr,
-                (value) {}, TextInputType.number),
+                (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             dividerWithWord(' Add artist'.tr,
                 icon: const Icon(Icons.groups_rounded)),
                 const SizedBox(height: 10,),
@@ -68,7 +83,12 @@ class AddEvent extends StatelessWidget {
             dividerWithWord('description',
                 icon: const Icon(Icons.info_outline_rounded)),
             generalInputTextFeild(size, Icons.info, 'description'.tr,
-                (value) {}, TextInputType.text),
+                (value) {}, TextInputType.text, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             GetX<AddEventController>(
                 builder: (controller) => Column(
                       children: [

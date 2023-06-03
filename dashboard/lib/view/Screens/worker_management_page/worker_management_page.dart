@@ -31,24 +31,27 @@ class WorkerManagementPage extends StatelessWidget {
           'Mari', 'workerDetails', 3),
     ];
     GetDeviceType getDeviceType = GetDeviceType();
+    //need to add obx for complete a connections
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            showAddWorkerDialog(context);
-          },
-          label: Text(
-            'Add worker'.tr,
-            style: TextStyle(
-              fontFamily: jostFontFamily,
-            ),
-          )),
+        onPressed: () {
+          showAddWorkerDialog(context);
+        },
+        label: Text(
+          'Add worker'.tr,
+          style: TextStyle(
+            fontFamily: jostFontFamily,
+          ),
+        ),
+      ),
       appBar:
           createAppBar(size, context, getDeviceType, 'Worker management'.tr),
-      body: Row(children: [
-        SlideDrawer(),
-        Flexible(
-          fit: FlexFit.tight,
-          child: GridView.builder(
+      body: Row(
+        children: [
+          SlideDrawer(),
+          Flexible(
+            fit: FlexFit.tight,
+            child: GridView.builder(
               itemCount: workerList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: context.widthInches > 11
@@ -63,9 +66,11 @@ class WorkerManagementPage extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context, int index) {
                 return workerList[index];
-              }),
-        )
-      ]),
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -77,7 +82,7 @@ class WorkerManagementPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child:  AddWorker(),
+          child: AddWorker(),
         );
       },
     );

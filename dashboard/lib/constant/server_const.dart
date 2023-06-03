@@ -1,5 +1,15 @@
 class ServerConstApis{
-static String baseAPI = 'https://487a2e71-87c0-4877-9402-e19d25b12506.mock.pstmn.io/';
+static String baseAPI = 'http://127.0.0.1:3000/admins/';
+static String getWorkers='${baseAPI}show-all-workers';/// that needs to edit 
+
+//////////////AddPages
+static String addWorker='${baseAPI}create-worker';
+
+
+
+///////////Admin 
 static String adminLogin='${baseAPI}login';
+static String newAdmin='${baseAPI}newadmin';
+
 
 }

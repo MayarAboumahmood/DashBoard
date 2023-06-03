@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 class AddAdminController extends GetxController {
   File? selectedImage;
+ 
 
   Future<void> pickImage() async {
     final picker = ImagePicker();

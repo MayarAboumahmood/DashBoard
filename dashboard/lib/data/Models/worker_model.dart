@@ -1,17 +1,19 @@
 class WorkerModel {
-  String name;
-  String age;
+  String firstName;
+  String lastName;
   String numberPhone;
   String email;
-  int id;
- WorkerModel({required this.id,required this.age,required this.email,required this.name,required this.numberPhone});
+  String? image;
+  int? id;
+ WorkerModel({this.image, this.id,required this.email,required this.lastName,required this.firstName,required this.numberPhone});
  factory WorkerModel.fromMap(Map<String, dynamic> map) {
     return WorkerModel(
-      name: map['name'] ?? '',
-      age: map['age'] ?? '',
+      firstName: map['first_name'] ?? '',
+      lastName: map['last_name'] ?? '',
       numberPhone: map['numberPhone'] ?? '',
       email: map['email'] ?? '',
-     id: map['id'],
+     id: map['id']??0,
+     image: map['image']??''
     );
   } 
 }

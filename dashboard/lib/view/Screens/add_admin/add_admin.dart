@@ -42,7 +42,12 @@ class AddAdmin extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(
-                size, Icons.person, 'name', (value) {}, TextInputType.name),
+                size, Icons.person, 'name', (value) {}, TextInputType.name, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             emailTextFeild(size),
             ElevatedButton(
               onPressed: controller.pickImage,

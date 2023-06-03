@@ -35,11 +35,11 @@ class OnBoardContoller extends GetxController {
     super.onInit();
   }
   onpress()async{
-  if(await prefService.isContainKey('token')){
-    Get.offAllNamed('/Home');
-  }else{
+  // if(await prefService.isContainKey('token')){
+  //   Get.offAllNamed('/Home');
+  // }else{
     Get.offNamed('/LoginPage');
-  }
+  // }
   }
   
 }

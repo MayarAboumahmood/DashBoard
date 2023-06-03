@@ -10,6 +10,7 @@ checkInternet() async {
         connectivityResult != ConnectivityResult.other) {
       return false;
     } else {
+      print(" returned true in check internet");
       return true;
     }
   } on SocketException catch (_) {

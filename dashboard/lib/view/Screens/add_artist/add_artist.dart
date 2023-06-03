@@ -42,9 +42,19 @@ class AddArtist extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(
-                size, Icons.person, 'Name'.tr, (value) {}, TextInputType.name),
+                size, Icons.person, 'Name'.tr, (value) {}, TextInputType.name, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.info, 'information'.tr,
-                (value) {}, TextInputType.text),
+                (value) {}, TextInputType.text, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             const SizedBox(
               height: 50,
             ),
