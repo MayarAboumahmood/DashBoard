@@ -8,14 +8,16 @@ import '../../../constant/sizes.dart';
 import '../../widget/admin_worker_card.dart';
 import '../../widget/general_app_bar.dart';
 import '../add_worker/add_worker.dart';
+import 'worker_management_controller.dart';
 
 // ignore: must_be_immutable
 class WorkerManagementPage extends StatelessWidget {
-  const WorkerManagementPage({super.key});
+   WorkerManagementPage({super.key});
+  WorkerManagementController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    List<Widget> workerList = [
+   /* List<Widget> workerList = [
       adminWorkerCard(
           context,
           size,
@@ -29,7 +31,7 @@ class WorkerManagementPage extends StatelessWidget {
           'Sham', 'workerDetails', 2),
       adminWorkerCard(context, size, 'assets/images/The project icon.jpg',
           'Mari', 'workerDetails', 3),
-    ];
+    ];*/
     GetDeviceType getDeviceType = GetDeviceType();
     //need to add obx for complete a connections
     return Scaffold(
@@ -46,30 +48,33 @@ class WorkerManagementPage extends StatelessWidget {
       ),
       appBar:
           createAppBar(size, context, getDeviceType, 'Worker management'.tr),
-      body: Row(
-        children: [
-          SlideDrawer(),
-          Flexible(
-            fit: FlexFit.tight,
-            child: GridView.builder(
-              itemCount: workerList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: context.widthInches > 11
-                    ? 3
-                    : context.widthInches > 8.5
-                        ? 2
-                        : 1,
-                childAspectRatio: 1.7,
-                crossAxisSpacing: 20.0,
-                mainAxisSpacing: 20.0,
-                mainAxisExtent: 200,
+      body: GetBuilder<WorkerManagementController>(builder: (ctx)=>
+         Row(
+          children: [
+            SlideDrawer(),
+            Flexible(
+              fit: FlexFit.tight,
+              child: GridView.builder(
+                itemCount: controller. workerList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: context.widthInches > 11
+                      ? 3
+                      : context.widthInches > 8.5
+                          ? 2
+                          : 1,
+                  childAspectRatio: 1.7,
+                  crossAxisSpacing: 20.0,
+                  mainAxisSpacing: 20.0,
+                  mainAxisExtent: 200,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  print(index);
+                  return adminWorkerCard(context, size, controller.workerList[index].image!,controller.workerList[index].firstName, "workerDetails", controller.workerList[index].id!);
+                },
               ),
-              itemBuilder: (BuildContext context, int index) {
-                return workerList[index];
-              },
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

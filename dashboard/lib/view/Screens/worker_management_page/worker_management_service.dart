@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:dashboard/main.dart';
-
 import '../../../constant/server_const.dart';
 import '../../../constant/status_request.dart';
 import '../../../data/checkInternet/check_internet.dart';
@@ -20,6 +18,8 @@ class WorkerService {
           "x-access-token": token
         };
         var response = await http.get(url, headers: headers);
+        print(response.statusCode);
+        print(response.body);
         if (response.statusCode == 200 || response.statusCode == 201) {
           final responsebody = jsonDecode(response.body);
 

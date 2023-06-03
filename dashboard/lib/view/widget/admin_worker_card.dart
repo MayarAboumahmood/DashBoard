@@ -5,6 +5,7 @@ import 'package:dashboard/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
+import '../../../constant/server_const.dart';
 
 import '../Screens/woker_information_page/worker_information_page.dart';
 
@@ -40,7 +41,9 @@ Widget adminWorkerCard(BuildContext context, Sizes size, String workerImage,
                       color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
                 ),
                 child: ClipOval(
-                  child: SizedBox(height: 50, child: Image.asset(workerImage)),
+                  child: SizedBox(height: 50, child:workerImage==''? Image.asset('assets/images/The project icon.jpg'):
+                  Image.network("${ServerConstApis.loadImages}$workerImage")
+                  ),
                 ),
               ),
               SizedBox(

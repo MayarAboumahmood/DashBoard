@@ -92,7 +92,7 @@ class AddWorkerController extends GetxController
   addWorkerData(WorkerModel model) async {
     String token = await prefService.readString('token');
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.addWorker(model, selectedImageInBytes, token);
+        await service.addWorker(model, selectedImageInBytes, selctFile,token);
     return response.fold((l) => l, (r) => r);
   }
 
@@ -105,7 +105,7 @@ class AddWorkerController extends GetxController
   }
 
   whenAddSuccess(response) async {
-   // Get.back();
+    Get.offAllNamed('/WorkerManagementPage');
     update();
   }
 }

@@ -12,23 +12,25 @@ class WorkerManagementController extends GetxController {
   //StatuseRequest? statuseRequest = StatuseRequest.init;
   late List<WorkerModel> workerList;
   WorkerService service=WorkerService();
-  Rx<StatuseRequest> statuseRequest=Rx<StatuseRequest>(StatuseRequest.init);
+  StatuseRequest statuseRequest=(StatuseRequest.init);
   @override
   void onInit() async{
     workerList = [];
      
-    statuseRequest.value = await checkIfTheInternetIsConectedBeforGoingToThePage();
-  //  getWorkers();
+    statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+  await getWorkers();
     super.onInit();
   }
-   void getWorkers() async {
-      statuseRequest.value = StatuseRequest.loading;
+    getWorkers() async {
+      statuseRequest = StatuseRequest.loading;
       update();
      dynamic response = await getdata(); // check if the return data is statuseRequest or real data
+     print("object");
       statuseRequest = handlingData(response); //return the statuseResponse
-      if (statuseRequest.value == StatuseRequest.success) {
+      print("befor id");
+      if (statuseRequest == StatuseRequest.success) {
           whenGetDataSuccess(response);
-      } else if (statuseRequest.value == StatuseRequest.authfailuer) {
+      } else if (statuseRequest == StatuseRequest.authfailuer) {
         snackBarForErrors();
       } else {
         // when happen a mestake we handel it here
@@ -65,10 +67,10 @@ class WorkerManagementController extends GetxController {
   }
 
   whenGetDataSuccess(response) async {
+    print(response['data']);
     List responsedata = response['data']; 
-    // for getting a body of data from map and save a token in local dataBase
-   for(var  item in responsedata){
-      workerList.add(WorkerModel.fromMap(responsedata[item]));
+   for(int i=0;i<responsedata.length;i++){
+      workerList.add(WorkerModel.fromMap(responsedata[i]));
    }
     for(var  item in workerList){
       print(item.firstName);

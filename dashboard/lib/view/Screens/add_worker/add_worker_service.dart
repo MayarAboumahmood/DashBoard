@@ -13,7 +13,7 @@ import 'package:dashboard/constant/status_request.dart';
 
 class AddWorkerService {
   Future<Either<StatuseRequest, Map>> addWorker(
-      WorkerModel model, Uint8List image, String token) async {
+      WorkerModel model, Uint8List image,String imageName, String token) async {
     //Either for return two data type in the same time
     try {
       if (await checkInternet()) {
@@ -31,11 +31,12 @@ class AddWorkerService {
           "Access-Control-Allow-Origin": "*",
           "x-access-token": token
         };
-       
+    
+
         var request = http.MultipartRequest("POST", url);
         var multipartFile = http.MultipartFile.fromBytes(
           "image",
-          image,
+          image,filename: imageName
         );
         request.files.add(multipartFile);
         request.fields.addAll(data);
