@@ -161,8 +161,13 @@ class LoginPage extends StatelessWidget {
       ),
       sucer: false,
       validat: (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
+        bool emailValid = RegExp(
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            .hasMatch(value!);
+        if (!emailValid) {
+          return (("The inpout isn't an eamil").tr);
+
+          ///add for translate
         }
         return null;
       },
@@ -204,7 +209,6 @@ class LoginPage extends StatelessWidget {
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {
-        Get.offNamed("/Home");
         controller.onpresslogin();
       },
       mywidth: size.normalButtonWidht,

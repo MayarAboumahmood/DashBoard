@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/data/Models/login_model.dart';
-import 'package:dashboard/data/Models/user_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/no_internet_page.dart';
@@ -46,7 +45,7 @@ class LoginController extends GetxController
           model); // check if the return data is statuseRequest or real data
       statuseRequest = handlingData(response); //return the statuseResponse
       if (statuseRequest == StatuseRequest.success) {
-        if (response['msg'] == "Login Success") {
+        if (response['msg'] == "Logged in Successfully") {
           whenLoginSuccess(response);
         }
       } else if (statuseRequest == StatuseRequest.authfailuer) {
@@ -54,9 +53,9 @@ class LoginController extends GetxController
       } else if (statuseRequest == StatuseRequest.validationfailuer) {
         snackBarForErrors();
       } else {
-        // when happen a mestake we handel it here
+       snackBarForErrors();
       }
-    }
+   }
     update();
   }
 
@@ -88,12 +87,10 @@ class LoginController extends GetxController
   whenLoginSuccess(response) async {
     Map<String, dynamic> data = response[
         'data']; // for getting a body of data from map and save a token in local dataBase
-    UserModel.userToken = response['token'];
-    UserModel.id = data['admin_id'] as int;
-    await prefService.createString(
-        'token', UserModel.userToken); // storing token
-    await prefService.createString('id', UserModel.id.toString());
-    statuseRequest = StatuseRequest.init; //  here put a navigator instruction
+      await prefService.createString(
+        'token', response['token']); // storing token
+    await prefService.createString('id',data['admin_id'].toString());
+    Get.offNamed('/Home');
     update();
   }
 }

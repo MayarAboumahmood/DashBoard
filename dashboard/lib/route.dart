@@ -4,9 +4,11 @@ import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_ui.dart';
 import 'package:dashboard/view/Screens/admin_management_page/admin_management_page.dart';
 import 'package:dashboard/view/Screens/drink_info/drink_info_page.dart';
 import 'package:dashboard/view/Screens/event_info.dart/event_info_page.dart';
+import 'package:dashboard/view/Screens/event_page/event_binding.dart';
 import 'package:dashboard/view/Screens/event_page/event_page.dart';
 import 'package:dashboard/view/Screens/login/login_page.dart';
 import 'package:dashboard/view/Screens/stock/stock_page.dart';
+import 'package:dashboard/view/Screens/worker_management_page/worker_management_binding.dart';
 import 'package:dashboard/view/Screens/worker_management_page/worker_management_page.dart';
 import 'package:get/get.dart';
 import 'view/Screens/add_admin/add_admin_binding.dart';
@@ -26,8 +28,8 @@ appRoutes() => [
       ),
       GetPage(
           name: '/WorkerManagementPage',
-          page: () => const WorkerManagementPage(),
-          bindings: [AddWorkerBinding()]),
+          page: () =>  WorkerManagementPage(),
+          bindings: [WorkerManagementBinding(),AddWorkerBinding()]),
       GetPage(
           name: '/AdminManagementPage',
           page: () => AdminManagementPage(),
@@ -35,7 +37,7 @@ appRoutes() => [
       GetPage(
         name: '/EventPage',
         page: () => EventPage(),
-        binding: AddEventBinding(),
+        bindings:[ AddEventBinding(), EventBinding()],
       ),
       GetPage(
         name: '/EventInformationPage',
