@@ -38,40 +38,39 @@ class WorkerManagementPage extends StatelessWidget {
       ),
       appBar:
           createAppBar(size, context, getDeviceType, 'Worker management'.tr),
-      body: GetBuilder<WorkerManagementController>(
-        builder: (ctx) =>
-            controller.statuseRequest == StatuseRequest.offlinefailure
+      body: Row(
+        children: [
+          SlideDrawer(),
+          GetBuilder<WorkerManagementController>(
+            builder: (ctx) => controller.statuseRequest ==
+                    StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
                 : controller.statuseRequest == StatuseRequest.loading
                     ? Center(
                         child: Text("loading....", style: generalTextStyle(14)),
                       )
                     : whenShowTheBodyAfterLoadingAndInternet(size, context),
+          ),
+        ],
       ),
     );
   }
 
   Widget whenShowTheBodyAfterLoadingAndInternet(
       Sizes size, BuildContext context) {
-    return Row(
-      children: [
-        SlideDrawer(),
-        controller.finalListData.isEmpty
-            ? Center(
-                child: Text(
-                  "No workers have been added yet",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: jostFontFamily,
-                    color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                    fontSize: 14,
-                  ),
-                ),
-              )
-            : bodyOfBage(size, context)
-      ],
-    );
+    return controller.finalListData.isEmpty
+        ? Center(
+            child: Text(
+              "No workers have been added yet",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: jostFontFamily,
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                fontSize: 14,
+              ),
+            ),
+          )
+        : bodyOfBage(size, context);
   }
 
   Widget bodyOfBage(Sizes size, BuildContext context) {
