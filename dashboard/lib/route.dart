@@ -19,17 +19,17 @@ import 'view/Screens/login/login_binding.dart';
 import 'view/Screens/stock/stock_binding.dart';
 
 appRoutes() => [
-      GetPage(name: '/', page: () => Landing(), binding: ThemeBinding()),
+      GetPage(name: '/Home', page: () => Landing(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
-        name: '/Home',
+        name: '/',
         page: () => Home(),
       ),
       GetPage(
           name: '/WorkerManagementPage',
-          page: () =>  WorkerManagementPage(),
-          bindings: [WorkerManagementBinding(),AddWorkerBinding()]),
+          page: () => WorkerManagementPage(),
+          bindings: [WorkerManagementBinding(), AddWorkerBinding()]),
       GetPage(
           name: '/AdminManagementPage',
           page: () => AdminManagementPage(),
@@ -37,7 +37,7 @@ appRoutes() => [
       GetPage(
         name: '/EventPage',
         page: () => EventPage(),
-        bindings:[ AddEventBinding(), EventBinding()],
+        bindings: [AddEventBinding(), EventBinding()],
       ),
       GetPage(
         name: '/EventInformationPage',
