@@ -1,5 +1,4 @@
 // import 'package:dashboard/data/service/pref_service.dart';
-import 'package:dashboard/main.dart';
 import 'package:get/get.dart';
 
 class OnBoardContoller extends GetxController {

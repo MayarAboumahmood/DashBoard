@@ -44,7 +44,6 @@ class LoginController extends GetxController
       dynamic response = await logindata(
           model); // check if the return data is statuseRequest or real data
       statuseRequest = handlingData(response); //return the statuseResponse
-      print(statuseRequest);
       if (statuseRequest == StatuseRequest.success) {
         if (response['msg'] == "Logged in Successfully") {
           whenLoginSuccess(response);
@@ -88,8 +87,7 @@ class LoginController extends GetxController
   whenLoginSuccess(response) async {
     Map<String, dynamic> data = response[
         'data']; // for getting a body of data from map and save a token in local dataBase
-        print(data);
-    await prefService.createString(
+      await prefService.createString(
         'token', response['token']); // storing token
     await prefService.createString('id',data['admin_id'].toString());
     Get.offNamed('/Home');

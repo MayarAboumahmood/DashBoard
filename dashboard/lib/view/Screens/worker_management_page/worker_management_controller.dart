@@ -1,57 +1,50 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/data/Models/worker_model.dart';
+import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
+import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:get/get.dart';
 
 import '../../widget/no_internet_page.dart';
 import 'worker_management_service.dart';
 
-class WorkerManagementController extends GetxController {
-  //StatuseRequest? statuseRequest = StatuseRequest.init;
-  late List<WorkerModel> workerList;
-  WorkerService service=WorkerService();
-  StatuseRequest statuseRequest=(StatuseRequest.init);
+class WorkerManagementController extends GetxController
+    implements StatuseRequestController {
+   List<WorkerModel> finalListData=[];
+  WorkerService service = WorkerService();
   @override
-  void onInit() async{
-    workerList = [];
-     
+  StatuseRequest? statuseRequest = (StatuseRequest.init);
+  @override
+  void onInit() async {
+    finalListData = await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-  await getWorkers();
+
     super.onInit();
   }
-    getWorkers() async {
-      statuseRequest = StatuseRequest.loading;
-      update();
-     dynamic response = await getdata(); // check if the return data is statuseRequest or real data
-     print("object");
-      statuseRequest = handlingData(response); //return the statuseResponse
-      print("befor id");
-      if (statuseRequest == StatuseRequest.success) {
-          whenGetDataSuccess(response);
-      } else if (statuseRequest == StatuseRequest.authfailuer) {
-        snackBarForErrors();
-      } else {
-        // when happen a mestake we handel it here
-      }
-    
+
+  Future<List<WorkerModel>> sendingARequestAndHandlingData() async {
+    statuseRequest = StatuseRequest.loading;
     update();
+    dynamic response =await getdata(); // check if the return data is statuseRequest or real data
+    statuseRequest = handlingData(response); //return the statuseResponse
+    if (statuseRequest == StatuseRequest.success) {
+      return whenGetDataSuccess(response);
+    } else if (statuseRequest == StatuseRequest.authfailuer) {
+       snackBarForErrors("Auth error","Please login again");
+        Get.offAllNamed('LoginPage');
+    } else {
+      // when happen a mestake we handel it here
+      [];
+    }
+    update();
+    return [];
   }
 
-  SnackbarController snackBarForErrors() {
-    return Get.snackbar(
-        "Incorrect email or password".tr, ///// adding for translate  done
-        "Try entering your data again".tr, //// adding for translate  done
-        snackPosition: SnackPosition.TOP,
-        colorText: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-        backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
-        duration: const Duration(seconds: 5));
-  }
-
+  
   getdata() async {
-      String token = await prefService.readString('token');
-     
+    String token = await prefService.readString('token');
+
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.getworkers(token);
 
@@ -66,17 +59,14 @@ class WorkerManagementController extends GetxController {
     }
   }
 
-  whenGetDataSuccess(response) async {
-    print(response['data']);
-    List responsedata = response['data']; 
-   for(int i=0;i<responsedata.length;i++){
-      workerList.add(WorkerModel.fromMap(responsedata[i]));
-   }
-    for(var  item in workerList){
-      print(item.firstName);
-   }
+  Future<List<WorkerModel>>whenGetDataSuccess(response) async {
+    List responsedata = response['data'];
+    for (int i = 0; i < responsedata.length; i++) {
+      finalListData.add(WorkerModel.fromMap(responsedata[i]));
+    }
+    
     update();
+    return finalListData;
+    
   }
-
-
 }

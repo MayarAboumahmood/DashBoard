@@ -16,8 +16,6 @@ class StockCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('context.widthInches');
-    print(context.widthInches);
     Sizes size = Sizes(context);
     return MaterialButton(
       onPressed: () {},

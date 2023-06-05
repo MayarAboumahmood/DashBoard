@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/Screens/add_event/add_event_controller.dart';
@@ -123,22 +122,22 @@ class AddEvent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            Obx(
-              () => controller.webImageExcist.value
-                  ? SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: GetPlatform.isWeb
-                          ? Image.memory(
-                              controller.webImage,
-                              fit: BoxFit.contain,
-                            )
-                          : Image.file(
-                              File(controller.selectedImage.value),
-                              fit: BoxFit.contain,
-                            ))
-                  : const SizedBox(),
-            ),
+            // Obx(
+            //   () => controller.webImageExcist
+            //       ? SizedBox(
+            //           width: 200,
+            //           height: 200,
+            //           child: GetPlatform.isWeb
+            //               ? Image.memory(
+            //                   controller.webImage,
+            //                   fit: BoxFit.contain,
+            //                 )
+            //               : Image.file(
+            //                   File(controller.selectedImage),
+            //                   fit: BoxFit.contain,
+            //                 ))
+            //       : const SizedBox(),
+            // ),
             const SizedBox(
               height: 15,
             ),

@@ -9,7 +9,14 @@ static String getWorkers='${baseAPI}show-all-workers';
 
 ///////////Admin 
 static String adminLogin='${baseAPI}login';
-static String newAdmin='${baseAPI}newadmin';
+static String newAdmin='${baseAPI}signup';
+static String showAllAdmins='${baseAPI}show-all-admins';
+
+//////event
+static String showAllEvents='${baseAPI}show-all-events';
+static String addEvent='${baseAPI}create-event';
+
+
  
 
 /////////forImages

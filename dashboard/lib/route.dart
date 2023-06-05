@@ -40,7 +40,7 @@ appRoutes() => [
       ),
       GetPage(
         name: '/EventInformationPage',
-        page: () => EventInformationPage(),
+        page: () => const EventInformationPage(),
       ),
       GetPage(
         name: '/StockPage',

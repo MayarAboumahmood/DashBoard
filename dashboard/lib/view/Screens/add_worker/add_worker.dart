@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/status_request.dart';
@@ -62,8 +61,7 @@ class AddWorker extends StatelessWidget {
                         TextInputType.name,
                         (value) {
                           if (value!.length < 2) {
-                            return "your name is shourtest than should be"
-                                .tr; ////add to translate
+                            return "your name is shourtest than should be".tr;
                           }
                           return null;
                         },

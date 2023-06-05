@@ -1,20 +1,17 @@
 // ignore_for_file: avoid_print
 // import 'dart:html';
-import 'dart:io';
+
 
 import 'dart:typed_data';
 import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:path/path.dart' as path;
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/data/Models/worker_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'add_worker_service.dart';
 
@@ -29,6 +26,7 @@ class AddWorkerController extends GetxController
   late String email;
   late String numberPhone;
   late String information;
+  @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
   AddWorkerService service = AddWorkerService();
@@ -91,8 +89,16 @@ class AddWorkerController extends GetxController
 
   addWorkerData(WorkerModel model) async {
     String token = await prefService.readString('token');
+     Map<String, String> data = {
+          'email': model.email,
+          'first_name': model.firstName,
+          'last_name': model.lastName,
+          'phone_number': model.numberPhone,
+          'password':'12345678',
+        
+        };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.addWorker(model, selectedImageInBytes, selctFile,token);
+        await service.addWorker(data, selectedImageInBytes, selctFile,token);
     return response.fold((l) => l, (r) => r);
   }
 

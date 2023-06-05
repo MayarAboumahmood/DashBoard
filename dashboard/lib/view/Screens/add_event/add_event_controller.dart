@@ -1,34 +1,29 @@
 import 'dart:typed_data';
 
+import 'package:dashboard/constant/status_request.dart';
+import 'package:dashboard/general_controllers/statuse_request_controller.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
-class AddEventController extends GetxController {
-  RxString selectedImage = ''.obs;
+class AddEventController extends GetxController
+    implements StatuseRequestController {
+  String selctFile = '';
+  Uint8List selectedImageInBytes = Uint8List(8);
   Uint8List webImage = Uint8List(8);
-  RxBool webImageExcist = false.obs;
+  bool webImageExcist = false;
+  @override
+  StatuseRequest? statuseRequest = StatuseRequest.init;
 
   Future<void> pickImage() async {
-    final ImagePicker picker = ImagePicker();
+    FilePickerResult? fileResult =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
 
-    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-    if (!GetPlatform.isWeb) {
-      if (pickedImage != null) {
-        selectedImage = pickedImage.path.obs;
-        update();
-      } else {
-        debugPrint('no image have been selected');
-      }
-    } else if (GetPlatform.isWeb) {
-      if (pickedImage != null) {
-        var f = await pickedImage.readAsBytes();
-        webImage = f;
-        webImageExcist.value = true;
-      } else {}
-    } else {
-      debugPrint('something wont wrong!');
+    if (fileResult != null) {
+      selctFile = fileResult.files.first.name;
+      selectedImageInBytes = fileResult.files.first.bytes!;
+      webImageExcist = true;
+      update();
     }
   }
 
