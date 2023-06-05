@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
@@ -40,13 +39,17 @@ class AddReservation extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(size, Icons.person, 'Customer name'.tr,
-                (value) {}, TextInputType.name,(value){
-                  return null;
-                }),
-            generalInputTextFeild(size, Icons.confirmation_number,
-                'Number of setes'.tr, (value) {}, TextInputType.number,(value){
-                  return null;
-                }),
+                (value) {}, TextInputType.name, (value) {
+              return null;
+            }),
+            generalInputTextFeild(
+                size,
+                Icons.confirmation_number,
+                'Number of setes'.tr,
+                (value) {},
+                TextInputType.number, (value) {
+              return null;
+            }),
             const SizedBox(
               height: 50,
             ),

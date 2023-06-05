@@ -80,7 +80,8 @@ class AddAdmin extends StatelessWidget {
                         mywidth: size.normalButtonWidht,
                         myheight: size.normalButtonHeight,
                         myShadow: 0,
-                        child:controller.statuseRequest == StatuseRequest.loading
+                        child:
+                            controller.statuseRequest == StatuseRequest.loading
                                 ? Container(
                                     padding: const EdgeInsets.all(2),
                                     child: CircularProgressIndicator(

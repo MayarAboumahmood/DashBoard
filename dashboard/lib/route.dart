@@ -19,7 +19,7 @@ import 'view/Screens/stock/stock_binding.dart';
 import 'view/Screens/worker_management_page/worker_management_binding.dart';
 
 appRoutes() => [
-       GetPage(name: '/', page: () => Landing(), binding: ThemeBinding()),
+      GetPage(name: '/Home', page: () => Landing(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
