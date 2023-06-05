@@ -37,7 +37,13 @@ class AdminManagementPage extends StatelessWidget {
       ),
       appBar:
           createAppBar(size, context, getDeviceType, 'Admins management'.tr),
-      body: GetBuilder<AdminManagementController>(
+      body:
+      
+      Row(
+      children: [
+        SlideDrawer(),
+       
+       GetBuilder<AdminManagementController>(
         builder: (ctx) =>
             controller.statuseRequest == StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
@@ -47,41 +53,36 @@ class AdminManagementPage extends StatelessWidget {
                       )
                     : whenShowTheBodyAfterLoadingAndInternet(size, context),
       ),
-    );
+   ] ));
   }
 
   Widget whenShowTheBodyAfterLoadingAndInternet(
       Sizes size, BuildContext context) {
-    return Row(
-      children: [
-        SlideDrawer(),
-        Flexible(
-          fit: FlexFit.tight,
-          child: GridView.builder(
-            itemCount: controller.finalListData.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.widthInches > 11
-                  ? 3
-                  : context.widthInches > 8.5
-                      ? 2
-                      : 1,
-              childAspectRatio: 1.7,
-              crossAxisSpacing: 20.0,
-              mainAxisSpacing: 20.0,
-              mainAxisExtent: 200,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return adminWorkerCard(
-                  context,
-                  size,
-                  '',
-                  controller.finalListData[index].name,
-                  "workerDetails",
-                  controller.finalListData[index].id!);
-            },
-          ),
-        )
-      ],
+    return Flexible(
+      fit: FlexFit.tight,
+      child: GridView.builder(
+        itemCount: controller.finalListData.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: context.widthInches > 11
+              ? 3
+              : context.widthInches > 8.5
+                  ? 2
+                  : 1,
+          childAspectRatio: 1.7,
+          crossAxisSpacing: 20.0,
+          mainAxisSpacing: 20.0,
+          mainAxisExtent: 200,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return adminWorkerCard(
+              context,
+              size,
+              '',
+              controller.finalListData[index].name,
+              "workerDetails",
+              controller.finalListData[index].id!);
+        },
+      ),
     );
   }
 
@@ -98,5 +99,4 @@ class AdminManagementPage extends StatelessWidget {
       },
     );
   }
-
- }
+}

@@ -42,61 +42,64 @@ class WorkerManagementPage extends StatelessWidget {
         builder: (ctx) =>
             controller.statuseRequest == StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
-                :
-                controller.statuseRequest==StatuseRequest.loading?
-                Center(child:Text("loading....",style:generalTextStyle(14)),)
-               : whenShowTheBodyAfterLoadingAndInternet(size,context),
+                : controller.statuseRequest == StatuseRequest.loading
+                    ? Center(
+                        child: Text("loading....", style: generalTextStyle(14)),
+                      )
+                    : whenShowTheBodyAfterLoadingAndInternet(size, context),
       ),
     );
   }
-  Widget whenShowTheBodyAfterLoadingAndInternet(Sizes size, BuildContext context){
-    return  controller.finalListData.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No workers have been added yet",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: jostFontFamily,
-                            color: Get.isDarkMode
-                                ? skinColorWhite
-                                : backGroundDarkColor,
-                            fontSize: 14,
-                          ),
-                        ),
-                      )
-                    : bodyOfBage(size, context);
-  }
-  Widget bodyOfBage(Sizes size, BuildContext context) {
+
+  Widget whenShowTheBodyAfterLoadingAndInternet(
+      Sizes size, BuildContext context) {
     return Row(
       children: [
         SlideDrawer(),
-        Flexible(
-          fit: FlexFit.tight,
-          child: GridView.builder(
-            itemCount: controller.finalListData.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.widthInches > 11
-                  ? 3
-                  : context.widthInches > 8.5
-                      ? 2
-                      : 1,
-              childAspectRatio: 1.7,
-              crossAxisSpacing: 20.0,
-              mainAxisSpacing: 20.0,
-              mainAxisExtent: 200,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return adminWorkerCard(
-                  context,
-                  size,
-                  controller.finalListData[index].image!,
-                  controller.finalListData[index].firstName,
-                  "workerDetails",
-                  controller.finalListData[index].id!);
-            },
-          ),
-        )
+        controller.finalListData.isEmpty
+            ? Center(
+                child: Text(
+                  "No workers have been added yet",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: jostFontFamily,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                    fontSize: 14,
+                  ),
+                ),
+              )
+            : bodyOfBage(size, context)
       ],
+    );
+  }
+
+  Widget bodyOfBage(Sizes size, BuildContext context) {
+    return Flexible(
+      fit: FlexFit.tight,
+      child: GridView.builder(
+        itemCount: controller.finalListData.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: context.widthInches > 11
+              ? 3
+              : context.widthInches > 8.5
+                  ? 2
+                  : 1,
+          childAspectRatio: 1.7,
+          crossAxisSpacing: 20.0,
+          mainAxisSpacing: 20.0,
+          mainAxisExtent: 200,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return adminWorkerCard(
+              context,
+              size,
+              controller.finalListData[index].image!,
+              controller.finalListData[index].firstName,
+              "workerDetails",
+              controller.finalListData[index].id!);
+        },
+      ),
     );
   }
 
