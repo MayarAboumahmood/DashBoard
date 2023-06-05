@@ -1,4 +1,7 @@
 import 'package:dashboard/view/widget/divider_with_word.dart';
+import 'package:dashboard/constant/status_request.dart';
+import 'package:dashboard/view/Screens/event_page/event_controller.dart';
+import 'package:dashboard/view/widget/no_internet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -56,7 +59,7 @@ class EventPage extends StatelessWidget {
   ];
 
   EventPage({super.key});
-
+  EventController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -64,15 +67,29 @@ class EventPage extends StatelessWidget {
     return Scaffold(
         drawer: context.widthInches < 6 ? SlideDrawer() : null,
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              showAddEventDialog(context);
-            },
-            label: Text(
-              'Add new event'.tr,
-              style: generalTextStyle(null),
-            )),
+          onPressed: () {
+            showAddEventDialog(context);
+          },
+          label: Text(
+            'Add new event'.tr,
+            style: generalTextStyle(null),
+          ),
+        ),
         appBar: createAppBar(size, context, getDeviceType, 'Events'.tr),
-        body: Row(
+        body: GetBuilder<EventController>(
+          builder: (ctx) => controller.statuseRequest ==
+                  StatuseRequest.offlinefailure
+              ? noInternetPage(size, controller)
+              : controller.statuseRequest == StatuseRequest.loading
+                  ? Center(
+                      child: Text("loading....", style: generalTextStyle(14)),
+                    )
+                  : whenShowTheBodyAfterLoadingAndInternet(context),
+        ));
+  }
+
+  Widget whenShowTheBodyAfterLoadingAndInternet(BuildContext context) {
+    return  Row(
           children: [
             Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
             Expanded(
@@ -102,7 +119,7 @@ class EventPage extends StatelessWidget {
               ),
             ),
           ],
-        ));
+    );
   }
 
   Widget setListOfEvents(BuildContext context) {

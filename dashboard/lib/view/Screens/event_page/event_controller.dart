@@ -5,20 +5,19 @@ import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:get/get.dart';
-
 import '../../widget/no_internet_page.dart';
-import 'admin_management_service.dart';
+import 'event_service.dart';
 
-class AdminManagementController extends GetxController
+class EventController extends GetxController
     implements StatuseRequestController {
   List<AdminModel> finalListData = [];
-  AdminService service = AdminService();
+  EventService service = EventService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-    finalListData = await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+    finalListData = await sendingARequestAndHandlingData();
 
     super.onInit();
   }
@@ -46,7 +45,7 @@ class AdminManagementController extends GetxController
     String token = await prefService.readString('token');
 
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.getAdmins(token);
+        await service.getEvents(token);
 
     return response.fold((l) => l, (r) => r);
   }

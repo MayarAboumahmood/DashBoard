@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/Screens/add_event/add_event_controller.dart';
@@ -14,6 +13,7 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/hover_button.dart';
+import '../select_artist/select_artist.dart';
 
 // ignore: must_be_immutable
 class AddEvent extends StatelessWidget {
@@ -44,11 +44,50 @@ class AddEvent extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(size, Icons.groups_3, 'Event name'.tr,
-                (value) {}, TextInputType.name),
+                (value) {}, TextInputType.name, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             generalInputTextFeild(size, Icons.person,
-                'max number of attandend'.tr, (value) {}, TextInputType.number),
+                'max number of attandend'.tr, (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
+            generalInputTextFeild(size, Icons.money, 'ticket price'.tr,
+                (value) {}, TextInputType.number, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
+            dividerWithWord(' Add artist'.tr,
+                icon: const Icon(Icons.groups_rounded)),
+                const SizedBox(height: 10,),
+            HoverButton(
+              ontap: () {
+                showAddArtistDialog(context);
+                /*on tap a new view will open to make the admin browes the excist artis and add a new one */
+              },
+              mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+              myRadius: size.buttonRadius,
+              mywidth: size.normalButtonWidht,
+              myheight: size.normalButtonHeight,
+              child: Text('Add Artist', style: generalTextStyle(null)),
+            ),
+            const SizedBox(height: 10,),
+            dividerWithWord('description',
+                icon: const Icon(Icons.info_outline_rounded)),
             generalInputTextFeild(size, Icons.info, 'description'.tr,
-                (value) {}, TextInputType.text),
+                (value) {}, TextInputType.text, (value) {
+        if (value!.length < 12) {
+          return "The email is not valid".tr;
+        }
+        return null;
+      }),
             GetX<AddEventController>(
                 builder: (controller) => Column(
                       children: [
@@ -83,22 +122,22 @@ class AddEvent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            Obx(
-              () => controller.webImageExcist.value
-                  ? SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: GetPlatform.isWeb
-                          ? Image.memory(
-                              controller.webImage,
-                              fit: BoxFit.contain,
-                            )
-                          : Image.file(
-                              File(controller.selectedImage.value),
-                              fit: BoxFit.contain,
-                            ))
-                  : const SizedBox(),
-            ),
+            // Obx(
+            //   () => controller.webImageExcist
+            //       ? SizedBox(
+            //           width: 200,
+            //           height: 200,
+            //           child: GetPlatform.isWeb
+            //               ? Image.memory(
+            //                   controller.webImage,
+            //                   fit: BoxFit.contain,
+            //                 )
+            //               : Image.file(
+            //                   File(controller.selectedImage),
+            //                   fit: BoxFit.contain,
+            //                 ))
+            //       : const SizedBox(),
+            // ),
             const SizedBox(
               height: 15,
             ),
@@ -118,13 +157,25 @@ class AddEvent extends StatelessWidget {
                     color:
                         Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
               ),
-            )
+            ),const SizedBox(height: 15,),
           ],
         ),
       ),
     );
   }
-
+void showAddArtistDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child:const  SelectArtist(),
+        );
+      },
+    );
+  }
   Row createAppBar(Sizes size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
