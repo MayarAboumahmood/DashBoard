@@ -17,11 +17,11 @@ import 'view/Screens/login/login_binding.dart';
 import 'view/Screens/stock/stock_binding.dart';
 
 appRoutes() => [
-      GetPage(name: '/Home', page: () => Landing(), binding: ThemeBinding()),
+      GetPage(name: '/', page: () => Landing(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
-        name: '/',
+        name: '/Home',
         page: () => Home(),
       ),
       GetPage(
