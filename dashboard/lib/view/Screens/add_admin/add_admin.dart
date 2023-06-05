@@ -17,7 +17,7 @@ class AddAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AddAdminController controller = Get.find();
+    // AddAdminController controller = Get.find();
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,

@@ -37,9 +37,11 @@ class Home extends StatelessWidget {
             Flexible(
               child: Wrap(runAlignment: WrapAlignment.end, children: [
                 homePageCard(size, 'total number of customer'.tr, '723',
-                    'assets/images/Warrenty.png'),
+                    'assets/images/tickets.png'),
+                homePageCard(size, 'number of drinks'.tr, '25',
+                    'assets/images/drinks.png'),
                 homePageCard(size, 'total number of events'.tr, '9',
-                    'assets/images/Warrenty.png'),
+                    'assets/images/concert.png'),
                 setWorkersHomePageCard(
                     size, context, workerList, slideDrawerController)
               ]),
@@ -143,9 +145,10 @@ Widget homePageCard(
               borderRadius: BorderRadius.circular(size.buttonRadius)),
         ),
         SizedBox(
-            height: size.bigButtonHeight - 10,
-            width: size.bigButtonWidht - 10,
-            child: Image.asset(imagePath)),
+          height: size.bigButtonHeight - 10,
+          width: size.bigButtonWidht - 10,
+          child: Image.asset(imagePath),
+        ),
         Container(
           margin: const EdgeInsets.all(10),
           height: size.bigButtonHeight,
