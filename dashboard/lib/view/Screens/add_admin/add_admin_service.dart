@@ -12,6 +12,7 @@ class AddAdminService {
     //Either for return two data type in the same time
     try {
       if (await checkInternet()) {
+        print(token);
         Uri url = Uri.parse(ServerConstApis.newAdmin);
           Map<String, String> headers = {
           "Access-Control-Allow-Origin": "*",

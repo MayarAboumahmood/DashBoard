@@ -10,6 +10,7 @@ class WorkerService {
   Future<Either<StatuseRequest, Map>> getworkers(String token) async {
     //Either for return two data type in the same time
     try {
+      print(token);
       if (await checkInternet()) {
        Uri url = Uri.parse(ServerConstApis.getWorkers);
         Map<String, String> headers = {
@@ -21,7 +22,7 @@ class WorkerService {
           final responsebody = jsonDecode(response.body);
 
           return Right(responsebody);
-        } else if (response.statusCode == 401) {
+        } else if (response.statusCode == 403) {
           return const Left(StatuseRequest.authfailuer);
         } else {
           return const Left(StatuseRequest.serverfailure);

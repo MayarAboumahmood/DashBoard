@@ -62,7 +62,9 @@ service= AddAdminService();
     String token = await prefService.readString('token');
     Map<String,String> data={
       "admin_name":name,
-      "email":email
+      "email":email,
+      "password":"12345678",
+      "is_super":"0"
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.addAdmin(data,token);
@@ -78,7 +80,7 @@ service= AddAdminService();
   }
 
   whenAddSuccess(response) async {
-    Get.offAllNamed('/WorkerManagementPage');
+    Get.offAllNamed('/AdminManagementPage');
     update();
   }
  

@@ -162,15 +162,15 @@ class SlideDrawer extends StatelessWidget {
           const Divider(),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.home, 'Home', () {
-            Get.offAllNamed('/Home');
+            Get.offNamed('/Home');
           }),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.admin_panel_settings, 'Admins', () {
-            Get.offAllNamed('/AdminManagementPage');
+            Get.offNamed('/AdminManagementPage');
           }),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.groups_3, 'Workers', () {
-            Get.offAllNamed('/WorkerManagementPage');
+            Get.offNamed('/WorkerManagementPage');
           }),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.library_music_rounded, 'Events', () {
