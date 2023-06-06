@@ -41,6 +41,7 @@ class Setting extends StatelessWidget {
             changingThemeRow(size),
             dividerWithWord('more setting'.tr),
             contactUs(size, context),
+            logOut(size, context),
           ]),
         ));
   }
@@ -60,8 +61,8 @@ class Setting extends StatelessWidget {
   }
 
   Widget contactUs(Sizes size, BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
+    return MaterialButton(
+      onPressed: () {},
       child: Container(
         // width: 345,
         padding: EdgeInsets.symmetric(
@@ -87,6 +88,52 @@ class Setting extends StatelessWidget {
               width: context.widthInches > 5 ? 10 : 7,
             ),
             Text('contact us'.tr,
+                style: TextStyle(
+                  fontFamily: jostFontFamily,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                  fontSize: 14,
+                )),
+            const Spacer(),
+            Icon(Icons.arrow_forward_ios_rounded,
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+            SizedBox(
+              width: context.widthInches > 5 ? 6 : 4,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget logOut(Sizes size, BuildContext context) {
+    return MaterialButton(
+      onPressed: () {
+        //log out from the account.
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: context.widthInches > 5 ? 7 : 7,
+            vertical: Get.size.height * .02),
+        margin: EdgeInsets.symmetric(
+            horizontal: context.widthInches > 5 ? 7 : 7,
+            vertical: Get.size.height * .02),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.buttonRadius),
+          color: Get.isDarkMode
+              ? const Color.fromARGB(255, 54, 54, 54)
+              : Colors.grey[400],
+        ),
+        child: Row(
+          children: [
+            iconBox(
+                Icon(Icons.logout,
+                    color:
+                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+                size),
+            SizedBox(
+              width: context.widthInches > 5 ? 10 : 7,
+            ),
+            Text('logout'.tr,
                 style: TextStyle(
                   fontFamily: jostFontFamily,
                   color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,

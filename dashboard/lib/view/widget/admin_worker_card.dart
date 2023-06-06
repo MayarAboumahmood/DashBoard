@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 import '../../../constant/server_const.dart';
 
+import '../Screens/admin_all_action_page/admin_all_action_page.dart';
 import '../Screens/woker_information_page/worker_information_page.dart';
 
 Widget adminCard(BuildContext context, Sizes size, String adminName,
@@ -15,7 +16,7 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
       padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
       child: MaterialButton(
           onPressed: () {
-//go to admin all action page.
+            Get.to(const AdminAllActionPage());
           },
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -88,7 +89,7 @@ Widget workerCard(BuildContext context, Sizes size, String workerImage,
     padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
     child: MaterialButton(
       onPressed: () {
-        Get.to(WorkerInfoPage(id: id));
+        Get.to(WorkerInfoPage());
       },
       child: Container(
         padding: EdgeInsets.symmetric(

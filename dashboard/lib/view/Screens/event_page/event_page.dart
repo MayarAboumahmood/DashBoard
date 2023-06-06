@@ -104,7 +104,7 @@ class EventPage extends StatelessWidget {
         child: Column(
           children: [
             dividerWithWord(
-              'current event'.tr,
+              'Current event'.tr,
             ),
             const SizedBox(
               height: 10,
@@ -120,7 +120,7 @@ class EventPage extends StatelessWidget {
               height: 10,
             ),
             dividerWithWord(
-              'upcomeing events'.tr,
+              'Upcomeing events'.tr,
             ),
             const SizedBox(
               height: 10,
@@ -130,7 +130,7 @@ class EventPage extends StatelessWidget {
               height: 10,
             ),
             dividerWithWord(
-              'old events'.tr,
+              'Old events'.tr,
             ),
             const SizedBox(
               height: 10,

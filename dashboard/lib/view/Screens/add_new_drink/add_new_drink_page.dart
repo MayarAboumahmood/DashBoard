@@ -130,7 +130,8 @@ class AddNewDrink extends StatelessWidget {
                     color:
                         Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
               ),
-            )
+            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

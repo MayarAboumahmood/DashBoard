@@ -12,6 +12,7 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
 import '../../widget/costum_text_field.dart';
+import '../../widget/general_text_style.dart';
 import '../../widget/hover_button.dart';
 import 'add_worker_controller.dart';
 
@@ -118,14 +119,8 @@ class AddWorker extends StatelessWidget {
                         onPressed: () {
                           controller.pickImage();
                         },
-                        child: Text(
-                          'Select Image for worker'.tr,
-                          style: TextStyle(
-                              fontFamily: jostFontFamily,
-                              color: Get.isDarkMode
-                                  ? darkPrimaryColor
-                                  : primaryColor),
-                        ),
+                        child: Text('Select Image for worker'.tr,
+                            style: generalTextStyle(null)),
                       ),
                       const SizedBox(height: 20),
                       controller.webImageExcist
@@ -145,7 +140,7 @@ class AddWorker extends StatelessWidget {
                               )
                           : const SizedBox(),
                       const SizedBox(
-                        height: 50,
+                        height: 10,
                       ),
                       HoverButton(
                         mycolor:

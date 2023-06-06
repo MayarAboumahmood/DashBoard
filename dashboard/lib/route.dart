@@ -21,7 +21,7 @@ import 'view/Screens/woker_information_page/worker_information_page.dart';
 import 'view/Screens/worker_management_page/worker_management_binding.dart';
 
 appRoutes() => [
-      GetPage(name: '/', page: () => Landing(), binding: ThemeBinding()),
+      GetPage(name: '/Home', page: () => Landing(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
@@ -34,9 +34,8 @@ appRoutes() => [
           bindings: [WorkerManagementBinding(), AddWorkerBinding()]),
       GetPage(
           name: '/WorkerInformationPage',
-          page: () =>  WorkerInfoPage(),
+          page: () => WorkerInfoPage(),
           bindings: [WorkerInformationBinding()]),
-      
       GetPage(
           name: '/AdminManagementPage',
           page: () => AdminManagementPage(),
@@ -55,7 +54,7 @@ appRoutes() => [
         page: () => StockPage(),
         binding: StockBinding(),
       ),
-          GetPage(
+      GetPage(
         name: '/EventInformationPage',
         page: () => const EventInformationPage(),
       ),
@@ -68,7 +67,4 @@ appRoutes() => [
         name: '/DrinkInformationPage',
         page: () => const DrinkInformationPage(),
       ),
-
     ];
-
-

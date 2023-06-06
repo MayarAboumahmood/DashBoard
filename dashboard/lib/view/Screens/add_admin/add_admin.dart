@@ -54,7 +54,7 @@ class AddAdmin extends StatelessWidget {
                       generalInputTextFeild(
                         size,
                         Icons.person,
-                        'name',
+                        'Name'.tr,
                         (value) {
                           controller.name = value!;
                         },

@@ -58,7 +58,7 @@ class EventDetailsCard extends StatelessWidget {
                       showSelectWrokerDialog(context);
                     },
                     child: Text(
-                      'change the worker'.tr,
+                      'Change the worker'.tr,
                       style: generalTextStyle(20),
                     )),
               )

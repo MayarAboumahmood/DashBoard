@@ -44,7 +44,7 @@ class OrderPage extends StatelessWidget {
                 height: 10,
               ),
               dividerWithWord(
-                'unfulfilled orders'.tr,
+                'Unfulfilled orders'.tr,
               ),
               const SizedBox(
                 height: 10,

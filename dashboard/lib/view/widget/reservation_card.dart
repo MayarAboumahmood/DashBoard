@@ -22,7 +22,7 @@ class ReservationCard extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 5),
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(size.buttonRadius),
             color: Get.isDarkMode
@@ -30,7 +30,7 @@ class ReservationCard extends StatelessWidget {
                 : Colors.grey[400],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
                 '_customer Name: customer name',

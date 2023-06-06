@@ -16,7 +16,7 @@ class DrinkInformationPage extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: addFloatinActionButton(
-          context, 'Edite the drink', 'Delete the drink'),
+          context, 'Edite the drink'.tr, 'Delete the drink'.tr),
       appBar: createAppBar(size, context),
       body: Column(children: [
         Row(
