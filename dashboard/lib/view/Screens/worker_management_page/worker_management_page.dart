@@ -41,8 +41,9 @@ class WorkerManagementPage extends StatelessWidget {
       body: Row(
         children: [
           Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
-          const Spacer(),
-          GetBuilder<WorkerManagementController>(
+          Expanded(
+              child: Center(
+                  child: GetBuilder<WorkerManagementController>(
             builder: (ctx) => controller.statuseRequest ==
                     StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
@@ -52,8 +53,7 @@ class WorkerManagementPage extends StatelessWidget {
                             Text("loading....".tr, style: generalTextStyle(14)),
                       )
                     : whenShowTheBodyAfterLoadingAndInternet(size, context),
-          ),
-          const Spacer(),
+          ))),
         ],
       ),
     );
@@ -93,7 +93,7 @@ class WorkerManagementPage extends StatelessWidget {
           mainAxisExtent: 200,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return adminWorkerCard(
+          return workerCard(
               context,
               size,
               controller.finalListData[index].image!,

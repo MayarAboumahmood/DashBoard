@@ -18,7 +18,7 @@ class EventInformationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    List<EventDetailsCard> eventDetailesList = const [
+    List<EventDetailsCard> eventDetailesList = [
       EventDetailsCard(),
       EventDetailsCard(),
       // EventDetailsCard(),

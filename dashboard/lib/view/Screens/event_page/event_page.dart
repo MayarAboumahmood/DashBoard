@@ -12,6 +12,7 @@ import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/slide_drawer.dart';
 import '../add_event/add_event_page.dart';
+import '../order_page/order_page.dart';
 
 // ignore: must_be_immutable
 class EventPage extends StatelessWidget {
@@ -79,43 +80,67 @@ class EventPage extends StatelessWidget {
         body: Row(
           children: [
             Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
-            GetBuilder<EventController>(
-              builder: (ctx) =>
-                  controller.statuseRequest == StatuseRequest.offlinefailure
+            Expanded(
+              child: Center(
+                child: GetBuilder<EventController>(
+                  builder: (ctx) => controller.statuseRequest ==
+                          StatuseRequest.offlinefailure
                       ? noInternetPage(size, controller)
                       : controller.statuseRequest == StatuseRequest.loading
                           ? Text("loading....".tr, style: generalTextStyle(14))
                           : whenShowTheBodyAfterLoadingAndInternet(context),
+                ),
+              ),
             ),
           ],
         ));
   }
 
   Widget whenShowTheBodyAfterLoadingAndInternet(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          dividerWithWord(
-            'upcomeing events'.tr,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          setListOfEvents(context),
-          const SizedBox(
-            height: 10,
-          ),
-          dividerWithWord(
-            'old events'.tr,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          setListOfEvents(context),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: Get.size.height,
+        width: Get.size.width,
+        child: Column(
+          children: [
+            dividerWithWord(
+              'current event'.tr,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            EventCard(
+                onPressed: () {
+                  Get.to(OrderPage());
+                },
+                eventName: 'current event',
+                date: 'now',
+                imageName: 'assets/images/my hero acadime.jpg'),
+            const SizedBox(
+              height: 10,
+            ),
+            dividerWithWord(
+              'upcomeing events'.tr,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            setListOfEvents(context),
+            const SizedBox(
+              height: 10,
+            ),
+            dividerWithWord(
+              'old events'.tr,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            setListOfEvents(context),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       ),
     );
   }

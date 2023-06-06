@@ -23,65 +23,61 @@ class AdminManagementPage extends StatelessWidget {
 
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
-        drawer: context.widthInches < 6 ? SlideDrawer() : null,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            showAddAdminDialog(context);
-          },
-          label: Text(
-            'Add admin'.tr,
-            style: TextStyle(
-              fontFamily: jostFontFamily,
-            ),
+      drawer: context.widthInches < 6 ? SlideDrawer() : null,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          showAddAdminDialog(context);
+        },
+        label: Text(
+          'Add admin'.tr,
+          style: TextStyle(
+            fontFamily: jostFontFamily,
           ),
         ),
-        appBar:
-            createAppBar(size, context, getDeviceType, 'Admins management'.tr),
-        body: Row(children: [
+      ),
+      appBar:
+          createAppBar(size, context, getDeviceType, 'Admins management'.tr),
+      body: Row(
+        children: [
           Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
-          const Spacer(),
-          GetBuilder<AdminManagementController>(
-            builder: (ctx) => controller.statuseRequest ==
-                    StatuseRequest.offlinefailure
-                ? noInternetPage(size, controller)
-                : controller.statuseRequest == StatuseRequest.loading
-                    ? Center(
-                        child:
-                            Text("loading....".tr, style: generalTextStyle(14)),
-                      )
-                    : whenShowTheBodyAfterLoadingAndInternet(size, context),
-          ),
-          const Spacer(),
-        ]));
+          Expanded(
+              child: Center(
+            child: GetBuilder<AdminManagementController>(
+              builder: (ctx) => controller.statuseRequest ==
+                      StatuseRequest.offlinefailure
+                  ? noInternetPage(size, controller)
+                  : controller.statuseRequest == StatuseRequest.loading
+                      ? Center(
+                          child: Text("loading....".tr,
+                              style: generalTextStyle(14)),
+                        )
+                      : whenShowTheBodyAfterLoadingAndInternet(size, context),
+            ),
+          ))
+        ],
+      ),
+    );
   }
 
   Widget whenShowTheBodyAfterLoadingAndInternet(
       Sizes size, BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
-      child: GridView.builder(
-        itemCount: controller.finalListData.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: context.widthInches > 11
-              ? 3
-              : context.widthInches > 8.5
-                  ? 2
-                  : 1,
-          childAspectRatio: 1.7,
-          crossAxisSpacing: 20.0,
-          mainAxisSpacing: 20.0,
-          mainAxisExtent: 200,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return adminWorkerCard(
-              context,
-              size,
-              '',
-              controller.finalListData[index].name,
-              "workerDetails",
-              controller.finalListData[index].id!);
-        },
+    return GridView.builder(
+      itemCount: controller.finalListData.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: context.widthInches > 11
+            ? 3
+            : context.widthInches > 8.5
+                ? 2
+                : 1,
+        childAspectRatio: 1.7,
+        crossAxisSpacing: 20.0,
+        mainAxisSpacing: 20.0,
+        mainAxisExtent: 200,
       ),
+      itemBuilder: (BuildContext context, int index) {
+        return adminCard(context, size, controller.finalListData[index].name,
+            "workerDetails", controller.finalListData[index].id!);
+      },
     );
   }
 
