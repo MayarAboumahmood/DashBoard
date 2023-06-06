@@ -16,9 +16,10 @@ class EventController extends GetxController
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
+   // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     finalListData = await sendingARequestAndHandlingData();
-    statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-
+ statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+   
     super.onInit();
   }
 

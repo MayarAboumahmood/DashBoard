@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/Screens/worker_event_info/worker_event_info.dart';
+import 'package:dashboard/view/widget/dialog.dart';
 import 'package:dashboard/view/widget/general_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,20 +12,20 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../widget/event_card.dart';
 import '../../widget/general_text_style.dart';
+import 'worker_inforamtion_controller.dart';
 
 // ignore: must_be_immutable
 class WorkerInfoPage extends StatelessWidget {
-  int id;
+  WorkerInformationController controller=Get.find();
   WorkerInfoPage({
     Key? key,
-    required this.id,
-  }) : super(key: key);
+    }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
-      floatingActionButton: addFloatinActionButton('delete this worker'),
+      floatingActionButton: addFloatinActionButton('delete this worker',context),
       appBar: createAppBar(size, context),
       body: Column(children: [
         Row(
@@ -44,16 +45,32 @@ class WorkerInfoPage extends StatelessWidget {
     );
   }
 
-  Widget addFloatinActionButton(String title) {
+
+  Widget addFloatinActionButton(String title,BuildContext context) {
     return FloatingActionButton.extended(
         hoverColor: Get.isDarkMode ? Colors.red[600] : Colors.red[500],
         onPressed: () {
-          // showAddDrinkDialog(context);
+         // showAddWorkerDialog(context);
+         controller.onPressDeleteWorker();
         },
         label: Text(
           title.tr,
           style: generalTextStyle(null),
         ));
+  }
+  void showAddWorkerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child:  MyDialogWidget(errorMessage: "error",title:"title")
+        ,
+        );
+      },
+    );
   }
 
   Widget setWorkerDetailes(Sizes size, BuildContext context) {

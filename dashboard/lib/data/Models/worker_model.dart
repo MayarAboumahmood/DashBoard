@@ -12,7 +12,7 @@ class WorkerModel {
       lastName: map['last_name'] ?? '',
       numberPhone: map['numberPhone'] ?? '',
       email: map['email'] ?? '',
-     id: map['id']??0,
+     id: map['worker_id']??0,
      image: map['image']??''
     );
   } 
