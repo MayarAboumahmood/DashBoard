@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/status_request.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
@@ -110,7 +109,12 @@ class AddWorker extends StatelessWidget {
                             }
                             return null;
                           }),
-                      TextButton(
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color?>(
+                                Get.isDarkMode
+                                    ? darkPrimaryColor
+                                    : primaryColor)),
                         onPressed: () {
                           controller.pickImage();
                         },

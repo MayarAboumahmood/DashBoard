@@ -26,7 +26,7 @@ class SelectArtist extends StatelessWidget {
         child: Column(
           children: [
             createAppBar(size),
-            dividerWithWord('Select artists to the Event'.tr),
+            dividerWithWord('Select artists to the event'.tr),
             const SizedBox(height: 20),
             SizedBox(
                 width: double.infinity,
@@ -47,7 +47,7 @@ class SelectArtist extends StatelessWidget {
               myRadius: size.buttonRadius,
               mywidth: size.normalButtonWidht,
               myheight: size.normalButtonHeight,
-              child: Text('Add Artist'.tr, style: generalTextStyle(null)),
+              child: Text('Add artist'.tr, style: generalTextStyle(null)),
             ),
             const SizedBox(height: 10),
             HoverButton(

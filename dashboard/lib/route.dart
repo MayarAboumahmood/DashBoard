@@ -25,13 +25,13 @@ appRoutes() => [
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
-        name: '/Home',
+        name: '/',
         page: () => Home(),
       ),
       GetPage(
           name: '/WorkerManagementPage',
-          page: () =>  WorkerManagementPage(),
-          bindings: [WorkerManagementBinding(),AddWorkerBinding()]),
+          page: () => WorkerManagementPage(),
+          bindings: [WorkerManagementBinding(), AddWorkerBinding()]),
       GetPage(
           name: '/WorkerInformationPage',
           page: () =>  WorkerInfoPage(),
@@ -44,7 +44,7 @@ appRoutes() => [
       GetPage(
         name: '/EventPage',
         page: () => EventPage(),
-        bindings:[ AddEventBinding(), EventBinding()],
+        bindings: [AddEventBinding(), EventBinding()],
       ),
       GetPage(
         name: '/EventInformationPage',

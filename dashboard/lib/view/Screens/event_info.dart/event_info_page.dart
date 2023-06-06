@@ -157,7 +157,7 @@ class EventInformationPage extends StatelessWidget {
             Visibility(
                 visible: context.widthInches > 6,
                 child: eventInfoUnit(size, context,
-                    'total benefits in S.P: '.tr, '2000000', null)),
+                    'Total benefits in S.P: '.tr, '2000000', null)),
           ],
         ),
         SizedBox(height: Get.size.width * .01),

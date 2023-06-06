@@ -70,7 +70,24 @@ const Map<String, String> en = {
 "Worker has been deleted successfully":"Worker has been deleted successfully",
 "No workers have been added yet":"No workers have been added yet",
 'Enter new admin information':'Enter new admin information',
-"Delete message":"Delete message"
+"Delete message":"Delete message",
+  'Number of drinks': 'Number of drinks',
+  "loading....": "loading....",
+  'ticket price': 'ticket price',
+  'Add artist': 'Add artist',
+  'Description': 'Description',
+  'Select artists to the event': 'Select artists to the event',
+  'Select from the artist': 'Select from the artist',
+  'Add new artist': 'Add new artist',
+  'Enter new artist information': 'Enter new artist information',
+  'Name': 'Name',
+  'Total cost': 'Total cost',
+  'Avilable amount': 'Avilable amount',
+  'Number of attandend: ': 'Number of attandend: ',
+  'Event name: ': 'Event name: ',
+  'Total benefits in S.P: ': 'Total benefits in S.P: ',
+  'Delete the event': 'Delete the event',
+  'Edite the event': 'Edite the event',
 };
 
 

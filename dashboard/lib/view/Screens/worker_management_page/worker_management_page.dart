@@ -40,17 +40,20 @@ class WorkerManagementPage extends StatelessWidget {
           createAppBar(size, context, getDeviceType, 'Worker management'.tr),
       body: Row(
         children: [
-          SlideDrawer(),
+          Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
+          const Spacer(),
           GetBuilder<WorkerManagementController>(
             builder: (ctx) => controller.statuseRequest ==
                     StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
                 : controller.statuseRequest == StatuseRequest.loading
                     ? Center(
-                        child: Text("loading....", style: generalTextStyle(14)),
+                        child:
+                            Text("loading....".tr, style: generalTextStyle(14)),
                       )
                     : whenShowTheBodyAfterLoadingAndInternet(size, context),
           ),
+          const Spacer(),
         ],
       ),
     );
@@ -61,7 +64,7 @@ class WorkerManagementPage extends StatelessWidget {
     return controller.finalListData.isEmpty
         ? Center(
             child: Text(
-              "No workers have been added yet",
+              "No workers have been added yet".tr,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: jostFontFamily,
