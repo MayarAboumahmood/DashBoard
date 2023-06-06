@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 import '../../../constant/server_const.dart';
 
-import '../Screens/woker_information_page/worker_information_page.dart';
 
 Widget adminWorkerCard(BuildContext context, Sizes size, String workerImage,
       String workerName, String workerDetails, int id) {
@@ -15,7 +14,7 @@ Widget adminWorkerCard(BuildContext context, Sizes size, String workerImage,
       padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
       child: MaterialButton(
         onPressed: () {
-          Get.to(WorkerInfoPage(id: id));
+          Get.toNamed('/WorkerInformationPage',arguments: id);
         },
         child: Container(
           padding: EdgeInsets.symmetric(

@@ -4,6 +4,10 @@ static String baseAPI = 'http://127.0.0.1:3000/admins/';
 //////////////WorkerPages
 static String addWorker='${baseAPI}create-worker';
 static String getWorkers='${baseAPI}show-all-workers';
+static String deleteWorkers='${baseAPI}delete-worker';
+
+
+
 
 
 

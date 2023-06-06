@@ -56,4 +56,23 @@ const Map<String, String> en = {
   'unit price': 'unit price',
   'Available amount': 'Available amount',
   'Select the drink image': 'Select the drink image',
+  "The inpout isn't an eamil":"The inpout isn't an eamil",
+  "your name is shourtest than should be":"your name is shourtest than should be",
+  "The number phone should be 10 digits":"The number phone should be 10 digits",
+  
+"Add more information about worker":"Add more information about worker",
+"Please login again":"Please login again",
+"Auth error":"Auth error",
+"Inputs wrong":"Inputs wrong",
+"Please theck your inputs":"Please theck your inputs",
+"Server error":"Server error",
+"Please try again later":"Please try again later",
+"Worker has been deleted successfully":"Worker has been deleted successfully",
+"No workers have been added yet":"No workers have been added yet",
+'Enter new admin information':'Enter new admin information',
+"Delete message":"Delete message"
 };
+
+
+
+

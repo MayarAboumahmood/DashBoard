@@ -7,16 +7,17 @@ import '../../../data/checkInternet/check_internet.dart';
 import 'package:http/http.dart' as http;
 
 class WorkerInformationService {
-  Future<Either<StatuseRequest, Map>> delteworker(String token, int id) async {
+  Future<Either<StatuseRequest, Map>> deleteWorker(String token, Map<String ,String> data) async {
     try {
-      print(token);
         Uri url = Uri.parse(ServerConstApis.deleteWorkers);
         Map<String, String> headers = {
           "Access-Control-Allow-Origin": "*",
           "x-access-token": token
         };
-        var response = await http.delete(url, headers: headers);
-        if (response.statusCode == 200 || response.statusCode == 201) {
+        var response = await http.delete(url, headers: headers,body: data);
+        print(response.body);
+        print(response.statusCode);
+        if (response.statusCode == 202) {
           final responsebody = jsonDecode(response.body);
 
           return Right(responsebody);

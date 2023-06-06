@@ -10,13 +10,13 @@ class WorkerService {
   Future<Either<StatuseRequest, Map>> getworkers(String token) async {
     //Either for return two data type in the same time
     try {
-      print(token);
       if (await checkInternet()) {
-       Uri url = Uri.parse(ServerConstApis.getWorkers);
+        Uri url = Uri.parse(ServerConstApis.getWorkers);
         Map<String, String> headers = {
           "Access-Control-Allow-Origin": "*",
           "x-access-token": token
         };
+
         var response = await http.get(url, headers: headers);
         if (response.statusCode == 200 || response.statusCode == 201) {
           final responsebody = jsonDecode(response.body);
