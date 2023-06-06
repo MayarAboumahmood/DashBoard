@@ -29,25 +29,23 @@ class Home extends StatelessWidget {
     return Scaffold(
       drawer: context.widthInches < 6 ? SlideDrawer() : null,
       appBar: createAppBar(size, context, getDeviceType, 'Home page'.tr),
-      body: SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
-            Flexible(
-              child: Wrap(runAlignment: WrapAlignment.end, children: [
-                homePageCard(size, 'total number of customer'.tr, '723',
-                    'assets/images/tickets.png'),
-                homePageCard(size, 'number of drinks'.tr, '25',
-                    'assets/images/drinks.png'),
-                homePageCard(size, 'total number of events'.tr, '9',
-                    'assets/images/concert.png'),
-                setWorkersHomePageCard(
-                    size, context, workerList, slideDrawerController)
-              ]),
-            ),
-          ],
-        ),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
+          Flexible(
+            child: Wrap(runAlignment: WrapAlignment.end, children: [
+              homePageCard(size, 'Total number of customer'.tr, '723',
+                  'assets/images/tickets.png'),
+              homePageCard(size, 'Number of drinks'.tr, '25',
+                  'assets/images/drinks.png'),
+              homePageCard(size, 'Total number of events'.tr, '9',
+                  'assets/images/concert.png'),
+              setWorkersHomePageCard(
+                  size, context, workerList, slideDrawerController)
+            ]),
+          ),
+        ],
       ),
     );
   }
@@ -59,11 +57,12 @@ Widget setWorkersHomePageCard(Sizes size, BuildContext context,
     child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         margin: const EdgeInsets.all(10),
-        height: context.widthInches > 6.3
-            ? workerList.length * 55
-            : context.widthInches < 6.16 && context.widthInches > 6
-                ? workerList.length * 110
-                : workerList.length * 85,
+        height: 250,
+        // height: context.widthInches > 6.3
+        //     ? workerList.length * 55
+        //     : context.widthInches < 6.16 && context.widthInches > 6
+        //         ? workerList.length * 110
+        //         : workerList.length * 85,
         width: Get.size.width * .9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(size.buttonRadius),
@@ -72,7 +71,7 @@ Widget setWorkersHomePageCard(Sizes size, BuildContext context,
               : Colors.grey[400],
         ),
         child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
+          // physics: const NeverScrollableScrollPhysics(),
           itemCount: workerList.length * 2,
           itemBuilder: (context, index) {
             if (index.isOdd) {

@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/Screens/add_event/add_event_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
@@ -45,28 +44,34 @@ class AddEvent extends StatelessWidget {
             const SizedBox(height: 40),
             generalInputTextFeild(size, Icons.groups_3, 'Event name'.tr,
                 (value) {}, TextInputType.name, (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      }),
-            generalInputTextFeild(size, Icons.person,
-                'max number of attandend'.tr, (value) {}, TextInputType.number, (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      }),
+              if (value!.length < 12) {
+                return "The email is not valid".tr;
+              }
+              return null;
+            }),
+            generalInputTextFeild(
+                size,
+                Icons.person,
+                'max number of attandend'.tr,
+                (value) {},
+                TextInputType.number, (value) {
+              if (value!.length < 12) {
+                return "The email is not valid".tr;
+              }
+              return null;
+            }),
             generalInputTextFeild(size, Icons.money, 'ticket price'.tr,
                 (value) {}, TextInputType.number, (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      }),
-            dividerWithWord(' Add artist'.tr,
+              if (value!.length < 12) {
+                return "The email is not valid".tr;
+              }
+              return null;
+            }),
+            dividerWithWord('Add artist'.tr,
                 icon: const Icon(Icons.groups_rounded)),
-                const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             HoverButton(
               ontap: () {
                 showAddArtistDialog(context);
@@ -76,18 +81,20 @@ class AddEvent extends StatelessWidget {
               myRadius: size.buttonRadius,
               mywidth: size.normalButtonWidht,
               myheight: size.normalButtonHeight,
-              child: Text('Add Artist', style: generalTextStyle(null)),
+              child: Text('Add artist'.tr, style: generalTextStyle(null)),
             ),
-            const SizedBox(height: 10,),
-            dividerWithWord('description',
+            const SizedBox(
+              height: 10,
+            ),
+            dividerWithWord('description'.tr,
                 icon: const Icon(Icons.info_outline_rounded)),
             generalInputTextFeild(size, Icons.info, 'description'.tr,
                 (value) {}, TextInputType.text, (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      }),
+              if (value!.length < 12) {
+                return "The email is not valid".tr;
+              }
+              return null;
+            }),
             GetX<AddEventController>(
                 builder: (controller) => Column(
                       children: [
@@ -98,7 +105,13 @@ class AddEvent extends StatelessWidget {
                           style: generalTextStyle(null),
                         ),
                         const SizedBox(height: 10),
-                        TextButton(
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color?>(
+                                      Get.isDarkMode
+                                          ? darkPrimaryColor
+                                          : primaryColor)),
                           onPressed: () => controller.selectDate(context),
                           child: Text(
                             controller.isSelectedDateIsNull.value
@@ -112,7 +125,10 @@ class AddEvent extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            TextButton(
+            ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color?>(
+                      Get.isDarkMode ? darkPrimaryColor : primaryColor)),
               onPressed: () {
                 controller.pickImage();
               },
@@ -157,13 +173,17 @@ class AddEvent extends StatelessWidget {
                     color:
                         Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
               ),
-            ),const SizedBox(height: 15,),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
           ],
         ),
       ),
     );
   }
-void showAddArtistDialog(BuildContext context) {
+
+  void showAddArtistDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -171,11 +191,12 @@ void showAddArtistDialog(BuildContext context) {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child:const  SelectArtist(),
+          child: const SelectArtist(),
         );
       },
     );
   }
+
   Row createAppBar(Sizes size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -23,37 +23,36 @@ class AdminManagementPage extends StatelessWidget {
 
     GetDeviceType getDeviceType = GetDeviceType();
     return Scaffold(
-      drawer: context.widthInches < 6 ? SlideDrawer() : null,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          showAddAdminDialog(context);
-        },
-        label: Text(
-          'Add admin'.tr,
-          style: TextStyle(
-            fontFamily: jostFontFamily,
+        drawer: context.widthInches < 6 ? SlideDrawer() : null,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            showAddAdminDialog(context);
+          },
+          label: Text(
+            'Add admin'.tr,
+            style: TextStyle(
+              fontFamily: jostFontFamily,
+            ),
           ),
         ),
-      ),
-      appBar:
-          createAppBar(size, context, getDeviceType, 'Admins management'.tr),
-      body:
-      
-      Row(
-      children: [
-        SlideDrawer(),
-       
-       GetBuilder<AdminManagementController>(
-        builder: (ctx) =>
-            controller.statuseRequest == StatuseRequest.offlinefailure
+        appBar:
+            createAppBar(size, context, getDeviceType, 'Admins management'.tr),
+        body: Row(children: [
+          Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
+          const Spacer(),
+          GetBuilder<AdminManagementController>(
+            builder: (ctx) => controller.statuseRequest ==
+                    StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
                 : controller.statuseRequest == StatuseRequest.loading
                     ? Center(
-                        child: Text("loading....", style: generalTextStyle(14)),
+                        child:
+                            Text("loading....".tr, style: generalTextStyle(14)),
                       )
                     : whenShowTheBodyAfterLoadingAndInternet(size, context),
-      ),
-   ] ));
+          ),
+          const Spacer(),
+        ]));
   }
 
   Widget whenShowTheBodyAfterLoadingAndInternet(

@@ -1,3 +1,5 @@
+//to delete.
+
 import 'package:dashboard/view/Screens/add_artist/add_artist_controller.dart';
 import 'package:get/get.dart';
 

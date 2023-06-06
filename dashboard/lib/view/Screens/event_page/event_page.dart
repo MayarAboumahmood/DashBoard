@@ -76,49 +76,47 @@ class EventPage extends StatelessWidget {
           ),
         ),
         appBar: createAppBar(size, context, getDeviceType, 'Events'.tr),
-        body: GetBuilder<EventController>(
-          builder: (ctx) => controller.statuseRequest ==
-                  StatuseRequest.offlinefailure
-              ? noInternetPage(size, controller)
-              : controller.statuseRequest == StatuseRequest.loading
-                  ? Center(
-                      child: Text("loading....", style: generalTextStyle(14)),
-                    )
-                  : whenShowTheBodyAfterLoadingAndInternet(context),
+        body: Row(
+          children: [
+            Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
+            GetBuilder<EventController>(
+              builder: (ctx) =>
+                  controller.statuseRequest == StatuseRequest.offlinefailure
+                      ? noInternetPage(size, controller)
+                      : controller.statuseRequest == StatuseRequest.loading
+                          ? Text("loading....".tr, style: generalTextStyle(14))
+                          : whenShowTheBodyAfterLoadingAndInternet(context),
+            ),
+          ],
         ));
   }
 
   Widget whenShowTheBodyAfterLoadingAndInternet(BuildContext context) {
-    return  Row(
-          children: [
-            Visibility(visible: context.widthInches > 6, child: SlideDrawer()),
-            Expanded(
-              child: Column(
-                children: [
-                  dividerWithWord(
-                    'upcomeing events'.tr,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  setListOfEvents(context),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  dividerWithWord(
-                    'old events'.tr,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  setListOfEvents(context),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return Expanded(
+      child: Column(
+        children: [
+          dividerWithWord(
+            'upcomeing events'.tr,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          setListOfEvents(context),
+          const SizedBox(
+            height: 10,
+          ),
+          dividerWithWord(
+            'old events'.tr,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          setListOfEvents(context),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 

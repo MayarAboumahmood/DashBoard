@@ -65,7 +65,7 @@ class SlideDrawer extends StatelessWidget {
                       ),
                       duration: const Duration(milliseconds: 100),
                       width: controller.setWidth(50, 240),
-                      height: Get.size.height,
+                      height: double.infinity,
                       child: drawerChildren(context, size),
                     ),
                   ),
@@ -113,7 +113,7 @@ class SlideDrawer extends StatelessWidget {
           )
         : context.widthInches <= 6
             ? Container(
-                height: Get.size.height,
+                height: double.infinity,
                 width: 250,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
