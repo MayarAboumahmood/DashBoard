@@ -148,7 +148,8 @@ class AddNewDrink extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new drink'.tr,
+          child: AutoSizeText('Add new drink'.tr,
+              presetFontSizes: const [28, 35, 25, 23],
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,

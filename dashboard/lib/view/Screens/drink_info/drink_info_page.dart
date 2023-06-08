@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -94,10 +95,10 @@ class DrinkInformationPage extends StatelessWidget {
   Widget drinkInfoUnit(
       Sizes size, BuildContext context, String title, String subTitle) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Container(
           width: Get.size.width * .3,
-          height: 70,
+          // height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(size.buttonRadius),
             color: Get.isDarkMode
@@ -105,6 +106,8 @@ class DrinkInformationPage extends StatelessWidget {
                 : Colors.grey[400],
           ),
           child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             title: Text(
               '$title :',
               style: generalTextStyle(null),
@@ -143,12 +146,17 @@ class DrinkInformationPage extends StatelessWidget {
   }
 
   Widget setEventName() {
-    return Text(
-      'the drink name' /*drinks.getDrink(drink.id).name */,
-      style: TextStyle(
-          fontFamily: jostFontFamily,
-          fontSize: 40,
-          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+    return SizedBox(
+      width: 180,
+      child: AutoSizeText(
+        'the drink name' /*drinks.getDrink(drink.id).name */,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+        minFontSize: 35,
+        style: TextStyle(
+            fontFamily: jostFontFamily,
+            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      ),
     );
   }
 

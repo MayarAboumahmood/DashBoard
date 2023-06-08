@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -135,12 +136,15 @@ class EventInformationPage extends StatelessWidget {
   }
 
   Widget setEventName() {
-    return Text(
-      'Event name' /*eventList.getEvent(Event.id).name */,
-      style: TextStyle(
-          fontFamily: jostFontFamily,
-          fontSize: 40,
-          color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+    return SizedBox(
+      width: 180,
+      child: AutoSizeText(
+        'Event name' /*eventList.getEvent(Event.id).name */,
+        minFontSize: 35,
+        style: TextStyle(
+            fontFamily: jostFontFamily,
+            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+      ),
     );
   }
 
@@ -153,13 +157,21 @@ class EventInformationPage extends StatelessWidget {
             eventInfoUnit(size, context, 'Number of attandend: '.tr, '100', () {
               showReservationsDialog(context);
             }),
-            eventInfoUnit(size, context, 'Event name: '.tr, 'event one', null),
+            Visibility(
+                visible: context.widthInches > 4.5,
+                child: eventInfoUnit(
+                    size, context, 'Event name: '.tr, 'event one', null)),
             Visibility(
                 visible: context.widthInches > 6,
                 child: eventInfoUnit(size, context,
                     'Total benefits in S.P: '.tr, '2000000', null)),
           ],
         ),
+        SizedBox(height: Get.size.width * .01),
+        Visibility(
+            visible: context.widthInches < 4.5,
+            child: eventInfoUnit(
+                size, context, 'Available quantity by kg'.tr, '20', null)),
         SizedBox(height: Get.size.width * .01),
         Visibility(
             visible: context.widthInches < 6,
@@ -171,34 +183,28 @@ class EventInformationPage extends StatelessWidget {
 
   Widget eventInfoUnit(Sizes size, BuildContext context, String title,
       String subTitle, Function()? onPressed) {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
-        child: MaterialButton(
-          onPressed: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(size.buttonRadius),
-                color: Get.isDarkMode
-                    ? const Color.fromARGB(255, 54, 54, 54)
-                    : Colors.grey[400],
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    title,
-                    style: generalTextStyle(null),
-                  ),
-                  Text(subTitle, style: generalTextStyle(null)),
-                ],
-              ),
+    return MaterialButton(
+      onPressed: onPressed,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 5.0),
+        height: 70,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size.buttonRadius),
+          color: Get.isDarkMode
+              ? const Color.fromARGB(255, 54, 54, 54)
+              : Colors.grey[400],
+        ),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: generalTextStyle(null),
             ),
-          ),
-        ));
+            Text(subTitle, style: generalTextStyle(null)),
+          ],
+        ),
+      ),
+    );
   }
 
   void showAddEventDialog(BuildContext context) {

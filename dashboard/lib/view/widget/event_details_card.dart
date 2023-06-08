@@ -17,53 +17,53 @@ class EventDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    return SingleChildScrollView(
-      child: Container(
-          padding: const EdgeInsets.all(10.0),
-          height: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.buttonRadius),
-            color: Get.isDarkMode
-                ? const Color.fromARGB(255, 54, 54, 54)
-                : Colors.grey[400],
-          ),
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(size.buttonRadius),
+        color: Get.isDarkMode
+            ? const Color.fromARGB(255, 54, 54, 54)
+            : Colors.grey[400],
+      ),
+      child: SingleChildScrollView(
           child: Column(
-            children: [
-              Text(
-                '-desecribtion of the order: desecribtion desecribtion desecribtion desecribtion desecribtion desecribtion desecribtion ',
-                style: generalTextStyle(null),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                '-money: 100 S.P',
-                style: generalTextStyle(null),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                '-who take the order: worker one',
-                style: generalTextStyle(null),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Visibility(
-                visible:
-                    theOrderIsFulfilled == null ? false : !theOrderIsFulfilled!,
-                child: TextButton(
-                    onPressed: () {
-                      showSelectWrokerDialog(context);
-                    },
-                    child: Text(
-                      'Change the worker'.tr,
-                      style: generalTextStyle(20),
-                    )),
-              )
-            ],
-          )),
+        children: [
+          Text(
+            '-desecribtion of the order: desecribtion desecribtion desecribtion desecribtion desecribtion desecribtion desecribtion ',
+            style: generalTextStyle(null),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            '-money: 100 S.P',
+            style: generalTextStyle(null),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            '-who take the order: worker one',
+            style: generalTextStyle(null),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Visibility(
+            visible:
+                theOrderIsFulfilled == null ? false : !theOrderIsFulfilled!,
+            child: TextButton(
+                onPressed: () {
+                  showSelectWrokerDialog(context);
+                },
+                child: Text(
+                  'Change the worker'.tr,
+                  style: generalTextStyle(20),
+                )),
+          )
+        ],
+      )),
     );
   }
 

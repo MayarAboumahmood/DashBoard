@@ -151,7 +151,9 @@ class AddAdmin extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new admin'.tr, // add to translate
+          child: AutoSizeText('Add new admin'.tr, // add to translate
+
+              presetFontSizes: const [28, 35, 25, 23],
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,12 +64,17 @@ class SelectWorker extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Select from the worker'.tr,
-              style: TextStyle(
-                fontFamily: jostFontFamily,
-                fontSize: 35,
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-              )),
+          child: SizedBox(
+            width: 200,
+            child: AutoSizeText('Select from the worker'.tr,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontFamily: jostFontFamily,
+                  fontSize: 35,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                )),
+          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class SelectArtist extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            createAppBar(size),
+            createAppBar(size, context),
             dividerWithWord('Select artists to the event'.tr),
             const SizedBox(height: 20),
             SizedBox(
@@ -79,7 +80,7 @@ class SelectArtist extends StatelessWidget {
     );
   }
 
-  Row createAppBar(Sizes size) {
+  Row createAppBar(Sizes size, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -89,10 +90,13 @@ class SelectArtist extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Select from the artist'.tr,
+          child: AutoSizeText('Select from the artist'.tr,
+              presetFontSizes: const [28, 35, 25, 23],
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: jostFontFamily,
-                fontSize: 35,
+
+                // fontSize: context.widthInches > 4.5 ? 35 : 25,
                 color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
               )),
         ),

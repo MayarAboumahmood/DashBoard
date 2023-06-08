@@ -207,7 +207,8 @@ class AddEvent extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new event'.tr,
+          child: AutoSizeText('Add new event'.tr,
+              presetFontSizes: const [28, 35, 25, 23],
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,

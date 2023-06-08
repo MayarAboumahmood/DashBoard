@@ -156,7 +156,7 @@ class EventPage extends StatelessWidget {
                 : context.widthInches > 8.5
                     ? 3
                     : context.widthInches < 7.5
-                        ? context.widthInches < 6
+                        ? context.widthInches < 6 && context.widthInches > 4.5
                             ? 2
                             : 1
                         : 2,

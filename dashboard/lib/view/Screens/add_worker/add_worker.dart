@@ -223,7 +223,8 @@ class AddWorker extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text(
+          child: AutoSizeText(
+            presetFontSizes: const [28, 35, 25, 23],
             'Add new worker'.tr,
             style: TextStyle(
               fontFamily: jostFontFamily,

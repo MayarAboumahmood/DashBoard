@@ -52,7 +52,9 @@ class LoginPage extends StatelessWidget {
             top: Get.size.height * .1,
             left: checkIfTheSizeAllowTheFloatingContainerToExist(context)
                 ? Get.size.width * .5
-                : Get.size.width * .3,
+                : context.widthInches > 4.5
+                    ? Get.size.width * .3
+                    : Get.size.width * .08,
             child: Center(
               child: Visibility(
                 visible:

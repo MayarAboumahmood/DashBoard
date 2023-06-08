@@ -110,4 +110,5 @@ const Map<String, String> ar = {
   'Edite the drink': 'عدل على المشروب',
   'Current event information': "معلومات الحفلة الحالية",
   'logout': 'تسجيل الخروج',
+  'Select from the worker': 'اختر من العمال'
 };

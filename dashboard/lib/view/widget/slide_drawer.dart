@@ -112,42 +112,44 @@ class SlideDrawer extends StatelessWidget {
             ),
           )
         : context.widthInches <= 6
-            ? Container(
-                height: double.infinity,
-                width: 250,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: sharedPreferences!.getString('lang') == 'en'
-                          ? Alignment.bottomRight
-                          : sharedPreferences!.getString('lang') == 'ar'
-                              ? Alignment.bottomLeft
-                              : Alignment.bottomRight,
-                      end: sharedPreferences!.getString('lang') == 'en'
-                          ? Alignment.topLeft
-                          : sharedPreferences!.getString('lang') == 'ar'
-                              ? Alignment.topRight
-                              : Alignment.topLeft,
-                      colors: [
-                        Get.isDarkMode ? darkPrimaryColor : primaryColor,
-                        context.heightInches < 5
-                            ? Get.isDarkMode
-                                ? backGroundDarkColor.withOpacity(0.7)
-                                : skinColorWhite!
-                            : Get.isDarkMode
-                                ? darkPrimaryColor
-                                : primaryColor,
-                        Get.isDarkMode
-                            ? backGroundDarkColor.withOpacity(0.7)
-                            : skinColorWhite!,
-                        Get.isDarkMode
-                            ? backGroundDarkColor.withOpacity(0.7)
-                            : skinColorWhite!,
-                        Get.isDarkMode
-                            ? backGroundDarkColor.withOpacity(0.7)
-                            : skinColorWhite!,
-                      ]),
+            ? SafeArea(
+                child: Container(
+                  height: double.infinity,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: sharedPreferences!.getString('lang') == 'en'
+                            ? Alignment.bottomRight
+                            : sharedPreferences!.getString('lang') == 'ar'
+                                ? Alignment.bottomLeft
+                                : Alignment.bottomRight,
+                        end: sharedPreferences!.getString('lang') == 'en'
+                            ? Alignment.topLeft
+                            : sharedPreferences!.getString('lang') == 'ar'
+                                ? Alignment.topRight
+                                : Alignment.topLeft,
+                        colors: [
+                          Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                          context.heightInches < 5
+                              ? Get.isDarkMode
+                                  ? backGroundDarkColor.withOpacity(0.7)
+                                  : skinColorWhite!
+                              : Get.isDarkMode
+                                  ? darkPrimaryColor
+                                  : primaryColor,
+                          Get.isDarkMode
+                              ? backGroundDarkColor.withOpacity(0.7)
+                              : skinColorWhite!,
+                          Get.isDarkMode
+                              ? backGroundDarkColor.withOpacity(0.7)
+                              : skinColorWhite!,
+                          Get.isDarkMode
+                              ? backGroundDarkColor.withOpacity(0.7)
+                              : skinColorWhite!,
+                        ]),
+                  ),
+                  child: drawerChildren(context, size),
                 ),
-                child: drawerChildren(context, size),
               )
             : const SizedBox();
   }

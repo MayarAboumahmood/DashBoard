@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
@@ -40,19 +39,20 @@ class AddArtist extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             generalInputTextFeild(
-                size, Icons.person, 'Name'.tr, (value) {}, TextInputType.name, (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      }),
+                size, Icons.person, 'Name'.tr, (value) {}, TextInputType.name,
+                (value) {
+              if (value!.length < 12) {
+                return "The email is not valid".tr;
+              }
+              return null;
+            }),
             generalInputTextFeild(size, Icons.info, 'information'.tr,
                 (value) {}, TextInputType.text, (value) {
-        if (value!.length < 12) {
-          return "The email is not valid".tr;
-        }
-        return null;
-      }),
+              if (value!.length < 12) {
+                return "The email is not valid".tr;
+              }
+              return null;
+            }),
             const SizedBox(
               height: 50,
             ),
@@ -89,7 +89,8 @@ class AddArtist extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: Text('Add new artist'.tr,
+          child: AutoSizeText('Add new artist'.tr,
+              presetFontSizes: const [28, 35, 25, 23],
               style: TextStyle(
                 fontFamily: jostFontFamily,
                 fontSize: 35,
