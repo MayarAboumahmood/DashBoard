@@ -11,8 +11,10 @@ import 'package:dashboard/constant/status_request.dart';
 
 class AddEventService {
   Future<Either<StatuseRequest, Map>> addEvent(
+
       Map<String,String> data, Uint8List image,String imageName, String token) async {
     //Either for return two data type in the same time
+        print("start service");
     try {
       if (await checkInternet()) {
         print("starting in service");

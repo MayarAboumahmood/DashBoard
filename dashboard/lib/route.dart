@@ -21,11 +21,11 @@ import 'view/Screens/woker_information_page/worker_information_page.dart';
 import 'view/Screens/worker_management_page/worker_management_binding.dart';
 
 appRoutes() => [
-      GetPage(name: '/Home', page: () => Landing(), binding: ThemeBinding()),
+      GetPage(name: '/', page: () => Landing(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
       GetPage(
-        name: '/',
+        name: '/Home',
         page: () => Home(),
       ),
       GetPage(

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/data/Models/admin_model.dart';
+import 'package:dashboard/data/Models/event_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
@@ -10,7 +10,7 @@ import 'event_service.dart';
 
 class EventController extends GetxController
     implements StatuseRequestController {
-  List<AdminModel> finalListData = [];
+  List<EventModel> finalListData = [];
   EventService service = EventService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
@@ -23,7 +23,7 @@ class EventController extends GetxController
     super.onInit();
   }
 
-  Future<List<AdminModel>> sendingARequestAndHandlingData() async {
+  Future<List<EventModel>> sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -59,11 +59,12 @@ class EventController extends GetxController
     }
   }
 
-  Future<List<AdminModel>> whenGetDataSuccess(response) async {
+  Future<List<EventModel>> whenGetDataSuccess(response) async {
     List responsedata = response['data'];
     for (int i = 0; i < responsedata.length; i++) {
-      finalListData.add(AdminModel.fromMap(responsedata[i]));
+      finalListData.add(EventModel.fromMap(responsedata[i]));
     }
+
 
     update();
     return finalListData;

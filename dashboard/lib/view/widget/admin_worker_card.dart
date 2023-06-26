@@ -2,13 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/sizes.dart';
 import 'package:dashboard/constant/theme.dart';
+import 'package:dashboard/data/Models/worker_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 import '../../../constant/server_const.dart';
 
 import '../Screens/admin_all_action_page/admin_all_action_page.dart';
-import '../Screens/woker_information_page/worker_information_page.dart';
 
 Widget adminCard(BuildContext context, Sizes size, String adminName,
     String adminDetails, int id) {
@@ -83,13 +83,12 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
           )));
 }
 
-Widget workerCard(BuildContext context, Sizes size, String workerImage,
-    String workerName, String workerDetails, int id) {
+Widget workerCard(BuildContext context, Sizes size, WorkerModel model) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
     child: MaterialButton(
       onPressed: () {
-        Get.to(WorkerInfoPage());
+        Get.toNamed('/WorkerInformationPage',arguments: model);
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -117,10 +116,10 @@ Widget workerCard(BuildContext context, Sizes size, String workerImage,
               child: ClipOval(
                 child: SizedBox(
                     height: 50,
-                    child: workerImage == ''
+                    child: model.image == ''
                         ? Image.asset('assets/images/The project icon.jpg')
                         : Image.network(
-                            "${ServerConstApis.loadImages}$workerImage")),
+                            "${ServerConstApis.loadImages}${model.image}")),
               ),
             ),
             SizedBox(
@@ -129,7 +128,7 @@ Widget workerCard(BuildContext context, Sizes size, String workerImage,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(workerName,
+                Text(model.firstName+model.lastName,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: jostFontFamily,
@@ -149,7 +148,7 @@ Widget workerCard(BuildContext context, Sizes size, String workerImage,
                                 : context.widthInches < 6
                                     ? 120
                                     : 200,
-                    child: AutoSizeText(workerDetails,
+                    child: AutoSizeText("workerDetails",
                         softWrap: true,
                         overflowReplacement: Text(
                           '...',

@@ -96,10 +96,8 @@ class WorkerManagementPage extends StatelessWidget {
           return workerCard(
               context,
               size,
-              controller.finalListData[index].image!,
-              controller.finalListData[index].firstName,
-              "workerDetails",
-              controller.finalListData[index].id!);
+         
+              controller.finalListData[index]);
         },
       ),
     );

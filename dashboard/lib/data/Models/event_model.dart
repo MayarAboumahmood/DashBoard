@@ -4,7 +4,7 @@ class EventModel {
   int ticketPrice;
   int availablePlaces;
   String bandName;
-  DateTime beginDate;
+  String beginDate;
   int? adminId;
 
   EventModel(
@@ -19,7 +19,7 @@ class EventModel {
     return EventModel(
       title: map['title'] ?? '',
       availablePlaces: map['available_places'] ?? '',
-      beginDate: map['beginDate'] ?? '',
+      beginDate: map['begin_date'] ?? '',
       description: map['description'] ?? '',
       ticketPrice: map['ticket_price'] ?? 0,
       bandName: map['band_name'] ?? '',

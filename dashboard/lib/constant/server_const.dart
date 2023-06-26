@@ -18,6 +18,10 @@ static String deleteWorkers='${baseAPI}delete-worker';
   static String showAllEvents = '${baseAPI}show-all-events';
   static String addEvent = '${baseAPI}create-event';
 
+////stock
+   static String showAllDrinks='${baseAPI}show-all-drinks';
+   static String addDrink='${baseAPI}create-drink';
+
 /////////forImages
   static String loadImages = 'http://127.0.0.1:3000/';
 }

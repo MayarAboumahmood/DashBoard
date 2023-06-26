@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
+import 'package:dashboard/data/Models/worker_model.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:get/get.dart';
@@ -10,10 +11,11 @@ class WorkerInformationController extends GetxController {
 
   WorkerInformationService service = WorkerInformationService();
   StatuseRequest? statuseRequest = (StatuseRequest.init);
-  late int workerId ;
+  late WorkerModel model;
    @override
      void onInit() async {
-   workerId=Get.arguments;
+   model=Get.arguments;
+   print(model.id);
     super.onInit();
   }
   onPressDeleteWorker() async {
@@ -43,7 +45,7 @@ class WorkerInformationController extends GetxController {
 
   deleteData() async {
     String token = await prefService.readString('token');
-    Map<String, String> data = {"worker_id": workerId.toString()};
+    Map<String, String> data = {"worker_id": model.id.toString()};
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.deleteWorker(token, data);
 
