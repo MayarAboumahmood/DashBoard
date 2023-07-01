@@ -10,11 +10,10 @@ import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
 
 class AddEventService {
-  Future<Either<StatuseRequest, Map>> addEvent(
-
-      Map<String,String> data, Uint8List image,String imageName, String token) async {
+  Future<Either<StatuseRequest, Map>> addEvent(Map<String, String> data,
+      List<Uint8List> image, List<String> imageName, String token) async {
     //Either for return two data type in the same time
-        print("start service");
+    print("start service");
     try {
       if (await checkInternet()) {
         print("starting in service");
@@ -24,15 +23,16 @@ class AddEventService {
           "x-access-token": token
         };
         var request = http.MultipartRequest("POST", url);
-        var multipartFile = http.MultipartFile.fromBytes(
-          "image",
-          image,filename: imageName
-        );
-        request.files.add(multipartFile);
+        for (var i = 0; i < imageName.length; i++) {
+          request.files.add(http.MultipartFile.fromBytes("images", image[i],
+              filename: imageName[i]));
+        }
+      
         request.fields.addAll(data);
         request.headers.addAll(headers);
         var myrequest = await request.send();
         var response = await http.Response.fromStream(myrequest);
+       
         print(response.body);
         print(response.statusCode);
         if (response.statusCode == 200 || response.statusCode == 201) {

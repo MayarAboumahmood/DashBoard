@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/Screens/add_artist/add_artist_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
 import 'package:flutter/material.dart';
@@ -13,67 +14,75 @@ import '../../widget/hover_button.dart';
 
 // ignore: must_be_immutable
 class AddArtist extends StatelessWidget {
-  const AddArtist({super.key});
+  AddArtist({super.key});
+  AddArtistController controller=Get.put(AddArtistController());
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    return Container(
-      height: Get.size.height * .9,
-      width: context.widthInches > 5.5 ? 400 : Get.size.width * .85,
-      color: Get.isDarkMode ? Colors.black54 : skinColorWhite,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            createAppBar(size),
-            SizedBox(
-              height: sharedPreferences!.getString('lang') == 'en'
-                  ? Get.size.height * .02
-                  : Get.size.height * .01,
-            ),
-            dividerWithWord(
-              'Enter new artist information'.tr,
-              icon: Icon(
-                Icons.person,
-                color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+    return Form(
+      key: controller.formstate,
+      child: Container(
+        height: Get.size.height * .9,
+        width: context.widthInches > 5.5 ? 400 : Get.size.width * .85,
+        color: Get.isDarkMode ? Colors.black54 : skinColorWhite,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              createAppBar(size),
+              SizedBox(
+                height: sharedPreferences!.getString('lang') == 'en'
+                    ? Get.size.height * .02
+                    : Get.size.height * .01,
               ),
-            ),
-            const SizedBox(height: 40),
-            generalInputTextFeild(
-                size, Icons.person, 'Name'.tr, (value) {}, TextInputType.name,
-                (value) {
-              if (value!.length < 12) {
-                return "The email is not valid".tr;
-              }
-              return null;
-            }),
-            generalInputTextFeild(size, Icons.info, 'information'.tr,
-                (value) {}, TextInputType.text, (value) {
-              if (value!.length < 12) {
-                return "The email is not valid".tr;
-              }
-              return null;
-            }),
-            const SizedBox(
-              height: 50,
-            ),
-            HoverButton(
-              mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-              myRadius: size.buttonRadius,
-              ontap: () {},
-              mywidth: size.normalButtonWidht,
-              myheight: size.normalButtonHeight,
-              myShadow: 0,
-              child: AutoSizeText(
-                'Done'.tr,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: size.normalButtonTextSize,
-                    fontFamily: jostFontFamily,
-                    color:
-                        Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+              dividerWithWord(
+                'Enter new artist information'.tr,
+                icon: Icon(
+                  Icons.person,
+                  color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                ),
               ),
-            )
-          ],
+              const SizedBox(height: 40),
+              generalInputTextFeild(
+                  size, Icons.person, 'Name'.tr, (value) {
+                    controller.name=value!;
+                  }, TextInputType.name,
+                  (value) {
+                if (value!.length < 2) {
+                  return "The name is shourt".tr;
+                }
+                return null;
+              }),
+              generalInputTextFeild(size, Icons.info, 'information'.tr,
+                  (value) {controller.information=value!;}, TextInputType.text, (value) {
+                if (value!.length < 10) {
+                  return "Please inter more information".tr;
+                }
+                return null;
+              }),
+              const SizedBox(
+                height: 50,
+              ),
+              HoverButton(
+                mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                myRadius: size.buttonRadius,
+                ontap: ()async {
+                 await  controller.onPressDone();
+                 },
+                mywidth: size.normalButtonWidht,
+                myheight: size.normalButtonHeight,
+                myShadow: 0,
+                child: AutoSizeText(
+                  'Done'.tr,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: size.normalButtonTextSize,
+                      fontFamily: jostFontFamily,
+                      color:
+                          Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

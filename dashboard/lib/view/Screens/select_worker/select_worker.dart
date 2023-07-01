@@ -28,14 +28,14 @@ class SelectWorker extends StatelessWidget {
             createAppBar(size),
             dividerWithWord('Select worker to the order'.tr),
             const SizedBox(height: 20),
-            SizedBox(
+          /*  SizedBox(
                 width: double.infinity,
                 height: 400,
                 child: ListView.builder(
                   itemBuilder: (context, index) =>
                       ArtistCard(title: 'worker name', subTitle: ''),
                   itemCount: 5,
-                )),
+                ))*/
             SizedBox(
               height: Get.size.height * .1,
             ),
