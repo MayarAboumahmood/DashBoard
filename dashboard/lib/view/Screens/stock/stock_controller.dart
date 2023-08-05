@@ -17,8 +17,8 @@ class StockController extends GetxController  implements StatuseRequestControlle
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-    finalListData = await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+    finalListData = await sendingARequestAndHandlingData();
 
     super.onInit();
   }
@@ -29,6 +29,7 @@ class StockController extends GetxController  implements StatuseRequestControlle
     dynamic response =await getdata(); // check if the return data is statuseRequest or real data
     statuseRequest = handlingData(response); //return the statuseResponse
     if (statuseRequest == StatuseRequest.success) {
+      print("pefore error");
       return whenGetDataSuccess(response);
     } else if (statuseRequest == StatuseRequest.authfailuer) {
        snackBarForErrors("Auth error","Please login again");
@@ -61,6 +62,7 @@ class StockController extends GetxController  implements StatuseRequestControlle
 
   Future<List<DrinkModel>>whenGetDataSuccess(response) async {
     List responsedata = response['data'];
+    print("++++++++++++++++++++++++++++++");
     for (int i = 0; i < responsedata.length; i++) {
       finalListData.add(DrinkModel.fromMap(responsedata[i]));
     }

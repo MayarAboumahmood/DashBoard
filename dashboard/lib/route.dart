@@ -12,6 +12,7 @@ import 'package:dashboard/view/Screens/worker_management_page/worker_management_
 import 'package:get/get.dart';
 import 'view/Screens/add_admin/add_admin_binding.dart';
 import 'view/Screens/admin_management_page/admin_management_binding.dart';
+import 'view/Screens/drink_info/drink_info_binding.dart';
 import 'view/Screens/event_page/event_binding.dart';
 import 'view/Screens/landing/landing.dart';
 import 'view/Screens/setting/theme_binding.dart';
@@ -65,6 +66,7 @@ appRoutes() => [
       ),
       GetPage(
         name: '/DrinkInformationPage',
-        page: () => const DrinkInformationPage(),
+        page: () =>  DrinkInformationPage(),
+        binding: DrinkInfoBinding()
       ),
     ];

@@ -1,39 +1,43 @@
 import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
+import 'package:dashboard/constant/status_request.dart';
+import 'package:dashboard/data/Models/drink_model.dart';
+import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../constant/status_request.dart';
-import '../../../general_controllers/statuse_request_controller.dart';
+
 import '../../../main.dart';
 import '../../widget/snak_bar_for_errors.dart';
-import 'add_new_drink_service.dart';
+import 'drink_info_service.dart';
 
-class AddNewDrinkController extends GetxController
-    implements StatuseRequestController {
-  bool webImageExcist = false;
+class DrinkInfoController extends GetxController implements StatuseRequestController{
+   bool webImageExcist = false;
   String selctFile = '';
   Uint8List selectedImageInBytes = Uint8List(8);
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
-  AddDrinkService service = AddDrinkService();
+  UpdateAndDeleteDrinkService service = UpdateAndDeleteDrinkService();
   late String name;
   late String price;
   late String totalcost;
   late String aviableAmount;
   late String description;
-  @override
+@override
   void onInit() {
-    name = '';
-    price = '';
-    totalcost = '';
-    aviableAmount = '';
-    description = '';
+    model=Get.arguments;
+    name = model.name;
+    price = model.price.toString();
+    totalcost = model.cost.toString();
+    aviableAmount = model.quantity.toString();
+    description = model.description;
     formstate = GlobalKey<FormState>();
     super.onInit();
-  }
+  }  
+  late DrinkModel model;
 
-  Future<void> pickImage() async {
+ Future<void> pickImage() async {
     FilePickerResult? fileResult =
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
@@ -44,9 +48,8 @@ class AddNewDrinkController extends GetxController
       webImageExcist = true;
       update();
     }
-  }
-
-  onPressDone() async {
+  } 
+    onPressDone() async {
     FormState? formdata = formstate.currentState;
     if (formdata!.validate()) {
       formdata.save();
@@ -79,9 +82,10 @@ class AddNewDrinkController extends GetxController
       'description': description,
       'quantity': aviableAmount,
       'price': price,
+      'drink_id':model.id.toString()
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.addDrink(data, selectedImageInBytes, selctFile, token);
+        await service. updateDrink(data, selectedImageInBytes, selctFile, token);
     return response.fold((l) => l, (r) => r);
   }
 
@@ -114,4 +118,5 @@ class AddNewDrinkController extends GetxController
     isSelectedDateIsNull.value = selectedDate == null;
     update();
   }
+
 }

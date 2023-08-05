@@ -9,14 +9,14 @@ import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
 
-class AddDrinkService {
-  Future<Either<StatuseRequest, Map>> addDrink(
+class UpdateAndDeleteDrinkService {
+  Future<Either<StatuseRequest, Map>> updateDrink(
       Map<String,String> data, Uint8List image,String imageName, String token) async {
     //Either for return two data type in the same time
     try {
       if (await checkInternet()) {
         print("starting in service");
-        Uri url = Uri.parse(ServerConstApis.addDrink);
+        Uri url = Uri.parse(ServerConstApis.updateDrink);
        
         Map<String, String> headers = {
           "Access-Control-Allow-Origin": "*",

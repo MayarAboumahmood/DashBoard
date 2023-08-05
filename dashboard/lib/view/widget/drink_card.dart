@@ -1,15 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/theme.dart';
+import 'package:dashboard/data/Models/drink_model.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../constant/server_const.dart';
 import '../../constant/sizes.dart';
-import '../Screens/stock/stock_page.dart';
 
 // ignore: must_be_immutable
 class DrinkCard extends StatelessWidget {
-  Drink drink;
+  DrinkModel drink;
   Function()? onPressed;
   DrinkCard({super.key, required this.drink, this.onPressed});
 
@@ -33,10 +34,10 @@ class DrinkCard extends StatelessWidget {
                 topLeft: Radius.circular(size.buttonRadius),
                 topRight: Radius.circular(size.buttonRadius),
               ),
-              child: Image.asset(
-                'assets/images/my hero acadime.jpg',
-                fit: BoxFit.fill,
-              ),
+              child:drink.image == ''
+                        ? Image.asset('assets/images/The project icon.jpg',fit:BoxFit.fill)
+                        : Image.network(
+                            "${ServerConstApis.loadImages}${drink.image}",fit:BoxFit.fill),
             ),
           ),
           AutoSizeText(
@@ -47,7 +48,7 @@ class DrinkCard extends StatelessWidget {
             height: 3,
           ),
           AutoSizeText(
-            '${drink.unitPriceInSP} S.P',
+            '${drink.price} S.P',
             style: generalTextStyle(15),
           ),
         ]),

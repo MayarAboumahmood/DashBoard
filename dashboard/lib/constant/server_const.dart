@@ -19,8 +19,9 @@ static String deleteWorkers='${baseAPI}worker/delete';
   static String addEvent = '${baseAPI}events/create';
 
 ////stock
-   static String showAllDrinks='${baseAPI}show-all-drinks';
-   static String addDrink='${baseAPI}create-drink';
+   static String showAllDrinks='${baseAPI}drinks';
+   static String addDrink='${baseAPI}drinks/add';
+   static String updateDrink='${baseAPI}drinks/update';
 
 
 //////// artist

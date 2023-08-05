@@ -7,10 +7,11 @@ import 'package:get/get.dart';
 import 'costum_text_field.dart';
 
 Widget generalInputTextFeild(Sizes size, IconData icon, String hintText,
-    Function(String?)? onsaved, TextInputType? inputtype,String?Function(String?)? validat) {
+    Function(String?)? onsaved, TextInputType? inputtype,String?Function(String?)? validat,{String?inialValue} ) {
   return Padding(
     padding: const EdgeInsets.all(12.0),
     child: CostumTextField(
+      inialValue: inialValue,
       validat: validat,
       inputtype: inputtype,
       label: hintText,

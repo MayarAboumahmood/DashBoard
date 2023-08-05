@@ -21,9 +21,11 @@ class CostumTextField extends StatelessWidget {
   bool? sucer;
   double? reduis;
   late double widthOnTheScreen;
+  String? inialValue;
   CostumTextField(
       {Key? key,
       this.labelStyle,
+      this.inialValue,
       this.suffixIcon,
       this.sucer,
       this.prefixIcon,
@@ -47,6 +49,7 @@ class CostumTextField extends StatelessWidget {
       child: SizedBox(
         width: widthOnTheScreen,
         child: TextFormField(
+          initialValue: inialValue,
           cursorColor: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
           style: TextStyle(
               color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,

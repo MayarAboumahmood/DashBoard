@@ -11,13 +11,14 @@ class StockService {
     //Either for return two data type in the same time
     try {
       if (await checkInternet()) {
-        Uri url = Uri.parse(ServerConstApis.getWorkers);
+        Uri url = Uri.parse(ServerConstApis.showAllDrinks);
         Map<String, String> headers = {
           "Access-Control-Allow-Origin": "*",
           "x-access-token": token
         };
 
         var response = await http.get(url, headers: headers);
+        print(response.body);
         if (response.statusCode == 200 || response.statusCode == 201) {
           final responsebody = jsonDecode(response.body);
 

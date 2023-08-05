@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
+import '../../../constant/server_const.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../widget/general_app_bar.dart';
+import '../../widget/update_drink.dart';
 import '../add_new_drink/add_new_drink_page.dart';
+import 'drinke_info_controller.dart';
 
+// ignore: must_be_immutable
 class DrinkInformationPage extends StatelessWidget {
-  const DrinkInformationPage({super.key});
+   DrinkInformationPage({super.key});
+  DrinkInfoController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -75,19 +80,19 @@ class DrinkInformationPage extends StatelessWidget {
       children: [
         Row(
           children: [
-            drinkInfoUnit(size, context, 'Unit price S.P'.tr, '1000'),
-            drinkInfoUnit(size, context, 'Bottle price by S.P'.tr, '1000'),
+            drinkInfoUnit(size, context, 'Unit price S.P'.tr, controller.model.price.toString()),
+            drinkInfoUnit(size, context, 'Bottle price by S.P'.tr,  controller.model.cost.toString()),
             Visibility(
                 visible: context.widthInches > 6,
                 child: drinkInfoUnit(
-                    size, context, 'Available quantity by kg'.tr, '20')),
+                    size, context, 'Available quantity by kg'.tr,  controller.model.quantity.toString())),
           ],
         ),
         SizedBox(height: Get.size.width * .01),
         Visibility(
             visible: context.widthInches < 6,
             child: drinkInfoUnit(
-                size, context, 'Available quantity by kg'.tr, '20')),
+                size, context, 'Available quantity by kg'.tr, controller.model.quantity.toString())),
       ],
     );
   }
@@ -109,7 +114,7 @@ class DrinkInformationPage extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             title: Text(
-              '$title :',
+              title,
               style: generalTextStyle(null),
             ),
             subtitle: Text(subTitle, style: generalTextStyle(null)),
@@ -139,24 +144,45 @@ class DrinkInformationPage extends StatelessWidget {
         child: ClipRRect(
           child: SizedBox(
               height: 150,
-              child: Image.asset('assets/images/The project icon.jpg')),
+              child: controller.model.image == ''
+                        ? Image.asset('assets/images/The project icon.jpg',fit:BoxFit.fill)
+                        : Image.network(
+                            "${ServerConstApis.loadImages}${controller.model.image}",fit:BoxFit.fill),
+            ),
         ),
       ),
     );
   }
 
   Widget setEventName() {
-    return SizedBox(
-      width: 180,
-      child: AutoSizeText(
-        'the drink name' /*drinks.getDrink(drink.id).name */,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        minFontSize: 35,
-        style: TextStyle(
-            fontFamily: jostFontFamily,
-            color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 180,
+          child: AutoSizeText(
+           controller.model.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            minFontSize: 35,
+            style: TextStyle(
+                fontFamily: jostFontFamily,
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          ),
+        ),
+         SizedBox(
+          width: 300,
+          child: AutoSizeText(
+           controller.model.description,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+            minFontSize: 20,
+            style: TextStyle(
+                fontFamily: jostFontFamily,
+                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+          ),
+        ),
+      ],
     );
   }
 
@@ -168,7 +194,7 @@ class DrinkInformationPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddNewDrink(),
+          child: UpdateDrink(),
         );
       },
     );

@@ -4,6 +4,7 @@ import 'package:dashboard/data/Models/login_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/no_internet_page.dart';
+import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,26 +49,17 @@ class LoginController extends GetxController
         if (response['msg'] == "Logged in Successfully") {
           whenLoginSuccess(response);
         }
-      } else if (statuseRequest == StatuseRequest.authfailuer) {
-        snackBarForErrors();
+      }  else if (statuseRequest == StatuseRequest.authfailuer) {
+        snackBarForErrors("Auth Error", "Please try again");
       } else if (statuseRequest == StatuseRequest.validationfailuer) {
-        snackBarForErrors();
+        snackBarForErrors("Your input isn't valid", "Please try again");
       } else {
-       snackBarForErrors();
+        snackBarForErrors("Server Error", "Please try later");
       }
    }
     update();
   }
 
-  SnackbarController snackBarForErrors() {
-    return Get.snackbar(
-        "Incorrect email or password".tr, ///// adding for translate  done
-        "Try entering your data again".tr, //// adding for translate  done
-        snackPosition: SnackPosition.TOP,
-        colorText: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-        backgroundColor: Get.isDarkMode ? backGroundDarkColor : skinColorWhite,
-        duration: const Duration(seconds: 5));
-  }
 
   logindata(LoginModel model) async {
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
