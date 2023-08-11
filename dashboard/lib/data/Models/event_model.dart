@@ -7,6 +7,7 @@ class EventModel {
   String beginDate;
   int? adminId;
   String image;
+  int id;
 
   EventModel(
       {required this.title,
@@ -16,7 +17,9 @@ class EventModel {
       required this.ticketPrice,
       required this.image,
       this.adminId,
-      required this.bandName});
+      required this.bandName,
+      required this.id
+      });
   factory EventModel.fromMap(Map<String, dynamic> map) {
     return EventModel(
       title: map['title'] ?? '',
@@ -25,6 +28,7 @@ class EventModel {
       description: map['description'] ?? '',
       ticketPrice: map['ticket_price'] ?? 0,
       bandName: map['band_name'] ?? '',
+      id:map['event_id']??0,
       image: map['image']??'assets/images/The project icon.jpg'
     );
   }

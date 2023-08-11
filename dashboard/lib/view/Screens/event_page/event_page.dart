@@ -15,49 +15,7 @@ import '../add_event/add_event_page.dart';
 
 // ignore: must_be_immutable
 class EventPage extends StatelessWidget {
-  List<Widget> eventList = [
-    EventCard(
-      onPressed: () {
-        Get.toNamed('/EventInformationPage');
-      },
-      date: '2/2/2333',
-      eventName: 'event one',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      onPressed: () {
-        Get.toNamed('/EventInformationPage');
-      },
-      date: '2/2/2333',
-      eventName: 'event two',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      onPressed: () {
-        Get.toNamed('/EventInformationPage');
-      },
-      date: '2/2/2333',
-      eventName: 'event three',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      onPressed: () {
-        Get.toNamed('/EventInformationPage');
-      },
-      date: '2/2/2333',
-      eventName: 'event four',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-    EventCard(
-      onPressed: () {
-        Get.toNamed('/EventInformationPage');
-      },
-      date: '2/2/2333',
-      eventName: 'event five',
-      imageName: 'assets/images/The project icon.jpg',
-    ),
-  ];
-
+ 
   EventPage({super.key});
   EventController controller = Get.find();
   @override
@@ -160,7 +118,7 @@ class EventPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return  EventCard(
                 onPressed: () {
-                  Get.toNamed('/EventInformationPage');
+                  Get.toNamed('/EventInformationPage',arguments: ['Current',controller.nowList[index].id ]);
                 },
                 eventName: controller.nowList[index].title,
                 date: controller.nowList[index].beginDate,
