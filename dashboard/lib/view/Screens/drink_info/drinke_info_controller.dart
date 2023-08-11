@@ -1,15 +1,18 @@
 import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
+import 'package:dashboard/constant/status_request.dart';
+import 'package:dashboard/data/Models/drink_model.dart';
+import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../constant/status_request.dart';
-import '../../../general_controllers/statuse_request_controller.dart';
+
 import '../../../main.dart';
 import '../../widget/snak_bar_for_errors.dart';
-import 'add_new_drink_service.dart';
+import 'drink_info_service.dart';
 
-class AddNewDrinkController extends GetxController
+class DrinkInfoController extends GetxController
     implements StatuseRequestController {
   bool webImageExcist = false;
   String selctFile = '';
@@ -17,7 +20,7 @@ class AddNewDrinkController extends GetxController
   @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
-  AddDrinkService service = AddDrinkService();
+  UpdateAndDeleteDrinkService service = UpdateAndDeleteDrinkService();
   late String name;
   late String price;
   late String totalcost;
@@ -25,14 +28,18 @@ class AddNewDrinkController extends GetxController
   late String description;
   @override
   void onInit() {
-    name = '';
-    price = '';
-    totalcost = '';
-    aviableAmount = '';
-    description = '';
+    model = Get.arguments;
+    name = model.name;
+    price = model.price.toString();
+    totalcost = model.cost.toString();
+    aviableAmount = model.quantity.toString();
+    description = model.description;
+    selctFile = model.image;
     formstate = GlobalKey<FormState>();
     super.onInit();
   }
+
+  late DrinkModel model;
 
   Future<void> pickImage() async {
     FilePickerResult? fileResult =
@@ -42,7 +49,7 @@ class AddNewDrinkController extends GetxController
       selctFile = fileResult.files.first.name;
       selectedImageInBytes = fileResult.files.first.bytes!;
       webImageExcist = true;
-     update();
+      update();
     }
   }
 
@@ -69,6 +76,36 @@ class AddNewDrinkController extends GetxController
     }
     update();
   }
+onDeleteDone() async {
+   
+      statuseRequest = StatuseRequest.loading;
+      update();
+
+      dynamic response =
+          await deleteData(); // check if the return data is statuseRequest or real data
+      statuseRequest = handlingData(response); //return the statuseResponse
+      if (statuseRequest == StatuseRequest.success) {
+        whenAddSuccess(response);
+      } else if (statuseRequest == StatuseRequest.authfailuer) {
+        snackBarForErrors("Auth error", "Please login again");
+        Get.offAllNamed('LoginPage');
+      } else if (statuseRequest == StatuseRequest.validationfailuer) {
+        snackBarForErrors("Inputs wrong", "Please theck your inputs");
+      } else {
+        snackBarForErrors("Server error", "Please try again later");
+      }
+    
+    update();
+  }
+
+  deleteData() async {
+    String token = await prefService.readString('token');
+
+    Map<String, String> data = {'drink_id': model.id.toString()};
+    Either<StatuseRequest, Map<dynamic, dynamic>> response =
+        await service.deleteDrink(data,  token);
+    return response.fold((l) => l, (r) => r);
+  }
 
   addData() async {
     String token = await prefService.readString('token');
@@ -79,9 +116,10 @@ class AddNewDrinkController extends GetxController
       'description': description,
       'quantity': aviableAmount,
       'price': price,
+      'drink_id': model.id.toString()
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.addDrink(data, selectedImageInBytes, selctFile, token);
+        await service.updateDrink(data, selectedImageInBytes, selctFile, token);
     return response.fold((l) => l, (r) => r);
   }
 

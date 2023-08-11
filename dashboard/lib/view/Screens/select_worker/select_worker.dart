@@ -8,7 +8,6 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
-import '../../widget/artist_card.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/hover_button.dart';
 
@@ -28,14 +27,14 @@ class SelectWorker extends StatelessWidget {
             createAppBar(size),
             dividerWithWord('Select worker to the order'.tr),
             const SizedBox(height: 20),
-            SizedBox(
+          /*  SizedBox(
                 width: double.infinity,
                 height: 400,
                 child: ListView.builder(
                   itemBuilder: (context, index) =>
                       ArtistCard(title: 'worker name', subTitle: ''),
                   itemCount: 5,
-                )),
+                ))*/
             SizedBox(
               height: Get.size.height * .1,
             ),

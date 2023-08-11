@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode
           .light, //to make the app change theme even if the device theme is dark.
       initialRoute: '/',
-      getPages: appRoutes(),
+      getPages: appRoutes(), 
     );
   }
 }

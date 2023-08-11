@@ -26,7 +26,7 @@ class AddDrinkService {
 
         var request = http.MultipartRequest("POST", url);
         var multipartFile = http.MultipartFile.fromBytes(
-          "image",
+          "picture",
           image,filename: imageName
         );
         request.files.add(multipartFile);

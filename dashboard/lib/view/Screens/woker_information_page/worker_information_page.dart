@@ -125,7 +125,7 @@ class WorkerInfoPage extends StatelessWidget {
 
   Widget setWorkerName() {
     return Text(
-      controller.model.lastName + controller.model.firstName,
+      controller.model.firstName + controller.model.lastName,
       style: TextStyle(
           fontFamily: jostFontFamily,
           fontSize: 40,

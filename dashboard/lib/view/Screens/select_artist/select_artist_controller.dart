@@ -1,19 +1,20 @@
 import 'package:dartz/dartz.dart';
-import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/data/Models/event_model.dart';
+import 'package:dashboard/data/Models/artist_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
-import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
+import 'package:dashboard/view/Screens/select_artist/select_artist_service.dart';
 import 'package:get/get.dart';
-import '../../widget/no_internet_page.dart';
-import 'event_service.dart';
 
-class EventController extends GetxController
+import '../../../constant/status_request.dart';
+import '../../widget/no_internet_page.dart';
+import '../../widget/snak_bar_for_errors.dart';
+import '../add_event/add_event_controller.dart';
+
+class SelectArtistController extends GetxController
     implements StatuseRequestController {
-  List<EventModel> nowList = [];
-  List<EventModel> upComingList = [];
-  List<EventModel> pastList = [];
-  EventService service = EventService();
+  RxList<ArtistModel> finalListData = <ArtistModel>[].obs;
+  List<bool> isTaped = [];
+  SelectArtistService service = SelectArtistService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
@@ -21,10 +22,18 @@ class EventController extends GetxController
     // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+    for (int i = 0; i < finalListData.length; i++) {
+      isTaped.add(false);
+    }
     super.onInit();
   }
 
-  Future<List<EventModel>> sendingARequestAndHandlingData() async {
+  void changeListTileTapedState(int id) {
+    isTaped[id] = !isTaped[id];
+    update();
+  }
+
+  Future<List<ArtistModel>> sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -42,12 +51,16 @@ class EventController extends GetxController
     update();
     return [];
   }
+  updateData()async {
+  finalListData.add(ArtistModel(name: "gggggggggg", information: "gggggggggggggggggggggggggggg"));
+  update();
+   }
 
   getdata() async {
     String token = await prefService.readString('token');
 
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.getEvents(token);
+        await service.getArtists(token);
 
     return response.fold((l) => l, (r) => r);
   }
@@ -60,20 +73,31 @@ class EventController extends GetxController
     }
   }
 
-  Future<List<EventModel>> whenGetDataSuccess(response) async {
-    List responsePastdata = response['data']['past'];
-    List responseNowdata = response['data']['now'];
-    List responseUPcomingdata = response['data']['upComing']; 
-    for (int i = 0; i < responsePastdata.length; i++) {
-      pastList.add(EventModel.fromMap(responsePastdata[i]));
-    }
-    for (int i = 0; i < responseNowdata.length; i++) {
-      nowList.add(EventModel.fromMap(responseNowdata[i]));
-    }
-    for (int i = 0; i < responseUPcomingdata.length; i++) {
-      upComingList.add(EventModel.fromMap(responseUPcomingdata[i]));
+  Future<List<ArtistModel>> whenGetDataSuccess(response) async {
+    List responsedata = response['data'];
+    finalListData.clear();
+    for (int i = 0; i < responsedata.length; i++) {
+      finalListData.add(ArtistModel.fromMap(responsedata[i]));
     }
     update();
-    return [];
+    return finalListData;
+  }
+
+  onFinishSelected() {
+    List<ArtistModel> selectedArtist = [];
+    
+    for (int i = 0; i < isTaped.length; i++) {
+      if (isTaped[i]) {
+        selectedArtist.add(finalListData[i]);
+      }
+    }
+
+    AddEventController eventController = Get.find();
+    eventController.selectedArtist = [];
+    eventController.selectedArtist.addAll(selectedArtist);
+
+    Get.back();
+    update();
+   
   }
 }

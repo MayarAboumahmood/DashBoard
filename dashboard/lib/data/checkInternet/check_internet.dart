@@ -1,8 +1,7 @@
-import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 checkInternet() async {
-  try {
+ /* try {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.wifi &&
         connectivityResult != ConnectivityResult.ethernet &&
@@ -14,5 +13,6 @@ checkInternet() async {
     }
   } on SocketException catch (_) {
     return false;
-  }
+  }*/
+  return true;
 }

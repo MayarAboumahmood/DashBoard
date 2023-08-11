@@ -17,8 +17,8 @@ class StockController extends GetxController  implements StatuseRequestControlle
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-    finalListData = await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+    finalListData = await sendingARequestAndHandlingData();
 
     super.onInit();
   }
@@ -61,7 +61,7 @@ class StockController extends GetxController  implements StatuseRequestControlle
 
   Future<List<DrinkModel>>whenGetDataSuccess(response) async {
     List responsedata = response['data'];
-    for (int i = 0; i < responsedata.length; i++) {
+   for (int i = 0; i < responsedata.length; i++) {
       finalListData.add(DrinkModel.fromMap(responsedata[i]));
     }
    

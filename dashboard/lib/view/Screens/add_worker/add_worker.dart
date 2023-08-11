@@ -89,7 +89,7 @@ class AddWorker extends StatelessWidget {
                           (value) {
                             controller.numberPhone = value!;
                           },
-                          TextInputType.name,
+                          TextInputType.phone,
                           (value) {
                             if (value!.length < 10) {
                               return "The number phone should be 10 digits".tr;

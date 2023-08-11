@@ -44,7 +44,6 @@ class AddWorkerController extends GetxController
   Future<void> pickImage() async {
     FilePickerResult? fileResult =
         await FilePicker.platform.pickFiles(allowMultiple: true);
-
     if (fileResult != null) {
       print("file picked");
       selctFile = fileResult.files.first.name;
