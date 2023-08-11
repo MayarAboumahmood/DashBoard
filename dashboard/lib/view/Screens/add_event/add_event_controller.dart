@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/data/Models/event_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:file_picker/file_picker.dart';
@@ -115,7 +114,7 @@ class AddEventController extends GetxController
       "available_places": availablePlaces.toString(),
       "band_name": "hello",
       "begin_date": selectedDate.toString(),
-     "admin_id":"2"
+      "admin_id": "2"
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.addEvent(data, selectedImageInBytes, selctFile, token);
