@@ -12,8 +12,9 @@ import '../add_event/add_event_controller.dart';
 
 class SelectArtistController extends GetxController
     implements StatuseRequestController {
-  RxList<ArtistModel> finalListData = <ArtistModel>[].obs;
+  List<ArtistModel> finalListData = [];
   List<bool> isTaped = [];
+
   SelectArtistService service = SelectArtistService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
@@ -51,11 +52,7 @@ class SelectArtistController extends GetxController
     update();
     return [];
   }
-  updateData()async {
-  finalListData.add(ArtistModel(name: "gggggggggg", information: "gggggggggggggggggggggggggggg"));
-  update();
-   }
-
+  
   getdata() async {
     String token = await prefService.readString('token');
 
@@ -95,9 +92,9 @@ class SelectArtistController extends GetxController
     AddEventController eventController = Get.find();
     eventController.selectedArtist = [];
     eventController.selectedArtist.addAll(selectedArtist);
-
+    eventController.update();
     Get.back();
-    update();
+   
    
   }
 }

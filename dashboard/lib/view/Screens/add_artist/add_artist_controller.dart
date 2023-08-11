@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dashboard/data/Models/artist_model.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/Screens/add_artist/add_artist_service.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,8 @@ class AddArtistController extends GetxController
 
   whenAddSuccess(response) async {
     SelectArtistController artistController = Get.find();
-  artistController.updateData();
+  artistController.finalListData.add(ArtistModel(name: name, information: information));
+artistController.isTaped.add(false);
 artistController.update();
   Get.back();
   }
