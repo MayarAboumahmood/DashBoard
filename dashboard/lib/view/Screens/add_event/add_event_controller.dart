@@ -108,8 +108,8 @@ class AddEventController extends GetxController
       "ticket_price": ticketPrice,
       "available_places": availablePlaces,
       "band_name": "hello",
-      "begin_date": '2023-08-11 15:00',
-      "artist_id": finalArtistSelected.toString()
+      "begin_date": selectedDate.toString(),
+      "admin_id": "2"
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.addEvent(data, selectedImageInBytes, selctFile, token);
@@ -125,7 +125,7 @@ class AddEventController extends GetxController
   }
 
   whenAddSuccess(response) async {
-   Get.offAllNamed('/EventPage');
+    Get.offAllNamed('/EventPage');
     update();
     Get.delete<AddArtistController>();
   }
