@@ -1,6 +1,7 @@
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/constant/server_const.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/view/Screens/add_new_drink/add_new_drink_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
@@ -22,7 +23,7 @@ class UpdateDrink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    return GetBuilder<AddNewDrinkController>(
+    return GetBuilder<DrinkInfoController>(
       builder: (ctx) => controller.statuseRequest ==
               StatuseRequest.offlinefailure
           ? noInternetPage(size, controller)
@@ -181,21 +182,17 @@ class UpdateDrink extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       controller.webImageExcist
-                          ? SizedBox(
-                              width: 200,
-                              height: 200,
-                              child: /*GetPlatform.isWeb
+                          ? /*GetPlatform.isWeb
                             ? */
                                   Image.memory(
                                 controller.selectedImageInBytes,
                                 fit: BoxFit.contain,
-                              )
-                              /* : Image.file(
-                                File(controller.selectedImage.value),
-                                fit: BoxFit.contain,
-                              ),*/
-                              )
-                          : const SizedBox(),
+                              ):
+                              Image.network(
+                            "${ServerConstApis.loadImages}${controller.model.image}",fit:BoxFit.fill)
+                              
+                              
+                          ,
                       const SizedBox(
                         height: 15,
                       ),

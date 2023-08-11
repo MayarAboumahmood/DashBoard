@@ -56,14 +56,17 @@ class SelectArtist extends StatelessWidget {
                         style: generalTextStyle(18),
                       ),
                     )
-                  : ListView.builder(
-                      itemBuilder: (context, index) => ArtistCard(
-                        model: controller.finalListData[index],
-                        controller: controller,
-                        index: index,
-                      ),
-                      itemCount: controller.finalListData.length,
+                  :  
+                    ListView.builder(
+                          itemBuilder: (context, index) => ArtistCard(
+                            model: controller.finalListData[index],
+                            controller: controller,
+                            index: index,
+                          ),
+                          itemCount: controller.finalListData.length,
+                        
                     ),
+                  
         ),
         SizedBox(
           height: Get.size.height * .1,
@@ -97,17 +100,22 @@ class SelectArtist extends StatelessWidget {
   }
 
   void showAddArtistDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          clipBehavior: Clip.antiAlias,
+   // Get.to(AddArtist());
+   Get.dialog(Dialog(clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddArtist(),
-        );
-      },
-    );
+          child: AddArtist(),));
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return Dialog(
+          // clipBehavior: Clip.antiAlias,
+          // shape:
+          //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          // child: AddArtist(),
+    //     );
+    //   },
+    // );
   }
 
   Row createAppBar(Sizes size, BuildContext context) {

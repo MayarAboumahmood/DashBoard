@@ -5,6 +5,7 @@ class ServerConstApis {
 static String addWorker='${baseAPI}worker/create';
 static String getWorkers='${baseAPI}worker/show-all';
 static String deleteWorkers='${baseAPI}worker/delete';
+static String detailesWorkers='${baseAPI}worker/show-worker-details';
 
 
 
@@ -22,6 +23,7 @@ static String deleteWorkers='${baseAPI}worker/delete';
    static String showAllDrinks='${baseAPI}drinks';
    static String addDrink='${baseAPI}drinks/add';
    static String updateDrink='${baseAPI}drinks/update';
+   static String deleteDrink='${baseAPI}drinks/delete';
 
 
 //////// artist

@@ -14,6 +14,7 @@ class AddNewDrinkController extends GetxController
   bool webImageExcist = false;
   String selctFile = '';
   Uint8List selectedImageInBytes = Uint8List(8);
+  @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
   AddDrinkService service = AddDrinkService();
@@ -38,11 +39,10 @@ class AddNewDrinkController extends GetxController
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (fileResult != null) {
-      print("file picked");
       selctFile = fileResult.files.first.name;
       selectedImageInBytes = fileResult.files.first.bytes!;
       webImageExcist = true;
-      update();
+     update();
     }
   }
 

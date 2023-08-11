@@ -8,12 +8,11 @@ import 'package:get/get.dart';
 import '../../../constant/status_request.dart';
 import '../../widget/no_internet_page.dart';
 import '../../widget/snak_bar_for_errors.dart';
-import '../add_artist/add_artist_controller.dart';
 import '../add_event/add_event_controller.dart';
 
 class SelectArtistController extends GetxController
     implements StatuseRequestController {
-  List<ArtistModel> finalListData = [];
+  RxList<ArtistModel> finalListData = <ArtistModel>[].obs;
   List<bool> isTaped = [];
   SelectArtistService service = SelectArtistService();
   @override
@@ -21,7 +20,7 @@ class SelectArtistController extends GetxController
   @override
   void onInit() async {
     // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-    finalListData = await sendingARequestAndHandlingData();
+    await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     for (int i = 0; i < finalListData.length; i++) {
       isTaped.add(false);
@@ -52,9 +51,12 @@ class SelectArtistController extends GetxController
     update();
     return [];
   }
+  updateData()async {
+  finalListData.add(ArtistModel(name: "gggggggggg", information: "gggggggggggggggggggggggggggg"));
+  update();
+   }
 
   getdata() async {
-    print("showing data");
     String token = await prefService.readString('token');
 
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
@@ -73,10 +75,10 @@ class SelectArtistController extends GetxController
 
   Future<List<ArtistModel>> whenGetDataSuccess(response) async {
     List responsedata = response['data'];
+    finalListData.clear();
     for (int i = 0; i < responsedata.length; i++) {
       finalListData.add(ArtistModel.fromMap(responsedata[i]));
     }
-    print(finalListData.length);
     update();
     return finalListData;
   }

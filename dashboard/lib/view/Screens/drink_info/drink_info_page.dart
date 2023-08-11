@@ -9,7 +9,6 @@ import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../widget/general_app_bar.dart';
 import '../../widget/update_drink.dart';
-import '../add_new_drink/add_new_drink_page.dart';
 import 'drinke_info_controller.dart';
 
 // ignore: must_be_immutable
@@ -64,7 +63,7 @@ class DrinkInformationPage extends StatelessWidget {
             heroTag: secondTitle,
             hoverColor: Get.isDarkMode ? Colors.red[600] : Colors.red[500],
             onPressed: () {
-              //open dialog than delete this drink
+              controller.onDeleteDone();
             },
             label: Text(
               secondTitle.tr,

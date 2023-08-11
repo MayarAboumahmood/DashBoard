@@ -13,7 +13,6 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
-import '../../widget/artist_card.dart';
 import '../../widget/hover_button.dart';
 import '../select_artist/select_artist.dart';
 
@@ -84,7 +83,7 @@ class AddEvent extends StatelessWidget {
             },
             TextInputType.number,
             (value) {
-              if (value!.length < 1) {
+              if (int.parse(value!)<2) {
                 return "The number is so shourt".tr;
               }
               return null;
@@ -99,7 +98,7 @@ class AddEvent extends StatelessWidget {
               },
               TextInputType.number,
               (value) {
-                if (value!.length < 1) {
+                if (int.parse(value!)<50000) {
                   return "The price can't be less than 50000 ".tr;
                 }
                 return null;
@@ -110,7 +109,7 @@ class AddEvent extends StatelessWidget {
             height: 10,
           ),
           controller.selectedArtist.isEmpty
-              ? SizedBox()
+              ?const SizedBox()
               : SizedBox(
                   height: 150,
                   child: ListView.builder(
@@ -201,7 +200,7 @@ class AddEvent extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.selectedImageInBytes.length,
                     itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.all(20),
+                      margin:const EdgeInsets.all(20),
                       child: Image.memory(
                         controller.selectedImageInBytes[index],
                         fit: BoxFit.contain,

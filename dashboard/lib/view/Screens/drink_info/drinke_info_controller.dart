@@ -12,10 +12,12 @@ import '../../../main.dart';
 import '../../widget/snak_bar_for_errors.dart';
 import 'drink_info_service.dart';
 
-class DrinkInfoController extends GetxController implements StatuseRequestController{
-   bool webImageExcist = false;
+class DrinkInfoController extends GetxController
+    implements StatuseRequestController {
+  bool webImageExcist = false;
   String selctFile = '';
   Uint8List selectedImageInBytes = Uint8List(8);
+  @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
   UpdateAndDeleteDrinkService service = UpdateAndDeleteDrinkService();
@@ -24,32 +26,34 @@ class DrinkInfoController extends GetxController implements StatuseRequestContro
   late String totalcost;
   late String aviableAmount;
   late String description;
-@override
+  @override
   void onInit() {
-    model=Get.arguments;
+    model = Get.arguments;
     name = model.name;
     price = model.price.toString();
     totalcost = model.cost.toString();
     aviableAmount = model.quantity.toString();
     description = model.description;
+    selctFile = model.image;
     formstate = GlobalKey<FormState>();
     super.onInit();
-  }  
+  }
+
   late DrinkModel model;
 
- Future<void> pickImage() async {
+  Future<void> pickImage() async {
     FilePickerResult? fileResult =
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (fileResult != null) {
-      print("file picked");
       selctFile = fileResult.files.first.name;
       selectedImageInBytes = fileResult.files.first.bytes!;
       webImageExcist = true;
       update();
     }
-  } 
-    onPressDone() async {
+  }
+
+  onPressDone() async {
     FormState? formdata = formstate.currentState;
     if (formdata!.validate()) {
       formdata.save();
@@ -72,6 +76,36 @@ class DrinkInfoController extends GetxController implements StatuseRequestContro
     }
     update();
   }
+onDeleteDone() async {
+   
+      statuseRequest = StatuseRequest.loading;
+      update();
+
+      dynamic response =
+          await deleteData(); // check if the return data is statuseRequest or real data
+      statuseRequest = handlingData(response); //return the statuseResponse
+      if (statuseRequest == StatuseRequest.success) {
+        whenAddSuccess(response);
+      } else if (statuseRequest == StatuseRequest.authfailuer) {
+        snackBarForErrors("Auth error", "Please login again");
+        Get.offAllNamed('LoginPage');
+      } else if (statuseRequest == StatuseRequest.validationfailuer) {
+        snackBarForErrors("Inputs wrong", "Please theck your inputs");
+      } else {
+        snackBarForErrors("Server error", "Please try again later");
+      }
+    
+    update();
+  }
+
+  deleteData() async {
+    String token = await prefService.readString('token');
+
+    Map<String, String> data = {'drink_id': model.id.toString()};
+    Either<StatuseRequest, Map<dynamic, dynamic>> response =
+        await service.deleteDrink(data,  token);
+    return response.fold((l) => l, (r) => r);
+  }
 
   addData() async {
     String token = await prefService.readString('token');
@@ -82,10 +116,10 @@ class DrinkInfoController extends GetxController implements StatuseRequestContro
       'description': description,
       'quantity': aviableAmount,
       'price': price,
-      'drink_id':model.id.toString()
+      'drink_id': model.id.toString()
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service. updateDrink(data, selectedImageInBytes, selctFile, token);
+        await service.updateDrink(data, selectedImageInBytes, selctFile, token);
     return response.fold((l) => l, (r) => r);
   }
 
@@ -118,5 +152,4 @@ class DrinkInfoController extends GetxController implements StatuseRequestContro
     isSelectedDateIsNull.value = selectedDate == null;
     update();
   }
-
 }

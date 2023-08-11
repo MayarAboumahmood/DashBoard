@@ -12,7 +12,6 @@ import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/slide_drawer.dart';
 import '../add_event/add_event_page.dart';
-import '../order_page/order_page.dart';
 
 // ignore: must_be_immutable
 class EventPage extends StatelessWidget {
@@ -109,14 +108,8 @@ class EventPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            EventCard(
-                onPressed: () {
-                  Get.to(OrderPage());
-                },
-                eventName: 'current event',
-                date: 'now',
-                imageName: 'assets/images/my hero acadime.jpg'),
-            const SizedBox(
+           setListNowOfEvents(context),
+           const SizedBox(
               height: 10,
             ),
             dividerWithWord(
@@ -125,7 +118,7 @@ class EventPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            setListOfEvents(context),
+            setUPcomingListOfEvents(context),
             const SizedBox(
               height: 10,
             ),
@@ -135,7 +128,7 @@ class EventPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            setListOfEvents(context),
+            setListPastOfEvents(context),
             const SizedBox(
               height: 10,
             ),
@@ -145,11 +138,11 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget setListOfEvents(BuildContext context) {
+  Widget setListNowOfEvents(BuildContext context) {
     return Expanded(
       child: GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          itemCount: eventList.length,
+          itemCount: controller.nowList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: context.widthInches > 11
                 ? 4
@@ -165,7 +158,75 @@ class EventPage extends StatelessWidget {
             mainAxisExtent: 200,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return eventList[index];
+            return  EventCard(
+                onPressed: () {
+                  Get.toNamed('/EventInformationPage');
+                },
+                eventName: controller.nowList[index].title,
+                date: controller.nowList[index].beginDate,
+                imageName: controller.nowList[index].image);
+          }),
+    );
+  }
+
+  Widget setListPastOfEvents(BuildContext context) {
+    return Expanded(
+      child: GridView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          itemCount: controller.pastList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: context.widthInches > 11
+                ? 4
+                : context.widthInches > 8.5
+                    ? 3
+                    : context.widthInches < 7.5
+                        ? context.widthInches < 6 && context.widthInches > 4.5
+                            ? 2
+                            : 1
+                        : 2,
+            childAspectRatio: 1.7,
+            crossAxisSpacing: 20.0,
+            mainAxisExtent: 200,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return EventCard(
+                onPressed: () {
+                  Get.toNamed('/EventInformationPage');
+                },
+                eventName: controller.pastList[index].title,
+                date: controller.pastList[index].beginDate,
+                imageName: controller.pastList[index].image);
+          }),
+    );
+  }
+
+  Widget setUPcomingListOfEvents(BuildContext context) {
+    return Expanded(
+      child: GridView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          itemCount: controller.upComingList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: context.widthInches > 11
+                ? 4
+                : context.widthInches > 8.5
+                    ? 3
+                    : context.widthInches < 7.5
+                        ? context.widthInches < 6 && context.widthInches > 4.5
+                            ? 2
+                            : 1
+                        : 2,
+            childAspectRatio: 1.7,
+            crossAxisSpacing: 20.0,
+            mainAxisExtent: 200,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return EventCard(
+                onPressed: () {
+                  Get.toNamed('/EventInformationPage');
+                },
+                eventName: controller.upComingList[index].title,
+                date: controller.upComingList[index].beginDate,
+                imageName: controller.upComingList[index].image);
           }),
     );
   }

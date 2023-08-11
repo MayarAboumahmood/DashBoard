@@ -8,7 +8,6 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
-import '../../widget/artist_card.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/hover_button.dart';
 

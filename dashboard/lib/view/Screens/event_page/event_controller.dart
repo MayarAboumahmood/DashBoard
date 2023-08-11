@@ -10,16 +10,17 @@ import 'event_service.dart';
 
 class EventController extends GetxController
     implements StatuseRequestController {
-  List<EventModel> finalListData = [];
+  List<EventModel> nowList = [];
+  List<EventModel> upComingList = [];
+  List<EventModel> pastList = [];
   EventService service = EventService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-   // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-    finalListData = await sendingARequestAndHandlingData();
- statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-   
+    // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
+    await sendingARequestAndHandlingData();
+    statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     super.onInit();
   }
 
@@ -60,13 +61,19 @@ class EventController extends GetxController
   }
 
   Future<List<EventModel>> whenGetDataSuccess(response) async {
-    List responsedata = response['data'];
-    for (int i = 0; i < responsedata.length; i++) {
-      finalListData.add(EventModel.fromMap(responsedata[i]));
+    List responsePastdata = response['data']['past'];
+    List responseNowdata = response['data']['now'];
+    List responseUPcomingdata = response['data']['upComing']; 
+    for (int i = 0; i < responsePastdata.length; i++) {
+      pastList.add(EventModel.fromMap(responsePastdata[i]));
     }
-
-
+    for (int i = 0; i < responseNowdata.length; i++) {
+      nowList.add(EventModel.fromMap(responseNowdata[i]));
+    }
+    for (int i = 0; i < responseUPcomingdata.length; i++) {
+      upComingList.add(EventModel.fromMap(responseUPcomingdata[i]));
+    }
     update();
-    return finalListData;
+    return [];
   }
 }

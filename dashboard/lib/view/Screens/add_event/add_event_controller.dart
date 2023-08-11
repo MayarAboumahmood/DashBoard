@@ -2,10 +2,8 @@ import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/data/Models/event_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
-import 'package:dashboard/view/Screens/select_artist/select_artist_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +16,7 @@ import 'add_event_service.dart';
 class AddEventController extends GetxController
     implements StatuseRequestController {
   List<String> selctFile = [];
-  late List<ArtistModel> selectedArtist ;
+  late List<ArtistModel> selectedArtist;
 
   List<Uint8List> selectedImageInBytes = [];
   Uint8List webImage = Uint8List(8);
@@ -35,7 +33,7 @@ class AddEventController extends GetxController
   late String bandName;
   @override
   void onInit() {
-    selectedArtist=[];
+    selectedArtist = [];
     title = '';
     availablePlaces = ' ';
     beginDate = '';
@@ -49,15 +47,12 @@ class AddEventController extends GetxController
   Future<void> pickImage() async {
     FilePickerResult? fileResult =
         await FilePicker.platform.pickFiles(allowMultiple: true);
-  print(fileResult.runtimeType);
     if (fileResult != null) {
       selctFile.add(fileResult.files.first.name);
       selectedImageInBytes.add(fileResult.files.first.bytes!);
-      print("before true value");
       webImageExcist = true;
       update();
     }
-    print(webImageExcist);
   }
 
   DateTime? selectedDate;
@@ -103,17 +98,17 @@ class AddEventController extends GetxController
   addEventrData() async {
     String token = await prefService.readString('token');
     List<int> finalArtistSelected = [];
-    
+
     for (var i = 0; i < selectedArtist.length; i++) {
       finalArtistSelected.add(selectedArtist[i].id!);
-      }
+    }
     Map<String, String> data = {
       "title": title,
       "description": description,
       "ticket_price": ticketPrice,
       "available_places": availablePlaces,
       "band_name": "hello",
-      "begin_date": selectedDate.toString(),
+      "begin_date": '2023-08-11 15:00',
       "artist_id": finalArtistSelected.toString()
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
@@ -130,10 +125,8 @@ class AddEventController extends GetxController
   }
 
   whenAddSuccess(response) async {
-    print("success add");
-    Get.offAllNamed('/EventPage');
+   Get.offAllNamed('/EventPage');
     update();
     Get.delete<AddArtistController>();
-    
   }
 }
