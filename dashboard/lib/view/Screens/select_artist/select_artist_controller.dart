@@ -51,10 +51,12 @@ class SelectArtistController extends GetxController
     update();
     return [];
   }
-  updateData()async {
-  finalListData.add(ArtistModel(name: "gggggggggg", information: "gggggggggggggggggggggggggggg"));
-  update();
-   }
+
+  updateData() async {
+    finalListData.add(ArtistModel(
+        name: "gggggggggg", information: "gggggggggggggggggggggggggggg"));
+    update();
+  }
 
   getdata() async {
     String token = await prefService.readString('token');
@@ -85,7 +87,7 @@ class SelectArtistController extends GetxController
 
   onFinishSelected() {
     List<ArtistModel> selectedArtist = [];
-    
+
     for (int i = 0; i < isTaped.length; i++) {
       if (isTaped[i]) {
         selectedArtist.add(finalListData[i]);
@@ -98,6 +100,5 @@ class SelectArtistController extends GetxController
 
     Get.back();
     update();
-   
   }
 }

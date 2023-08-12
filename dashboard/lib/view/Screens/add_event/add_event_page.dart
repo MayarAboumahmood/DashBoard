@@ -83,7 +83,7 @@ class AddEvent extends StatelessWidget {
             },
             TextInputType.number,
             (value) {
-              if (int.parse(value!)<2) {
+              if (int.parse(value!) < 2) {
                 return "The number is so shourt".tr;
               }
               return null;
@@ -98,7 +98,7 @@ class AddEvent extends StatelessWidget {
               },
               TextInputType.number,
               (value) {
-                if (int.parse(value!)<50000) {
+                if (int.parse(value!) < 50000) {
                   return "The price can't be less than 50000 ".tr;
                 }
                 return null;
@@ -109,14 +109,14 @@ class AddEvent extends StatelessWidget {
             height: 10,
           ),
           controller.selectedArtist.isEmpty
-              ?const SizedBox()
+              ? const SizedBox()
               : SizedBox(
                   height: 150,
                   child: ListView.builder(
-                    itemBuilder: (ctx, index) => 
-                    Text(controller.selectedArtist[index].name),
+                    itemBuilder: (ctx, index) =>
+                        Text(controller.selectedArtist[index].name),
                     // ArtistCard(
-                      
+
                     //     model: controller.selectedArtist[index], index: index),
                     itemCount: controller.selectedArtist.length,
                   ),
@@ -200,7 +200,7 @@ class AddEvent extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.selectedImageInBytes.length,
                     itemBuilder: (ctx, index) => Container(
-                      margin:const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(20),
                       child: Image.memory(
                         controller.selectedImageInBytes[index],
                         fit: BoxFit.contain,
@@ -235,6 +235,19 @@ class AddEvent extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void showWorkerDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            clipBehavior: Clip.antiAlias,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            // child: SelectWorker(),//to do to do to do to do to do to do to do....
+          );
+        });
   }
 
   void showAddArtistDialog(BuildContext context) {
