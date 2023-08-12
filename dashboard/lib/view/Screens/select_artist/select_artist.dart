@@ -57,11 +57,12 @@ class SelectArtist extends StatelessWidget {
                       ),
                     )
                   :  
+                 
                     ListView.builder(
                           itemBuilder: (context, index) => ArtistCard(
                             model: controller.finalListData[index],
                             controller: controller,
-                            index: index,
+                            index: index
                           ),
                           itemCount: controller.finalListData.length,
                         
@@ -74,6 +75,7 @@ class SelectArtist extends StatelessWidget {
         HoverButton(
           ontap: () {
             showAddArtistDialog(context);
+           
           },
           mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
           myRadius: size.buttonRadius,
@@ -142,6 +144,7 @@ class SelectArtist extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
           child: GestureDetector(
               onTap: () {
+                controller.isTaped.clear();
                 Get.back();
               },
               child: Icon(

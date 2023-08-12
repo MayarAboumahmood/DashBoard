@@ -286,6 +286,9 @@ class AddEvent extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
           child: GestureDetector(
             onTap: () {
+              controller.selectedArtist.clear();
+              controller.webImageExcist=false;
+               controller.isSelectedDateIsNull.value=true;
               Get.back();
             },
             child: Icon(

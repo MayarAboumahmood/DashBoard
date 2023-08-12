@@ -97,7 +97,7 @@ class ReservationDialog extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: const AddReservation(),
+          child: AddReservation(),
         );
       },
     );

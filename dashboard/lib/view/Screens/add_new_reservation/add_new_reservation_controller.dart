@@ -1,29 +1,27 @@
 import 'package:dartz/dartz.dart';
-import 'package:dashboard/data/Models/artist_model.dart';
-import 'package:dashboard/main.dart';
-import 'package:dashboard/view/Screens/add_artist/add_artist_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constant/status_request.dart';
 import '../../../general_controllers/statuse_request_controller.dart';
+import '../../../main.dart';
 import '../../widget/snak_bar_for_errors.dart';
-import '../select_artist/select_artist_controller.dart';
 
-class AddArtistController extends GetxController
+import 'add_new_reservation_service.dart';
+
+class AddNewReservationController extends GetxController
     implements StatuseRequestController {
-  late String name;
-  late String information;
   @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
-  late AddArtistService service;
+  AddReservationService service = AddReservationService();
+  late String customerName;
+  late String numberOfSets;
 
   @override
   void onInit() {
-    name = '';
-    information = '';
-    service = AddArtistService();
+    customerName = '';
+    numberOfSets = '';
     formstate = GlobalKey<FormState>();
     super.onInit();
   }
@@ -54,12 +52,14 @@ class AddArtistController extends GetxController
 
   addData() async {
     String token = await prefService.readString('token');
+
     Map<String, String> data = {
-      "artist_name": name,
-      "description": information,
+      "event_id": "1",
+      "number_of_places": numberOfSets,
+      "customer_name": customerName
     };
-    Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.addArtist(data, token);
+    Either<StatuseRequest, Map<dynamic, dynamic>> response = await service
+        .addReservation(data, token);
     return response.fold((l) => l, (r) => r);
   }
 
@@ -72,10 +72,6 @@ class AddArtistController extends GetxController
   }
 
   whenAddSuccess(response) async {
-    SelectArtistController artistController = Get.find();
-  artistController.finalListData.add(ArtistModel(name: name, information: information));
-artistController.isTaped.add(false);
-artistController.update();
-  Get.back();
+    update();
   }
 }
