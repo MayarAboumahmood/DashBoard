@@ -12,7 +12,7 @@ class EventInfoService {
     try {
       if (await checkInternet()) {
         print(token);
-        Uri url = Uri.parse(ServerConstApis.newadminreservation);
+        Uri url = Uri.parse(ServerConstApis.showEventForAdmin);
           Map<String, String> headers = {
           "Access-Control-Allow-Origin": "*",
           "x-access-token": token
@@ -23,6 +23,7 @@ class EventInfoService {
           headers: headers,
           body: data,
         );
+        print(response.body);
         if (response.statusCode == 200 || response.statusCode == 201) {
           final responsebody = jsonDecode(response.body);
 

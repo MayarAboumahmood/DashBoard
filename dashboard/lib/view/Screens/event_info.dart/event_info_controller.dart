@@ -12,6 +12,7 @@ class EventController extends GetxController
     implements StatuseRequestController {
   late int id;
   late String eventStatus;
+ 
   EventInfoService service = EventInfoService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
