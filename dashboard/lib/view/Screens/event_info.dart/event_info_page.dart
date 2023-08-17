@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/Screens/worker_confirm_dialog/worker_confirm_dialog.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,10 +23,6 @@ class EventInformationPage extends StatelessWidget {
     List<EventDetailsCard> eventDetailesList = [
       EventDetailsCard(),
       EventDetailsCard(),
-      // EventDetailsCard(),
-      // EventDetailsCard(),
-      // EventDetailsCard(),
-      // EventDetailsCard(),
     ];
     return Scaffold(
       floatingActionButton: addFloatingActionButton(
@@ -44,7 +41,7 @@ class EventInformationPage extends StatelessWidget {
         ),
         setEventDetailes(size, context),
         const SizedBox(
-          height: 20,
+          height: 10,
         ),
         dividerWithWord('event details', icon: const Icon(Icons.details)),
         const SizedBox(
@@ -149,35 +146,61 @@ class EventInformationPage extends StatelessWidget {
   }
 
   Widget setEventDetailes(Sizes size, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            eventInfoUnit(size, context, 'Number of attandend: '.tr, '100', () {
-              showReservationsDialog(context);
-            }),
-            Visibility(
-                visible: context.widthInches > 4.5,
-                child: eventInfoUnit(
-                    size, context, 'Event name: '.tr, 'event one', null)),
-            Visibility(
-                visible: context.widthInches > 6,
-                child: eventInfoUnit(size, context,
-                    'Total benefits in S.P: '.tr, '2000000', null)),
-          ],
-        ),
-        SizedBox(height: Get.size.width * .01),
-        Visibility(
-            visible: context.widthInches < 4.5,
-            child: eventInfoUnit(
-                size, context, 'Available quantity by kg'.tr, '20', null)),
-        SizedBox(height: Get.size.width * .01),
-        Visibility(
-            visible: context.widthInches < 6,
-            child: eventInfoUnit(
-                size, context, 'Available quantity by kg'.tr, '20', null)),
-      ],
+    return SizedBox(
+      width: Get.size.width * .9,
+      height: context.widthInches > 8.5 ? 120 : 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                eventInfoUnit(size, context, 'Number of attandend: ', '100',
+                    () {
+                  showReservationsDialog(context);
+                }),
+                Visibility(
+                    visible: context.widthInches > 4.5,
+                    child: eventInfoUnit(
+                        size, context, 'Number of worker: ', '100', () {
+                      // ignore: avoid_print
+                      print('${context.widthInches}context.widthInches');
+                      showWorkerConfirmDialog(context);
+                    })),
+                Visibility(
+                    visible: context.widthInches > 6.5,
+                    child: eventInfoUnit(
+                        size, context, 'Event name: '.tr, 'event one', null)),
+                Visibility(
+                    visible: context.widthInches > 8.5,
+                    child: eventInfoUnit(size, context,
+                        'Total benefits in S.P: '.tr, '2000000', null)),
+              ],
+            ),
+          ),
+          SizedBox(height: Get.size.width * .01),
+          Visibility(
+              visible: context.widthInches < 4.5,
+              child:
+                  eventInfoUnit(size, context, 'Number of worker: ', '100', () {
+                showWorkerConfirmDialog(context);
+              })),
+          SizedBox(height: Get.size.width * .01),
+          Row(
+            children: [
+              Visibility(
+                  visible: context.widthInches < 6.5,
+                  child: eventInfoUnit(
+                      size, context, 'Event name: by kg'.tr, '20', null)),
+              Visibility(
+                  visible: context.widthInches < 8.5,
+                  child: eventInfoUnit(
+                      size, context, 'Total benefits in S.P: '.tr, '20', null)),
+            ],
+          ),
+          SizedBox(height: Get.size.width * .01),
+        ],
+      ),
     );
   }
 
@@ -189,6 +212,8 @@ class EventInformationPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 5.0),
         height: 70,
         decoration: BoxDecoration(
+          border: Border.all(
+              color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
           borderRadius: BorderRadius.circular(size.buttonRadius),
           color: Get.isDarkMode
               ? const Color.fromARGB(255, 54, 54, 54)
@@ -197,10 +222,15 @@ class EventInformationPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              title,
+              title.tr,
               style: generalTextStyle(null),
             ),
             Text(subTitle, style: generalTextStyle(null)),
+            Visibility(
+              visible: title == 'Number of attandend: ' ||
+                  title == 'Number of worker: ',
+              child: Text('click to add...'.tr),
+            )
           ],
         ),
       ),
@@ -230,6 +260,20 @@ class EventInformationPage extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: ReservationDialog(),
+        );
+      },
+    );
+  }
+
+  void showWorkerConfirmDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: WorkerConfirmDialog(),
         );
       },
     );

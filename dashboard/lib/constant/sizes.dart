@@ -135,14 +135,16 @@ class Sizes {
     eventCardHeight = height * .55;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = context.heightInches > 3 && context.widthInches > 12
-        ? height * .08
-        : context.heightInches > 3 && context.widthInches < 12
-            ? height * .07
-            : context.widthInches > 12
-                ? width * .04
-                : width * .038; //to do
-    normalButtonWidht = context.widthInches > 12 ? width * .13 : width * .12;
+    normalButtonHeight = 35;
+
+    // normalButtonHeight = context.heightInches > 3 && context.widthInches > 12
+    //     ? height * .08
+    //     : context.heightInches > 3 && context.widthInches < 12
+    //         ? height * .07
+    //         : context.widthInches > 12
+    //             ? width * .04
+    //             : width * .038; //to do
+    normalButtonWidht = 150;
     bigButtonHeight = height * .24;
     bigButtonWidht = width * .2;
   }
@@ -151,6 +153,7 @@ class Sizes {
     smallEventCardHeight = 130;
     smallEventCardWidth = 220;
     print('set size for tablet');
+    // print('context.widthinches: ${context.widthInches}');
     appBarTextFieldWidth = 50;
     wideNormalButtonWidth = context.widthInches > 5 ? 300 : width * .85;
     wideNormalButtonTextSize = 20;
@@ -190,13 +193,15 @@ class Sizes {
     eventCardHeight = height * .45;
     floatButtonWidth = width * .08;
     floatButtonHeight = height * .06;
-    normalButtonHeight = context.heightInches > 3 && context.widthInches > 7
-        ? height * .06
-        : context.heightInches > 3 && context.widthInches < 7
-            ? height * .07
-            : context.widthInches > 7
-                ? width * .04
-                : width * .038;
+    normalButtonHeight = 35;
+
+    //  context.heightInches > 3 && context.widthInches > 7
+    //     ? height * .06
+    //     : context.heightInches > 3 && context.widthInches < 7
+    //         ? height * .07
+    //         : context.widthInches > 7
+    //             ? width * .04
+    //             : width * .038;
     normalButtonWidht = context.widthInches > 7 ? width * .15 : width * .16;
     bigButtonHeight = height * .2;
     bigButtonWidht = width * .3;

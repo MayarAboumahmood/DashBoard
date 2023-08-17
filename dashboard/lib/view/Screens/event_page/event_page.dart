@@ -15,7 +15,6 @@ import '../add_event/add_event_page.dart';
 
 // ignore: must_be_immutable
 class EventPage extends StatelessWidget {
- 
   EventPage({super.key});
   EventController controller = Get.find();
   @override
@@ -60,33 +59,65 @@ class EventPage extends StatelessWidget {
         width: Get.size.width,
         child: Column(
           children: [
-            dividerWithWord(
-              'Current event'.tr,
+            Visibility(
+              replacement: const SizedBox(),
+              visible: controller.nowList.isNotEmpty,
+              child: Column(
+                children: [
+                  dividerWithWord(
+                    'Current event'.tr,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
-           setListNowOfEvents(context),
-           const SizedBox(
-              height: 10,
+            Visibility(
+                replacement: const SizedBox(),
+                visible: controller.nowList.isNotEmpty,
+                child: setListNowOfEvents(context)),
+            Visibility(
+              replacement: const SizedBox(),
+              visible: controller.upComingList.isNotEmpty,
+              child: Column(
+                children: [
+                  dividerWithWord(
+                    'Upcomeing events'.tr,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
-            dividerWithWord(
-              'Upcomeing events'.tr,
-            ),
+            Visibility(
+                replacement: const SizedBox(),
+                visible: controller.upComingList.isNotEmpty,
+                child: setUPcomingListOfEvents(context)),
             const SizedBox(
               height: 10,
             ),
-            setUPcomingListOfEvents(context),
-            const SizedBox(
-              height: 10,
-            ),
-            dividerWithWord(
-              'Old events'.tr,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            setListPastOfEvents(context),
+            Visibility(
+                replacement: const SizedBox(),
+                visible: controller.pastList.isNotEmpty,
+                child: Column(
+                  children: [
+                    dividerWithWord(
+                      'Old events'.tr,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                )),
+            Visibility(
+                replacement: const SizedBox(),
+                visible: controller.pastList.isNotEmpty,
+                child: setListPastOfEvents(context)),
             const SizedBox(
               height: 10,
             ),
@@ -116,9 +147,10 @@ class EventPage extends StatelessWidget {
             mainAxisExtent: 200,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return  EventCard(
+            return EventCard(
                 onPressed: () {
-                  Get.toNamed('/EventInformationPage',arguments: ['Current',controller.nowList[index].id ]);
+                  Get.toNamed('/EventInformationPage',
+                      arguments: ['Current', controller.nowList[index].id]);
                 },
                 eventName: controller.nowList[index].title,
                 date: controller.nowList[index].beginDate,

@@ -97,18 +97,25 @@ class AddEventController extends GetxController
 
   addEventrData() async {
     String token = await prefService.readString('token');
-    List<int> finalArtistSelected = [];
+    String finalArtistSelected = "";
 
     for (var i = 0; i < selectedArtist.length; i++) {
-      finalArtistSelected.add(selectedArtist[i].id!);
+      if (selectedArtist.length - 1 == i) {
+        finalArtistSelected += "${selectedArtist[i].id!}";
+      } else {
+        finalArtistSelected += "${selectedArtist[i].id!},";
+      }
     }
+    // print(finalArtistSelected[0]);
     Map<String, String> data = {
+      "artists_cost": "30000",
       "title": title,
       "description": description,
       "ticket_price": ticketPrice,
       "available_places": availablePlaces,
       "band_name": "hello",
       "begin_date": selectedDate.toString(),
+      "artists": finalArtistSelected,
       "admin_id": "2"
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =

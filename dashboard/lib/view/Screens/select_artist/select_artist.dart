@@ -36,85 +36,80 @@ class SelectArtist extends StatelessWidget {
       width: context.widthInches > 5.5 ? 400 : Get.size.width * .85,
       color: Get.isDarkMode ? Colors.black54 : skinColorWhite,
       child: SingleChildScrollView(
-    child: Column(
-      children: [
-        createAppBar(size, context),
-        dividerWithWord('Select artists to the event'.tr),
-        const SizedBox(height: 20),
-        SizedBox(
-          width: double.infinity,
-          height: 400,
-          child: controller.statuseRequest == StatuseRequest.loading
-              ? Center(
-                  child:
-                      Text("loading....".tr, style: generalTextStyle(14)),
-                )
-              : controller.finalListData.isEmpty
+        child: Column(
+          children: [
+            createAppBar(size, context),
+            dividerWithWord('Select artists to the event'.tr),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 400,
+              child: controller.statuseRequest == StatuseRequest.loading
                   ? Center(
-                      child: Text(
-                        "No data found",
-                        style: generalTextStyle(18),
-                      ),
+                      child:
+                          Text("loading....".tr, style: generalTextStyle(14)),
                     )
-                  :  
-                 
-                    ListView.builder(
-                          itemBuilder: (context, index) => ArtistCard(
-                            model: controller.finalListData[index],
-                            controller: controller,
-                            index: index
+                  : controller.finalListData.isEmpty
+                      ? Center(
+                          child: Text(
+                            "No data found",
+                            style: generalTextStyle(18),
                           ),
+                        )
+                      : ListView.builder(
+                          itemBuilder: (context, index) => ArtistCard(
+                              model: controller.finalListData[index],
+                              controller: controller,
+                              index: index),
                           itemCount: controller.finalListData.length,
-                        
-                    ),
-                  
+                        ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            HoverButton(
+              ontap: () {
+                showAddArtistDialog(context);
+              },
+              mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+              myRadius: size.buttonRadius,
+              mywidth: size.normalButtonWidht,
+              myheight: size.normalButtonHeight,
+              child: Text('Add artist'.tr, style: generalTextStyle(null)),
+            ),
+            const SizedBox(height: 10),
+            HoverButton(
+              ontap: () {
+                controller.onFinishSelected();
+              },
+              mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+              myRadius: size.buttonRadius,
+              mywidth: size.normalButtonWidht,
+              myheight: size.normalButtonHeight,
+              child: Text('Done'.tr, style: generalTextStyle(null)),
+            ),
+            const SizedBox(height: 20)
+          ],
         ),
-        SizedBox(
-          height: Get.size.height * .1,
-        ),
-        HoverButton(
-          ontap: () {
-            showAddArtistDialog(context);
-           
-          },
-          mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-          myRadius: size.buttonRadius,
-          mywidth: size.normalButtonWidht,
-          myheight: size.normalButtonHeight,
-          child: Text('Add artist'.tr, style: generalTextStyle(null)),
-        ),
-        const SizedBox(height: 10),
-        HoverButton(
-          ontap: () {
-            controller.onFinishSelected();
-          },
-          mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-          myRadius: size.buttonRadius,
-          mywidth: size.normalButtonWidht,
-          myheight: size.normalButtonHeight,
-          child: Text('Done'.tr, style: generalTextStyle(null)),
-        ),
-        const SizedBox(height: 20)
-      ],
-    ),
       ),
     );
   }
 
   void showAddArtistDialog(BuildContext context) {
-   // Get.to(AddArtist());
-   Get.dialog(Dialog(clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddArtist(),));
+    // Get.to(AddArtist());
+    Get.dialog(Dialog(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: AddArtist(),
+    ));
     // showDialog(
     //   context: context,
     //   builder: (BuildContext context) {
     //     return Dialog(
-          // clipBehavior: Clip.antiAlias,
-          // shape:
-          //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          // child: AddArtist(),
+    // clipBehavior: Clip.antiAlias,
+    // shape:
+    //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    // child: AddArtist(),
     //     );
     //   },
     // );

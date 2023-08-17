@@ -1,5 +1,6 @@
 import 'package:dashboard/view/Screens/add_event/add_event_binding.dart';
 import 'package:dashboard/view/Screens/add_new_drink/add_new_drink.binding.dart';
+import 'package:dashboard/view/Screens/add_new_reservation/add_new_reservation_binding.dart';
 import 'package:dashboard/view/Screens/add_worker/add_worker_binding.dart';
 import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_ui.dart';
 import 'package:dashboard/view/Screens/admin_management_page/admin_management_page.dart';
@@ -45,7 +46,7 @@ appRoutes() => [
       GetPage(
         name: '/EventPage',
         page: () => EventPage(),
-        bindings: [AddEventBinding(), EventBinding()],
+        bindings: [AddEventBinding(), EventBinding(), AddReservationBinding()],
       ),
       GetPage(
         name: '/EventInformationPage',
@@ -54,16 +55,14 @@ appRoutes() => [
       GetPage(
         name: '/StockPage',
         page: () => StockPage(),
-        bindings:[ StockBinding(),AddNewDrinkBinding()],
+        bindings: [StockBinding(), AddNewDrinkBinding()],
       ),
       GetPage(
         name: '/EventInformationPage',
         page: () => const EventInformationPage(),
       ),
-      
       GetPage(
-        name: '/DrinkInformationPage',
-        page: () =>  DrinkInformationPage(),
-        binding: DrinkInfoBinding()
-      ),
+          name: '/DrinkInformationPage',
+          page: () => DrinkInformationPage(),
+          binding: DrinkInfoBinding()),
     ];

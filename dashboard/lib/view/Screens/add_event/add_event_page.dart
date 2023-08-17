@@ -13,6 +13,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
 import '../../../main.dart';
+import '../../widget/artist_card_in_reservationUI.dart';
 import '../../widget/hover_button.dart';
 import '../select_artist/select_artist.dart';
 
@@ -111,15 +112,8 @@ class AddEvent extends StatelessWidget {
           controller.selectedArtist.isEmpty
               ? const SizedBox()
               : SizedBox(
-                  height: 150,
-                  child: ListView.builder(
-                    itemBuilder: (ctx, index) =>
-                        Text(controller.selectedArtist[index].name),
-                    // ArtistCard(
-
-                    //     model: controller.selectedArtist[index], index: index),
-                    itemCount: controller.selectedArtist.length,
-                  ),
+                  height: controller.selectedArtist.length * 50,
+                  child: artistGridView(context),
                 ),
           HoverButton(
             ontap: () {
@@ -237,6 +231,21 @@ class AddEvent extends StatelessWidget {
     );
   }
 
+  Widget artistGridView(BuildContext context) {
+    return GridView.builder(
+        itemCount: controller.selectedArtist.length,
+        padding: const EdgeInsets.all(10),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisExtent: 70,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemBuilder: (ctx, index) => artisCardView(
+              controller.selectedArtist[index].name,
+            ));
+  }
+
   void showWorkerDialog(BuildContext context) {
     showDialog(
         context: context,
@@ -287,8 +296,8 @@ class AddEvent extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               controller.selectedArtist.clear();
-              controller.webImageExcist=false;
-               controller.isSelectedDateIsNull.value=true;
+              controller.webImageExcist = false;
+              controller.isSelectedDateIsNull.value = true;
               Get.back();
             },
             child: Icon(

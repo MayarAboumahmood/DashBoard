@@ -14,11 +14,13 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
     String adminDetails, int id) {
   return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
-      child: MaterialButton(
-          onPressed: () {
+      child: GestureDetector(
+          onTap: () {
             Get.to(const AdminAllActionPage());
           },
           child: Container(
+            width: 200,
+            height: 50,
             padding: EdgeInsets.symmetric(
                 horizontal: context.widthInches > 5 ? 7 : 7,
                 vertical: Get.size.height * .02),
@@ -26,6 +28,8 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
                 horizontal: context.widthInches > 5 ? 7 : 7,
                 vertical: Get.size.height * .02),
             decoration: BoxDecoration(
+              border: Border.all(
+                  color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
               borderRadius: BorderRadius.circular(size.buttonRadius),
               color: Get.isDarkMode
                   ? const Color.fromARGB(255, 54, 54, 54)
@@ -88,7 +92,7 @@ Widget workerCard(BuildContext context, Sizes size, WorkerModel model) {
     padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
     child: MaterialButton(
       onPressed: () {
-        Get.toNamed('/WorkerInformationPage',arguments: model);
+        Get.toNamed('/WorkerInformationPage', arguments: model);
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -128,7 +132,7 @@ Widget workerCard(BuildContext context, Sizes size, WorkerModel model) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(model.firstName+model.lastName,
+                Text(model.firstName + model.lastName,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: jostFontFamily,

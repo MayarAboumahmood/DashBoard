@@ -2,7 +2,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/view/widget/general_app_bar.dart';
-import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -19,12 +18,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    List<Worker> workerList = [
-      Worker(age: '22', name: 'worker 1', numberOfEvents: 12),
-      Worker(age: '24', name: 'worker 2', numberOfEvents: 13),
-      Worker(age: '21', name: 'worker 3', numberOfEvents: 14),
-      Worker(age: '31', name: 'worker 4', numberOfEvents: 16),
-    ];
 
     return Scaffold(
       drawer: context.widthInches < 6 ? SlideDrawer() : null,
@@ -39,10 +32,24 @@ class Home extends StatelessWidget {
                   'assets/images/tickets.png'),
               homePageCard(size, 'Number of drinks'.tr, '25',
                   'assets/images/drinks.png'),
-              homePageCard(size, 'Total number of events'.tr, '9',
-                  'assets/images/concert.png'),
-              setWorkersHomePageCard(
-                  size, context, workerList, slideDrawerController)
+              homePageCard(size, 'Upcoming event number'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'Past events'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'Number of workers'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'Number of users'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'Number of admins'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'Total cost'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'The proceeds'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              homePageCard(size, 'The profit'.tr, '9',
+                  'assets/images/concert.png'), //to do
+              // setWorkersHomePageCard(
+              //     size, context, workerList, slideDrawerController)
             ]),
           ),
         ],
@@ -51,88 +58,11 @@ class Home extends StatelessWidget {
   }
 }
 
-Widget setWorkersHomePageCard(Sizes size, BuildContext context,
-    List<Worker> workerList, SlideDrawerController slideDrawerController) {
-  return Center(
-    child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: const EdgeInsets.all(10),
-        height: 250,
-        // height: context.widthInches > 6.3
-        //     ? workerList.length * 55
-        //     : context.widthInches < 6.16 && context.widthInches > 6
-        //         ? workerList.length * 110
-        //         : workerList.length * 85,
-        width: Get.size.width * .9,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.buttonRadius),
-          color: Get.isDarkMode
-              ? const Color.fromARGB(255, 54, 54, 54)
-              : Colors.grey[400],
-        ),
-        child: ListView.builder(
-          // physics: const NeverScrollableScrollPhysics(),
-          itemCount: workerList.length * 2,
-          itemBuilder: (context, index) {
-            if (index.isOdd) {
-              return Divider(
-                color: skinColorWhite,
-                height: 0,
-              );
-            }
-            final itemIndex = index ~/ 2;
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      AutoSizeText(
-                        maxLines: 1,
-                        workerList[itemIndex].name,
-                        style: generalTextStyle(25),
-                      ),
-                      const Spacer(),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Visibility(
-                        visible: context.widthInches > 6.3,
-                        child: AutoSizeText(
-                          maxLines: 2,
-                          'participited in: ${workerList[itemIndex].numberOfEvents} events',
-                          style: generalTextStyle(20),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                    ],
-                  ),
-                  Visibility(
-                    visible: context.widthInches < 6.3,
-                    child: AutoSizeText(
-                      maxLines: 2,
-                      'number of events participited in: ${workerList[itemIndex].numberOfEvents}',
-                      style: generalTextStyle(20),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        )),
-  );
-}
-
 Widget homePageCard(
     Sizes size, String title, String details, String imagePath) {
   return SizedBox(
-    height: size.bigButtonHeight + 10,
-    width: size.bigButtonWidht + 10,
+    height: size.bigButtonHeight - 10,
+    width: size.bigButtonWidht - 10,
     child: Stack(
       children: [
         Container(
