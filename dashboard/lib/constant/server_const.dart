@@ -11,9 +11,11 @@ class ServerConstApis {
   static String adminLogin = '${baseAPI}admins/login';
   static String newAdmin = '${baseAPI}admins/signup';
   static String showAllAdmins = '${baseAPI}admins/show-all';
+  static String showStates = '${baseAPI}admins/stats';
 
 //////event
   static String showAllEvents = '${baseAPI}events/show-all';
+  static String showEventForAdmin = '${baseAPI}events/show-event-for-admin';
   static String addEvent = '${baseAPI}events/create';
 
 ////stock
