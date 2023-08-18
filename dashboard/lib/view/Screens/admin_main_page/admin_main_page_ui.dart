@@ -37,19 +37,17 @@ class Home extends StatelessWidget {
               homePageCard(size, 'Past events'.tr, '9',
                   'assets/images/concert.png'), //to do
               homePageCard(size, 'Number of workers'.tr, '9',
-                  'assets/images/concert.png'), //to do
+                  'assets/images/Workers.png'), //to do
               homePageCard(size, 'Number of users'.tr, '9',
-                  'assets/images/concert.png'), //to do
+                  'assets/images/Customer.png'), //to do
               homePageCard(size, 'Number of admins'.tr, '9',
-                  'assets/images/concert.png'), //to do
+                  'assets/images/Admins.png'), //to do
               homePageCard(size, 'Total cost'.tr, '9',
-                  'assets/images/concert.png'), //to do
+                  'assets/images/stack_of_money.png'), //to do
               homePageCard(size, 'The proceeds'.tr, '9',
-                  'assets/images/concert.png'), //to do
+                  'assets/images/one_package_of_money.png'), //to do
               homePageCard(size, 'The profit'.tr, '9',
-                  'assets/images/concert.png'), //to do
-              // setWorkersHomePageCard(
-              //     size, context, workerList, slideDrawerController)
+                  'assets/images/one_package_of_money.png'), //to do
             ]),
           ),
         ],
