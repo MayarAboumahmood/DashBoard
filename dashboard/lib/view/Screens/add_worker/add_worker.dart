@@ -54,6 +54,7 @@ class AddWorker extends StatelessWidget {
                       generalInputTextFeild(
                         size,
                         Icons.person,
+                        'Enter worker first name'.tr,
                         'First name'.tr,
                         (value) {
                           controller.firstName = value!;
@@ -69,6 +70,7 @@ class AddWorker extends StatelessWidget {
                       generalInputTextFeild(
                           size,
                           Icons.person,
+                          'Enter wroker last name'.tr,
                           'Last name'.tr,
                           (value) {
                             controller.lastName = value!;
@@ -85,6 +87,7 @@ class AddWorker extends StatelessWidget {
                       generalInputTextFeild(
                           size,
                           Icons.phone,
+                          'Worker phone number'.tr,
                           'Phone number'.tr,
                           (value) {
                             controller.numberPhone = value!;
@@ -99,7 +102,8 @@ class AddWorker extends StatelessWidget {
                       generalInputTextFeild(
                           size,
                           Icons.info,
-                          'information'.tr,
+                          'More info about the worker'.tr,
+                          'Information'.tr,
                           (value) {
                             controller.information = value!;
                           },

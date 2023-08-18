@@ -53,6 +53,7 @@ class AddNewDrink extends StatelessWidget {
                           size,
                           Icons.no_drinks,
                           'Drink name'.tr,
+                          'Name'.tr,
                           (value) {
                             controller.name = value!;
                           },
@@ -66,7 +67,8 @@ class AddNewDrink extends StatelessWidget {
                       generalInputTextFeild(
                         size,
                         Icons.money,
-                        'unit price'.tr,
+                        'Enter drink unit price'.tr,
+                        'Unit price'.tr,
                         (value) {
                           controller.price = value!;
                         },
@@ -92,6 +94,7 @@ class AddNewDrink extends StatelessWidget {
                       generalInputTextFeild(
                         size,
                         Icons.money,
+                        'Enter the total cost'.tr,
                         'Total cost'.tr,
                         (value) {
                           controller.totalcost = value!;
@@ -118,6 +121,7 @@ class AddNewDrink extends StatelessWidget {
                       generalInputTextFeild(
                         size,
                         Icons.bubble_chart_rounded,
+                        'Enter the avilable amount'.tr,
                         'Avilable amount'.tr,
                         (value) {
                           controller.aviableAmount = value!;
@@ -144,7 +148,8 @@ class AddNewDrink extends StatelessWidget {
                       generalInputTextFeild(
                         size,
                         Icons.info,
-                        'description'.tr,
+                        'Enter the description'.tr,
+                        'Description'.tr,
                         (value) {
                           controller.description = value!;
                         },

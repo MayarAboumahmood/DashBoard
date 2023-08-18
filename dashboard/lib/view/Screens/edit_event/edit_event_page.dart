@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/status_request.dart';
 import 'package:dashboard/view/Screens/add_event/add_event_controller.dart';
+import 'package:dashboard/view/Screens/edit_event/edit_event_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/view/widget/general_inpu_text_field.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
@@ -18,9 +19,9 @@ import '../../widget/hover_button.dart';
 import '../select_artist/select_artist.dart';
 
 // ignore: must_be_immutable
-class AddEvent extends StatelessWidget {
-  AddEvent({super.key});
-  AddEventController controller = Get.find();
+class EditEvent extends StatelessWidget {
+  EditEvent({super.key});
+  EditEventController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -63,8 +64,8 @@ class AddEvent extends StatelessWidget {
           generalInputTextFeild(
             size,
             Icons.groups_3,
-            'Enter Event name'.tr,
-            'Event name'.tr,
+            'Enter the event name'.tr,
+            'Name'.tr,
             (value) {
               controller.title = value!;
             },
@@ -80,7 +81,7 @@ class AddEvent extends StatelessWidget {
             size,
             Icons.person,
             'Enter the max number of attandend'.tr,
-            'max number of attandend'.tr,
+            'Max number of attandend'.tr,
             (value) {
               controller.availablePlaces = value!;
             },
@@ -96,7 +97,7 @@ class AddEvent extends StatelessWidget {
               size,
               Icons.money,
               'Enter the ticket price'.tr,
-              'ticket price'.tr,
+              'Price'.tr,
               (value) {
                 controller.ticketPrice = value!;
               },
@@ -132,31 +133,13 @@ class AddEvent extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          generalInputTextFeild(
-              size,
-              Icons.info,
-              'Enter artist money'.tr,
-              'artist money'.tr,
-              (value) {
-                controller.description = value!;
-              },
-              TextInputType.text,
-              (value) {
-                if (value!.length < 2) {
-                  return "enter the artist cost".tr;
-                }
-                return null;
-              }),
-          const SizedBox(
-            height: 10,
-          ),
           dividerWithWord('description'.tr,
               icon: const Icon(Icons.info_outline_rounded)),
           generalInputTextFeild(
               size,
               Icons.info,
               'Enter the description'.tr,
-              'description'.tr,
+              'Description'.tr,
               (value) {
                 controller.description = value!;
               },
@@ -305,7 +288,7 @@ class AddEvent extends StatelessWidget {
               vertical: sharedPreferences!.getString('lang') == 'en'
                   ? Get.size.width * .01
                   : 0),
-          child: AutoSizeText('Add new event'.tr,
+          child: AutoSizeText('Edit the event'.tr,
               presetFontSizes: const [28, 35, 25, 23],
               style: TextStyle(
                 fontFamily: jostFontFamily,

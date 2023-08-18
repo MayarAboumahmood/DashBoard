@@ -53,29 +53,33 @@ class AddReservation extends StatelessWidget {
                         generalInputTextFeild(
                             size,
                             Icons.person,
-                            'Customer name'.tr,
-                            (value)  {
-                          if (value!.length < 2) {
-                            return "The name is not valid".tr;
-                          }
-                          return null;
-                        },
-                            TextInputType.name, (value) {
-                          return null;
-                        }),
+                            'Enter customer name'.tr,
+                            'Name'.tr,
+                            (value) {
+                              if (value!.length < 2) {
+                                return "The name is not valid".tr;
+                              }
+                              return null;
+                            },
+                            TextInputType.name,
+                            (value) {
+                              return null;
+                            }),
                         generalInputTextFeild(
                             size,
                             Icons.confirmation_number,
+                            'Enter the number of setes'.tr,
                             'Number of setes'.tr,
-                            (value)  {
-                          if (int.parse(value!) < 2) {
-                            return "The number is not valid".tr;
-                          }
-                          return null;
-                        },
-                            TextInputType.number, (value) {
-                          return null;
-                        }),
+                            (value) {
+                              if (int.parse(value!) < 2) {
+                                return "The number is not valid".tr;
+                              }
+                              return null;
+                            },
+                            TextInputType.number,
+                            (value) {
+                              return null;
+                            }),
                         const SizedBox(
                           height: 50,
                         ),

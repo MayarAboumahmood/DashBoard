@@ -14,12 +14,11 @@ import '../../widget/no_internet_page.dart';
 import '../../widget/slide_drawer.dart';
 import 'admin_main_page_controller.dart';
 
-// ignore: must_be_immutable
 class Home extends StatelessWidget {
-  SlideDrawerController slideDrawerController = Get.find();
-  HomeController controller = Get.find();
+  final SlideDrawerController slideDrawerController = Get.find();
+  final HomeController controller = Get.find();
   Home({super.key});
-  GetDeviceType getDeviceType = GetDeviceType();
+  final GetDeviceType getDeviceType = GetDeviceType();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -51,7 +50,7 @@ class Home extends StatelessWidget {
                                       'Total number of customer'.tr,
                                       controller.finalListData.customers
                                           .toString(),
-                                      'assets/images/tickets.png'),
+                                      'assets/images/Customers.png'),
                                   homePageCard(
                                       size,
                                       'Number of drinks'.tr,
@@ -75,34 +74,32 @@ class Home extends StatelessWidget {
                                       'Number of workers'.tr,
                                       controller.finalListData.workers
                                           .toString(),
-                                      'assets/images/concert.png'), //to do
+                                      'assets/images/Workers.png'), //to do
 
                                   homePageCard(
                                       size,
                                       'Number of admins'.tr,
                                       controller.finalListData.admins
                                           .toString(),
-                                      'assets/images/concert.png'), //to do
+                                      'assets/images/Admins.png'), //to do
                                   homePageCard(
                                       size,
                                       'Total cost'.tr,
                                       controller.finalListData.totalCost
                                           .toString(),
-                                      'assets/images/concert.png'), //to do
+                                      'assets/images/stack_of_money.png'), //to do
                                   homePageCard(
                                       size,
                                       'The proceeds'.tr,
                                       controller.finalListData.proceeds
                                           .toString(),
-                                      'assets/images/concert.png'), //to do
+                                      'assets/images/one_package_of_money.png'), //to do
                                   homePageCard(
                                       size,
                                       'The profit'.tr,
                                       controller.finalListData.profit
                                           .toString(),
-                                      'assets/images/concert.png'), //to do
-                                  // setWorkersHomePageCard(
-                                  //     size, context, workerList, slideDrawerController)
+                                      'assets/images/one_package_of_money.png'), //to do
                                 ]),
                           ),
                         ],
@@ -113,7 +110,7 @@ class Home extends StatelessWidget {
 Widget homePageCard(
     Sizes size, String title, String details, String imagePath) {
   return SizedBox(
-    height: size.bigButtonHeight - 10,
+    height: size.bigButtonHeight + 10,
     width: size.bigButtonWidht - 10,
     child: Stack(
       children: [
@@ -125,10 +122,13 @@ Widget homePageCard(
               color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               borderRadius: BorderRadius.circular(size.buttonRadius)),
         ),
-        SizedBox(
-          height: size.bigButtonHeight - 10,
-          width: size.bigButtonWidht - 10,
-          child: Image.asset(imagePath),
+        Positioned(
+          top: 20,
+          child: SizedBox(
+            height: size.bigButtonHeight - 20,
+            width: size.bigButtonWidht - 10,
+            child: Image.asset(imagePath),
+          ),
         ),
         Container(
           margin: const EdgeInsets.all(10),

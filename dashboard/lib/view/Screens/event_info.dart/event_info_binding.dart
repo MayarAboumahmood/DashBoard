@@ -1,14 +1,9 @@
-import 'package:dashboard/view/Screens/event_page/event_controller.dart';
-import 'package:dashboard/view/widget/artist_card.dart';
+import 'package:dashboard/view/Screens/edit_event/edit_event_controller.dart';
 import 'package:get/get.dart';
 
-import '../add_artist/add_artist_controller.dart';
-
-class EventBinding implements Bindings {
+class EventInfoBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => EventController());
-    Get.lazyPut(() => AddArtistController());
-    Get.lazyPut(() => ArtistCardController());
+    Get.lazyPut(() => EditEventController());
   }
 }
