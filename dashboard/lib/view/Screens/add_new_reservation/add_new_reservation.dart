@@ -56,7 +56,7 @@ class AddReservation extends StatelessWidget {
                         generalInputTextFeild(
                             size,
                             Icons.person,
-                            'Customer name'.tr,
+                            'Customer name'.tr,"Customer name",
                             (value)  {
                           controller.customerName=value!;
                         },
@@ -69,6 +69,7 @@ class AddReservation extends StatelessWidget {
                         generalInputTextFeild(
                             size,
                             Icons.confirmation_number,
+                            'Enter the number of setes'.tr,
                             'Number of setes'.tr,
                             (value)  {
                           controller.numberOfSets=value!;

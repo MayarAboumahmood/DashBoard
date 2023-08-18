@@ -1,5 +1,5 @@
 class ServerConstApis {
-  static String baseAPI = 'http://127.0.0.1:3000/';
+  static String baseAPI = 'http://192.168.133.5:3000/';
 
 //////////////WorkerPages
   static String addWorker = '${baseAPI}worker/create';
@@ -33,7 +33,7 @@ class ServerConstApis {
 ////////reservation
 
   static String newadminreservation = '${baseAPI}admins/make-reservation';
-  static String showAdminReservations= '${baseAPI}admins/make-reservation';
+  static String showAdminReservations = '${baseAPI}admins/make-reservation';
 
 /////////forImages
   static String loadImages = 'http://127.0.0.1:3000/';

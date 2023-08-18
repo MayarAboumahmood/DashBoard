@@ -15,6 +15,7 @@ import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/no_internet_page.dart';
 import '../add_event/add_event_page.dart';
+import '../edit_event/edit_event_page.dart';
 import '../reservation_dialog/reservation_dialog.dart';
 import 'event_info_controller.dart';
 
@@ -29,7 +30,7 @@ EventInfoController controller=Get.find();
    
     return Scaffold(
       floatingActionButton: addFloatingActionButton(
-          'Edite the event'.tr, 'Delete the event'.tr, context),
+          'Edit the event'.tr, 'Delete the event'.tr, context),
       appBar: createAppBar(size, context),
       body: GetBuilder<EventInfoController>(
         builder: (ctx) => controller.statuseRequest ==
@@ -99,7 +100,7 @@ EventInfoController controller=Get.find();
             hoverColor:
                 Get.isDarkMode ? darkHoverButtonColor : lightHoverButtonColor,
             onPressed: () {
-              showAddEventDialog(context);
+              showEditEventDialog(context);
             },
             label: Text(
               firstTitle.tr,
@@ -262,7 +263,7 @@ EventInfoController controller=Get.find();
     );
   }
 
-  void showAddEventDialog(BuildContext context) {
+  void showEditEventDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -270,7 +271,7 @@ EventInfoController controller=Get.find();
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddEvent(),
+          child: EditEvent(),
         );
       },
     );

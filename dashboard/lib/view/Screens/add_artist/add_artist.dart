@@ -15,7 +15,7 @@ import '../../widget/hover_button.dart';
 // ignore: must_be_immutable
 class AddArtist extends StatelessWidget {
   AddArtist({super.key});
-  AddArtistController controller=Get.put(AddArtistController());
+  AddArtistController controller = Get.put(AddArtistController());
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -43,31 +43,44 @@ class AddArtist extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               generalInputTextFeild(
-                  size, Icons.person, 'Name'.tr, (value) {
-                    controller.name=value!;
-                  }, TextInputType.name,
+                  size,
+                  Icons.person,
+                  'Enter artist name'.tr,
+                  'Name'.tr,
                   (value) {
-                if (value!.length < 2) {
-                  return "The name is shourt".tr;
-                }
-                return null;
-              }),
-              generalInputTextFeild(size, Icons.info, 'information'.tr,
-                  (value) {controller.information=value!;}, TextInputType.text, (value) {
-                if (value!.length < 10) {
-                  return "Please inter more information".tr;
-                }
-                return null;
-              }),
+                    controller.name = value!;
+                  },
+                  TextInputType.name,
+                  (value) {
+                    if (value!.length < 2) {
+                      return "The name is shourt".tr;
+                    }
+                    return null;
+                  }),
+              generalInputTextFeild(
+                  size,
+                  Icons.info,
+                  'Enter artist info'.tr,
+                  'information'.tr,
+                  (value) {
+                    controller.information = value!;
+                  },
+                  TextInputType.text,
+                  (value) {
+                    if (value!.length < 10) {
+                      return "Please inter more information".tr;
+                    }
+                    return null;
+                  }),
               const SizedBox(
                 height: 50,
               ),
               HoverButton(
                 mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
                 myRadius: size.buttonRadius,
-                ontap: ()async {
-                 await  controller.onPressDone();
-                 },
+                ontap: () async {
+                  await controller.onPressDone();
+                },
                 mywidth: size.normalButtonWidht,
                 myheight: size.normalButtonHeight,
                 myShadow: 0,
@@ -77,8 +90,9 @@ class AddArtist extends StatelessWidget {
                   style: TextStyle(
                       fontSize: size.normalButtonTextSize,
                       fontFamily: jostFontFamily,
-                      color:
-                          Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+                      color: Get.isDarkMode
+                          ? skinColorWhite
+                          : backGroundDarkColor),
                 ),
               )
             ],

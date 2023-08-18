@@ -29,11 +29,7 @@ appRoutes() => [
       GetPage(name: '/', page: () => Landing(), binding: ThemeBinding()),
       GetPage(
           name: '/LoginPage', page: () => LoginPage(), binding: LoginBinding()),
-      GetPage(
-        name: '/Home',
-        page: () => Home(),
-        binding: HomeBinding()
-      ),
+      GetPage(name: '/Home', page: () => Home(), binding: HomeBinding()),
       GetPage(
           name: '/WorkerManagementPage',
           page: () => WorkerManagementPage(),
@@ -61,8 +57,7 @@ appRoutes() => [
         page: () => StockPage(),
         bindings: [StockBinding(), AddNewDrinkBinding()],
       ),
-     
-      GetPage(
+       GetPage(
           name: '/DrinkInformationPage',
           page: () => DrinkInformationPage(),
           binding: DrinkInfoBinding()),

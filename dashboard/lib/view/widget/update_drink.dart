@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashboard/constant/server_const.dart';
 import 'package:dashboard/constant/status_request.dart';
@@ -54,6 +53,7 @@ class UpdateDrink extends StatelessWidget {
                       generalInputTextFeild(
                           size,
                           Icons.no_drinks,
+                          'Enter the drink name'.tr,
                           'Drink name'.tr,
                           (value) {
                             controller.name = value!;
@@ -65,109 +65,104 @@ class UpdateDrink extends StatelessWidget {
                             }
                             return null;
                           },
-                          inialValue: controller.name
-                          ),
+                          inialValue: controller.name),
                       generalInputTextFeild(
-                        size,
-                        Icons.money,
-                        'unit price'.tr,
-                        (value) {
-                          controller.price = value!;
-                        },
-                        TextInputType.number,
-                        (value) {
-                          value = value!.trim();
+                          size,
+                          Icons.money,
+                          'Enter unit price'.tr,
+                          'unit price'.tr,
+                          (value) {
+                            controller.price = value!;
+                          },
+                          TextInputType.number,
+                          (value) {
+                            value = value!.trim();
 
-                          // Check if the price is a valid number
-                          if (double.tryParse(value) == null) {
-                            return "the price is not valid";
-                          }
+                            // Check if the price is a valid number
+                            if (double.tryParse(value) == null) {
+                              return "the price is not valid";
+                            }
 
-                          // Check if the price is non-negative
-                          double price = double.parse(value);
-                          if (price < 0) {
-                            return "the price can not be less the 0";
-                          }
+                            // Check if the price is non-negative
+                            double price = double.parse(value);
+                            if (price < 0) {
+                              return "the price can not be less the 0";
+                            }
 
-                          // Price is valid
-                          return null;
-                        },
-                         inialValue: controller.price
-                         
-                      ),
+                            // Price is valid
+                            return null;
+                          },
+                          inialValue: controller.price),
                       generalInputTextFeild(
-                        size,
-                        Icons.money,
-                        'Total cost'.tr,
-                        (value) {
-                          controller.totalcost = value!;
-                        },
-                        TextInputType.number,
-                        (value) {
-                          value = value!.trim();
+                          size,
+                          Icons.money,
+                          'Enter the total cost'.tr,
+                          'Total cost'.tr,
+                          (value) {
+                            controller.totalcost = value!;
+                          },
+                          TextInputType.number,
+                          (value) {
+                            value = value!.trim();
 
-                          // Check if the price is a valid number
-                          if (double.tryParse(value) == null) {
-                            return "the cost is not valid";
-                          }
+                            // Check if the price is a valid number
+                            if (double.tryParse(value) == null) {
+                              return "the cost is not valid";
+                            }
 
-                          // Check if the price is non-negative
-                          double price = double.parse(value);
-                          if (price < 0) {
-                            return "the cost can not be less the 0";
-                          }
+                            // Check if the price is non-negative
+                            double price = double.parse(value);
+                            if (price < 0) {
+                              return "the cost can not be less the 0";
+                            }
 
-                          // Price is valid
-                          return null;
-                        },
-                         inialValue: controller.totalcost
-                         
-                      ),
+                            // Price is valid
+                            return null;
+                          },
+                          inialValue: controller.totalcost),
                       generalInputTextFeild(
-                        size,
-                        Icons.bubble_chart_rounded,
-                        'Avilable amount'.tr,
-                        (value) {
-                          controller.aviableAmount = value!;
-                        },
-                        TextInputType.number,
-                        (value) {
-                          value = value!.trim();
+                          size,
+                          Icons.bubble_chart_rounded,
+                          'Enter the avilable amount'.tr,
+                          'Avilable amount'.tr,
+                          (value) {
+                            controller.aviableAmount = value!;
+                          },
+                          TextInputType.number,
+                          (value) {
+                            value = value!.trim();
 
-                          // Check if the price is a valid number
-                          if (double.tryParse(value) == null) {
-                            return "the aviable amount is not valid";
-                          }
+                            // Check if the price is a valid number
+                            if (double.tryParse(value) == null) {
+                              return "the aviable amount is not valid";
+                            }
 
-                          // Check if the price is non-negative
-                          double price = double.parse(value);
-                          if (price < 0) {
-                            return "the aviable amount can not be less the 0";
-                          }
+                            // Check if the price is non-negative
+                            double price = double.parse(value);
+                            if (price < 0) {
+                              return "the aviable amount can not be less the 0";
+                            }
 
-                          // Price is valid
-                          return null;
-                        },
-                         inialValue: controller.aviableAmount
-                         
-                      ),
+                            // Price is valid
+                            return null;
+                          },
+                          inialValue: controller.aviableAmount),
                       generalInputTextFeild(
-                        size,
-                        Icons.info,
-                        'description'.tr,
-                        (value) {
-                          controller.description = value!;
-                        },
-                        TextInputType.text,
-                        (value) {
-                          if (value!.length < 5) {
-                            return "The description is not valid".tr;
-                          }
-                          return null;
-                        },
-                         inialValue: controller.description
-                         
-                      ),
+                          size,
+                          Icons.info,
+                          'Enter the description'.tr,
+                          'description'.tr,
+                          (value) {
+                            controller.description = value!;
+                          },
+                          TextInputType.text,
+                          (value) {
+                            if (value!.length < 5) {
+                              return "The description is not valid".tr;
+                            }
+                            return null;
+                          },
+                          inialValue: controller.description),
                       const SizedBox(
                         height: 5,
                       ),
@@ -184,15 +179,13 @@ class UpdateDrink extends StatelessWidget {
                       controller.webImageExcist
                           ? /*GetPlatform.isWeb
                             ? */
-                                  Image.memory(
-                                controller.selectedImageInBytes,
-                                fit: BoxFit.contain,
-                              ):
-                              Image.network(
-                            "${ServerConstApis.loadImages}${controller.model.image}",fit:BoxFit.fill)
-                              
-                              
-                          ,
+                          Image.memory(
+                              controller.selectedImageInBytes,
+                              fit: BoxFit.contain,
+                            )
+                          : Image.network(
+                              "${ServerConstApis.loadImages}${controller.model.image}",
+                              fit: BoxFit.fill),
                       const SizedBox(
                         height: 15,
                       ),

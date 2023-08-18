@@ -11,9 +11,9 @@ import 'package:get/get.dart';
 import '../../../data/Models/artist_model.dart';
 import '../../widget/snak_bar_for_errors.dart';
 import '../add_artist/add_artist_controller.dart';
-import 'add_event_service.dart';
+import 'edit_event_service.dart';
 
-class AddEventController extends GetxController
+class EditEventController extends GetxController
     implements StatuseRequestController {
   List<String> selctFile = [];
   late List<ArtistModel> selectedArtist;
@@ -24,14 +24,13 @@ class AddEventController extends GetxController
   @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
-  AddEventService service = AddEventService();
+  EditEventService service = EditEventService();
   late String title;
   late String availablePlaces;
   late String beginDate;
   late String description;
   late String ticketPrice;
   late String bandName;
-  late String bandMoney;
   @override
   void onInit() {
     selectedArtist = [];
@@ -41,7 +40,6 @@ class AddEventController extends GetxController
     description = '';
     ticketPrice = '';
     bandName = '';
-    bandMoney = '';
     formstate = GlobalKey<FormState>();
     super.onInit();
   }

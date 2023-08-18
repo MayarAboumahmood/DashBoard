@@ -13,8 +13,8 @@ import 'drinke_info_controller.dart';
 
 // ignore: must_be_immutable
 class DrinkInformationPage extends StatelessWidget {
-   DrinkInformationPage({super.key});
-  DrinkInfoController controller=Get.find();
+  DrinkInformationPage({super.key});
+  DrinkInfoController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -79,19 +79,24 @@ class DrinkInformationPage extends StatelessWidget {
       children: [
         Row(
           children: [
-            drinkInfoUnit(size, context, 'Unit price S.P'.tr, controller.model.price.toString()),
-            drinkInfoUnit(size, context, 'Bottle price by S.P'.tr,  controller.model.cost.toString()),
+            drinkInfoUnit(size, context, 'Unit price S.P'.tr,
+                controller.model.price.toString()),
+            drinkInfoUnit(size, context, 'Bottle price by S.P'.tr,
+                controller.model.cost.toString()),
             Visibility(
-                visible: context.widthInches > 6,
+                visible: context.widthInches > 8,
                 child: drinkInfoUnit(
-                    size, context, 'Available quantity by kg'.tr,  controller.model.quantity.toString())),
+                    size,
+                    context,
+                    'Available quantity by kg'.tr,
+                    controller.model.quantity.toString())),
           ],
         ),
         SizedBox(height: Get.size.width * .01),
         Visibility(
-            visible: context.widthInches < 6,
-            child: drinkInfoUnit(
-                size, context, 'Available quantity by kg'.tr, controller.model.quantity.toString())),
+            visible: context.widthInches < 8,
+            child: drinkInfoUnit(size, context, 'Available quantity by kg'.tr,
+                controller.model.quantity.toString())),
       ],
     );
   }
@@ -142,12 +147,14 @@ class DrinkInformationPage extends StatelessWidget {
         ),
         child: ClipRRect(
           child: SizedBox(
-              height: 150,
-              child: controller.model.image == ''
-                        ? Image.asset('assets/images/The project icon.jpg',fit:BoxFit.fill)
-                        : Image.network(
-                            "${ServerConstApis.loadImages}${controller.model.image}",fit:BoxFit.fill),
-            ),
+            height: 150,
+            child: controller.model.image == ''
+                ? Image.asset('assets/images/The project icon.jpg',
+                    fit: BoxFit.fill)
+                : Image.network(
+                    "${ServerConstApis.loadImages}${controller.model.image}",
+                    fit: BoxFit.fill),
+          ),
         ),
       ),
     );
@@ -158,23 +165,23 @@ class DrinkInformationPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 180,
+          width: 150,
           child: AutoSizeText(
-           controller.model.name,
+            controller.model.name,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
-            minFontSize: 35,
+            minFontSize: 30,
             style: TextStyle(
                 fontFamily: jostFontFamily,
                 color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
           ),
         ),
-         SizedBox(
-          width: 300,
+        SizedBox(
+          width: 150,
           child: AutoSizeText(
-           controller.model.description,
+            controller.model.description,
             overflow: TextOverflow.ellipsis,
-            maxLines: 3,
+            maxLines: 5,
             minFontSize: 20,
             style: TextStyle(
                 fontFamily: jostFontFamily,
