@@ -297,7 +297,7 @@ class Setting extends StatelessWidget {
                     themeController.changeTheme();
                     Get.back();
                     Future.delayed(const Duration(milliseconds: 10), () {
-                      Get.offAllNamed('/Home');
+                      Get.offAllNamed('/');
                     });
                   },
                   child: iconBox(

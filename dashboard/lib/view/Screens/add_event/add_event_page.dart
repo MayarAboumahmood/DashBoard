@@ -135,10 +135,10 @@ class AddEvent extends StatelessWidget {
           generalInputTextFeild(
               size,
               Icons.info,
-              'Enter artist money'.tr,
+              'Enter band money'.tr,
               'artist money'.tr,
               (value) {
-                controller.description = value!;
+                controller.bandMoney = value!;
               },
               TextInputType.text,
               (value) {

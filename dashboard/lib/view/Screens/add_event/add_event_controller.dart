@@ -31,6 +31,7 @@ class AddEventController extends GetxController
   late String description;
   late String ticketPrice;
   late String bandName;
+  late String bandMoney;
   @override
   void onInit() {
     selectedArtist = [];
@@ -40,6 +41,7 @@ class AddEventController extends GetxController
     description = '';
     ticketPrice = '';
     bandName = '';
+    bandMoney = '';
     formstate = GlobalKey<FormState>();
     super.onInit();
   }
