@@ -11,18 +11,18 @@ import 'admin_main_page_service.dart';
 
 class HomeController extends GetxController  implements StatuseRequestController{
 HomeService service = HomeService();
-   List<DashboardData> finalListData=[];
+  late DashboardData finalListData=DashboardData(upcomingEvents: 1, pastEvents: 1, workers: 1, customers: 1, drinks: 1, admins: 1, totalCost: 1, proceeds: 1, profit: 1);
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-    finalListData = await sendingARequestAndHandlingData();
+     await sendingARequestAndHandlingData();
 
     super.onInit();
   }
 
-  Future<List<DashboardData>> sendingARequestAndHandlingData() async {
+   sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =await getdata(); // check if the return data is statuseRequest or real data
@@ -37,7 +37,7 @@ HomeService service = HomeService();
       [];
     }
     update();
-    return [];
+   
   }
 
   
@@ -58,13 +58,12 @@ HomeService service = HomeService();
     }
   }
 
-  Future<List<DashboardData>>whenGetDataSuccess(response) async {
-    List responsedata = response['data'];
-   for (int i = 0; i < responsedata.length; i++) {
-      finalListData.add(DashboardData.fromJson(responsedata[i]));
-    }
+  whenGetDataSuccess(response) async {
+    final responsedata = response;
+     finalListData=await DashboardData.fromJson(responsedata);
+    print(finalListData);
    
     update();
-    return finalListData;
+    
     }
 }
