@@ -16,10 +16,13 @@ import 'add_new_reservation_controller.dart';
 
 // ignore: must_be_immutable
 class AddReservation extends StatelessWidget {
-  AddReservation({super.key});
+  int eventId;
+  AddReservation({ required this.eventId});
   AddNewReservationController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    controller.eventId=eventId;
     Sizes size = Sizes(context);
     return GetBuilder<AddNewReservationController>(
         builder: (ctx) => controller.statuseRequest ==
@@ -55,12 +58,12 @@ class AddReservation extends StatelessWidget {
                             Icons.person,
                             'Customer name'.tr,
                             (value)  {
-                          if (value!.length < 2) {
-                            return "The name is not valid".tr;
-                          }
-                          return null;
+                          controller.customerName=value!;
                         },
                             TextInputType.name, (value) {
+                        if (value!.length < 2) {
+                            return "The name is not valid".tr;
+                          }
                           return null;
                         }),
                         generalInputTextFeild(
@@ -68,12 +71,12 @@ class AddReservation extends StatelessWidget {
                             Icons.confirmation_number,
                             'Number of setes'.tr,
                             (value)  {
-                          if (int.parse(value!) < 2) {
-                            return "The number is not valid".tr;
-                          }
-                          return null;
+                          controller.numberOfSets=value!;
                         },
                             TextInputType.number, (value) {
+                         if (int.parse(value!) < 2) {
+                            return "The number is not valid".tr;
+                          }
                           return null;
                         }),
                         const SizedBox(

@@ -6,6 +6,7 @@ import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_binding.d
 import 'package:dashboard/view/Screens/admin_main_page/admin_main_page_ui.dart';
 import 'package:dashboard/view/Screens/admin_management_page/admin_management_page.dart';
 import 'package:dashboard/view/Screens/drink_info/drink_info_page.dart';
+import 'package:dashboard/view/Screens/event_info.dart/event_info_binding.dart';
 import 'package:dashboard/view/Screens/event_info.dart/event_info_page.dart';
 import 'package:dashboard/view/Screens/event_page/event_page.dart';
 import 'package:dashboard/view/Screens/login/login_page.dart';
@@ -52,17 +53,15 @@ appRoutes() => [
       ),
       GetPage(
         name: '/EventInformationPage',
-        page: () => const EventInformationPage(),
+        page: () =>  EventInformationPage(),
+        binding: EventInfoBinding()
       ),
       GetPage(
         name: '/StockPage',
         page: () => StockPage(),
         bindings: [StockBinding(), AddNewDrinkBinding()],
       ),
-      GetPage(
-        name: '/EventInformationPage',
-        page: () => const EventInformationPage(),
-      ),
+     
       GetPage(
           name: '/DrinkInformationPage',
           page: () => DrinkInformationPage(),

@@ -70,17 +70,17 @@ class WorkerConfirmDialog extends StatelessWidget {
   }
 
   void showAddWorkerDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddReservation(), //to do.....
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return Dialog(
+    //       clipBehavior: Clip.antiAlias,
+    //       shape:
+    //           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    //       child: AddReservation(), //to do.....
+    //     );
+    //   },
+    // );
   }
 
   Widget doneButton(Sizes size) {

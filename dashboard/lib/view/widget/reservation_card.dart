@@ -33,14 +33,14 @@ class ReservationCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                '_customer Name: customer name',
+                '_customer Name: $name',
                 style: generalTextStyle(null),
               ),
               const SizedBox(
                 height: 5,
               ),
               AutoSizeText(
-                '_number of setes: 12',
+                '_number of setes: $numberOfCustomers',
                 style: generalTextStyle(null),
               ),
             ],

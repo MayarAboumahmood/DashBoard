@@ -1,24 +1,24 @@
 import 'package:dartz/dartz.dart';
-import 'package:dashboard/data/Models/artist_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/Screens/reservation_dialog/reservation_service.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/status_request.dart';
+import '../../../data/Models/Event_info_model.dart';
 import '../../widget/no_internet_page.dart';
 import '../../widget/snak_bar_for_errors.dart';
 
 class ReservationController extends GetxController
     implements StatuseRequestController {
-  RxList<ArtistModel> finalListData = <ArtistModel>[].obs;
+  List<Reservation>  finalListData = [];
   ReservationService service = ReservationService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
     // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-    await sendingARequestAndHandlingData();
+  //  await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
   
     super.onInit();
@@ -26,7 +26,7 @@ class ReservationController extends GetxController
 
  
 
-  Future<List<ArtistModel>> sendingARequestAndHandlingData() async {
+   sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -63,13 +63,8 @@ class ReservationController extends GetxController
     }
   }
 
-  Future<List<ArtistModel>> whenGetDataSuccess(response) async {
-    List responsedata = response['data'];
-    
-    for (int i = 0; i < responsedata.length; i++) {
-      finalListData.add(ArtistModel.fromMap(responsedata[i]));
-    }
-    update();
+  whenGetDataSuccess(response) async {
+   
     return finalListData;
   }
 

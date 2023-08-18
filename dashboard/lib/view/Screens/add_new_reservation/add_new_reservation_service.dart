@@ -25,7 +25,7 @@ class AddReservationService {
           headers: headers,
           body: data,
         );
-       
+       print(response.body);
         if (response.statusCode == 200 || response.statusCode == 201) {
           final responsebody = jsonDecode(response.body);
 
