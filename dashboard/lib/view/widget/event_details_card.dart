@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constant/sizes.dart';
+import '../../data/Models/Event_info_model.dart';
 import '../Screens/select_worker/select_worker.dart';
 
 // ignore: must_be_immutable
 class EventDetailsCard extends StatelessWidget {
   bool? theOrderIsFulfilled;
+  Reservation model;
   EventDetailsCard({
     Key? key,
     this.theOrderIsFulfilled,
+    required this.model
   }) : super(key: key);
 
   @override
@@ -28,28 +31,41 @@ class EventDetailsCard extends StatelessWidget {
       ),
       child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            '-desecribtion of the order: desecribtion desecribtion desecribtion desecribtion desecribtion desecribtion desecribtion ',
+            "Reservation name:  ${model.customerName}",
             style: generalTextStyle(null),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            '-money: 100 S.P',
+            "Table number : ${model.sectionNumber?? " Unkown" }",
             style: generalTextStyle(null),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            '-who take the order: worker one',
+            "Worker provit : ${model.worker?? "No One"}",
             style: generalTextStyle(null),
           ),
           const SizedBox(
             height: 5,
           ),
+          Text(
+            "Order numbers : ${model.orders!.length.toString()}",
+            style: generalTextStyle(null),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          getOrders(),
+          const SizedBox(
+            height: 5,
+          ),
+
           Visibility(
             visible:
                 theOrderIsFulfilled == null ? false : !theOrderIsFulfilled!,
@@ -79,5 +95,28 @@ class EventDetailsCard extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget getOrders(){
+    List<Widget> f=[];
+    List.generate(model.orders!.length, (index) {
+      f.add(const SizedBox(
+            height: 5,
+          ),);
+      f.add( Text(
+      "Order number : $index \n Number of drinks : ${model.orders![index].orderDrinks.length} \n Bill :${getbillForOneOrder(model.orders as List<Order>).toString()} " ));
+  });
+
+  return Column(children: f,);
+  }
+  getbillForOneOrder(List<Order> orders){
+    double total=0.0;
+    for (var i = 0; i < orders.length; i++) {
+     for (var j = 0; j < orders[i].orderDrinks.length; j++) {
+       
+     total+=orders[i].orderDrinks[j].quantity; 
+     } 
+    }
+    return total;
   }
 }

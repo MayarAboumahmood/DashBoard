@@ -44,10 +44,7 @@ EventInfoController controller=Get.find();
 
 
  whenShowTheBodyAfterLoadingAndInternet (BuildContext context,Sizes size){
-   List<EventDetailsCard> eventDetailesList = [
-      EventDetailsCard(),
-      EventDetailsCard(),
-    ];
+   
     return Column(children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +67,7 @@ EventInfoController controller=Get.find();
         Expanded(
           child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              itemCount: eventDetailesList.length,
+              itemCount: controller.model!.data.reservations.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: context.widthInches > 11
                       ? 4
@@ -86,7 +83,7 @@ EventInfoController controller=Get.find();
                   mainAxisExtent: 200,
                   mainAxisSpacing: 20),
               itemBuilder: (BuildContext context, int index) {
-                return eventDetailesList[index];
+                return EventDetailsCard(model: controller.model!.data.reservations[index],);
               }),
         ),
       ]);
@@ -186,7 +183,7 @@ EventInfoController controller=Get.find();
                 Visibility(
                     visible: context.widthInches > 4.5,
                     child: eventInfoUnit(
-                        size, context, 'Number of worker: ', '100', () {
+                        size, context, 'Number of worker: ', controller.model!.data.event.workerEvents.length.toString(), () {
                       // ignore: avoid_print
                       print('${context.widthInches}context.widthInches');
                       showWorkerConfirmDialog(context);
@@ -198,7 +195,11 @@ EventInfoController controller=Get.find();
                 Visibility(
                     visible: context.widthInches > 8.5,
                     child: eventInfoUnit(size, context,
-                        'Total benefits in S.P: '.tr,  controller.model!.data.event.ticketPrice.toString(), null)),
+                        'Reservation benefits in S.P: '.tr,  controller.model!.data.bookingIncome.toString(), null)),
+                Visibility(
+                    visible: context.widthInches > 8.5,
+                    child: eventInfoUnit(size, context,
+                        'Bar benefits in S.P: '.tr,  controller.model!.data.ordersIncome.toString(), null)),
               ],
             ),
           ),
@@ -297,7 +298,7 @@ EventInfoController controller=Get.find();
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerConfirmDialog(),
+          child: WorkerConfirmDialog(controller.id),
         );
       },
     );

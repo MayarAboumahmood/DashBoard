@@ -17,6 +17,7 @@ class ServerConstApis {
   static String showAllEvents = '${baseAPI}events/show-all';
   static String showEventForAdmin = '${baseAPI}events/show-event-for-admin';
   static String addEvent = '${baseAPI}events/create';
+  static String confirmWorkers = '${baseAPI}admins/addWorkersToEvent';
 
 ////stock
   static String showAllDrinks = '${baseAPI}drinks';

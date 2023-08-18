@@ -17,14 +17,18 @@ class EventInfoModel {
 class EventData {
   Event event;
   List<Reservation> reservations;
+  int bookingIncome;
+  int ordersIncome;
 
-  EventData({required this.event,required this.reservations});
+  EventData({required this.event,required this.reservations, required this.bookingIncome, required this.ordersIncome});
 
   factory EventData.fromJson(Map<String, dynamic> json) {
     return EventData(
       event: Event.fromJson(json['event']),
       reservations: List<Reservation>.from(
           json['reservations'].map((x) => Reservation.fromJson(x))),
+      bookingIncome: json['bookingIncome'],
+      ordersIncome: json['ordersIncome'],
     );
   }
 }
@@ -43,22 +47,24 @@ class Event {
   int adminId;
   List<Photo> photos;
   List<ArtistEvent> artistEvents;
+  List<WorkerEvent> workerEvents;
 
   Event({
-   required this.eventId,
-   required this.title,
-   required this.description,
-   required this.ticketPrice,
-   required this.availablePlaces,
-   required this.bandName,
-   required this.beginDate,
-   required this.artistsCost,
-   required this.createdAt,
-   required this.updatedAt,
-   required this.adminId,
-   required this.photos,
-   required this.artistEvents,
-  });
+    required this.eventId,
+    required this.title,
+    required this.description,
+    required this.ticketPrice,
+    required this.availablePlaces,
+    required this.bandName,
+    required this.beginDate,
+    required this.artistsCost,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.adminId,
+    required this.photos,
+    required this.artistEvents,
+    required this.workerEvents,
+  }) ;
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
@@ -76,23 +82,25 @@ class Event {
       photos: List<Photo>.from(json['photos'].map((x) => Photo.fromJson(x))),
       artistEvents: List<ArtistEvent>.from(
           json['artist_events'].map((x) => ArtistEvent.fromJson(x))),
+      workerEvents: List<WorkerEvent>.from(
+          json['worker_events'].map((x) => WorkerEvent.fromJson(x))),
     );
   }
 }
 
 class Photo {
-  int photoId;
-  String picture;
-  String createdAt;
-  String updatedAt;
-  int eventId;
+  int? photoId;
+  String? picture;
+  String? createdAt;
+  String? updatedAt;
+  int? eventId;
 
   Photo({
-   required this.photoId,
-   required this.picture,
-   required this.createdAt,
-   required this.updatedAt,
-   required this.eventId,
+    this.photoId,
+    this.picture,
+    this.createdAt,
+    this.updatedAt,
+    this.eventId,
   });
 
   factory Photo.fromJson(Map<String, dynamic> json) {
@@ -107,20 +115,20 @@ class Photo {
 }
 
 class ArtistEvent {
-  int artistEventId;
-  String createdAt;
-  String updatedAt;
-  int artistId;
-  int eventId;
-  Artist artist;
+  int? artistEventId;
+  String? createdAt;
+  String? updatedAt;
+  int? artistId;
+  int? eventId;
+  Artist? artist;
 
   ArtistEvent({
-   required this.artistEventId,
-   required this.createdAt,
-   required this.updatedAt,
-   required this.artistId,
-   required this.eventId,
-   required this.artist,
+    this.artistEventId,
+    this.createdAt,
+    this.updatedAt,
+    this.artistId,
+    this.eventId,
+    this.artist,
   });
 
   factory ArtistEvent.fromJson(Map<String, dynamic> json) {
@@ -136,18 +144,18 @@ class ArtistEvent {
 }
 
 class Artist {
-  int artistId;
-  String artistName;
-  String description;
-  String createdAt;
-  String updatedAt;
+  int? artistId;
+  String? artistName;
+  String? description;
+  String? createdAt;
+  String? updatedAt;
 
   Artist({
-   required this.artistId,
-   required this.artistName,
-   required this.description,
-   required this.createdAt,
-   required this.updatedAt,
+    this.artistId,
+    this.artistName,
+    this.description,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Artist.fromJson(Map<String, dynamic> json) {
@@ -155,6 +163,76 @@ class Artist {
       artistId: json['artist_id'],
       artistName: json['artist_name'],
       description: json['description'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+    );
+  }
+}
+
+class WorkerEvent {
+  int? workerEventId;
+  int? cost;
+  String? createdAt;
+  String? updatedAt;
+  int? workerId;
+  int? eventId;
+  Worker? worker;
+
+  WorkerEvent({
+    this.workerEventId,
+    this.cost,
+    this.createdAt,
+    this.updatedAt,
+    this.workerId,
+    this.eventId,
+    this.worker,
+  });
+
+  factory WorkerEvent.fromJson(Map<String, dynamic> json) {
+    return WorkerEvent(
+      workerEventId: json['worker_event_id'],
+      cost: json['cost'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+      workerId: json['worker_id'],
+      eventId: json['event_id'],
+      worker: Worker.fromJson(json['worker']),
+    );
+  }
+}
+
+class Worker {
+  int? workerId;
+  String? firstName;
+  String? lastName;
+  String? phoneNumber;
+  String? email;
+  String? password;
+  dynamic image;
+  String ?createdAt;
+  String? updatedAt;
+
+  Worker({
+    this.workerId,
+    this.firstName,
+    this.lastName,
+    this.phoneNumber,
+    this.email,
+    this.password,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Worker.fromJson(Map<String, dynamic> json) {
+    return Worker(
+      workerId: json['worker_id'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      phoneNumber: json['phone_number'],
+      email: json['email'],
+      password: json['password'],
+      image: json['image'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -169,23 +247,23 @@ class Reservation {
   dynamic sectionNumber;
   String customerName;
   String? createdAt;
-  String ?updatedAt;
-  int? eventId;
+  String? updatedAt;
+  int eventId;
   dynamic customerId;
   dynamic workerId;
   dynamic worker;
   List<Order>? orders;
 
   Reservation({
-     this.reservationId,
-     this.attendance,
+    this.reservationId,
+    this.attendance,
     required this.numberOfPlaces,
     this.attendanceNumber,
     this.sectionNumber,
-   required this.customerName,
+    required this.customerName,
     this.createdAt,
     this.updatedAt,
-    this.eventId,
+    required this.eventId,
     this.customerId,
     this.workerId,
     this.worker,
@@ -216,20 +294,21 @@ class Order {
   String orderDate;
   dynamic description;
   String createdAt;
+
   String updatedAt;
   dynamic workerEventId;
   int reservationId;
   List<OrderDrink> orderDrinks;
 
   Order({
-   required this.orderId,
-   required this.orderDate,
+    required this.orderId,
+    required this.orderDate,
     this.description,
     required this.createdAt,
     required this.updatedAt,
     this.workerEventId,
-   required this.reservationId,
-   required this.orderDrinks,
+    required this.reservationId,
+    required this.orderDrinks,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
