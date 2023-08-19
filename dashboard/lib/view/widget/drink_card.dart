@@ -21,6 +21,8 @@ class DrinkCard extends StatelessWidget {
       onPressed: onPressed,
       child: Container(
         decoration: BoxDecoration(
+            border: Border.all(
+                color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
             color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
             borderRadius: BorderRadius.circular(size.buttonRadius)),
         width: size.drinkCardWidth,
@@ -34,15 +36,20 @@ class DrinkCard extends StatelessWidget {
                 topLeft: Radius.circular(size.buttonRadius),
                 topRight: Radius.circular(size.buttonRadius),
               ),
-              child:drink.image == ''
-                        ? Image.asset('assets/images/The project icon.jpg',fit:BoxFit.fill)
-                        : Image.network(
-                            "${ServerConstApis.loadImages}${drink.image}",fit:BoxFit.fill),
+              child: drink.image == ''
+                  ? Image.asset('assets/images/The project icon.jpg',
+                      fit: BoxFit.fill)
+                  : Image.network("${ServerConstApis.loadImages}${drink.image}",
+                      fit: BoxFit.fill),
             ),
           ),
-          AutoSizeText(
-            drink.name,
-            style: generalTextStyle(20),
+          SizedBox(
+            width: size.drinkCardWidth - 20,
+            child: AutoSizeText(
+              drink.name,
+              overflow: TextOverflow.ellipsis,
+              style: generalTextStyle(20),
+            ),
           ),
           const SizedBox(
             height: 3,
