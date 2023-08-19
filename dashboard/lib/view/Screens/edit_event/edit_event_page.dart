@@ -1,5 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/constant/server_const.dart';
 import 'package:dashboard/constant/status_request.dart';
+import 'package:dashboard/data/Models/Event_info_model.dart';
 import 'package:dashboard/view/Screens/add_event/add_event_controller.dart';
 import 'package:dashboard/view/Screens/edit_event/edit_event_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
@@ -20,7 +24,11 @@ import '../select_artist/select_artist.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatelessWidget {
-  EditEvent({super.key});
+  EventInfoModel model;
+  EditEvent({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
   EditEventController controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -62,6 +70,7 @@ class EditEvent extends StatelessWidget {
           ),
           const SizedBox(height: 40),
           generalInputTextFeild(
+            inialValue: model.data.event.title,
             size,
             Icons.groups_3,
             'Enter the event name'.tr,
@@ -78,6 +87,7 @@ class EditEvent extends StatelessWidget {
             },
           ),
           generalInputTextFeild(
+            inialValue: model.data.event.availablePlaces.toString(),
             size,
             Icons.person,
             'Enter the max number of attandend'.tr,
@@ -94,6 +104,7 @@ class EditEvent extends StatelessWidget {
             },
           ),
           generalInputTextFeild(
+              inialValue: model.data.event.ticketPrice.toString(),
               size,
               Icons.money,
               'Enter the ticket price'.tr,
@@ -113,10 +124,10 @@ class EditEvent extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          controller.selectedArtist.isEmpty
+          model.data.event.artistEvents.isEmpty
               ? const SizedBox()
               : SizedBox(
-                  height: controller.selectedArtist.length * 50,
+                  height: model.data.event.artistEvents.length * 50,
                   child: artistGridView(context),
                 ),
           HoverButton(
@@ -136,6 +147,7 @@ class EditEvent extends StatelessWidget {
           dividerWithWord('description'.tr,
               icon: const Icon(Icons.info_outline_rounded)),
           generalInputTextFeild(
+              inialValue: model.data.event.description,
               size,
               Icons.info,
               'Enter the description'.tr,
@@ -154,9 +166,9 @@ class EditEvent extends StatelessWidget {
             builder: (controller) => Column(
               children: [
                 Text(
-                  controller.isSelectedDateIsNull.value
+                  model.data.event.beginDate.isEmpty
                       ? 'No date selected'.tr
-                      : '${controller.selectedDate!.year}-${controller.selectedDate!.month}-${controller.selectedDate!.day}',
+                      : model.data.event.beginDate,
                   style: generalTextStyle(null),
                 ),
                 const SizedBox(height: 10),
@@ -191,21 +203,32 @@ class EditEvent extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          controller.webImageExcist
-              ? SizedBox(
-                  width: 300,
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.selectedImageInBytes.length,
-                    itemBuilder: (ctx, index) => Container(
-                      margin: const EdgeInsets.all(20),
-                      child: Image.memory(
-                        controller.selectedImageInBytes[index],
-                        fit: BoxFit.contain,
-                      ),
+          model.data.event.photos.isNotEmpty
+              ? Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
                     ),
-                  ))
+                    SizedBox(
+                        height: 200,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: model.data.event.photos.length,
+                          itemBuilder: (ctx, index) => Container(
+                            margin: const EdgeInsets.all(20),
+                            child: Image.network(
+                              '${ServerConstApis.loadImages}${model.data.event.photos[index].picture}',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
+                    )
+                  ],
+                )
               : const SizedBox(),
           const SizedBox(
             height: 15,
@@ -238,7 +261,7 @@ class EditEvent extends StatelessWidget {
 
   Widget artistGridView(BuildContext context) {
     return GridView.builder(
-        itemCount: controller.selectedArtist.length,
+        itemCount: model.data.event.artistEvents.length,
         padding: const EdgeInsets.all(10),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -247,7 +270,7 @@ class EditEvent extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         itemBuilder: (ctx, index) => artisCardView(
-              controller.selectedArtist[index].name,
+              model.data.event.artistEvents[index].artist.artistName,
             ));
   }
 
