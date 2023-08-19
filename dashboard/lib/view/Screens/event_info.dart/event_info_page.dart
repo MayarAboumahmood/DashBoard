@@ -111,7 +111,7 @@ EventInfoController controller=Get.find();
             heroTag: secondTitle,
             hoverColor: Get.isDarkMode ? Colors.red[600] : Colors.red[500],
             onPressed: () {
-              // delete this drink
+              controller.pressDeleteEvent();
             },
             label: Text(
               secondTitle.tr,

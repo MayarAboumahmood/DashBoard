@@ -13,6 +13,7 @@ import 'add_admin_service.dart';
 class AddAdminController extends GetxController  implements StatuseRequestController{
  late String name;
  late String email;
+ late String password;
   @override
   StatuseRequest? statuseRequest = StatuseRequest.init;
   late GlobalKey<FormState> formstate;
@@ -22,6 +23,7 @@ class AddAdminController extends GetxController  implements StatuseRequestContro
   void onInit() {
 name='';
 email='';
+password='';
 service= AddAdminService();
  formstate = GlobalKey<FormState>();
     super.onInit();
@@ -63,7 +65,7 @@ service= AddAdminService();
     Map<String,String> data={
       "admin_name":name,
       "email":email,
-      "password":"12345678",
+      "password":password,
       "is_super":"0"
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =

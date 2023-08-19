@@ -66,9 +66,43 @@ class EventInfoController extends GetxController
 
   whenGetDataSuccess(response) async {
     final dataResponse=response;
-    model=EventInfoModel.fromJson(dataResponse);
+    EventInfoModel2 d=EventInfoModel2();
+    model=d.parseApiResponse(dataResponse);
 
     update();
     //return ;
+  }
+  whenDeleteEventSuccess(response){ 
+    Get.offAllNamed('/WorkerManagementPage');
+      snackBarForErrors("Delete message", "Worker has been deleted successfully");
+       
+  }
+deleteData()async{
+ String token = await prefService.readString('token');
+    Map<String, String> data = {
+      "event_id": id.toString(),
+    };
+    Either<StatuseRequest, Map<dynamic, dynamic>> response =
+        await service.deleteEvent(data, token);
+
+    return response.fold((l) => l, (r) => r);
+}
+  pressDeleteEvent()async {
+    statuseRequest = StatuseRequest.loading;
+    update();
+    dynamic response =
+        await deleteData(); // check if the return data is statuseRequest or real data
+    statuseRequest = handlingData(response); //return the statuseResponse
+    if (statuseRequest == StatuseRequest.success) {
+      return whenDeleteEventSuccess(response);
+    } else if (statuseRequest == StatuseRequest.authfailuer) {
+      snackBarForErrors("Auth error", "Please login again");
+      Get.offAllNamed('LoginPage');
+    } else {
+      // when happen a mestake we handel it here
+      [];
+    }
+    update();
+ 
   }
 }

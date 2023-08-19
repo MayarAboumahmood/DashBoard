@@ -4,11 +4,12 @@ import 'package:dashboard/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
+import '../../constant/if_super.dart';
 import '../../constant/sizes.dart';
 import '../../constant/theme.dart';
 import '../Screens/setting/setting_page.dart';
 
-// ignore: must_be_immutable
+    // ignore: must_be_immutable
 class SlideDrawer extends StatelessWidget {
   SlideDrawer({super.key});
   SlideDrawerController controller = Get.put(SlideDrawerController());
@@ -166,10 +167,10 @@ class SlideDrawer extends StatelessWidget {
           drawerChid(context, Icons.home, 'Home', () {
             Get.offNamed('/Home');
           }),
-          SizedBox(height: Get.size.height * .02),
-          drawerChid(context, Icons.admin_panel_settings, 'Admins', () {
+         controller.isSuper? SizedBox(height: Get.size.height * .02):const SizedBox(),
+         controller.isSuper? drawerChid(context, Icons.admin_panel_settings, 'Admins', () {
             Get.offNamed('/AdminManagementPage');
-          }),
+          }):const SizedBox(),
           SizedBox(height: Get.size.height * .02),
           drawerChid(context, Icons.groups_3, 'Workers', () {
             Get.offNamed('/WorkerManagementPage');
@@ -268,8 +269,17 @@ class SlideDrawer extends StatelessWidget {
 }
 
 class SlideDrawerController extends GetxController {
+@override
+  void onInit()async {
+    // isSuper=await prefService.isContainKey('isSuper')?   bool.parse(await prefService.readString('isSuper')):false ;
+    print(isSuper);
+    // TODO: implement onInit
+    super.onInit();
+  }
   RxBool isClicked = true.obs;
   RxBool isHover = false.obs;
+
+   bool isSuper=true;
   Function(bool)? changeDrawerState() {
     isClicked.value = !isClicked.value;
     return isClicked;

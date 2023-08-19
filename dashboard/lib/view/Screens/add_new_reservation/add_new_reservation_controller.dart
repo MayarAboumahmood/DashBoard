@@ -75,7 +75,7 @@ class AddNewReservationController extends GetxController
 
   whenAddSuccess(response) async {
      ReservationController reservationController = Get.find();
-  reservationController.finalListData.add(Reservation( numberOfPlaces: int.parse(numberOfSets), customerName: customerName, eventId: eventId));
+  reservationController.finalListData.add(Reservation(orders: [], numberOfPlaces: int.parse(numberOfSets), customerName: customerName, eventId: eventId));
 reservationController.update();
   Get.back();
   }

@@ -7,6 +7,8 @@ import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constant/if_super.dart';
+import '../../widget/slide_drawer.dart';
 import 'login_service.dart';
 
 import 'package:dashboard/constant/status_request.dart';
@@ -29,7 +31,7 @@ class LoginController extends GetxController
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     super.onInit();
   }
-  
+
   void changePasswordSecure() {
     passwordSecure.value = !passwordSecure.value;
   }
@@ -48,17 +50,16 @@ class LoginController extends GetxController
         if (response['msg'] == "Logged in Successfully") {
           whenLoginSuccess(response);
         }
-      }  else if (statuseRequest == StatuseRequest.authfailuer) {
+      } else if (statuseRequest == StatuseRequest.authfailuer) {
         snackBarForErrors("Auth Error", "Please try again");
       } else if (statuseRequest == StatuseRequest.validationfailuer) {
         snackBarForErrors("Your input isn't valid", "Please try again");
       } else {
         snackBarForErrors("Server Error", "Please try later");
       }
-   }
+    }
     update();
   }
-
 
   logindata(LoginModel model) async {
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
@@ -78,9 +79,12 @@ class LoginController extends GetxController
   whenLoginSuccess(response) async {
     Map<String, dynamic> data = response[
         'data']; // for getting a body of data from map and save a token in local dataBase
-      await prefService.createString(
-        'token', response['token']); // storing token
-    await prefService.createString('id',data['admin_id'].toString());
+    await prefService.createString('token', response['token']); // storing token
+
+    await prefService.createString(
+        'isSuper', response['data']['is_super'].toString()); // storing token
+SlideDrawerController c=Get.put(SlideDrawerController());
+    await prefService.createString('id', data['admin_id'].toString());
     Get.offNamed('/Home');
     update();
   }

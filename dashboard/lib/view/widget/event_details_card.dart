@@ -114,7 +114,7 @@ class EventDetailsCard extends StatelessWidget {
     for (var i = 0; i < orders.length; i++) {
      for (var j = 0; j < orders[i].orderDrinks.length; j++) {
        
-     total+=orders[i].orderDrinks[j].quantity; 
+     total+=orders[i].orderDrinks[j].quantity*orders[i].orderDrinks[j].drink.price; 
      } 
     }
     return total;
