@@ -92,7 +92,7 @@ class WorkerInformationController extends GetxController  implements StatuseRequ
   }
 
   whenDeleteDone() {
-    Get.offAllNamed('/EventPage');
+    Get.offAllNamed('/WorkerManagementPage');
     snackBarForErrors("Delete message", "Worker has been deleted successfully");
   }
 

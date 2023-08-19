@@ -7,7 +7,7 @@ import '../../../data/checkInternet/check_internet.dart';
 import 'package:http/http.dart' as http;
 
 class ConfirmWorkerService {
-  Future<Either<StatuseRequest, Map>> confirmWorkers(String token,Map<String ,dynamic> data) async {
+  Future<Either<StatuseRequest, Map>> confirmWorkers(String token,Map<String ,String> data) async {
     //Either for return two data type in the same time
     try {
       if (await checkInternet()) {
@@ -18,6 +18,7 @@ class ConfirmWorkerService {
         };
         
   print("start debuging 4");
+  Map<String,String> d={"workers":"39:9000,28:9000"};
         var response = await http.post(url, headers: headers,body:data);
     print(response.body);
         if (response.statusCode == 200 || response.statusCode == 201) {

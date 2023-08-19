@@ -10,14 +10,100 @@ class AllActionsModel {
   });
 
   factory AllActionsModel.fromJson(Map<String, dynamic> json) {
-    print(json['action']);
+    String getDetailes() {
+      if (json['action'] == 'Adding New Event') {
+        return EventDetails().fromJson(json['details']);
+      } 
+      else if (json['action'] == 'Adding drink') {
+        return DrinkModel().fromMap(json['details']);
+      } 
+      else if (json['action'] == 'Deleting drink') {
+        return DrinkModel().fromMap(json['details']);
+      } 
+      else if (json['action'] == 'Creating Worker') {
+        return WorkerDetails().fromJson(json['details']);
+      } 
+      else if (json['action'] == 'Updating drink') {
+        return "Old drink :\n${DrinkModelForUpdate().fromMap(json['details']['old_drink'])}\nDrink after edit :\n${DrinkModelForUpdate().fromMap(json['details']['new_drink'])}";
+      }
+      return '';
+    }
+
     return AllActionsModel(
       action: json['action'],
       time: json['time'],
-      details:json['action']=='Adding New Event'? EventDetails().fromJson(json['details']):WorkerDetails().fromJson(json['details']),
+      details: getDetailes(),
     );
   }
 }
+class DrinkModel {
+  final String? name;
+  final int? price;
+  final String? image;
+  final String? description;
+  final int? cost;
+  final int? quantity;
+  final int? id;
+  DrinkModel(
+      { this.cost,
+       this.description,
+       this.id,
+       this.image,
+       this.name,
+       this.price,
+       this.quantity}
+      );
+
+      String fromMap(Map<String, dynamic> map) {
+     DrinkModel eventDetails= DrinkModel(
+      name: map['title'] ?? '',
+      price: map['price'] ?? 0,
+      cost: map['cost'] ?? 0,
+      quantity: map['quantity'] ?? 0,
+      description: map['description']??'',
+     id: map['drink_id']??0,
+     image: map['picture']??''
+    );
+     String data =
+        'Name : ${eventDetails.name}\nPrice :${eventDetails.price}\nCost :${eventDetails.cost}\nQuantity:${eventDetails.quantity}\nDescription:${eventDetails.description}';
+    return data;
+  } 
+}
+
+class DrinkModelForUpdate {
+  final String? name;
+  final String? price;
+  final String? image;
+  final String? description;
+  final String? cost;
+  final String? quantity;
+  final int? id;
+  DrinkModelForUpdate(
+      { this.cost,
+       this.description,
+       this.id,
+       this.image,
+       this.name,
+       this.price,
+       this.quantity}
+      );
+
+      String fromMap(Map<String, dynamic> map) {
+     DrinkModelForUpdate eventDetails= DrinkModelForUpdate(
+      name: map['title'] ?? '',
+      price: map['price'] ?? '',
+      cost: map['cost'] ?? '',
+      quantity: map['quantity'] ?? '',
+      description: map['description']??'',
+     id: map['drink_id']??0,
+     image: map['picture']??''
+    );
+     String data =
+        'Name : ${eventDetails.name}\nPrice :${eventDetails.price}\nCost :${eventDetails.cost}\nQuantity:${eventDetails.quantity}\nDescription:${eventDetails.description}';
+    return data;
+  } 
+}
+
 
 class EventDetails {
   final int? eventId;
@@ -46,8 +132,8 @@ class EventDetails {
     this.createdAt,
   });
 
-  String  fromJson(Map<String, dynamic> json) {
-    EventDetails eventDetails= EventDetails(
+  String fromJson(Map<String, dynamic> json) {
+    EventDetails eventDetails = EventDetails(
       eventId: json['event_id'],
       title: json['title'],
       description: json['description'],
@@ -61,7 +147,8 @@ class EventDetails {
       createdAt: json['createdAt'],
     );
 
-    String data='title : ${eventDetails.title}\ndescription :${eventDetails.description}\nticketPrice :${eventDetails.ticketPrice}\navailablePlaces :${eventDetails.availablePlaces}\nbeginDate: ${eventDetails.beginDate}\nartistsCost :${eventDetails.artistsCost}';
+    String data =
+        'title : ${eventDetails.title}\ndescription :${eventDetails.description}\nticketPrice :${eventDetails.ticketPrice}\navailablePlaces :${eventDetails.availablePlaces}\nbeginDate: ${eventDetails.beginDate}\nartistsCost :${eventDetails.artistsCost}';
     print(data);
     return data;
   }
@@ -83,15 +170,16 @@ class WorkerDetails {
   });
 
   String fromJson(Map<String, dynamic> json) {
-    WorkerDetails workerDetails=WorkerDetails(
+    WorkerDetails workerDetails = WorkerDetails(
       firstName: json['first_name'],
       lastName: json['last_name'],
       phoneNumber: json['phone_number'],
       email: json['email'],
       image: json['image'],
     );
-    String data='firstName :${workerDetails.firstName}\nlastName :${workerDetails.lastName}\nphoneNumber :${workerDetails.phoneNumber}\nemail :${workerDetails.email}';
-     print(data);
-     return data;
+    String data =
+        'firstName :${workerDetails.firstName}\nlastName :${workerDetails.lastName}\nphoneNumber :${workerDetails.phoneNumber}\nemail :${workerDetails.email}';
+    print(data);
+    return data;
   }
 }

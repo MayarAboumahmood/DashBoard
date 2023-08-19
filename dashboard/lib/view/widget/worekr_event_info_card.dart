@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 
+import '../../constant/font.dart';
 import '../../constant/sizes.dart';
-import '../Screens/worker_event_info/worker_event_info.dart';
+import '../../constant/theme.dart';
+import '../../data/Models/worker_information.dart';
+import 'divider_with_word.dart';
+import 'general_text_style.dart';
 
 // ignore: must_be_immutable
 class WorkerEventInfoCard extends StatelessWidget {
-  EventWorker evnetWorker;
-  WorkerEventInfoCard({super.key, required this.evnetWorker});
+  AllActionsModelForWorker workerAction;
+  WorkerEventInfoCard({super.key, required this.workerAction});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +30,22 @@ class WorkerEventInfoCard extends StatelessWidget {
             ? const Color.fromARGB(255, 54, 54, 54)
             : Colors.grey[400],
       ),
-      child: ListTile(
-        leading: Text(evnetWorker.money.toString()),
-        trailing: Text(evnetWorker.orderDetails),
-      ),
+      child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              workerAction.action.tr,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: jostFontFamily,
+                  color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
+            ),
+            dividerWithWord('information'.tr),
+            Text('-${workerAction.time}', style: generalTextStyle(18)),
+            Text('-${workerAction.details}', style: generalTextStyle(18)),
+          ],
+        ),
     );
   }
 }

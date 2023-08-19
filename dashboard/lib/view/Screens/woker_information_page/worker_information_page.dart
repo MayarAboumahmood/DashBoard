@@ -12,6 +12,7 @@ import '../../../constant/server_const.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
+import '../../../data/Models/worker_information.dart';
 import '../../widget/event_card.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/no_internet_page.dart';
@@ -188,7 +189,11 @@ class WorkerInfoPage extends StatelessWidget {
               date: controller.finalData!.events![index].beginDate,
               eventName: controller.finalData!.events![index].title,
               imageName: controller.finalData!.events![index].image,
-              onPressed: () {},
+              onPressed: () {
+                print(" press");
+                showWorkerEventInfoDialog(context,
+                    controller.finalData!.events![index].actionsForEvent);
+              },
             );
           }),
     );
@@ -203,7 +208,8 @@ class WorkerInfoPage extends StatelessWidget {
     );
   }
 
-  void showWorkerEventInfoDialog(BuildContext context) {
+  void showWorkerEventInfoDialog(BuildContext context,
+      List<AllActionsModelForWorker> allActionsModelForWorker) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -211,7 +217,7 @@ class WorkerInfoPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerEventInfo(),
+          child: WorkerEventInfo(workerEvents: allActionsModelForWorker),
         );
       },
     );

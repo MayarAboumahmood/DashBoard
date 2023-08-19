@@ -125,9 +125,11 @@ String token = await prefService.readString('token');
        }
     }
     print(finalData);
-    Map<String, dynamic> data = {
-       "event_id":eventId,
+    Map<String, String> data = 
+      {
+    "event_id":eventId.toString(),
     "workers":finalData
+
     };
     
   print("start debuging 3");
