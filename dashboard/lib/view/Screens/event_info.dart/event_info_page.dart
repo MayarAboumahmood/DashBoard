@@ -28,8 +28,10 @@ class EventInformationPage extends StatelessWidget {
     Sizes size = Sizes(context);
 
     return Scaffold(
-      floatingActionButton: addFloatingActionButton(
-          'Edit the event'.tr, 'Delete the event'.tr, context),
+      floatingActionButton: controller.isPast
+          ? null
+          : addFloatingActionButton(
+              'Edit the event'.tr, 'Delete the event'.tr, context),
       appBar: createAppBar(size, context),
       body: GetBuilder<EventInfoController>(
         builder: (ctx) =>
@@ -305,7 +307,7 @@ class EventInformationPage extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: ReservationDialog(controller.model!.data.reservations,
-              controller.model!.data.event.eventId),
+              controller.model!.data.event.eventId, controller.isPast),
         );
       },
     );
@@ -319,7 +321,7 @@ class EventInformationPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerConfirmDialog(controller.id),
+          child: WorkerConfirmDialog(controller.id, controller.isPast),
         );
       },
     );
