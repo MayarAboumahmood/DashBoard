@@ -209,20 +209,32 @@ class AddEvent extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           controller.webImageExcist
-              ? SizedBox(
-                  width: 300,
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.selectedImageInBytes.length,
-                    itemBuilder: (ctx, index) => Container(
-                      margin: const EdgeInsets.all(20),
-                      child: Image.memory(
-                        controller.selectedImageInBytes[index],
-                        fit: BoxFit.contain,
-                      ),
+              ? Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
                     ),
-                  ))
+                    SizedBox(
+                        // width: 300,
+                        height: 200,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.selectedImageInBytes.length,
+                          itemBuilder: (ctx, index) => Container(
+                            margin: const EdgeInsets.all(20),
+                            child: Image.memory(
+                              controller.selectedImageInBytes[index],
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
+                    ),
+                  ],
+                )
               : const SizedBox(),
           const SizedBox(
             height: 15,

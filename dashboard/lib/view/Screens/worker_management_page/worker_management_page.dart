@@ -84,7 +84,7 @@ class WorkerManagementPage extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: context.widthInches > 11
               ? 3
-              : context.widthInches > 8.5
+              : context.widthInches > 9
                   ? 2
                   : 1,
           childAspectRatio: 1.7,
@@ -93,11 +93,7 @@ class WorkerManagementPage extends StatelessWidget {
           mainAxisExtent: 200,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return workerCard(
-              context,
-              size,
-         
-              controller.finalListData[index]);
+          return workerCard(context, size, controller.finalListData[index]);
         },
       ),
     );

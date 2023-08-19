@@ -14,7 +14,6 @@ import '../../widget/event_details_card.dart';
 import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/no_internet_page.dart';
-import '../add_event/add_event_page.dart';
 import '../edit_event/edit_event_page.dart';
 import '../reservation_dialog/reservation_dialog.dart';
 import 'event_info_controller.dart';
@@ -23,71 +22,71 @@ import 'event_info_controller.dart';
 class EventInformationPage extends StatelessWidget {
   EventInformationPage({super.key});
 // GetDeviceType getDeviceType=GetDeviceType();
-EventInfoController controller=Get.find();
+  EventInfoController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-   
+
     return Scaffold(
       floatingActionButton: addFloatingActionButton(
           'Edit the event'.tr, 'Delete the event'.tr, context),
       appBar: createAppBar(size, context),
       body: GetBuilder<EventInfoController>(
-        builder: (ctx) => controller.statuseRequest ==
-                StatuseRequest.offlinefailure
-            ? noInternetPage(size, controller)
-            : controller.statuseRequest == StatuseRequest.loading
-                ? Text("loading....".tr, style: generalTextStyle(14))
-                : whenShowTheBodyAfterLoadingAndInternet(context,size),
+        builder: (ctx) =>
+            controller.statuseRequest == StatuseRequest.offlinefailure
+                ? noInternetPage(size, controller)
+                : controller.statuseRequest == StatuseRequest.loading
+                    ? Text("loading....".tr, style: generalTextStyle(14))
+                    : whenShowTheBodyAfterLoadingAndInternet(context, size),
       ),
     );
   }
 
-
- whenShowTheBodyAfterLoadingAndInternet (BuildContext context,Sizes size){
-   
+  whenShowTheBodyAfterLoadingAndInternet(BuildContext context, Sizes size) {
     return Column(children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            setEventImage(size),
-            setEventName(),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        setEventDetailes(size, context),
-        const SizedBox(
-          height: 10,
-        ),
-        dividerWithWord('event details', icon: const Icon(Icons.details)),
-        const SizedBox(
-          height: 20,
-        ),
-        Expanded(
-          child: GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              itemCount: controller.model!.data.reservations.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: context.widthInches > 11
-                      ? 4
-                      : context.widthInches > 8.5
-                          ? 3
-                          : context.widthInches < 7.5
-                              ? context.widthInches < 6
-                                  ? 2
-                                  : 1
-                              : 2,
-                  childAspectRatio: 1.7,
-                  crossAxisSpacing: 20.0,
-                  mainAxisExtent: 200,
-                  mainAxisSpacing: 20),
-              itemBuilder: (BuildContext context, int index) {
-                return EventDetailsCard(model: controller.model!.data.reservations[index],);
-              }),
-        ),
-      ]);
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          setEventImage(size),
+          setEventName(),
+        ],
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      setEventDetailes(size, context),
+      const SizedBox(
+        height: 10,
+      ),
+      dividerWithWord('event details', icon: const Icon(Icons.details)),
+      const SizedBox(
+        height: 20,
+      ),
+      Expanded(
+        child: GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            itemCount: controller.model!.data.reservations.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: context.widthInches > 11
+                    ? 4
+                    : context.widthInches > 8.5
+                        ? 3
+                        : context.widthInches < 7.5
+                            ? context.widthInches < 6
+                                ? 2
+                                : 1
+                            : 2,
+                childAspectRatio: 1.7,
+                crossAxisSpacing: 20.0,
+                mainAxisExtent: 200,
+                mainAxisSpacing: 20),
+            itemBuilder: (BuildContext context, int index) {
+              return EventDetailsCard(
+                model: controller.model!.data.reservations[index],
+              );
+            }),
+      ),
+    ]);
   }
 
   Widget addFloatingActionButton(
@@ -142,13 +141,17 @@ EventInfoController controller=Get.find();
         ),
         child: ClipRRect(
           child: SizedBox(
-              height: 150,
-              child: controller.model!.data.event.photos.isEmpty
-              ? Image.asset(
+            height: 150,
+            child: controller.model!.data.event.photos.isEmpty
+                ? Image.asset(
                     'assets/images/The project icon.jpg',
                     fit: BoxFit.contain,
-                  ):Image.network('${ServerConstApis.loadImages}${controller.model!.data.event.photos[0].picture}', fit: BoxFit.contain,),
-                 ),
+                  )
+                : Image.network(
+                    '${ServerConstApis.loadImages}${controller.model!.data.event.photos[0].picture}',
+                    fit: BoxFit.contain,
+                  ),
+          ),
         ),
       ),
     );
@@ -158,7 +161,7 @@ EventInfoController controller=Get.find();
     return SizedBox(
       width: 180,
       child: AutoSizeText(
-       controller.model!.data.event.title,
+        controller.model!.data.event.title,
         minFontSize: 35,
         style: TextStyle(
             fontFamily: jostFontFamily,
@@ -177,14 +180,18 @@ EventInfoController controller=Get.find();
           Expanded(
             child: Row(
               children: [
-                eventInfoUnit(size, context, 'Number of attandend: ', controller.model!.data.reservations.length.toString(),
-                    () {
+                eventInfoUnit(size, context, 'Number of attandend: ',
+                    controller.model!.data.reservations.length.toString(), () {
                   showReservationsDialog(context);
                 }),
                 Visibility(
                     visible: context.widthInches > 4.5,
                     child: eventInfoUnit(
-                        size, context, 'Number of worker: ', controller.model!.data.event.workerEvents.length.toString(), () {
+                        size,
+                        context,
+                        'Number of worker: ',
+                        controller.model!.data.event.workerEvents.length
+                            .toString(), () {
                       // ignore: avoid_print
                       print('${context.widthInches}context.widthInches');
                       showWorkerConfirmDialog(context);
@@ -192,15 +199,27 @@ EventInfoController controller=Get.find();
                 Visibility(
                     visible: context.widthInches > 6.5,
                     child: eventInfoUnit(
-                        size, context, 'Ticket price: '.tr, controller.model!.data.event.ticketPrice.toString(), null)),
+                        size,
+                        context,
+                        'Ticket price: '.tr,
+                        controller.model!.data.event.ticketPrice.toString(),
+                        null)),
                 Visibility(
                     visible: context.widthInches > 8.5,
-                    child: eventInfoUnit(size, context,
-                        'Reservation benefits in S.P: '.tr,  controller.model!.data.bookingIncome.toString(), null)),
+                    child: eventInfoUnit(
+                        size,
+                        context,
+                        'Reservation benefits in S.P: '.tr,
+                        controller.model!.data.bookingIncome.toString(),
+                        null)),
                 Visibility(
                     visible: context.widthInches > 8.5,
-                    child: eventInfoUnit(size, context,
-                        'Bar benefits in S.P: '.tr,  controller.model!.data.ordersIncome.toString(), null)),
+                    child: eventInfoUnit(
+                        size,
+                        context,
+                        'Bar benefits in S.P: '.tr,
+                        controller.model!.data.ordersIncome.toString(),
+                        null)),
               ],
             ),
           ),
@@ -285,7 +304,8 @@ EventInfoController controller=Get.find();
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: ReservationDialog(controller.model!.data.reservations,controller.model!.data.event.eventId),
+          child: ReservationDialog(controller.model!.data.reservations,
+              controller.model!.data.event.eventId),
         );
       },
     );

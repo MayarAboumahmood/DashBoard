@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../constant/sizes.dart';
 import '../../data/Models/worker_model.dart';
-import '../Screens/select_artist/select_artist_controller.dart';
 import '../Screens/worker_confirm_dialog/worker_confirm_dialog_controller.dart';
 
 // ignore: must_be_immutable
@@ -12,7 +11,8 @@ class ConfirmWorkerCard extends StatelessWidget {
   WorkerModel model;
   ConfirmWorkerController? controller;
   int index;
-  ConfirmWorkerCard({super.key, required this.model, this.controller,required this.index});
+  ConfirmWorkerCard(
+      {super.key, required this.model, this.controller, required this.index});
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
@@ -21,7 +21,6 @@ class ConfirmWorkerCard extends StatelessWidget {
       child: MaterialButton(
         onPressed: () {
           controller!.changeListTileTapedState(index);
-        
         },
         child: Container(
           // padding:const EdgeInsets.symmetric(vertical:10),
@@ -33,7 +32,7 @@ class ConfirmWorkerCard extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              model.firstName+model.lastName,
+              model.firstName + model.lastName,
               style: generalTextStyle(null),
             ),
             subtitle: Text(model.numberPhone, style: generalTextStyle(null)),

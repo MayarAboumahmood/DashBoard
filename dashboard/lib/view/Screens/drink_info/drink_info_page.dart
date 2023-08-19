@@ -181,7 +181,11 @@ class DrinkInformationPage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 150,
+          width: context.widthInches > 8
+              ? 400
+              : context.widthInches > 6
+                  ? 200
+                  : 120,  
           child: AutoSizeText(
             controller.model.description,
             overflow: TextOverflow.ellipsis,

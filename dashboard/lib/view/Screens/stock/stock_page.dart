@@ -76,8 +76,7 @@ class StockPage extends StatelessWidget {
   }
 
   Widget bodyOfBage(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
+    return SizedBox(
       child: GridView.builder(
         padding: const EdgeInsets.symmetric(vertical: 20),
         itemCount: controller.finalListData.length,
@@ -100,7 +99,8 @@ class StockPage extends StatelessWidget {
           return DrinkCard(
             drink: controller.finalListData[index],
             onPressed: () {
-              Get.toNamed('/DrinkInformationPage',arguments: controller.finalListData[index]);
+              Get.toNamed('/DrinkInformationPage',
+                  arguments: controller.finalListData[index]);
             },
           );
         },
