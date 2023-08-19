@@ -7,8 +7,6 @@ import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../constant/if_super.dart';
-import '../../widget/slide_drawer.dart';
 import 'login_service.dart';
 
 import 'package:dashboard/constant/status_request.dart';
@@ -83,7 +81,7 @@ class LoginController extends GetxController
 
     await prefService.createString(
         'isSuper', response['data']['is_super'].toString()); // storing token
-SlideDrawerController c=Get.put(SlideDrawerController());
+// SlideDrawerController c=Get.put(SlideDrawerController());
     await prefService.createString('id', data['admin_id'].toString());
     Get.offNamed('/Home');
     update();

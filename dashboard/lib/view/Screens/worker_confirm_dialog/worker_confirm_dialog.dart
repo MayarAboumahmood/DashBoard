@@ -22,7 +22,7 @@ class WorkerConfirmDialog extends StatelessWidget {
   ConfirmWorkerController controller = Get.put(ConfirmWorkerController());
   @override
   Widget build(BuildContext context) {
-    controller.eventId=eventId;
+    controller.eventId = eventId;
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,

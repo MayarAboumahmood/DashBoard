@@ -8,8 +8,6 @@ import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 import '../../../constant/server_const.dart';
 
-import '../Screens/admin_all_action_page/admin_all_action_page.dart';
-
 Widget adminCard(BuildContext context, Sizes size, String adminName,
     String adminDetails, int id) {
   return Padding(
@@ -17,7 +15,7 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
       child: GestureDetector(
           onTap: () {
             print(id);
-            Get.toNamed('/AdminAllAction',arguments: id);
+            Get.toNamed('/AdminAllAction', arguments: id);
           },
           child: Container(
             width: 200,
@@ -118,14 +116,22 @@ Widget workerCard(BuildContext context, Sizes size, WorkerModel model) {
                     width: 2,
                     color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
               ),
-              child: ClipOval(
-                child: SizedBox(
-                    height: 50,
-                    child: model.image == ''
-                        ? Image.asset('assets/images/The project icon.jpg')
-                        : Image.network(
-                            "${ServerConstApis.loadImages}${model.image}")),
-              ),
+              child: SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: model.image == ''
+                      ? CircleAvatar(
+                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundImage: const AssetImage(
+                              'assets/images/The project icon.jpg'),
+                          child: const SizedBox(),
+                        )
+                      : CircleAvatar(
+                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundImage: NetworkImage(
+                              "${ServerConstApis.loadImages}${model.image}"),
+                          child: const SizedBox(),
+                        )),
             ),
             SizedBox(
               width: context.widthInches > 5 ? 10 : 7,
@@ -133,14 +139,20 @@ Widget workerCard(BuildContext context, Sizes size, WorkerModel model) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(model.firstName + model.lastName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: jostFontFamily,
-                      color:
-                          Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-                      fontSize: 14,
-                    )),
+                SizedBox(
+                  width: 150,
+                  child: Text('${model.firstName} ${model.lastName}',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: jostFontFamily,
+                        color: Get.isDarkMode
+                            ? skinColorWhite
+                            : backGroundDarkColor,
+                        fontSize: 14,
+                      )),
+                ),
                 Expanded(
                   child: SizedBox(
                     height: 120,

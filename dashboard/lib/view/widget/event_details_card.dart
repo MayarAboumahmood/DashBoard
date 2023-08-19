@@ -11,11 +11,8 @@ import '../Screens/select_worker/select_worker.dart';
 class EventDetailsCard extends StatelessWidget {
   bool? theOrderIsFulfilled;
   Reservation model;
-  EventDetailsCard({
-    Key? key,
-    this.theOrderIsFulfilled,
-    required this.model
-  }) : super(key: key);
+  EventDetailsCard({Key? key, this.theOrderIsFulfilled, required this.model})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,7 @@ class EventDetailsCard extends StatelessWidget {
       ),
       child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             "Reservation name:  ${model.customerName}",
@@ -41,21 +38,21 @@ class EventDetailsCard extends StatelessWidget {
             height: 5,
           ),
           Text(
-            "Table number : ${model.sectionNumber?? " Unkown" }",
+            "Table number : ${model.sectionNumber ?? " Unkown"}",
             style: generalTextStyle(null),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            "Worker provit : ${model.worker?? "No One"}",
+            "Worker provit : ${model.worker ?? "No One"}",
             style: generalTextStyle(null),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            "Order numbers : ${model.orders!.length.toString()}",
+            "Order numbers : ${model.orders.length.toString()}",
             style: generalTextStyle(null),
           ),
           const SizedBox(
@@ -65,7 +62,6 @@ class EventDetailsCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-
           Visibility(
             visible:
                 theOrderIsFulfilled == null ? false : !theOrderIsFulfilled!,
@@ -97,25 +93,30 @@ class EventDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget getOrders(){
-    List<Widget> f=[];
-    List.generate(model.orders!.length, (index) {
-      f.add(const SizedBox(
-            height: 5,
-          ),);
-      f.add( Text(
-      "Order number : $index \n Number of drinks : ${model.orders![index].orderDrinks.length} \n Bill :${getbillForOneOrder(model.orders as List<Order>).toString()} " ));
-  });
+  Widget getOrders() {
+    List<Widget> f = [];
+    List.generate(model.orders.length, (index) {
+      f.add(
+        const SizedBox(
+          height: 5,
+        ),
+      );
+      f.add(Text(
+          "Order number : $index \n Number of drinks : ${model.orders[index].orderDrinks.length} \n Bill :${getbillForOneOrder(model.orders as List<Order>).toString()} "));
+    });
 
-  return Column(children: f,);
+    return Column(
+      children: f,
+    );
   }
-  getbillForOneOrder(List<Order> orders){
-    double total=0.0;
+
+  getbillForOneOrder(List<Order> orders) {
+    double total = 0.0;
     for (var i = 0; i < orders.length; i++) {
-     for (var j = 0; j < orders[i].orderDrinks.length; j++) {
-       
-     total+=orders[i].orderDrinks[j].quantity*orders[i].orderDrinks[j].drink.price; 
-     } 
+      for (var j = 0; j < orders[i].orderDrinks.length; j++) {
+        total += orders[i].orderDrinks[j].quantity *
+            orders[i].orderDrinks[j].drink.price;
+      }
     }
     return total;
   }
