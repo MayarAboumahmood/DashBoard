@@ -14,7 +14,6 @@ import '../../widget/event_details_card.dart';
 import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/no_internet_page.dart';
-import '../add_event/add_event_page.dart';
 import '../edit_event/edit_event_page.dart';
 import '../reservation_dialog/reservation_dialog.dart';
 import 'event_info_controller.dart';
@@ -29,7 +28,7 @@ EventInfoController controller=Get.find();
     Sizes size = Sizes(context);
    
     return Scaffold(
-      floatingActionButton: addFloatingActionButton(
+      floatingActionButton:controller.isPast?null: addFloatingActionButton(
           'Edit the event'.tr, 'Delete the event'.tr, context),
       appBar: createAppBar(size, context),
       body: GetBuilder<EventInfoController>(
@@ -285,7 +284,7 @@ EventInfoController controller=Get.find();
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: ReservationDialog(controller.model!.data.reservations,controller.model!.data.event.eventId),
+          child: ReservationDialog(controller.model!.data.reservations,controller.model!.data.event.eventId, controller.isPast),
         );
       },
     );
@@ -299,7 +298,7 @@ EventInfoController controller=Get.find();
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerConfirmDialog(controller.id),
+          child: WorkerConfirmDialog(controller.id,controller.isPast),
         );
       },
     );

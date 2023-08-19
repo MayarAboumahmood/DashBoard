@@ -19,7 +19,8 @@ class ReservationDialog extends StatelessWidget {
   ReservationController controller=Get.find();
   List<Reservation> data;
   int eventId;
-  ReservationDialog(this.data,this.eventId);
+  bool isPast;
+  ReservationDialog(this.data,this.eventId,this.isPast);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class ReservationDialog extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                addNewReservationButton(size, context),
+               isPast?const SizedBox(): addNewReservationButton(size, context),
                 const SizedBox(
                   height: 15,
                 ),

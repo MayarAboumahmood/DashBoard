@@ -150,7 +150,7 @@ class EventPage extends StatelessWidget {
             return EventCard(
                 onPressed: () {
                   Get.toNamed('/EventInformationPage',
-                      arguments:  controller.nowList[index].id);
+                      arguments:  [controller.nowList[index].id,false]);
                 },
                 eventName: controller.nowList[index].title,
                 date: controller.nowList[index].beginDate,
@@ -181,7 +181,7 @@ class EventPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return EventCard(
                 onPressed: () {
-                  Get.toNamed('/EventInformationPage',arguments: controller.pastList[index].id);
+                  Get.toNamed('/EventInformationPage',arguments: [controller.pastList[index].id,true]);
                 },
                 eventName: controller.pastList[index].title,
                 date: controller.pastList[index].beginDate,
@@ -213,7 +213,7 @@ class EventPage extends StatelessWidget {
             return EventCard(
                 onPressed: () {
                   print(controller.upComingList[index].id);
-                  Get.toNamed('/EventInformationPage',arguments:controller.upComingList[index].id);
+                  Get.toNamed('/EventInformationPage',arguments:[controller.upComingList[index].id,false]);
                 },
                 eventName: controller.upComingList[index].title,
                 date: controller.upComingList[index].beginDate,

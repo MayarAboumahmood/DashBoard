@@ -9,7 +9,6 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
-import '../../../data/Models/Event_info_model.dart';
 import '../../../main.dart';
 import '../../widget/confirm_worker_card.dart';
 import '../../widget/general_text_style.dart';
@@ -18,7 +17,8 @@ import '../../widget/hover_button.dart';
 // ignore: must_be_immutable
 class WorkerConfirmDialog extends StatelessWidget {
   int eventId;
-  WorkerConfirmDialog(this.eventId);
+  bool isPast;
+  WorkerConfirmDialog(this.eventId,this.isPast);
   ConfirmWorkerController controller = Get.put(ConfirmWorkerController());
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class WorkerConfirmDialog extends StatelessWidget {
               // const SizedBox(
               //   height: 15,
               // ),
-              doneButton(size)
+              doneButton(size,isPast)
             ],
           ),
         );
@@ -105,11 +105,12 @@ class WorkerConfirmDialog extends StatelessWidget {
     // );
   }
 
-  Widget doneButton(Sizes size) {
+  Widget doneButton(Sizes size,bool isPast) {
     return HoverButton(
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {
+        isPast?Get.back():
         controller.onpressDone();
       },
       mywidth: size.normalButtonWidht,
