@@ -5,10 +5,10 @@ import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/sizes.dart';
+import '../../data/Models/all_actions_model.dart';
 import 'general_text_style.dart';
 
-Widget adminActionCard(Sizes size, BuildContext context, String theAction,
-    String time, String details) {
+Widget adminActionCard(Sizes size, BuildContext context,AllActionsModel model) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
     child: Container(
@@ -27,7 +27,7 @@ Widget adminActionCard(Sizes size, BuildContext context, String theAction,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              theAction.tr,
+              model.action.tr,
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -35,8 +35,8 @@ Widget adminActionCard(Sizes size, BuildContext context, String theAction,
                   color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
             ),
             dividerWithWord('information'.tr),
-            Text('-$details', style: generalTextStyle(18)),
-            Text('-$time', style: generalTextStyle(18)),
+            Text('-${model.time}', style: generalTextStyle(18)),
+            Text('-${model.details}', style: generalTextStyle(18)),
           ],
         ),
       ),

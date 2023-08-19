@@ -16,7 +16,8 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
       padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
       child: GestureDetector(
           onTap: () {
-            Get.to(const AdminAllActionPage());
+            print(id);
+            Get.toNamed('/AdminAllAction',arguments: id);
           },
           child: Container(
             width: 200,

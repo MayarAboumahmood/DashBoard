@@ -68,6 +68,23 @@ class AddAdmin extends StatelessWidget {
                         },
                       ),
                       emailTextFeild(size),
+                      generalInputTextFeild(
+                        size,
+                        Icons.person,
+                        'Enter admin password'.tr,
+                        'password'.tr,
+                        (value) {
+                          controller.password = value!;
+                        },
+                        TextInputType.name,
+                        (value) {
+                          if (value!.length < 4) {
+                            return "The password is shourtest than should be".tr;
+                          }
+                          return null;
+                        },
+                      ),
+                      
                       const SizedBox(
                         height: 30,
                       ),

@@ -29,7 +29,7 @@ class EventModel {
       ticketPrice: map['ticket_price'] ?? 0,
       bandName: map['band_name'] ?? '',
       id:map['event_id']??0,
-      image: map['image']??'assets/images/The project icon.jpg'
+      image: map['image']??''
     );
   }
 }

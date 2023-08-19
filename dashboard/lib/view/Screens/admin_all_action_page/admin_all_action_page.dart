@@ -3,18 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 import '../../../constant/sizes.dart';
+import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
 import '../../widget/general_app_bar.dart';
+import '../../widget/general_text_style.dart';
+import '../../widget/no_internet_page.dart';
+import 'admin_all_action_controller.dart';
 
+// ignore: must_be_immutable
 class AdminAllActionPage extends StatelessWidget {
-  const AdminAllActionPage({super.key});
-
+   AdminAllActionPage({super.key});
+AllActionController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
       appBar: createAppBar(size, context),
-      body: setListOfEvents(context, size),
+      body: GetBuilder<AllActionController>(
+        builder: (ctx) => controller.statuseRequest ==
+                StatuseRequest.offlinefailure
+            ? noInternetPage(size, controller)
+            : controller.statuseRequest == StatuseRequest.loading
+                ? Text("loading....".tr, style: generalTextStyle(14)):
+                setListOfEvents(context, size),)
     );
   }
 
@@ -24,7 +35,7 @@ class AdminAllActionPage extends StatelessWidget {
       width: Get.size.width * .999,
       child: GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          itemCount: buildActionList(context, size).length,
+          itemCount: controller.model.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: context.widthInches > 11
                 ? 4
@@ -38,7 +49,7 @@ class AdminAllActionPage extends StatelessWidget {
             mainAxisExtent: 200,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return buildActionList(context, size)[index];
+            return adminActionCard(size,context,controller.model[index]);
           }),
     );
   }
@@ -52,13 +63,5 @@ class AdminAllActionPage extends StatelessWidget {
     );
   }
 
-  List<Widget> buildActionList(BuildContext context, Sizes size) {
-    List<Widget> adminActionList = [
-      adminActionCard(size, context, ' theAction', ' time', 'details'),
-      adminActionCard(size, context, ' theAction', ' time', 'details'),
-      adminActionCard(size, context, ' theAction', ' time', 'details'),
-      adminActionCard(size, context, ' theAction', ' time', 'details'),
-    ];
-    return adminActionList;
-  }
+ 
 }

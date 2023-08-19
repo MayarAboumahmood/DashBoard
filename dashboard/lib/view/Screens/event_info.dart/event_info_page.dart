@@ -6,29 +6,47 @@ import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 
 import '../../../constant/font.dart';
+import '../../../constant/server_const.dart';
 import '../../../constant/sizes.dart';
+import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
 import '../../widget/event_details_card.dart';
 import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
+import '../../widget/no_internet_page.dart';
+import '../add_event/add_event_page.dart';
 import '../edit_event/edit_event_page.dart';
 import '../reservation_dialog/reservation_dialog.dart';
+import 'event_info_controller.dart';
 
+// ignore: must_be_immutable
 class EventInformationPage extends StatelessWidget {
-  const EventInformationPage({super.key});
+  EventInformationPage({super.key});
 // GetDeviceType getDeviceType=GetDeviceType();
+EventInfoController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
-    List<EventDetailsCard> eventDetailesList = [
-      EventDetailsCard(),
-      EventDetailsCard(),
-    ];
+   
     return Scaffold(
       floatingActionButton: addFloatingActionButton(
           'Edit the event'.tr, 'Delete the event'.tr, context),
       appBar: createAppBar(size, context),
-      body: Column(children: [
+      body: GetBuilder<EventInfoController>(
+        builder: (ctx) => controller.statuseRequest ==
+                StatuseRequest.offlinefailure
+            ? noInternetPage(size, controller)
+            : controller.statuseRequest == StatuseRequest.loading
+                ? Text("loading....".tr, style: generalTextStyle(14))
+                : whenShowTheBodyAfterLoadingAndInternet(context,size),
+      ),
+    );
+  }
+
+
+ whenShowTheBodyAfterLoadingAndInternet (BuildContext context,Sizes size){
+   
+    return Column(children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +68,7 @@ class EventInformationPage extends StatelessWidget {
         Expanded(
           child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              itemCount: eventDetailesList.length,
+              itemCount: controller.model!.data.reservations.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: context.widthInches > 11
                       ? 4
@@ -66,11 +84,10 @@ class EventInformationPage extends StatelessWidget {
                   mainAxisExtent: 200,
                   mainAxisSpacing: 20),
               itemBuilder: (BuildContext context, int index) {
-                return eventDetailesList[index];
+                return EventDetailsCard(model: controller.model!.data.reservations[index],);
               }),
         ),
-      ]),
-    );
+      ]);
   }
 
   Widget addFloatingActionButton(
@@ -94,7 +111,7 @@ class EventInformationPage extends StatelessWidget {
             heroTag: secondTitle,
             hoverColor: Get.isDarkMode ? Colors.red[600] : Colors.red[500],
             onPressed: () {
-              // delete this drink
+              controller.pressDeleteEvent();
             },
             label: Text(
               secondTitle.tr,
@@ -126,7 +143,12 @@ class EventInformationPage extends StatelessWidget {
         child: ClipRRect(
           child: SizedBox(
               height: 150,
-              child: Image.asset('assets/images/The project icon.jpg')),
+              child: controller.model!.data.event.photos.isEmpty
+              ? Image.asset(
+                    'assets/images/The project icon.jpg',
+                    fit: BoxFit.contain,
+                  ):Image.network('${ServerConstApis.loadImages}${controller.model!.data.event.photos[0].picture}', fit: BoxFit.contain,),
+                 ),
         ),
       ),
     );
@@ -136,7 +158,7 @@ class EventInformationPage extends StatelessWidget {
     return SizedBox(
       width: 180,
       child: AutoSizeText(
-        'Event name' /*eventList.getEvent(Event.id).name */,
+       controller.model!.data.event.title,
         minFontSize: 35,
         style: TextStyle(
             fontFamily: jostFontFamily,
@@ -155,14 +177,14 @@ class EventInformationPage extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                eventInfoUnit(size, context, 'Number of attandend: ', '100',
+                eventInfoUnit(size, context, 'Number of attandend: ', controller.model!.data.reservations.length.toString(),
                     () {
                   showReservationsDialog(context);
                 }),
                 Visibility(
                     visible: context.widthInches > 4.5,
                     child: eventInfoUnit(
-                        size, context, 'Number of worker: ', '100', () {
+                        size, context, 'Number of worker: ', controller.model!.data.event.workerEvents.length.toString(), () {
                       // ignore: avoid_print
                       print('${context.widthInches}context.widthInches');
                       showWorkerConfirmDialog(context);
@@ -170,11 +192,15 @@ class EventInformationPage extends StatelessWidget {
                 Visibility(
                     visible: context.widthInches > 6.5,
                     child: eventInfoUnit(
-                        size, context, 'Event name: '.tr, 'event one', null)),
+                        size, context, 'Ticket price: '.tr, controller.model!.data.event.ticketPrice.toString(), null)),
                 Visibility(
                     visible: context.widthInches > 8.5,
                     child: eventInfoUnit(size, context,
-                        'Total benefits in S.P: '.tr, '2000000', null)),
+                        'Reservation benefits in S.P: '.tr,  controller.model!.data.bookingIncome.toString(), null)),
+                Visibility(
+                    visible: context.widthInches > 8.5,
+                    child: eventInfoUnit(size, context,
+                        'Bar benefits in S.P: '.tr,  controller.model!.data.ordersIncome.toString(), null)),
               ],
             ),
           ),
@@ -259,7 +285,7 @@ class EventInformationPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: ReservationDialog(),
+          child: ReservationDialog(controller.model!.data.reservations,controller.model!.data.event.eventId),
         );
       },
     );
@@ -273,7 +299,7 @@ class EventInformationPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerConfirmDialog(),
+          child: WorkerConfirmDialog(controller.id),
         );
       },
     );

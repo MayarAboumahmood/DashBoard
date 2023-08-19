@@ -110,7 +110,7 @@ class AddEventController extends GetxController
     }
     // print(finalArtistSelected[0]);
     Map<String, String> data = {
-      "artists_cost": "30000",
+      "artists_cost": bandMoney,
       "title": title,
       "description": description,
       "ticket_price": ticketPrice,
@@ -118,8 +118,7 @@ class AddEventController extends GetxController
       "band_name": "hello",
       "begin_date": selectedDate.toString(),
       "artists": finalArtistSelected,
-      "admin_id": "2"
-    };
+      };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.addEvent(data, selectedImageInBytes, selctFile, token);
     return response.fold((l) => l, (r) => r);

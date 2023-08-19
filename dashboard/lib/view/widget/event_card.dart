@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/constant/server_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/font.dart';
@@ -45,10 +46,13 @@ class EventCard extends StatelessWidget {
                         ? const Color.fromARGB(255, 54, 54, 54)
                         : Colors.grey[400],
                   ),
-                  child: Image.asset(
+                  child:imageName==''?
+                   Image.asset(
                     'assets/images/The project icon.jpg',
                     fit: BoxFit.contain,
-                  ))),
+                  ):Image.network('${ServerConstApis.loadImages}$imageName', fit: BoxFit.contain,),
+                  
+                  ),),
           Container(
             height: size.smallEventCardHeight,
             width: size.smallEventCardWidth,

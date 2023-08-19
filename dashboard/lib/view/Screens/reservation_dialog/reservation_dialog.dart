@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dashboard/view/Screens/reservation_dialog/reservation_controller.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
+import '../../../data/Models/Event_info_model.dart';
 import '../../../main.dart';
 import '../../widget/hover_button.dart';
 import '../../widget/reservation_card.dart';
@@ -14,69 +16,59 @@ import '../add_new_reservation/add_new_reservation.dart';
 
 // ignore: must_be_immutable
 class ReservationDialog extends StatelessWidget {
-  List<ReservationCard> reservationList = [
-    ReservationCard(
-      name: 'customer one',
-      numberOfCustomers: 3,
-    ),
-    ReservationCard(
-      name: 'customer two',
-      numberOfCustomers: 1,
-    ),
-    ReservationCard(
-      name: 'customer 3',
-      numberOfCustomers: 1,
-    ),
-    ReservationCard(
-      name: 'customer 4',
-      numberOfCustomers: 7,
-    ),
-  ];
-  ReservationDialog({super.key});
+  ReservationController controller=Get.find();
+  List<Reservation> data;
+  int eventId;
+  ReservationDialog(this.data,this.eventId);
 
   @override
   Widget build(BuildContext context) {
+    controller.finalListData=data;
     Sizes size = Sizes(context);
-    return Container(
-      height: Get.size.height * .9,
-      width: context.widthInches > 5.5 ? 400 : Get.size.width * .85,
-      color: Get.isDarkMode ? Colors.black54 : skinColorWhite,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            createAppBar(size),
-            SizedBox(
-              height: sharedPreferences!.getString('lang') == 'en'
-                  ? Get.size.height * .02
-                  : Get.size.height * .01,
+    return GetBuilder<ReservationController>(
+      builder: (ccontext) {
+        return Container(
+          height: Get.size.height * .9,
+          width: context.widthInches > 5.5 ? 400 : Get.size.width * .85,
+          color: Get.isDarkMode ? Colors.black54 : skinColorWhite,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                createAppBar(size),
+                SizedBox(
+                  height: sharedPreferences!.getString('lang') == 'en'
+                      ? Get.size.height * .02
+                      : Get.size.height * .01,
+                ),
+                dividerWithWord(
+                  'The reservations'.tr,
+                  icon: Icon(
+                    Icons.event_available,
+                    color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildReservationList(context, controller.finalListData),
+                const SizedBox(
+                  height: 15,
+                ),
+                addNewReservationButton(size, context),
+                const SizedBox(
+                  height: 15,
+                ),
+                doneButton(size)
+              ],
             ),
-            dividerWithWord(
-              'The reservations'.tr,
-              icon: Icon(
-                Icons.event_available,
-                color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            buildReservationList(context, reservationList),
-            const SizedBox(
-              height: 15,
-            ),
-            addNewReservationButton(size, context),
-            const SizedBox(
-              height: 15,
-            ),
-            doneButton(size)
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 
   Widget buildReservationList(
-      BuildContext context, List<ReservationCard> reservationList) {
+      BuildContext context, List<Reservation> reservationList) {
     return SizedBox(
       height: reservationList.length * 85,
       width: context.widthInches > 5.5 ? 395 : Get.size.width * .83,
@@ -84,7 +76,7 @@ class ReservationDialog extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: reservationList.length,
           itemBuilder: (context, index) {
-            return reservationList[index];
+            return ReservationCard(name: reservationList[index].customerName, numberOfCustomers: reservationList[index].numberOfPlaces);
           }),
     );
   }
@@ -97,7 +89,7 @@ class ReservationDialog extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: AddReservation(),
+          child: AddReservation(eventId: eventId),
         );
       },
     );

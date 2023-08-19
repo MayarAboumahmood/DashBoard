@@ -16,10 +16,13 @@ import 'add_new_reservation_controller.dart';
 
 // ignore: must_be_immutable
 class AddReservation extends StatelessWidget {
-  AddReservation({super.key});
+  int eventId;
+  AddReservation({ required this.eventId});
   AddNewReservationController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    controller.eventId=eventId;
     Sizes size = Sizes(context);
     return GetBuilder<AddNewReservationController>(
         builder: (ctx) => controller.statuseRequest ==
@@ -53,33 +56,30 @@ class AddReservation extends StatelessWidget {
                         generalInputTextFeild(
                             size,
                             Icons.person,
-                            'Enter customer name'.tr,
-                            'Name'.tr,
-                            (value) {
-                              if (value!.length < 2) {
-                                return "The name is not valid".tr;
-                              }
-                              return null;
-                            },
-                            TextInputType.name,
-                            (value) {
-                              return null;
-                            }),
+                            'Customer name'.tr,"Customer name",
+                            (value)  {
+                          controller.customerName=value!;
+                        },
+                            TextInputType.name, (value) {
+                        if (value!.length < 2) {
+                            return "The name is not valid".tr;
+                          }
+                          return null;
+                        }),
                         generalInputTextFeild(
                             size,
                             Icons.confirmation_number,
                             'Enter the number of setes'.tr,
                             'Number of setes'.tr,
-                            (value) {
-                              if (int.parse(value!) < 2) {
-                                return "The number is not valid".tr;
-                              }
-                              return null;
-                            },
-                            TextInputType.number,
-                            (value) {
-                              return null;
-                            }),
+                            (value)  {
+                          controller.numberOfSets=value!;
+                        },
+                            TextInputType.number, (value) {
+                         if (int.parse(value!) < 2) {
+                            return "The number is not valid".tr;
+                          }
+                          return null;
+                        }),
                         const SizedBox(
                           height: 50,
                         ),

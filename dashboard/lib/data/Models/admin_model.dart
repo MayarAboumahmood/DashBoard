@@ -8,7 +8,7 @@ factory AdminModel.fromMap(Map<String, dynamic> map) {
     return AdminModel(
       name: map['admin_name'] ?? '',
        email: map['email'] ?? '',
-     id: map['id']??0,
+     id: map['admin_id']??0,
      isSuper: map['is_super']??false
     );
   }

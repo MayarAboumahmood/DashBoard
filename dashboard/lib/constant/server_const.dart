@@ -1,6 +1,5 @@
 class ServerConstApis {
   static String baseAPI = 'http://192.168.72.5:3000/';
-
 //////////////WorkerPages
   static String addWorker = '${baseAPI}worker/create';
   static String getWorkers = '${baseAPI}worker/show-all';
@@ -12,11 +11,14 @@ class ServerConstApis {
   static String newAdmin = '${baseAPI}admins/signup';
   static String showAllAdmins = '${baseAPI}admins/show-all';
   static String showStates = '${baseAPI}admins/stats';
+  static String getActions = '${baseAPI}admins/getActions';
 
 //////event
   static String showAllEvents = '${baseAPI}events/show-all';
   static String showEventForAdmin = '${baseAPI}events/show-event-for-admin';
   static String addEvent = '${baseAPI}events/create';
+  static String deleteEvent = '${baseAPI}events/delete';
+  static String confirmWorkers = '${baseAPI}admins/addWorkersToEvent';
 
 ////stock
   static String showAllDrinks = '${baseAPI}drinks';

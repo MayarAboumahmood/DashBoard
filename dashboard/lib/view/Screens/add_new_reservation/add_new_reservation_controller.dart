@@ -3,10 +3,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constant/status_request.dart';
+import '../../../data/Models/Event_info_model.dart';
 import '../../../general_controllers/statuse_request_controller.dart';
 import '../../../main.dart';
 import '../../widget/snak_bar_for_errors.dart';
 
+import '../reservation_dialog/reservation_controller.dart';
 import 'add_new_reservation_service.dart';
 
 class AddNewReservationController extends GetxController
@@ -17,7 +19,7 @@ class AddNewReservationController extends GetxController
   AddReservationService service = AddReservationService();
   late String customerName;
   late String numberOfSets;
-
+  int eventId=0;
   @override
   void onInit() {
     customerName = '';
@@ -54,7 +56,7 @@ class AddNewReservationController extends GetxController
     String token = await prefService.readString('token');
 
     Map<String, String> data = {
-      "event_id": "1",
+      "event_id": eventId.toString(),
       "number_of_places": numberOfSets,
       "customer_name": customerName
     };
@@ -72,6 +74,9 @@ class AddNewReservationController extends GetxController
   }
 
   whenAddSuccess(response) async {
-    update();
+     ReservationController reservationController = Get.find();
+  reservationController.finalListData.add(Reservation(orders: [], numberOfPlaces: int.parse(numberOfSets), customerName: customerName, eventId: eventId));
+reservationController.update();
+  Get.back();
   }
 }
