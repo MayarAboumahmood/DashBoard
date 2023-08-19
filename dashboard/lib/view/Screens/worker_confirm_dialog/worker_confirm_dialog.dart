@@ -110,7 +110,7 @@ class WorkerConfirmDialog extends StatelessWidget {
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {
-        isPast?Get.back():
+       // isPast?Get.back():
         controller.onpressDone();
       },
       mywidth: size.normalButtonWidht,
