@@ -10,6 +10,7 @@ import 'event_info_service.dart';
 
 class EventInfoController extends GetxController
     implements StatuseRequestController {
+     late  bool isPast;
   late int id;
   late String eventStatus;
  EventInfoModel? model;
@@ -18,14 +19,14 @@ class EventInfoController extends GetxController
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-    id = Get.arguments;
+    id = Get.arguments[0];
+    isPast = Get.arguments[1];
     print(id);
     // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     super.onInit();
   }
-
   sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
