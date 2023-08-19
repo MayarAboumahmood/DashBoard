@@ -28,7 +28,7 @@ class DrinkInformationPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             setEventImage(size),
-            setEventName(),
+            setEventName(context),
           ],
         ),
         const SizedBox(
@@ -160,16 +160,20 @@ class DrinkInformationPage extends StatelessWidget {
     );
   }
 
-  Widget setEventName() {
+  Widget setEventName(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 150,
+          width: context.widthInches > 8
+              ? 400
+              : context.widthInches > 6
+                  ? 200
+                  : 120,
           child: AutoSizeText(
             controller.model.name,
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: context.widthInches > 8 ? 2 : 3,
             minFontSize: 30,
             style: TextStyle(
                 fontFamily: jostFontFamily,
