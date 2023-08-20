@@ -10,9 +10,12 @@ import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
 import '../../../constant/server_const.dart';
 import '../../../constant/sizes.dart';
+import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
+import '../../../data/Models/worker_information.dart';
 import '../../widget/event_card.dart';
 import '../../widget/general_text_style.dart';
+import '../../widget/no_internet_page.dart';
 import 'worker_inforamtion_controller.dart';
 
 // ignore: must_be_immutable
@@ -26,25 +29,31 @@ class WorkerInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
     return Scaffold(
-      floatingActionButton:
-          addFloatinActionButton('delete this worker', context),
-      appBar: createAppBar(size, context),
-      body: Column(children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            setWorkerImage(),
-            setWorkerName(),
-          ],
-        ),
-        setWorkerDetailes(size, context),
-        const SizedBox(
-          height: 30,
-        ),
-        setListOfEvents(
-            context), //when the admin click on the event card it should open as a dyalog adn appear what did the user do in the event.
-      ]),
-    );
+        floatingActionButton:
+            addFloatinActionButton('delete this worker', context),
+        appBar: createAppBar(size, context),
+        body: GetBuilder<WorkerInformationController>(
+          builder: (ctx) =>
+              controller.statuseRequest == StatuseRequest.offlinefailure
+                  ? noInternetPage(size, controller)
+                  : controller.statuseRequest == StatuseRequest.loading
+                      ? Text("loading....".tr, style: generalTextStyle(14))
+                      : Column(children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              setWorkerImage(),
+                              setWorkerName(),
+                            ],
+                          ),
+                          setWorkerDetailes(size, context),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          setListOfEvents(
+                              context), //when the admin click on the event card it should open as a dyalog adn appear what did the user do in the event.
+                        ]),
+        ));
   }
 
   Widget addFloatinActionButton(String title, BuildContext context) {
@@ -83,22 +92,14 @@ class WorkerInfoPage extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            AutoSizeText('age: /*{worker[id].age}*/',
+            AutoSizeText('Email: ${controller.finalData!.email}',
                 style: generalTextStyle(25)),
             const SizedBox(
               width: 30,
             ),
             Visibility(
               visible: context.widthInches > 8,
-              child: AutoSizeText('gender: /*{worker[id].gender}*/',
-                  style: generalTextStyle(25)),
-            ),
-            const SizedBox(
-              width: 30,
-            ),
-            Visibility(
-              visible: context.widthInches > 12,
-              child: AutoSizeText('salery: /*{worker[id].salery}*/',
+              child: AutoSizeText('Phone: ${controller.finalData!.numberPhone}',
                   style: generalTextStyle(25)),
             ),
           ],
@@ -107,7 +108,7 @@ class WorkerInfoPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Visibility(
             visible: context.widthInches < 8,
-            child: AutoSizeText('gender: /*{worker[id].gender}*/',
+            child: AutoSizeText('Email: ${controller.finalData!.email}',
                 style: generalTextStyle(25)),
           ),
         ),
@@ -115,8 +116,11 @@ class WorkerInfoPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Visibility(
             visible: context.widthInches < 12,
-            child: AutoSizeText('salery: /*{worker[id].salery}*/',
-                style: generalTextStyle(25)),
+            child: Visibility(
+              visible: context.widthInches > 8,
+              child: AutoSizeText('Phone: ${controller.finalData!.numberPhone}',
+                  style: generalTextStyle(25)),
+            ),
           ),
         ),
       ],
@@ -143,14 +147,21 @@ class WorkerInfoPage extends StatelessWidget {
               width: 2,
               color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
         ),
-        child: ClipOval(
-          child: SizedBox(
-              height: 150,
-              child: controller.model.image == ''
-                  ? Image.asset('assets/images/The project icon.jpg')
-                  : Image.network(
-                      "${ServerConstApis.loadImages}${controller.model.image}")),
-        ),
+        child: SizedBox(
+            height: 210,
+            width: 210,
+            child: controller.model.image == ''
+                ? CircleAvatar(
+                    backgroundColor: Colors.white.withOpacity(0.1),
+                    backgroundImage:
+                        const AssetImage('assets/images/The project icon.jpg'),
+                    child: const SizedBox())
+                : CircleAvatar(
+                    backgroundColor: Colors.white.withOpacity(0.1),
+                    backgroundImage: NetworkImage(
+                        "${ServerConstApis.loadImages}${controller.model.image}"),
+                    child: const SizedBox(),
+                  )),
       ),
     );
   }
@@ -160,7 +171,7 @@ class WorkerInfoPage extends StatelessWidget {
       fit: FlexFit.tight,
       child: GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          itemCount: buildEventList(context).length,
+          itemCount: controller.finalData!.events!.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: context.widthInches > 11
                 ? 4
@@ -174,7 +185,16 @@ class WorkerInfoPage extends StatelessWidget {
             mainAxisExtent: 200,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return buildEventList(context)[index];
+            return EventCard(
+              date: controller.finalData!.events![index].beginDate,
+              eventName: controller.finalData!.events![index].title,
+              imageName: controller.finalData!.events![index].image,
+              onPressed: () {
+                print(" press");
+                showWorkerEventInfoDialog(context,
+                    controller.finalData!.events![index].actionsForEvent);
+              },
+            );
           }),
     );
   }
@@ -188,7 +208,8 @@ class WorkerInfoPage extends StatelessWidget {
     );
   }
 
-  void showWorkerEventInfoDialog(BuildContext context) {
+  void showWorkerEventInfoDialog(BuildContext context,
+      List<AllActionsModelForWorker> allActionsModelForWorker) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -196,55 +217,9 @@ class WorkerInfoPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerEventInfo(),
+          child: WorkerEventInfo(workerEvents: allActionsModelForWorker),
         );
       },
     );
-  }
-
-  List<Widget> buildEventList(BuildContext context) {
-    List<Widget> eventList = [
-      EventCard(
-        onPressed: () {
-          showWorkerEventInfoDialog(context);
-        },
-        date: '2/2/2333',
-        eventName: 'event one',
-        imageName: 'assets/images/The project icon.jpg',
-      ),
-      EventCard(
-        onPressed: () {
-          showWorkerEventInfoDialog(context);
-        },
-        date: '2/2/2333',
-        eventName: 'event two',
-        imageName: 'assets/images/The project icon.jpg',
-      ),
-      EventCard(
-        onPressed: () {
-          showWorkerEventInfoDialog(context);
-        },
-        date: '2/2/2333',
-        eventName: 'event three',
-        imageName: 'assets/images/The project icon.jpg',
-      ),
-      EventCard(
-        onPressed: () {
-          showWorkerEventInfoDialog(context);
-        },
-        date: '2/2/2333',
-        eventName: 'event four',
-        imageName: 'assets/images/The project icon.jpg',
-      ),
-      EventCard(
-        date: '2/2/2333',
-        onPressed: () {
-          showWorkerEventInfoDialog(context);
-        },
-        eventName: 'event five',
-        imageName: 'assets/images/The project icon.jpg',
-      ),
-    ];
-    return eventList;
   }
 }

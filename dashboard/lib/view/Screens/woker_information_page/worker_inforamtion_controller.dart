@@ -1,43 +1,28 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
 import 'package:dashboard/data/Models/worker_model.dart';
+import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:get/get.dart';
 
+import '../../../data/Models/worker_information.dart';
 import '../../widget/no_internet_page.dart';
 import 'worker_information_service.dart';
 
-class WorkerInformationController extends GetxController {
+class WorkerInformationController extends GetxController  implements StatuseRequestController {
   WorkerInformationService service = WorkerInformationService();
+  @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   late WorkerModel model;
-  List<WorkerModel> finalListData = [];
+  WorkerInformationModel? finalData;
   @override
   void onInit() async {
     model = Get.arguments;
-    await getdata();
-    //  finalListData = await sendingARequestAndHandlingData();
+      await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
 
     super.onInit();
-  }
-
-  onPressDeleteWorker() async {
-    statuseRequest = StatuseRequest.loading;
-    update();
-    dynamic response =
-        await deleteData(); // check if the return data is statuseRequest or real data
-    statuseRequest = handlingData(response); //return the statuseResponse
-    if (statuseRequest == StatuseRequest.success) {
-      whenDeleteDone();
-    } else if (statuseRequest == StatuseRequest.authfailuer) {
-      snackBarForErrors("Auth error", "Please login again");
-      Get.offAllNamed('LoginPage');
-    } else {
-      // when happen a mestake we handel it here
-    }
-    update();
   }
 
   handlingData(response) {
@@ -48,22 +33,7 @@ class WorkerInformationController extends GetxController {
     }
   }
 
-  deleteData() async {
-    String token = await prefService.readString('token');
-    Map<String, String> data = {"worker_id": model.id.toString()};
-    print(data);
-    Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.deleteWorker(token, data);
-
-    return response.fold((l) => l, (r) => r);
-  }
-
-  whenDeleteDone() {
-    Get.offAllNamed('/EventPage');
-    snackBarForErrors("Delete message", "Worker has been deleted successfully");
-  }
-
-  Future<List<WorkerModel>> sendingARequestAndHandlingData() async {
+   sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -90,13 +60,51 @@ class WorkerInformationController extends GetxController {
     return response.fold((l) => l, (r) => r);
   }
 
-  Future<List<WorkerModel>> whenGetDataSuccess(response) async {
-    List responsedata = response['data'];
-    for (int i = 0; i < responsedata.length; i++) {
-      finalListData.add(WorkerModel.fromMap(responsedata[i]));
-    }
+  whenGetDataSuccess(response) async {
+    final responsedata = response['data'];
+    print(responsedata);
+      finalData=WorkerInformationModel.fromMap(responsedata);
+    print(finalData!.email);
 
     update();
-    return finalListData;
+    return finalData;
   }
+
+
+
+
+  ////////////////////// delete
+   onPressDeleteWorker() async {
+    statuseRequest = StatuseRequest.loading;
+    update();
+    dynamic response =
+        await deleteData(); // check if the return data is statuseRequest or real data
+    statuseRequest = handlingData(response); //return the statuseResponse
+    if (statuseRequest == StatuseRequest.success) {
+      whenDeleteDone();
+    } else if (statuseRequest == StatuseRequest.authfailuer) {
+      snackBarForErrors("Auth error", "Please login again");
+      Get.offAllNamed('LoginPage');
+    } else {
+      // when happen a mestake we handel it here
+    }
+    update();
+  }
+
+  whenDeleteDone() {
+    Get.offAllNamed('/WorkerManagementPage');
+    snackBarForErrors("Delete message", "Worker has been deleted successfully");
+  }
+
+  deleteData() async {
+    String token = await prefService.readString('token');
+    Map<String, String> data = {"worker_id": model.id.toString()};
+    print(data);
+    Either<StatuseRequest, Map<dynamic, dynamic>> response =
+        await service.deleteWorker(token, data);
+
+    return response.fold((l) => l, (r) => r);
+  }
+
+ 
 }

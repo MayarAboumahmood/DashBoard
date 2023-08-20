@@ -74,7 +74,7 @@ class EventInfoController extends GetxController
     //return ;
   }
   whenDeleteEventSuccess(response){ 
-    Get.offAllNamed('/WorkerManagementPage');
+    Get.offAllNamed('/EventPage');
       snackBarForErrors("Delete message", "Worker has been deleted successfully");
        
   }

@@ -8,25 +8,18 @@ import 'package:sized_context/sized_context.dart';
 import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/theme.dart';
+import '../../../data/Models/worker_information.dart';
 import '../../../main.dart';
 import '../../widget/hover_button.dart';
 import '../../widget/worekr_event_info_card.dart';
 
 // ignore: must_be_immutable
 class WorkerEventInfo extends StatelessWidget {
-  List<WorkerEventInfoCard> workerMoneyInEvent = [
-    WorkerEventInfoCard(
-        evnetWorker: EventWorker(money: 100, orderDetails: 'djlkfsfjlkd')),
-    WorkerEventInfoCard(
-        evnetWorker: EventWorker(money: 200, orderDetails: 'djlkfsfjlkd')),
-    WorkerEventInfoCard(
-        evnetWorker: EventWorker(money: 300, orderDetails: 'djlkfsfjlkd')),
-    WorkerEventInfoCard(
-        evnetWorker: EventWorker(money: 400, orderDetails: 'djlkfsfjlkd')),
-    WorkerEventInfoCard(
-        evnetWorker: EventWorker(money: 400, orderDetails: 'djlkfsfjlkd')),
-  ];
-  WorkerEventInfo({super.key});
+    List<AllActionsModelForWorker>  workerEvents ;
+  WorkerEventInfo({
+    Key? key,
+    required this.workerEvents,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +45,7 @@ class WorkerEventInfo extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            buildDetailsList(context, workerMoneyInEvent),
+            buildDetailsList(context),
             const SizedBox(height: 10),
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
@@ -79,14 +72,14 @@ class WorkerEventInfo extends StatelessWidget {
   }
 
   Widget buildDetailsList(
-      BuildContext context, List<WorkerEventInfoCard> workerMoneyInEvent) {
+      BuildContext context) {
     return SizedBox(
       width: context.widthInches > 5.5 ? 390 : Get.size.width * .83,
-      height: workerMoneyInEvent.length * 75,
+      height: workerEvents.length * 200,
       child: ListView.builder(
-          itemCount: workerMoneyInEvent.length,
+          itemCount: workerEvents.length,
           itemBuilder: (context, index) {
-            return workerMoneyInEvent[index];
+            return WorkerEventInfoCard(workerAction: workerEvents[index]);
           }),
     );
   }
@@ -123,23 +116,4 @@ class WorkerEventInfo extends StatelessWidget {
       ],
     );
   }
-}
-
-class EventWorker {
-  // String date;
-  // String eventName;
-  // int workerId;
-  // int orderId;
-  // String ordertime;
-  double money;
-  String orderDetails;
-  EventWorker({
-    // required this.date,
-    // required this.eventName,
-    // required this.workerId,
-    // required this.orderId,
-    required this.orderDetails,
-    required this.money,
-    // required this.ordertime,
-  });
 }
