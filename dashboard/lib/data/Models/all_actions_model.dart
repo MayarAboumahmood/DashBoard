@@ -2,19 +2,23 @@ class AllActionsModel {
   final String action;
   final String time;
   final String details;
-
+  // final EventDetails? event;
   AllActionsModel({
     required this.action,
     required this.time,
     required this.details,
+    // this.event
   });
 
   factory AllActionsModel.fromJson(Map<String, dynamic> json) {
     print(json['action']);
     return AllActionsModel(
       action: json['action'],
+      // event: EventDetails().getEvent(json['details']),
       time: json['time'],
-      details:json['action']=='Adding New Event'? EventDetails().fromJson(json['details']):WorkerDetails().fromJson(json['details']),
+      details: json['action'] == 'Adding New Event'
+          ? EventDetails().fromJson(json['details'])
+          : WorkerDetails().fromJson(json['details']),
     );
   }
 }
@@ -45,9 +49,24 @@ class EventDetails {
     this.updatedAt,
     this.createdAt,
   });
+  EventDetails getEvent(Map<String, dynamic> json) {
+    return EventDetails(
+      eventId: json['event_id'],
+      title: json['title'],
+      description: json['description'],
+      ticketPrice: json['ticket_price'],
+      availablePlaces: json['available_places'],
+      bandName: json['band_name'],
+      beginDate: DateTime.parse(json['begin_date']),
+      adminId: json['admin_id'],
+      artistsCost: json['artists_cost'],
+      updatedAt: json['updatedAt'],
+      createdAt: json['createdAt'],
+    );
+  }
 
-  String  fromJson(Map<String, dynamic> json) {
-    EventDetails eventDetails= EventDetails(
+  String fromJson(Map<String, dynamic> json) {
+    EventDetails eventDetails = EventDetails(
       eventId: json['event_id'],
       title: json['title'],
       description: json['description'],
@@ -61,7 +80,8 @@ class EventDetails {
       createdAt: json['createdAt'],
     );
 
-    String data='title : ${eventDetails.title}\ndescription :${eventDetails.description}\nticketPrice :${eventDetails.ticketPrice}\navailablePlaces :${eventDetails.availablePlaces}\nbeginDate: ${eventDetails.beginDate}\nartistsCost :${eventDetails.artistsCost}';
+    String data =
+        'title : ${eventDetails.title}\ndescription :${eventDetails.description}\nticketPrice :${eventDetails.ticketPrice}\navailablePlaces :${eventDetails.availablePlaces}\nbeginDate: ${eventDetails.beginDate}\nartistsCost :${eventDetails.artistsCost}';
     print(data);
     return data;
   }
@@ -83,15 +103,16 @@ class WorkerDetails {
   });
 
   String fromJson(Map<String, dynamic> json) {
-    WorkerDetails workerDetails=WorkerDetails(
+    WorkerDetails workerDetails = WorkerDetails(
       firstName: json['first_name'],
       lastName: json['last_name'],
       phoneNumber: json['phone_number'],
       email: json['email'],
       image: json['image'],
     );
-    String data='firstName :${workerDetails.firstName}\nlastName :${workerDetails.lastName}\nphoneNumber :${workerDetails.phoneNumber}\nemail :${workerDetails.email}';
-     print(data);
-     return data;
+    String data =
+        'firstName :${workerDetails.firstName}\nlastName :${workerDetails.lastName}\nphoneNumber :${workerDetails.phoneNumber}\nemail :${workerDetails.email}';
+    print(data);
+    return data;
   }
 }

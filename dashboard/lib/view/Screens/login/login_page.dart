@@ -219,9 +219,9 @@ class LoginPage extends StatelessWidget {
       child: controller.statuseRequest == StatuseRequest.loading
           ? Container(
               padding: const EdgeInsets.all(2),
-              child: CircularProgressIndicator(
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
-              ),
+              child: Image.asset('assets/images/loading ciecle.gif'
+                  // color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor,
+                  ),
             )
           : AutoSizeText(
               'Done'.tr,
