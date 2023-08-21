@@ -12,6 +12,7 @@ import 'package:dashboard/view/Screens/event_info.dart/event_info_binding.dart';
 import 'package:dashboard/view/Screens/event_info.dart/event_info_page.dart';
 import 'package:dashboard/view/Screens/event_page/event_page.dart';
 import 'package:dashboard/view/Screens/login/login_page.dart';
+import 'package:dashboard/view/Screens/search_on_data/search_page.dart';
 import 'package:dashboard/view/Screens/stock/stock_page.dart';
 import 'package:dashboard/view/Screens/woker_information_page/worker_information_bindings.dart';
 import 'package:dashboard/view/Screens/worker_management_page/worker_management_page.dart';
@@ -50,21 +51,21 @@ appRoutes() => [
         bindings: [AddEventBinding(), EventBinding(), AddReservationBinding()],
       ),
       GetPage(
-        name: '/EventInformationPage',
-        page: () =>  EventInformationPage(),
-        binding: EventInfoBinding()
-      ),
+          name: '/EventInformationPage',
+          page: () => EventInformationPage(),
+          binding: EventInfoBinding()),
       GetPage(
         name: '/StockPage',
         page: () => StockPage(),
         bindings: [StockBinding(), AddNewDrinkBinding()],
       ),
-       GetPage(
+      GetPage(
           name: '/DrinkInformationPage',
           page: () => DrinkInformationPage(),
           binding: DrinkInfoBinding()),
-       GetPage(
+      GetPage(
           name: '/AdminAllAction',
           page: () => AdminAllActionPage(),
           binding: AllActoinBinding()),
+      GetPage(name: '/SearchPage', page: () => SearchPage()),
     ];

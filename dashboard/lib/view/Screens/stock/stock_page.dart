@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dashboard/main.dart';
 import 'package:dashboard/view/Screens/add_new_drink/add_new_drink_page.dart';
 import 'package:dashboard/view/Screens/stock/stock_controller.dart';
 import 'package:dashboard/view/widget/drink_card.dart';
@@ -99,8 +100,9 @@ class StockPage extends StatelessWidget {
           return DrinkCard(
             drink: controller.finalListData[index],
             onPressed: () {
-              Get.toNamed('/DrinkInformationPage',
-                  arguments: controller.finalListData[index]);
+              prefService.createString(
+                  'drink_id', controller.finalListData[index].toString());
+              Get.toNamed('/DrinkInformationPage');
             },
           );
         },

@@ -1,5 +1,5 @@
 class ServerConstApis {
-  static String baseAPI = 'http://127.0.0.1:3000/';
+  static String baseAPI = 'https://culter-house-backend.onrender.com/';
 //////////////WorkerPages
   static String addWorker = '${baseAPI}worker/create';
   static String getWorkers = '${baseAPI}worker/show-all';
@@ -9,7 +9,7 @@ class ServerConstApis {
 ///////////Admin
   static String adminLogin = '${baseAPI}admins/login';
   static String newAdmin = '${baseAPI}admins/signup';
-  static String showAllAdmins = '${baseAPI}admins/show-all'; 
+  static String showAllAdmins = '${baseAPI}admins/show-all';
   static String showStates = '${baseAPI}admins/stats';
   static String getActions = '${baseAPI}admins/getActions';
 

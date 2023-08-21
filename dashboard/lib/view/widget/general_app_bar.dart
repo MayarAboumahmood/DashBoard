@@ -1,9 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/sizes.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/view/Screens/setting/setting_page.dart';
-import 'package:dashboard/view/widget/costum_text_field.dart';
 import 'package:dashboard/view/widget/general_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,10 +42,6 @@ AppBar createAppBar(Sizes size, BuildContext context,
         ),
       ),
       actions: [
-        searchField(size, getDeviceType, context),
-        SizedBox(
-          width: Get.size.width * .01,
-        ),
         IconButton(
           onPressed: () {
             showSettingsDialog(
@@ -63,40 +56,6 @@ AppBar createAppBar(Sizes size, BuildContext context,
       title: AnimationAppBar(
         title: appBarTitle,
       ));
-}
-
-Widget searchField(
-    Sizes size, GetDeviceType getDeviceType, BuildContext context) {
-  return Visibility(
-    visible: getDeviceType.getDevicetype(context) == 'computer' ? true : false,
-    replacement: IconButton(
-      icon: Icon(
-        Icons.search,
-        color: Get.isDarkMode ? darkPrimaryColor : primaryColor,
-      ),
-      onPressed: () {}, //take us to the search page.
-    ),
-    child: SizedBox(
-      height: Get.size.height * .01,
-      width: Get.size.width * .2,
-      child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: CostumTextField(
-            labelStyle: TextStyle(
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-            widthOnTheScreen: size.textFieldWidth,
-            onsaved: (value) {},
-            hint: 'Search'.tr,
-            hintStyle: TextStyle(
-                fontFamily: jostFontFamily,
-                color: Get.isDarkMode ? skinColorWhite : backGroundDarkColor),
-            prefixIcon: const Icon(
-              Icons.search,
-            ),
-            sucer: false,
-          )),
-    ),
-  );
 }
 
 void showSettingsDialog(BuildContext context) {

@@ -129,7 +129,7 @@ class WorkerInfoPage extends StatelessWidget {
 
   Widget setWorkerName() {
     return Text(
-      controller.model.firstName + controller.model.lastName,
+      controller.finalData!.firstName + controller.finalData!.lastName,
       style: TextStyle(
           fontFamily: jostFontFamily,
           fontSize: 40,
@@ -150,7 +150,7 @@ class WorkerInfoPage extends StatelessWidget {
         child: SizedBox(
             height: 210,
             width: 210,
-            child: controller.model.image == ''
+            child: controller.finalData!.image == ''
                 ? CircleAvatar(
                     backgroundColor: Colors.white.withOpacity(0.1),
                     backgroundImage:
@@ -159,7 +159,7 @@ class WorkerInfoPage extends StatelessWidget {
                 : CircleAvatar(
                     backgroundColor: Colors.white.withOpacity(0.1),
                     backgroundImage: NetworkImage(
-                        "${ServerConstApis.loadImages}${controller.model.image}"),
+                        "${ServerConstApis.loadImages}${controller.finalData!.image}"),
                     child: const SizedBox(),
                   )),
       ),

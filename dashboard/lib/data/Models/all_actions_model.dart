@@ -13,17 +13,15 @@ class AllActionsModel {
     String getDetailes() {
       if (json['action'] == 'Adding New Event') {
         return EventDetails().fromJson(json['details']);
-      } 
-      else if (json['action'] == 'Adding drink') {
+      } else if (json['action'] == 'Adding drink') {
         return DrinkModel().fromMap(json['details']);
-      } 
-      else if (json['action'] == 'Deleting drink') {
+      } else if (json['action'] == 'Adding New Artist') {
+        return AddArtistModel().fromMap(json['details']);
+      } else if (json['action'] == 'Deleting drink') {
         return DrinkModel().fromMap(json['details']);
-      } 
-      else if (json['action'] == 'Creating Worker') {
+      } else if (json['action'] == 'Creating Worker') {
         return WorkerDetails().fromJson(json['details']);
-      } 
-      else if (json['action'] == 'Updating drink') {
+      } else if (json['action'] == 'Updating drink') {
         return "Old drink :\n${DrinkModelForUpdate().fromMap(json['details']['old_drink'])}\nDrink after edit :\n${DrinkModelForUpdate().fromMap(json['details']['new_drink'])}";
       }
       return '';
@@ -36,6 +34,29 @@ class AllActionsModel {
     );
   }
 }
+
+class AddArtistModel {
+  final String? name;
+  final String? description;
+  final int? id;
+  AddArtistModel({
+    this.description,
+    this.id,
+    this.name,
+  });
+
+  String fromMap(Map<String, dynamic> map) {
+    AddArtistModel eventDetails = AddArtistModel(
+      name: map['artist_name'] ?? '',
+      description: map['description'] ?? '',
+      id: map['artist_id'] ?? 0,
+    );
+    String data =
+        'Name : ${eventDetails.name}\nDescription:${eventDetails.description}';
+    return data;
+  }
+}
+
 class DrinkModel {
   final String? name;
   final int? price;
@@ -45,29 +66,27 @@ class DrinkModel {
   final int? quantity;
   final int? id;
   DrinkModel(
-      { this.cost,
-       this.description,
-       this.id,
-       this.image,
-       this.name,
-       this.price,
-       this.quantity}
-      );
+      {this.cost,
+      this.description,
+      this.id,
+      this.image,
+      this.name,
+      this.price,
+      this.quantity});
 
-      String fromMap(Map<String, dynamic> map) {
-     DrinkModel eventDetails= DrinkModel(
-      name: map['title'] ?? '',
-      price: map['price'] ?? 0,
-      cost: map['cost'] ?? 0,
-      quantity: map['quantity'] ?? 0,
-      description: map['description']??'',
-     id: map['drink_id']??0,
-     image: map['picture']??''
-    );
-     String data =
+  String fromMap(Map<String, dynamic> map) {
+    DrinkModel eventDetails = DrinkModel(
+        name: map['title'] ?? '',
+        price: map['price'] ?? 0,
+        cost: map['cost'] ?? 0,
+        quantity: map['quantity'] ?? 0,
+        description: map['description'] ?? '',
+        id: map['drink_id'] ?? 0,
+        image: map['picture'] ?? '');
+    String data =
         'Name : ${eventDetails.name}\nPrice :${eventDetails.price}\nCost :${eventDetails.cost}\nQuantity:${eventDetails.quantity}\nDescription:${eventDetails.description}';
     return data;
-  } 
+  }
 }
 
 class DrinkModelForUpdate {
@@ -79,31 +98,28 @@ class DrinkModelForUpdate {
   final String? quantity;
   final int? id;
   DrinkModelForUpdate(
-      { this.cost,
-       this.description,
-       this.id,
-       this.image,
-       this.name,
-       this.price,
-       this.quantity}
-      );
+      {this.cost,
+      this.description,
+      this.id,
+      this.image,
+      this.name,
+      this.price,
+      this.quantity});
 
-      String fromMap(Map<String, dynamic> map) {
-     DrinkModelForUpdate eventDetails= DrinkModelForUpdate(
-      name: map['title'] ?? '',
-      price: map['price'] ?? '',
-      cost: map['cost'] ?? '',
-      quantity: map['quantity'] ?? '',
-      description: map['description']??'',
-     id: map['drink_id']??0,
-     image: map['picture']??''
-    );
-     String data =
+  String fromMap(Map<String, dynamic> map) {
+    DrinkModelForUpdate eventDetails = DrinkModelForUpdate(
+        name: map['title'] ?? '',
+        price: map['price'] ?? '',
+        cost: map['cost'] ?? '',
+        quantity: map['quantity'] ?? '',
+        description: map['description'] ?? '',
+        id: map['drink_id'] ?? 0,
+        image: map['picture'] ?? '');
+    String data =
         'Name : ${eventDetails.name}\nPrice :${eventDetails.price}\nCost :${eventDetails.cost}\nQuantity:${eventDetails.quantity}\nDescription:${eventDetails.description}';
     return data;
-  } 
+  }
 }
-
 
 class EventDetails {
   final int? eventId;

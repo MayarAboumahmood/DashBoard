@@ -101,7 +101,7 @@ class EventInformationPage extends StatelessWidget {
             hoverColor:
                 Get.isDarkMode ? darkHoverButtonColor : lightHoverButtonColor,
             onPressed: () {
-              showEditEventDialog(context);
+              showEditEventDialog(context, controller);
             },
             label: Text(
               firstTitle.tr,
@@ -284,7 +284,8 @@ class EventInformationPage extends StatelessWidget {
     );
   }
 
-  void showEditEventDialog(BuildContext context) {
+  void showEditEventDialog(
+      BuildContext context, EventInfoController controller) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -292,7 +293,7 @@ class EventInformationPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: EditEvent(),
+          child: EditEvent(model: controller.model!),
         );
       },
     );

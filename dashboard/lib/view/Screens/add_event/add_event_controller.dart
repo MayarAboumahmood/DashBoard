@@ -94,6 +94,7 @@ class AddEventController extends GetxController
         snackBarForErrors("Server error", "Please try again later");
       }
     }
+    selectedArtist.clear();
     update();
   }
 
@@ -118,7 +119,7 @@ class AddEventController extends GetxController
       "band_name": "hello",
       "begin_date": selectedDate.toString(),
       "artists": finalArtistSelected,
-      };
+    };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.addEvent(data, selectedImageInBytes, selctFile, token);
     return response.fold((l) => l, (r) => r);

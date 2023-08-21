@@ -10,24 +10,23 @@ import 'event_info_service.dart';
 
 class EventInfoController extends GetxController
     implements StatuseRequestController {
-     late  bool isPast;
+  bool isPast = true;
   late int id;
   late String eventStatus;
- EventInfoModel? model;
+  EventInfoModel? model;
   EventInfoService service = EventInfoService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-    id = Get.arguments[0];
-    isPast = Get.arguments[1];
-    print(id);
-    // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     super.onInit();
   }
+
   sendingARequestAndHandlingData() async {
+    isPast = bool.parse(await prefService.readString('isPast'));
+
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -48,6 +47,7 @@ class EventInfoController extends GetxController
 
   getdata() async {
     String token = await prefService.readString('token');
+    id = int.parse(await prefService.readString('eventId'));
     Map<String, String> data = {
       "event_id": id.toString(),
     };
@@ -66,21 +66,21 @@ class EventInfoController extends GetxController
   }
 
   whenGetDataSuccess(response) async {
-    final dataResponse=response;
-    EventInfoModel2 d=EventInfoModel2();
-    model=d.parseApiResponse(dataResponse);
+    final dataResponse = response;
+    EventInfoModel2 d = EventInfoModel2();
+    model = d.parseApiResponse(dataResponse);
 
     update();
     //return ;
   }
-  ///////////////////d
-  whenDeleteEventSuccess(response){ 
+
+  whenDeleteEventSuccess(response) {
     Get.offAllNamed('/EventPage');
-      snackBarForErrors("Delete message", "Worker has been deleted successfully");
-       
+    snackBarForErrors("Delete message", "Worker has been deleted successfully");
   }
-deleteData()async{
- String token = await prefService.readString('token');
+
+  deleteData() async {
+    String token = await prefService.readString('token');
     Map<String, String> data = {
       "event_id": id.toString(),
     };
@@ -88,8 +88,9 @@ deleteData()async{
         await service.deleteEvent(data, token);
 
     return response.fold((l) => l, (r) => r);
-}
-  pressDeleteEvent()async {
+  }
+
+  pressDeleteEvent() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -105,6 +106,5 @@ deleteData()async{
       [];
     }
     update();
- 
   }
 }
