@@ -25,7 +25,7 @@ class SplashItem extends StatelessWidget {
           ),
           Image.asset(
             image,
-            height: 300,
+            height: 400,
           )
         ],
       ),

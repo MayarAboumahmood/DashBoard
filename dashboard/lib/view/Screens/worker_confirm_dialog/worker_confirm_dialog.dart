@@ -18,7 +18,7 @@ import '../../widget/hover_button.dart';
 class WorkerConfirmDialog extends StatelessWidget {
   int eventId;
   bool isPast;
-  WorkerConfirmDialog(this.eventId,this.isPast);
+  WorkerConfirmDialog(this.eventId, this.isPast);
   ConfirmWorkerController controller = Get.put(ConfirmWorkerController());
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class WorkerConfirmDialog extends StatelessWidget {
               // const SizedBox(
               //   height: 15,
               // ),
-              doneButton(size,isPast)
+              doneButton(size, isPast)
             ],
           ),
         );
@@ -77,7 +77,7 @@ class WorkerConfirmDialog extends StatelessWidget {
                 ),
               )
             : SizedBox(
-                height: controller.finalListData.length * 85,
+                height: controller.finalListData.length * 92,
                 width: context.widthInches > 5.5 ? 395 : Get.size.width * .83,
                 child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -105,12 +105,12 @@ class WorkerConfirmDialog extends StatelessWidget {
     // );
   }
 
-  Widget doneButton(Sizes size,bool isPast) {
+  Widget doneButton(Sizes size, bool isPast) {
     return HoverButton(
       mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
       myRadius: size.buttonRadius,
       ontap: () {
-       // isPast?Get.back():
+        // isPast?Get.back():
         controller.onpressDone();
       },
       mywidth: size.normalButtonWidht,

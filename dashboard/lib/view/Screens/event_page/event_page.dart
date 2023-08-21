@@ -1,3 +1,4 @@
+import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/divider_with_word.dart';
 import 'package:dashboard/constant/status_request.dart';
 import 'package:dashboard/view/Screens/event_page/event_controller.dart';
@@ -148,9 +149,14 @@ class EventPage extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             return EventCard(
-                onPressed: () {
-                  Get.toNamed('/EventInformationPage',
-                      arguments:  [controller.nowList[index].id,false]);
+                onPressed: () async {
+                  prefService.createString(
+                      'eventId', controller.nowList[index].id.toString());
+                  prefService.createString('isPast', false.toString());
+
+                  Get.toNamed(
+                    '/EventInformationPage',
+                  );
                 },
                 eventName: controller.nowList[index].title,
                 date: controller.nowList[index].beginDate,
@@ -180,8 +186,15 @@ class EventPage extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             return EventCard(
-                onPressed: () {
-                  Get.toNamed('/EventInformationPage',arguments: [controller.pastList[index].id,true]);
+                onPressed: () async {
+                  prefService.createString(
+                      'eventId', controller.pastList[index].id.toString());
+                  prefService.createString('isPast', true.toString());
+                  print(int.parse(await prefService.readString('eventId')));
+
+                  Get.toNamed(
+                    '/EventInformationPage',
+                  );
                 },
                 eventName: controller.pastList[index].title,
                 date: controller.pastList[index].beginDate,
@@ -211,9 +224,14 @@ class EventPage extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             return EventCard(
-                onPressed: () {
-                  print(controller.upComingList[index].id);
-                  Get.toNamed('/EventInformationPage',arguments:[controller.upComingList[index].id,false]);
+                onPressed: () async {
+                  prefService.createString(
+                      'eventId', controller.upComingList[index].id.toString());
+                  prefService.createString('isPast', false.toString());
+                  print(await prefService.readString('isPast'));
+                  Get.toNamed(
+                    '/EventInformationPage',
+                  );
                 },
                 eventName: controller.upComingList[index].title,
                 date: controller.upComingList[index].beginDate,

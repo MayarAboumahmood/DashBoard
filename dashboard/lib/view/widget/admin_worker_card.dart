@@ -3,6 +3,7 @@ import 'package:dashboard/constant/font.dart';
 import 'package:dashboard/constant/sizes.dart';
 import 'package:dashboard/constant/theme.dart';
 import 'package:dashboard/data/Models/worker_model.dart';
+import 'package:dashboard/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
@@ -14,8 +15,8 @@ Widget adminCard(BuildContext context, Sizes size, String adminName,
       padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
       child: GestureDetector(
           onTap: () {
-            print(id);
-            Get.toNamed('/AdminAllAction', arguments: id);
+            prefService.createString('adminId', id.toString());
+            Get.toNamed('/AdminAllAction');
           },
           child: Container(
             width: 200,
@@ -91,7 +92,8 @@ Widget workerCard(BuildContext context, Sizes size, WorkerModel model) {
     padding: EdgeInsets.symmetric(horizontal: Get.size.width * .01),
     child: MaterialButton(
       onPressed: () {
-        Get.toNamed('/WorkerInformationPage', arguments: model);
+        prefService.createString('Worker_id', model.id.toString());
+        Get.toNamed('/WorkerInformationPage');
       },
       child: Container(
         padding: EdgeInsets.symmetric(
