@@ -142,18 +142,18 @@ class Reservation {
   final List<Order> orders;
 
   Reservation({
-     this.reservationId,
-     this.attendance,
+    this.reservationId,
+    this.attendance,
     required this.numberOfPlaces,
-     this.attendanceNumber,
-     this.sectionNumber,
+    this.attendanceNumber,
+    this.sectionNumber,
     required this.customerName,
-     this.createdAt,
-     this.updatedAt,
-     this.eventId,
-     this.customerId,
-     this.workerId,
-     this.worker,
+    this.createdAt,
+    this.updatedAt,
+    this.eventId,
+    this.customerId,
+    this.workerId,
+    this.worker,
     required this.orders,
   });
 }
@@ -249,6 +249,7 @@ class EventInfoModel {
     required this.data,
   });
 }
+
 class EventInfoModel2 {
   EventInfoModel parseApiResponse(Map<String, dynamic> json) {
     return EventInfoModel(
@@ -269,17 +270,17 @@ class EventInfoModel2 {
 
   Event parseEvent(Map<String, dynamic> json) {
     return Event(
-      eventId: json['event_id'],
-      title: json['title'],
-      description: json['description'],
-      ticketPrice: json['ticket_price']??0,
-      availablePlaces: json['available_places']??0,
-      bandName: json['band_name'],
-      beginDate: json['begin_date'],
-      artistsCost: json['artists_cost']??0,
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-      adminId: json['admin_id'],
+      eventId: json['event_id'] ?? 0,
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      ticketPrice: json['ticket_price'] ?? 0,
+      availablePlaces: json['available_places'] ?? 0,
+      bandName: json['band_name'] ?? '',
+      beginDate: json['begin_date'] ?? '',
+      artistsCost: json['artists_cost'] ?? 0,
+      createdAt: json['createdAt'] ?? '',
+      updatedAt: json['updatedAt'] ?? "",
+      adminId: json['admin_id'] ?? 0,
       photos: parsePhotos(json['photos']),
       artistEvents: parseArtistEvents(json['artist_events']),
       workerEvents: parseWorkerEvents(json['worker_events']),
@@ -287,24 +288,28 @@ class EventInfoModel2 {
   }
 
   List<Photo> parsePhotos(List<dynamic> photos) {
-    return photos.map((photoJson) => Photo(
-      photoId: photoJson['photo_id'],
-      picture: photoJson['picture'],
-      createdAt: photoJson['createdAt'],
-      updatedAt: photoJson['updatedAt'],
-      eventId: photoJson['event_id'],
-    )).toList();
+    return photos
+        .map((photoJson) => Photo(
+              photoId: photoJson['photo_id'],
+              picture: photoJson['picture'],
+              createdAt: photoJson['createdAt'],
+              updatedAt: photoJson['updatedAt'],
+              eventId: photoJson['event_id'],
+            ))
+        .toList();
   }
 
   List<ArtistEvent> parseArtistEvents(List<dynamic> artistEvents) {
-    return artistEvents.map((artistEventJson) => ArtistEvent(
-      artistEventId: artistEventJson['artist_event_id'],
-      createdAt: artistEventJson['createdAt'],
-      updatedAt: artistEventJson['updatedAt'],
-      artistId: artistEventJson['artist_id'],
-      eventId: artistEventJson['event_id'],
-      artist: parseArtist(artistEventJson['artist']),
-    )).toList();
+    return artistEvents
+        .map((artistEventJson) => ArtistEvent(
+              artistEventId: artistEventJson['artist_event_id'],
+              createdAt: artistEventJson['createdAt'],
+              updatedAt: artistEventJson['updatedAt'],
+              artistId: artistEventJson['artist_id'],
+              eventId: artistEventJson['event_id'],
+              artist: parseArtist(artistEventJson['artist']),
+            ))
+        .toList();
   }
 
   Artist parseArtist(Map<String, dynamic> artistJson) {
@@ -318,15 +323,19 @@ class EventInfoModel2 {
   }
 
   List<WorkerEvent> parseWorkerEvents(List<dynamic> workerEvents) {
-    return workerEvents.map((workerEventJson) => WorkerEvent(
-      workerEventId: workerEventJson['worker_event_id'],
-      cost: workerEventJson['cost'],
-      createdAt: workerEventJson['createdAt'],
-      updatedAt: workerEventJson['updatedAt'],
-      workerId: workerEventJson['worker_id'],
-      eventId: workerEventJson['event_id'],
-      worker: workerEventJson['worker'] != null ? parseWorker(workerEventJson['worker']) : null,
-    )).toList();
+    return workerEvents
+        .map((workerEventJson) => WorkerEvent(
+              workerEventId: workerEventJson['worker_event_id'] ?? 0,
+              cost: workerEventJson['cost'] ?? 0,
+              createdAt: workerEventJson['createdAt'] ?? '',
+              updatedAt: workerEventJson['updatedAt'] ?? '',
+              workerId: workerEventJson['worker_id'] ?? 0,
+              eventId: workerEventJson['event_id'] ?? 0,
+              worker: workerEventJson['worker'] != null
+                  ? parseWorker(workerEventJson['worker'])
+                  : null,
+            ))
+        .toList();
   }
 
   Worker parseWorker(Map<String, dynamic> workerJson) {
@@ -344,46 +353,54 @@ class EventInfoModel2 {
   }
 
   List<Reservation> parseReservations(List<dynamic> reservations) {
-    return reservations.map((reservationJson) => Reservation(
-      reservationId: reservationJson['reservation_id'],
-      attendance: reservationJson['attendance'],
-      numberOfPlaces: reservationJson['number_of_places'],
-      attendanceNumber: reservationJson['attendance_number'],
-      sectionNumber: reservationJson['section_number'],
-      customerName: reservationJson['customer_name'],
-      createdAt: reservationJson['createdAt'],
-      updatedAt: reservationJson['updatedAt'],
-      eventId: reservationJson['event_id'],
-      customerId: reservationJson['customer_id'],
-      workerId: reservationJson['worker_id'],
-      worker: reservationJson['worker'] != null ? parseWorker(reservationJson['worker']) : null,
-      orders: parseOrders(reservationJson['orders']),
-    )).toList();
+    return reservations
+        .map((reservationJson) => Reservation(
+              reservationId: reservationJson['reservation_id'],
+              attendance: reservationJson['attendance'],
+              numberOfPlaces: reservationJson['number_of_places'],
+              attendanceNumber: reservationJson['attendance_number'],
+              sectionNumber: reservationJson['section_number'],
+              customerName: reservationJson['customer_name'],
+              createdAt: reservationJson['createdAt'],
+              updatedAt: reservationJson['updatedAt'],
+              eventId: reservationJson['event_id'],
+              customerId: reservationJson['customer_id'],
+              workerId: reservationJson['worker_id'],
+              worker: reservationJson['worker'] != null
+                  ? parseWorker(reservationJson['worker'])
+                  : null,
+              orders: parseOrders(reservationJson['orders']),
+            ))
+        .toList();
   }
 
   List<Order> parseOrders(List<dynamic> orders) {
-    return orders.map((orderJson) => Order(
-      orderId: orderJson['order_id'],
-      orderDate: orderJson['order_date'],
-      description: orderJson['description'],
-      createdAt: orderJson['createdAt'],
-      updatedAt: orderJson['updatedAt'],
-      workerEventId: orderJson['worker_event_id'],
-      reservationId: orderJson['reservation_id'],
-      orderDrinks: parseOrderDrinks(orderJson['order_drinks']),
-    )).toList();
+    return orders
+        .map((orderJson) => Order(
+              orderId: orderJson['order_id'],
+              orderDate: orderJson['order_date'],
+              description: orderJson['description'],
+              createdAt: orderJson['createdAt'],
+              updatedAt: orderJson['updatedAt'],
+              workerEventId: orderJson['worker_event_id'],
+              reservationId: orderJson['reservation_id'],
+              orderDrinks: parseOrderDrinks(orderJson['order_drinks']),
+            ))
+        .toList();
   }
 
   List<OrderDrink> parseOrderDrinks(List<dynamic> orderDrinks) {
-    return orderDrinks.map((orderDrinkJson) => OrderDrink(
-      orderDrinkId: orderDrinkJson['order_drink_id'],
-      quantity: orderDrinkJson['quantity'],
-      createdAt: orderDrinkJson['createdAt'],
-      updatedAt: orderDrinkJson['updatedAt'],
-      orderId: orderDrinkJson['order_id'],
-      drinkId: orderDrinkJson['drink_id'],
-      drink: parseDrink(orderDrinkJson['drink']),
-    )).toList();
+    return orderDrinks
+        .map((orderDrinkJson) => OrderDrink(
+              orderDrinkId: orderDrinkJson['order_drink_id'],
+              quantity: orderDrinkJson['quantity'],
+              createdAt: orderDrinkJson['createdAt'],
+              updatedAt: orderDrinkJson['updatedAt'],
+              orderId: orderDrinkJson['order_id'],
+              drinkId: orderDrinkJson['drink_id'],
+              drink: parseDrink(orderDrinkJson['drink']),
+            ))
+        .toList();
   }
 
   Drink parseDrink(Map<String, dynamic> drinkJson) {

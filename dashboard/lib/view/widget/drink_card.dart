@@ -29,20 +29,20 @@ class DrinkCard extends StatelessWidget {
         height: 210,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           SizedBox(
-            width: size.drinkCardWidth,
-            height: 150,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(size.buttonRadius),
-                topRight: Radius.circular(size.buttonRadius),
-              ),
-              child: drink.image == ''
-                  ? Image.asset('assets/images/The project icon.jpg',
-                      fit: BoxFit.fill)
-                  : Image.network("${ServerConstApis.loadImages}${drink.image}",
-                      fit: BoxFit.fill),
-            ),
-          ),
+              width: size.drinkCardWidth,
+              height: 150,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(size.buttonRadius),
+                    topRight: Radius.circular(size.buttonRadius),
+                  ),
+                  child: Image.network(
+                    "${ServerConstApis.loadImages}${drink.image}",
+                    errorBuilder: (context, Exception, StackTrace) {
+                      return Image.asset('assets/images/The project icon.jpg',
+                          fit: BoxFit.fill);
+                    },
+                  ))),
           SizedBox(
             width: size.drinkCardWidth - 20,
             child: AutoSizeText(

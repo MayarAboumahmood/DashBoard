@@ -83,8 +83,8 @@ class Landing extends StatelessWidget {
                   myheight: size.normalButtonHeight,
                   mycolor: primaryColor,
                   ontap: () {
-                   controller.onpress();
-                   },
+                    controller.onpress();
+                  },
                   child: Text(
                     'Continue',
                     style: TextStyle(

@@ -110,5 +110,7 @@ const Map<String, String> ar = {
   'Edite the drink': 'عدل على المشروب',
   'Current event information': "معلومات الحفلة الحالية",
   'logout': 'تسجيل الخروج',
-  'Select from the worker': 'اختر من العمال'
+  'Select from the worker': 'اختر من العمال',
+  'Dar abdullah management system': 'نظام إدارة دار عبدالله',
+  'DashBoard version': 'نسخة لوحة القيادة',
 };

@@ -131,15 +131,15 @@ class ReservationForWorkerDetailes {
   });
   String fromJson(Map<String, dynamic> map) {
     ReservationForWorkerDetailes model = ReservationForWorkerDetailes(
-        numberOfPlaces: map['number_of_places']??0,
-        customerName: map['customer_name']??'UnKnown',
-        attendance: map['attendance']??false,
-        attendanceNumber: map['attendance_number']??0,
-        customerId: map['customer_id']??0,
-         reservationId: map['reservation_id']??0 ,
-         sectionNumber: map['section_number']??0
-        );
-        String data='Reservation name${model.customerName}\nAttendance number${model.attendanceNumber}\nNumber of places${model.numberOfPlaces}';
+        numberOfPlaces: map['number_of_places'] ?? 0,
+        customerName: map['customer_name'] ?? 'UnKnown',
+        attendance: map['attendance'] ?? false,
+        attendanceNumber: map['attendance_number'] ?? 0,
+        customerId: map['customer_id'] ?? 0,
+        reservationId: map['reservation_id'] ?? 0,
+        sectionNumber: map['section_number'] ?? 0);
+    String data =
+        'Reservation name${model.customerName}\nAttendance number${model.attendanceNumber}\nNumber of places${model.numberOfPlaces}';
     return data;
   }
 }

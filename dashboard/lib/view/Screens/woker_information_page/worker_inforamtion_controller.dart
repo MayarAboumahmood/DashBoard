@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/constant/status_request.dart';
-import 'package:dashboard/data/Models/worker_model.dart';
 import 'package:dashboard/general_controllers/statuse_request_controller.dart';
 import 'package:dashboard/main.dart';
 import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
@@ -10,16 +9,17 @@ import '../../../data/Models/worker_information.dart';
 import '../../widget/no_internet_page.dart';
 import 'worker_information_service.dart';
 
-class WorkerInformationController extends GetxController  implements StatuseRequestController {
+class WorkerInformationController extends GetxController
+    implements StatuseRequestController {
   WorkerInformationService service = WorkerInformationService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
-  late WorkerModel model;
+  // late WorkerModel model;
+  late int id;
   WorkerInformationModel? finalData;
   @override
   void onInit() async {
-    model = Get.arguments;
-      await sendingARequestAndHandlingData();
+    await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
 
     super.onInit();
@@ -33,7 +33,7 @@ class WorkerInformationController extends GetxController  implements StatuseRequ
     }
   }
 
-   sendingARequestAndHandlingData() async {
+  sendingARequestAndHandlingData() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -53,9 +53,10 @@ class WorkerInformationController extends GetxController  implements StatuseRequ
   }
 
   getdata() async {
+    id = int.parse(await prefService.readString('Worker_id'));
     String token = await prefService.readString('token');
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.getWorkerDetailes(token, model.id!);
+        await service.getWorkerDetailes(token, id);
 
     return response.fold((l) => l, (r) => r);
   }
@@ -63,18 +64,15 @@ class WorkerInformationController extends GetxController  implements StatuseRequ
   whenGetDataSuccess(response) async {
     final responsedata = response['data'];
     print(responsedata);
-      finalData=WorkerInformationModel.fromMap(responsedata);
+    finalData = WorkerInformationModel.fromMap(responsedata);
     print(finalData!.email);
 
     update();
     return finalData;
   }
 
-
-
-
   ////////////////////// delete
-   onPressDeleteWorker() async {
+  onPressDeleteWorker() async {
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -98,13 +96,11 @@ class WorkerInformationController extends GetxController  implements StatuseRequ
 
   deleteData() async {
     String token = await prefService.readString('token');
-    Map<String, String> data = {"worker_id": model.id.toString()};
+    Map<String, String> data = {"worker_id": id.toString()};
     print(data);
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.deleteWorker(token, data);
 
     return response.fold((l) => l, (r) => r);
   }
-
- 
 }

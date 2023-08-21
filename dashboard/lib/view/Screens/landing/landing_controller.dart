@@ -6,20 +6,16 @@ class OnBoardContoller extends GetxController {
   List<Map<String, String>> pagedetals = [
     {
       "title": "welcome to our app",
-      "image": "assets/images/small page background image.jpg"
+      "image": "assets/images/first landing image.jpg"
     },
     {
-      "title": "manage all the house with this system",
-      "image": "assets/images/small page background image.jpg"
+      "title": "Dar abdullah management system",
+      "image": "assets/images/second landing image.jpg.jpg"
     },
     {
-      "title": "other thing need to rewrite",
-      "image": "assets/images/small page background image.jpg"
+      "title": "DashBoard version",
+      "image": "assets/images/thierd landing image.jpg.jpg"
     },
-    {
-      "title": "other thing need to rewrite",
-      "image": "assets/images/small page background image.jpg"
-    }
   ];
   // ignore: prefer_typing_uninitialized_variables
   var pageindex;
@@ -34,12 +30,12 @@ class OnBoardContoller extends GetxController {
 
     super.onInit();
   }
-  onpress()async{
-  if(await prefService.isContainKey('token')){
-    Get.offAllNamed('/Home');
-  }else{
-    Get.offNamed('/LoginPage');
+
+  onpress() async {
+    if (await prefService.isContainKey('token')) {
+      Get.offAllNamed('/Home');
+    } else {
+      Get.offNamed('/LoginPage');
+    }
   }
-  }
-  
 }

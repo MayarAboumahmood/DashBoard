@@ -15,7 +15,7 @@ import '../../widget/worekr_event_info_card.dart';
 
 // ignore: must_be_immutable
 class WorkerEventInfo extends StatelessWidget {
-    List<AllActionsModelForWorker>  workerEvents ;
+  List<AllActionsModelForWorker> workerEvents;
   WorkerEventInfo({
     Key? key,
     required this.workerEvents,
@@ -50,7 +50,9 @@ class WorkerEventInfo extends StatelessWidget {
             HoverButton(
               mycolor: Get.isDarkMode ? darkPrimaryColor : primaryColor,
               myRadius: size.buttonRadius,
-              ontap: () {},
+              ontap: () {
+                Get.back();
+              },
               mywidth: size.normalButtonWidht,
               myheight: size.normalButtonHeight,
               myShadow: 0,
@@ -71,8 +73,7 @@ class WorkerEventInfo extends StatelessWidget {
     );
   }
 
-  Widget buildDetailsList(
-      BuildContext context) {
+  Widget buildDetailsList(BuildContext context) {
     return SizedBox(
       width: context.widthInches > 5.5 ? 390 : Get.size.width * .83,
       height: workerEvents.length * 200,

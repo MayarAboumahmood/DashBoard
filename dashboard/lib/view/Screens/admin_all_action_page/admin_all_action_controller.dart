@@ -13,13 +13,11 @@ class AllActionController extends GetxController
     implements StatuseRequestController {
   AdminAllActionService service = AdminAllActionService();
   List<AllActionsModel> model = [];
-  late int adminId;
+  int adminId = 0;
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
-    adminId = Get.arguments;
-    print(adminId);
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     model = await sendingARequestAndHandlingData();
 
@@ -47,6 +45,7 @@ class AllActionController extends GetxController
 
   getdata() async {
     String token = await prefService.readString('token');
+    adminId = int.parse(await prefService.readString('adminId'));
     Map<String, String> data = {"admin_id": adminId.toString()};
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.getstats(token, data);
@@ -64,6 +63,7 @@ class AllActionController extends GetxController
 
   Future<List<AllActionsModel>> whenGetDataSuccess(response) async {
     List responsedata = response['data'];
+    print(response['data']);
     for (var i = 0; i < responsedata.length; i++) {
       model.add(AllActionsModel.fromJson(responsedata[i]));
     }

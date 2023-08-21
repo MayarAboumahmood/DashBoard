@@ -15,6 +15,8 @@ class AllActionsModel {
         return EventDetails().fromJson(json['details']);
       } else if (json['action'] == 'Adding drink') {
         return DrinkModel().fromMap(json['details']);
+      } else if (json['action'] == 'Adding New Artist') {
+        return AddArtistModel().fromMap(json['details']);
       } else if (json['action'] == 'Deleting drink') {
         return DrinkModel().fromMap(json['details']);
       } else if (json['action'] == 'Creating Worker') {
@@ -30,6 +32,28 @@ class AllActionsModel {
       time: json['time'],
       details: getDetailes(),
     );
+  }
+}
+
+class AddArtistModel {
+  final String? name;
+  final String? description;
+  final int? id;
+  AddArtistModel({
+    this.description,
+    this.id,
+    this.name,
+  });
+
+  String fromMap(Map<String, dynamic> map) {
+    AddArtistModel eventDetails = AddArtistModel(
+      name: map['artist_name'] ?? '',
+      description: map['description'] ?? '',
+      id: map['artist_id'] ?? 0,
+    );
+    String data =
+        'Name : ${eventDetails.name}\nDescription:${eventDetails.description}';
+    return data;
   }
 }
 
