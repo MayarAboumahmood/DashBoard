@@ -77,7 +77,7 @@ class ReservationDialog extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: reservationList.length,
           itemBuilder: (context, index) {
-            return ReservationCard(name: reservationList[index].customerName, numberOfCustomers: reservationList[index].numberOfPlaces);
+            return ReservationCard(name: reservationList[index].customerName!, numberOfCustomers: reservationList[index].numberOfPlaces!);
           }),
     );
   }

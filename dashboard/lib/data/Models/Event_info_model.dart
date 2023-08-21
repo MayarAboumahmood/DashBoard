@@ -129,25 +129,25 @@ class Worker {
 class Reservation {
   final int? reservationId;
   final bool? attendance;
-  final int numberOfPlaces;
-  final String? attendanceNumber;
-  final String? sectionNumber;
-  final String customerName;
+  final int? numberOfPlaces;
+  final int? attendanceNumber;
+  final int? sectionNumber;
+  final String? customerName;
   final String? createdAt;
   final String? updatedAt;
   final int? eventId;
   final int? customerId;
   final int? workerId;
   final Worker? worker;
-  final List<Order> orders;
+  final List<Order>? orders;
 
   Reservation({
      this.reservationId,
      this.attendance,
-    required this.numberOfPlaces,
+     this.numberOfPlaces,
      this.attendanceNumber,
      this.sectionNumber,
-    required this.customerName,
+     this.customerName,
      this.createdAt,
      this.updatedAt,
      this.eventId,
