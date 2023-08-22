@@ -22,6 +22,7 @@ class ServerConstApis {
 
 ////stock
   static String showAllDrinks = '${baseAPI}drinks';
+  static String showDrink = '${baseAPI}drinks/view';
   static String addDrink = '${baseAPI}drinks/add';
   static String updateDrink = '${baseAPI}drinks/update';
   static String deleteDrink = '${baseAPI}drinks/delete';

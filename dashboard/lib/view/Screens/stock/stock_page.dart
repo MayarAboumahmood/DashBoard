@@ -102,7 +102,7 @@ class StockPage extends StatelessWidget {
             onPressed: () {
               prefService.createString(
                   'drink_id', controller.finalListData[index].toString());
-              Get.toNamed('/DrinkInformationPage');
+              Get.toNamed('/DrinkInformationPage',arguments: controller.finalListData[index]);
             },
           );
         },

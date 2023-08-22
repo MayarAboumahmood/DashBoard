@@ -173,7 +173,7 @@ class AddEvent extends StatelessWidget {
                 Text(
                   controller.isSelectedDateIsNull.value
                       ? 'No date selected'.tr
-                      : '${controller.selectedDate!.year}-${controller.selectedDate!.month}-${controller.selectedDate!.day}',
+                      : '${controller.selectedDate!.year}-${controller.selectedDate!.month}-${controller.selectedDate!.day} ${controller.selectedDate!.hour}-${controller.selectedDate!.minute} ',
                   style: generalTextStyle(null),
                 ),
                 const SizedBox(height: 10),
@@ -181,7 +181,7 @@ class AddEvent extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color?>(
                           Get.isDarkMode ? darkPrimaryColor : primaryColor)),
-                  onPressed: () => controller.selectDate(context),
+                  onPressed: () => controller.selectDateTime(context),
                   child: Text(
                     controller.isSelectedDateIsNull.value
                         ? 'Select date'.tr

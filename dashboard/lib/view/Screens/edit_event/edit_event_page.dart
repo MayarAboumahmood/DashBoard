@@ -176,7 +176,7 @@ class EditEvent extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color?>(
                           Get.isDarkMode ? darkPrimaryColor : primaryColor)),
-                  onPressed: () => controller.selectDate(context),
+                  onPressed: () => controller.selectDateTime(context),
                   child: Text(
                     controller.isSelectedDateIsNull.value
                         ? 'Select date'.tr
