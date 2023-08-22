@@ -6,27 +6,29 @@ import 'package:dashboard/view/widget/snak_bar_for_errors.dart';
 import 'package:get/get.dart';
 import '../../../data/Models/Event_info_model.dart';
 import '../../widget/no_internet_page.dart';
+import '../event_page/event_controller.dart';
 import 'event_info_service.dart';
 
 class EventInfoController extends GetxController
     implements StatuseRequestController {
-  bool isPast = true;
+   String isPast ="false";
   late int id;
   late String eventStatus;
   EventInfoModel? model;
+  RxInt workernumber=0.obs;
   EventInfoService service = EventInfoService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
   @override
   void onInit() async {
     await sendingARequestAndHandlingData();
+    workernumber.value=model!.data.event.workerEvents.length;
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     super.onInit();
   }
 
   sendingARequestAndHandlingData() async {
-    isPast = bool.parse(await prefService.readString('isPast'));
-
+   
     statuseRequest = StatuseRequest.loading;
     update();
     dynamic response =
@@ -69,7 +71,14 @@ class EventInfoController extends GetxController
     final dataResponse = response;
     EventInfoModel2 d = EventInfoModel2();
     model = d.parseApiResponse(dataResponse);
-
+EventController event=Get.find();
+for (var element in event.pastList) {
+  if(element.id== model!.data.event.eventId){
+    isPast="true";
+print(isPast);
+  }
+}
+print(isPast);
     update();
     //return ;
   }

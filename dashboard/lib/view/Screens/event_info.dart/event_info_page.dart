@@ -10,12 +10,14 @@ import '../../../constant/server_const.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
+import '../../../data/Models/Event_info_model.dart';
 import '../../widget/event_details_card.dart';
 import '../../widget/general_app_bar.dart';
 import '../../widget/general_text_style.dart';
 import '../../widget/no_internet_page.dart';
 import '../edit_event/edit_event_page.dart';
 import '../reservation_dialog/reservation_dialog.dart';
+import '../show_event_images/show_event_images.dart';
 import 'event_info_controller.dart';
 
 // ignore: must_be_immutable
@@ -27,29 +29,29 @@ class EventInformationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Sizes size = Sizes(context);
 
-    return Scaffold(
-      floatingActionButton: controller.isPast
+    return GetBuilder<EventInfoController>(builder: (ctx) =>Scaffold(
+      floatingActionButton: controller.isPast=="true"
           ? null
           : addFloatingActionButton(
               'Edit the event'.tr, 'Delete the event'.tr, context),
       appBar: createAppBar(size, context),
-      body: GetBuilder<EventInfoController>(
-        builder: (ctx) =>
+      body: 
+        
             controller.statuseRequest == StatuseRequest.offlinefailure
                 ? noInternetPage(size, controller)
                 : controller.statuseRequest == StatuseRequest.loading
                     ? Text("loading....".tr, style: generalTextStyle(14))
-                    : whenShowTheBodyAfterLoadingAndInternet(context, size),
+                    : whenShowTheBodyAfterLoadingAndInternet(context, size,controller.model!.data.event.photos),
       ),
     );
   }
 
-  whenShowTheBodyAfterLoadingAndInternet(BuildContext context, Sizes size) {
+  whenShowTheBodyAfterLoadingAndInternet(BuildContext context, Sizes size,List<Photo> imageList) {
     return Column(children: [
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          setEventImage(size),
+          setEventImage(size,context,imageList),
           setEventName(),
         ],
       ),
@@ -131,28 +133,37 @@ class EventInformationPage extends StatelessWidget {
     );
   }
 
-  Widget setEventImage(Sizes size) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.buttonRadius),
-          border: Border.all(
-              width: 2,
-              color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
-        ),
-        child: ClipRRect(
-          child: SizedBox(
-            height: 150,
-            child: controller.model!.data.event.photos.isEmpty
-                ? Image.asset(
-                    'assets/images/The project icon.jpg',
-                    fit: BoxFit.contain,
-                  )
-                : Image.network(
-                    '${ServerConstApis.loadImages}${controller.model!.data.event.photos[0].picture}',
-                    fit: BoxFit.contain,
-                  ),
+  Widget setEventImage(Sizes size,BuildContext context,List<Photo> imageList) {
+    return GestureDetector(
+      onTap: (){
+        showSettingsDialog(context,imageList);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(size.buttonRadius),
+            border: Border.all(
+                width: 2,
+                color: Get.isDarkMode ? darkPrimaryColor : primaryColor),
+          ),
+          child: ClipRRect(
+            child: SizedBox(
+              height: 150,
+              child: 
+              controller.model!.data.event.photos.isEmpty
+                  ? Image.asset(
+                      'assets/images/The project icon.jpg',
+                      fit: BoxFit.contain,
+                    )
+                  : Image.network(
+                      '${ServerConstApis.loadImages}${controller.model!.data.event.photos[0].picture}',
+                      fit: BoxFit.contain, errorBuilder: (context, Exception, StackTrace) {
+                        return Image.asset('assets/images/The project icon.jpg',
+                            fit: BoxFit.fill);
+                      }
+                    ),
+            ),
           ),
         ),
       ),
@@ -188,16 +199,18 @@ class EventInformationPage extends StatelessWidget {
                 }),
                 Visibility(
                     visible: context.widthInches > 4.5,
-                    child: eventInfoUnit(
-                        size,
-                        context,
-                        'Number of worker: ',
-                        controller.model!.data.event.workerEvents.length
-                            .toString(), () {
-                      // ignore: avoid_print
-                      print('${context.widthInches}context.widthInches');
-                      showWorkerConfirmDialog(context);
-                    })),
+                    child: Obx(()=>
+                     eventInfoUnit(
+                          size,
+                          context,
+                          'Number of worker: '.tr,
+                          controller.workernumber.value
+                              .toString(), () {
+                        // ignore: avoid_print
+                        print('${context.widthInches}context.widthInches');
+                        showWorkerConfirmDialog(context,controller.model!.data.event.workerEvents);
+                      }),
+                    )),
                 Visibility(
                     visible: context.widthInches > 6.5,
                     child: eventInfoUnit(
@@ -230,7 +243,7 @@ class EventInformationPage extends StatelessWidget {
               visible: context.widthInches < 4.5,
               child:
                   eventInfoUnit(size, context, 'Number of worker: ', '100', () {
-                showWorkerConfirmDialog(context);
+                showWorkerConfirmDialog(context,controller.model!.data.event.workerEvents);
               })),
           SizedBox(height: Get.size.width * .01),
           Row(
@@ -308,13 +321,13 @@ class EventInformationPage extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: ReservationDialog(controller.model!.data.reservations,
-              controller.model!.data.event.eventId, controller.isPast),
+              controller.model!.data.event.eventId, controller.isPast=='true'),
         );
       },
     );
   }
 
-  void showWorkerConfirmDialog(BuildContext context) {
+  void showWorkerConfirmDialog(BuildContext context,List<WorkerEvent> artistEvent) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -322,7 +335,20 @@ class EventInformationPage extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: WorkerConfirmDialog(controller.id, controller.isPast),
+          child: WorkerConfirmDialog(controller.id, controller.isPast=='true',artistEvent),
+        );
+      },
+    );
+  }
+  void showSettingsDialog(BuildContext context,List<Photo> imageList) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: ShowImageEvent(imageList: imageList,),
         );
       },
     );

@@ -9,6 +9,7 @@ import '../../../constant/font.dart';
 import '../../../constant/sizes.dart';
 import '../../../constant/status_request.dart';
 import '../../../constant/theme.dart';
+import '../../../data/Models/Event_info_model.dart';
 import '../../../main.dart';
 import '../../widget/confirm_worker_card.dart';
 import '../../widget/general_text_style.dart';
@@ -18,11 +19,13 @@ import '../../widget/hover_button.dart';
 class WorkerConfirmDialog extends StatelessWidget {
   int eventId;
   bool isPast;
-  WorkerConfirmDialog(this.eventId, this.isPast);
+  List<WorkerEvent> artistEvent;
+  WorkerConfirmDialog(this.eventId, this.isPast,this.artistEvent);
   ConfirmWorkerController controller = Get.put(ConfirmWorkerController());
   @override
   Widget build(BuildContext context) {
     controller.eventId = eventId;
+    controller.artistEventinit.addAll(artistEvent);
     Sizes size = Sizes(context);
     return Container(
       height: Get.size.height * .9,

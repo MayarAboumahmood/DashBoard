@@ -340,15 +340,15 @@ class EventInfoModel2 {
 
   Worker parseWorker(Map<String, dynamic> workerJson) {
     return Worker(
-      workerId: workerJson['worker_id'],
-      firstName: workerJson['first_name'],
-      lastName: workerJson['last_name'],
-      phoneNumber: workerJson['phone_number'],
-      email: workerJson['email'],
-      password: workerJson['password'],
-      image: workerJson['image'],
-      createdAt: workerJson['createdAt'],
-      updatedAt: workerJson['updatedAt'],
+      workerId: workerJson['worker_id']??'',
+      firstName: workerJson['first_name']??'',
+      lastName: workerJson['last_name']??'',
+      phoneNumber: workerJson['phone_number']??'',
+      email: workerJson['email']??'',
+      password: workerJson['password']??'',
+      image: workerJson['image']??'',
+      createdAt: workerJson['createdAt']??'',
+      updatedAt: workerJson['updatedAt']??'',
     );
   }
 

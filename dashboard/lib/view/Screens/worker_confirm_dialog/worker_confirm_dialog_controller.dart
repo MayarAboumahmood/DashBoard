@@ -5,16 +5,19 @@ import 'package:dashboard/view/Screens/worker_confirm_dialog/worker_confirm_dial
 import 'package:get/get.dart';
 
 import '../../../constant/status_request.dart';
+import '../../../data/Models/Event_info_model.dart';
 import '../../../data/Models/worker_model.dart';
 import '../../widget/no_internet_page.dart';
 import '../../widget/snak_bar_for_errors.dart';
+import '../event_info.dart/event_info_controller.dart';
 
 class ConfirmWorkerController extends GetxController
     implements StatuseRequestController {
   List<WorkerModel> finalListData = [];
   List<bool> isTaped = [];
-int eventId=0;
-double workerCost=0.0;
+  List<WorkerEvent> artistEventinit = [];
+  int eventId = 0;
+  double workerCost = 0.0;
   ConfirmWorkerService service = ConfirmWorkerService();
   @override
   StatuseRequest? statuseRequest = (StatuseRequest.init);
@@ -23,14 +26,13 @@ double workerCost=0.0;
     // statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
     await sendingARequestAndHandlingData();
     statuseRequest = await checkIfTheInternetIsConectedBeforGoingToThePage();
-    for (int i = 0; i < finalListData.length; i++) {
-      isTaped.add(false);
-    }
+
     super.onInit();
   }
 
   void changeListTileTapedState(int id) {
     isTaped[id] = !isTaped[id];
+    
     update();
   }
 
@@ -76,65 +78,92 @@ double workerCost=0.0;
     for (int i = 0; i < responsedata.length; i++) {
       finalListData.add(WorkerModel.fromMap(responsedata[i]));
     }
+    for (int i = 0; i < finalListData.length; i++) {
+      isTaped.add(false);
+    }
+    for (var i = 0; i < artistEventinit.length; i++) {
+      for (var j = 0; j < finalListData.length; j++) {
+        if (artistEventinit[i].workerId == finalListData[j].id) {
+          isTaped[j] = true;
+        }
+      }
+    }
     update();
     return finalListData;
   }
 
-
-onpressDone()async{
-  print("start debuging");
-   statuseRequest = StatuseRequest.loading;
-      update();
-      dynamic response =
-          await finishSelected(); // check if the return data is statuseRequest or real data
-      statuseRequest = handlingData(response); //return the statuseResponse
-      if (statuseRequest == StatuseRequest.success) {
-        whenAddSuccess(response);
-      } else if (statuseRequest == StatuseRequest.authfailuer) {
-        snackBarForErrors("Auth error", "Please login again");
-        Get.offAllNamed('LoginPage');
-      } else if (statuseRequest == StatuseRequest.validationfailuer) {
-        snackBarForErrors("Inputs wrong", "Please theck your inputs");
-      } else {
-        snackBarForErrors("Server error", "Please try again later");
-      }
-    
+  onpressDone() async {
+    print("start debuging");
+    statuseRequest = StatuseRequest.loading;
     update();
-}
+    dynamic response =
+        await finishSelected(); // check if the return data is statuseRequest or real data
+    statuseRequest = handlingData(response); //return the statuseResponse
+    if (statuseRequest == StatuseRequest.success) {
+      whenAddSuccess(response);
+    } else if (statuseRequest == StatuseRequest.authfailuer) {
+      snackBarForErrors("Auth error", "Please login again");
+      Get.offAllNamed('LoginPage');
+    } else if (statuseRequest == StatuseRequest.validationfailuer) {
+      snackBarForErrors("Inputs wrong", "Please theck your inputs");
+    } else {
+      snackBarForErrors("Server error", "Please try again later");
+    }
 
-whenAddSuccess(var response){
-  Get.back();
-}
-  finishSelected()async {
+    update();
+  }
+
+  whenAddSuccess(var response) async{
+    EventInfoController eventInfoController = Get.find();
+    eventInfoController.workernumber.value += selectedArtist.length;
+    selectedArtist=[];
+    artistEventinit=[];
+
+    finalListData=[];
+     eventInfoController.update();
+    Get.back();
+    Get.delete<ConfirmWorkerController>();
+  }
+
+  List<WorkerModel> selectedArtist = [];
+  finishSelected() async {
+    print("start debuging 2");
+    for (var j = 0; j < isTaped.length; j++) {
+  if (isTaped[j]) {
+    var isNewlySelected = true;
     
-  print("start debuging 2");
-    List<WorkerModel> selectedArtist = [];
-
-    for (int i = 0; i < isTaped.length; i++) {
-      if (isTaped[i]) {
-        selectedArtist.add(finalListData[i]);
+    for (var i = 0; i < artistEventinit.length; i++) {
+      if (finalListData[j].id == artistEventinit[i].workerId) {
+        isNewlySelected = false;
+        break;
       }
     }
-String token = await prefService.readString('token');
-    String finalData='';
-   for (var i = 0; i < selectedArtist.length; i++) {
+    
+    if (isNewlySelected) {
+      selectedArtist.add(finalListData[j]);
+      print("Item added: $finalListData[j]");
+    }
+  }
+}
+
+    String token = await prefService.readString('token');
+    String finalData = '';
+    for (var i = 0; i < selectedArtist.length; i++) {
       if (selectedArtist.length - 1 == i) {
-        finalData +="${selectedArtist[i].id}:$workerCost";
+        finalData += "${selectedArtist[i].id}:$workerCost";
       } else {
-        finalData +="${selectedArtist[i].id}:$workerCost,";
-       }
+        finalData += "${selectedArtist[i].id}:$workerCost,";
+      }
     }
     print(finalData);
-    Map<String, String> data = 
-      {
-    "event_id":eventId.toString(),
-    "workers":finalData
-
+    Map<String, String> data = {
+      "event_id": eventId.toString(),
+      "workers": finalData
     };
-    
-  print("start debuging 3");
+
+    print("start debuging 3");
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
-        await service.confirmWorkers( token,data);
+        await service.confirmWorkers(token, data);
     return response.fold((l) => l, (r) => r);
   }
 }

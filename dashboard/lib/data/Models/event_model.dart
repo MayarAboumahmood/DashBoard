@@ -21,6 +21,13 @@ class EventModel {
       required this.id
       });
   factory EventModel.fromMap(Map<String, dynamic> map) {
+    String i(){
+    List d= map['photos'];
+if(d.isEmpty){
+  return '';
+}
+return d[0]['picture'];
+    }
     return EventModel(
       title: map['title'] ?? '',
       availablePlaces: map['available_places'] ?? '',
@@ -29,7 +36,7 @@ class EventModel {
       ticketPrice: map['ticket_price'] ?? 0,
       bandName: map['band_name'] ?? '',
       id:map['event_id']??0,
-      image: map['image']??''
+      image: i()
     );
   }
 }

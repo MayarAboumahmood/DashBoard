@@ -50,7 +50,11 @@ class EventCard extends StatelessWidget {
                    Image.asset(
                     'assets/images/The project icon.jpg',
                     fit: BoxFit.contain,
-                  ):Image.network('${ServerConstApis.loadImages}$imageName', fit: BoxFit.contain,),
+                  ):Image.network('${ServerConstApis.loadImages}$imageName', fit: BoxFit.contain,errorBuilder: (context, Exception, StackTrace) {
+                      return Image.asset('assets/images/The project icon.jpg',
+                          fit: BoxFit.fill);
+                    },
+                 ),
                   
                   ),),
           Container(
