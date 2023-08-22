@@ -52,7 +52,7 @@ class EventDetailsCard extends StatelessWidget {
             height: 5,
           ),
           Text(
-            "Order numbers : ${model.orders.length.toString()}",
+            "Order numbers : ${model.orders!.length.toString()}",
             style: generalTextStyle(null),
           ),
           const SizedBox(
@@ -95,14 +95,14 @@ class EventDetailsCard extends StatelessWidget {
 
   Widget getOrders() {
     List<Widget> f = [];
-    List.generate(model.orders.length, (index) {
+    List.generate(model.orders!.length, (index) {
       f.add(
         const SizedBox(
           height: 5,
         ),
       );
       f.add(Text(
-          "Order number : $index \n Number of drinks : ${model.orders[index].orderDrinks.length} \n Bill :${getbillForOneOrder(model.orders as List<Order>).toString()} "));
+          "Order number : $index \n Number of drinks : ${model.orders![index].orderDrinks.length} \n Bill :${getbillForOneOrder(model.orders as List<Order>).toString()} "));
     });
 
     return Column(

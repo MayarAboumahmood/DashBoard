@@ -66,7 +66,7 @@ service= AddAdminService();
       "admin_name":name,
       "email":email,
       "password":password,
-      "is_super":"0"
+      "is_super":"false"
     };
     Either<StatuseRequest, Map<dynamic, dynamic>> response =
         await service.addAdmin(data,token);

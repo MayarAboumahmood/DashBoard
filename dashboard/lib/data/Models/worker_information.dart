@@ -89,18 +89,6 @@ class AllActionsModelForWorker {
       if (json['action'] == 'confirm arrival') {
         return ReservationForWorkerDetailes().fromJson(json['details']);
       }
-      // else if (json['action'] == 'Approving Order') {
-      //   return DrinkModel().fromMap(json['details']);
-      // }
-      // else if (json['action'] == 'Deleting drink') {
-      //   return DrinkModel().fromMap(json['details']);
-      // }
-      // else if (json['action'] == 'Creating Worker') {
-      //   return WorkerDetails().fromJson(json['details']);
-      // }
-      // else if (json['action'] == 'Updating drink') {
-      //   return "Old drink :\n${DrinkModelForUpdate().fromMap(json['details']['old_drink'])}\nDrink after edit :\n${DrinkModelForUpdate().fromMap(json['details']['new_drink'])}";
-      // }
       return '';
     }
 
@@ -113,13 +101,13 @@ class AllActionsModelForWorker {
 }
 
 class ReservationForWorkerDetailes {
-  final int? reservationId;
-  final bool? attendance;
-  final int? numberOfPlaces;
-  final int? attendanceNumber;
-  final int? sectionNumber;
-  final String? customerName;
-  final int? customerId;
+  var reservationId;
+ var  attendance;
+ var  numberOfPlaces;
+ var  attendanceNumber;
+ var  sectionNumber;
+ var  customerName;
+ var  customerId;
   ReservationForWorkerDetailes({
     this.reservationId,
     this.attendance,

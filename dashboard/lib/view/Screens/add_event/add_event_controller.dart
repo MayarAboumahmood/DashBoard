@@ -59,20 +59,54 @@ class AddEventController extends GetxController
 
   DateTime? selectedDate;
   RxBool isSelectedDateIsNull = true.obs;
-  Future<void> selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  // Future<void> selectDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(2020),
+  //     lastDate: DateTime(DateTime.now().year + 3),
+  //   );
+
+  //   if (picked != null && picked != selectedDate) {
+  //     selectedDate = picked;
+  //   }
+  //   isSelectedDateIsNull.value = selectedDate == null;
+  //   update();
+  // }
+  Future<void> selectDateTime(BuildContext context) async {
+  final DateTime? pickedDate = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2020),
+    lastDate: DateTime(DateTime.now().year + 3),
+  );
+
+  if (pickedDate != null&& pickedDate != selectedDate) {
+    // ignore: use_build_context_synchronously
+    final TimeOfDay? pickedTime = await  showTimePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(DateTime.now().year + 3),
+      initialTime: TimeOfDay.now(),
     );
 
-    if (picked != null && picked != selectedDate) {
-      selectedDate = picked;
-    }
-    isSelectedDateIsNull.value = selectedDate == null;
+    if (pickedTime != null) {
+      // Combine the selected date and time into a single DateTime object
+      DateTime selectedDateTime = DateTime(
+        pickedDate.year,
+        pickedDate.month,
+        pickedDate.day,
+        pickedTime.hour,
+        pickedTime.minute,
+      );
+      selectedDate=selectedDateTime;
+isSelectedDateIsNull.value = selectedDate == null;
     update();
+      // Now you can use the selectedDateTime as needed
+      // For example, you might store it in a variable or update UI accordingly.
+      print('Selected Date and Time: $selectedDateTime');
+    }
   }
+}
+
 
   onPressDone() async {
     FormState? formdata = formstate.currentState;
